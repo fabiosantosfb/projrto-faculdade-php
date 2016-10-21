@@ -23,11 +23,17 @@ foreach ($produtos as $produto) {
     <tr>
         <td><?= $produto['nome'] ?></td>
         <td><?= $produto['preco'] ?></td>
-        <td><a href="/?controller=produtos&action=remove&param=<?=$produto['id']?>" class="btn btn-danger btn-xs">REMOVER</a></td>
+        <td>
+          <form action="/?controller=produtos&action=remove" method="post">
+            <input type="hidden" name="param" value="<?=$produto['id']?>">
+            <button class="btn btn-danger btn-xs">REMOVER</button>
+          </form>
+        </td>
     </tr>
 <?php
+
 }
 ?>
 </tbody>
 </table>
-<?php include 'rodape.php' ?>
+<?php include 'rodape.php'?>

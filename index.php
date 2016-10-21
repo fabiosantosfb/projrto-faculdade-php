@@ -10,8 +10,8 @@ $actionName = $_GET['action'];
 
 $controller = new $controllerName;
 
-if (isset($_GET['param'])) {
-  $param = $_GET['param'];
+if (isset($_POST['param'])) {
+  $param = $_POST['param'];
   $controller->$actionName($param);
 } else {
   $controller->$actionName();

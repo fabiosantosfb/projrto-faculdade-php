@@ -40,8 +40,9 @@ class ProdutosController {
   function remove($id)
   {
     require('app/model/banco-produto.php');
-    // echo "id passado $id";
-    // $id = $_GET['id'];
+    echo "id passado $id ";
+    // $id = $_POST['param'];
+    // echo "id passado $id ";
 
     if(removeProduto($conexao, $id)) {
       $msgRet = "Produto $id removido com sucesso!";
