@@ -4,5 +4,10 @@ body {
 
 .principal {
   padding: 40px 15px;
-  text-align: justify;;
+  text-align: justify;
+}
+.ativar {
+  background-color: #00FF00;
+  border-color: #006400;
+  color: #fff;
 }

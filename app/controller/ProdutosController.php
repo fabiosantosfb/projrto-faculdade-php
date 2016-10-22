@@ -10,23 +10,29 @@ class ProdutosController {
     include 'app/view/Produtos.php';
   }
 
-  function cadastra() {
-    include 'app/view/produto-formulario.tpl';
-  }
-
   function lista() {
     include 'app/view/produto-lista.php';
   }
 
-  function adiciona($nome, $preco)
+  function adiciona($cnpj, $r_social, $rua, $uf, $bairro, $cidade, $cep, $email, $numero, $complemento, $pwd, $pws_conf)
   {
       require_once('app/model/banco-produto.php');
 
-      $nome = $_POST['nome'];
-      $preco = $_POST['preco'];
+      $cnpj = $_POST['cnpj'];
+      $r_social = $_POST['r_social'];
+      $rua = $_POST['rua'];
+      $uf = $_POST['uf'];
+      $bairro = $_POST['bairro'];
+      $cidade = $_POST['cidade'];
+      $cep = $_POST['cep'];
+      $email = $_POST['email'];
+      $num_kda = $_POST['numero'];
+      $complemento = $_POST['complemento'];
+      $psw = $_POST['pwd'];
+      $psw_repet = $_POST['pws_conf'];
 
-      if(insereProduto($conexao, $nome, $preco)) {
-        $msgRet = "Produto $nome adicionado com sucesso! \n Preço: R$ $preco ";
+      if(insereProduto($conexao, $cnpj, $r_social, $rua, $uf, $bairro, $cidade, $cep, $email, $numero, $complemento, $pwd)) {
+          header("Location: /?controller=produtos&action=lista");
       } else {
         $msg = mysqli_error($conexao);
         $msgRet = "O produto $nome não foi adicionado:  $msg";

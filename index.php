@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'app/controller/PagesController.php';
 require_once 'app/controller/ProdutosController.php';
 
