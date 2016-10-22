@@ -1,14 +1,14 @@
 <?php include 'conecta.php' ?>
 <?php
 
-function insereProduto($conexao, $cnpj, $r_social, $rua, $uf, $bairro, $cidade, $cep, $email, $numero, $complemento, $pwd, $pws_conf)
+function insereProduto($conexao, $cnpj, $r_social, $rua, $numero, $uf, $bairro, $cidade, $cep, $email, $complemento, $pwd)
 {
     $usuario = "INSERT INTO usuario (id_usuario, login, senha, ativo) values (default,'{$email}','{$pwd}',0)";
-    if(mysqli_query($conexao, $usuario)){
+    if($resultadoDaInsercao = mysqli_query($conexao, $usuario)){
         $endereco = "INSERT INTO endereco (id_endereco, rua, numero, complemento, cidade, uf, cep, id_fisica, data_cadastro, data_atualiza) values (default,'{$rua}','{$numero}','{$complemento}','{$cidade}','{$uf}','{$cep}',null,default,default)";
-        if(mysqli_query($conexao, $endereco)){
+        if($resultadoDaInsercao = mysqli_query($conexao, $endereco)){
           $telemarketing = "INSERT into telemarketing values(default,default,'{$r_social}','{$email}',default,0,default,default)";
-          if(mysqli_query($conexao, $telemarketing)){
+          if($resultadoDaInsercao = mysqli_query($conexao, $telemarketing)){
             return $resultadoDaInsercao;
           } else{
             printf("Error Cadastro de Telemarketing: %s\n", mysqli_error($conexao));
@@ -36,9 +36,16 @@ function listaTelemarketing($conexao)
 
 function removeProduto($conexao, $id)
 {
-    $query = "delete from produtos where id={$id}";
-    echo "$query";
-    $resultadoDaRemocao = mysqli_query($conexao, $query);
+    $query = "DELETE FROM telemarketing WHERE id_telemarketing={$id}";
 
-    return $resultadoDaRemocao;
+    return  mysqli_query($conexao, $query);
+}
+
+function ativarProduto($conexao, $id, $ativa){
+  $query = "UPDATE telemarketing SET ativa={$ativa} WHERE id_telemarketing={$id}";
+
+  if (!$query) {
+      printf("Error: %s\n", mysqli_error($conexao));
+  }
+  return mysqli_query($conexao, $query);
 }

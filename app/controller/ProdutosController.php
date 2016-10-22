@@ -26,12 +26,12 @@ class ProdutosController {
       $cidade = $_POST['cidade'];
       $cep = $_POST['cep'];
       $email = $_POST['email'];
-      $num_kda = $_POST['numero'];
+      $numero = $_POST['numero'];
       $complemento = $_POST['complemento'];
-      $psw = $_POST['pwd'];
-      $psw_repet = $_POST['pws_conf'];
+      $pwd = $_POST['pwd'];
+      $pwd_repet = $_POST['pws_conf'];
 
-      if(insereProduto($conexao, $cnpj, $r_social, $rua, $uf, $bairro, $cidade, $cep, $email, $numero, $complemento, $pwd)) {
+      if(insereProduto($conexao, $cnpj, $r_social, $rua, $numero, $uf, $bairro, $cidade, $cep, $email, $complemento, $pwd)) {
           header("Location: /?controller=produtos&action=lista");
       } else {
         $msg = mysqli_error($conexao);
@@ -46,9 +46,6 @@ class ProdutosController {
   function remove($id)
   {
     require('app/model/banco-produto.php');
-    echo "id passado $id ";
-    // $id = $_POST['param'];
-    // echo "id passado $id ";
 
     if(removeProduto($conexao, $id)) {
       $msgRet = "Produto $id removido com sucesso!";
@@ -56,10 +53,38 @@ class ProdutosController {
       $msg = mysqli_error($conexao);
       $msgRet = "O produto $id não foi adicionado:  $msg";
     }
-    // header("Location: app/view/produto-lista.php");
-
+    mysqli_close($conexao);
+    header("Location: /?controller=produtos&action=lista");
     ProdutosController::lista();
+  }
 
+  function ativar($id)
+  {
+    require('app/model/banco-produto.php');
+
+    if(ativarProduto($conexao, $id, $ativa=1)) {
+      $msgRet = "Produto $id removido com sucesso!";
+    } else {
+      $msg = mysqli_error($conexao);
+      $msgRet = "O produto $id não foi adicionado:  $msg";
+    }
+    mysqli_close($conexao);
+    header("Location: /?controller=produtos&action=lista");
+    ProdutosController::lista();
+  }
+
+  function desativar($id)
+  {
+    require('app/model/banco-produto.php');
+
+    if(ativarProduto($conexao, $id, $ativa=0)) {
+      $msgRet = "Produto $id removido com sucesso!";
+    } else {
+      $msg = mysqli_error($conexao);
+      $msgRet = "O produto $id não foi adicionado:  $msg";
+    }
+    mysqli_close($conexao);
+    header("Location: /?controller=produtos&action=lista");
+    ProdutosController::lista();
   }
 }
-?>

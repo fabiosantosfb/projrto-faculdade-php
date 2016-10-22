@@ -1,7 +1,14 @@
+<?php include 'conecta.php' ?>
 <?php include 'cabecalho.php'; ?>
 <?php  require_once 'app/model/banco-produto.php'; ?>
 
-<!-- <p class="alert-sucess">Produto apagado com sucesso</p> -->
+<form class="form-inline">
+  <div class="form-group">
+    <input type="txt" class="form-control" id="empresa" name="param" placeholder="Empresa">
+  </div>
+  <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
 <table class="table table-striped table-bordered">
 <thead>
   <tr>
@@ -47,15 +54,15 @@
         <td><?= $empresa['data_cadastro'] ?></td>
         <td><?= $empresa['data_atualiza'] ?></td>
         <td>
-          <form method="post">
+          <form method="post" action="/?controller=produtos&action=remove">
             <input type="hidden" name="param" value="<?=$empresa['id_telemarketing']?>">
             <button class="btn btn-danger btn-xs">REMOVER</button>
           </form>
         </td>
         <td>
-          <form method="post">
+          <form method="post" action="<?php if($empresa['ativa']==0) echo '/?controller=produtos&action=ativar'; else echo '/?controller=produtos&action=desativar';?>">
             <input type="hidden" name="param" value="<?=$empresa['id_telemarketing']?>">
-            <button class="<?php if($empresa['ativa']==1){ echo 'btn btn-danger btn-xs'; echo '">Ativar';}else {echo 'btn ativar btn-xs'; echo '">Desativar';}?></button>
+            <button class="<?php if($empresa['ativa']==0){ echo 'btn btn-danger btn-xs'; echo '">Ativar';}else {echo 'btn ativar btn-xs'; echo '">Desativar';}?></button>
           </form>
         </td>
     </tr>
