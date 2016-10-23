@@ -18,7 +18,10 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/?controller=pages&action=home">Administrador</a>
+          <a class="navbar-brand" href="/?controller=pages&action=home">Procon Paraiba</a>
+          <?php if($_GET['action'] == 'empresa') echo '<a class="navbar" href="/?controller=pages&action=home">Pessoa Física</a>';
+                else if($_GET['action'] == 'home') echo '<a class="navbar" href="/?controller=produtos&action=empresa">Pessoa Jurídica</a>';
+          ?>
         </div>
         <div>
           <ul class="nav navbar-nav navbar-right">
@@ -28,7 +31,6 @@
           </ul>
         </div>
       </div>
-
     </div>
     <div class="container">
       <div class="principal">

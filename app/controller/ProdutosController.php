@@ -7,11 +7,19 @@ class ProdutosController {
 
   function home()
   {
-    include 'app/view/Produtos.php';
+    include 'app/view/home.php';
   }
 
   function lista() {
     include 'app/view/produto-lista.php';
+  }
+
+  function proximo() {
+    include 'app/view/endereco.php';
+  }
+
+  function empresa() {
+      self::home();
   }
 
   function adiciona($cnpj, $r_social, $rua, $uf, $bairro, $cidade, $cep, $email, $numero, $complemento, $pwd, $pws_conf)
@@ -82,6 +90,18 @@ class ProdutosController {
     } else {
       $msg = mysqli_error($conexao);
       $msgRet = "O produto $id não foi adicionado:  $msg";
+    }
+    mysqli_close($conexao);
+    header("Location: /?controller=produtos&action=lista");
+    ProdutosController::lista();
+  }
+
+  function search($id)
+  {
+    require('app/model/banco-produto.php');
+
+    if(!searchTelemarketing($conexao, $id)) {
+      $msgRet = "Produto $id removido com sucesso!";
     }
     mysqli_close($conexao);
     header("Location: /?controller=produtos&action=lista");

@@ -1,3 +1,3 @@
 <?php require_once 'cabecalho.php'; ?>
-        <h1>Bem Vindo!</h1>
+        <h1>Bem Vindo produto!</h1>
 <?php require_once 'rodape.php'; ?>

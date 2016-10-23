@@ -2,11 +2,11 @@
 <?php include 'cabecalho.php'; ?>
 <?php  require_once 'app/model/banco-produto.php'; ?>
 
-<form class="form-inline">
+<form class="form-inline" method="post" action="/?controller=produtos&action=search">
   <div class="form-group">
-    <input type="txt" class="form-control" id="empresa" name="param" placeholder="Empresa">
+    <input type="txt" type="hidden" class="form-control" id="empresa" name="param" placeholder="Empresa">
   </div>
-  <button type="submit" class="btn btn-primary">Buscar</button>
+  <button class="btn btn-primary">Buscar</button>
 </form>
 
 <table class="table table-striped table-bordered">

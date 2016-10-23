@@ -2,87 +2,63 @@
 
 </head>
 <body>
-  <form class="form-horizontal" method="post" action="/?controller=produtos&action=adiciona">
+  <form class="form-horizontal" method="post" action="/?controller=produtos&action=proximo">
 <fieldset>
-
 <!-- Form Name -->
-<legend>Cadastro - Pessoa Jurídica</legend>
+<?php if($_GET['action'] == 'empresa'){
+echo '<legend>Cadastro - Pessoa Jurídica</legend>
+      <!-- Text input-->
+      <div class="form-group">
+      <label class="col-md-4 control-label" for="CNPJ">CNPJ</label>
+      <div class="col-md-6">
+      <input id="CNPJ" name="cnpj" type="text" placeholder="CNPJ" class="form-control input-md" required="">
+      </div>
+      </div>
 
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-4 control-label" for="CNPJ">CNPJ</label>
-<div class="col-md-6">
-<input id="CNPJ" name="cnpj" type="text" placeholder="CNPJ" class="form-control input-md" required="">
-</div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-4 control-label" for="insc_estadual">Razão Social</label>
-<div class="col-md-6">
-<input id="r_social" name="r_social" type="text" placeholder="Razao social" class="form-control input-md" required="">
-
-</div>
-</div>
-
-<!-- Text input-->
-<legend>Endreço</legend>
-<div class="form-group">
-<label class="col-md-4 control-label" for="cep">CEP</label>
-<div class="col-md-6">
-<input id="cep" name="cep" type="text" placeholder="CEP" class="form-control input-md" required="">
-</div>
-</div>
-
-<div class="form-group">
-<label class="col-md-4 control-label" for="uf">Cidade</label>
-<div class="col-md-6">
-<input id="uf" name="cidade" type="text" placeholder="Cidade" class="form-control input-md" required="">
-</div>
-</div>
-
-<!-- Select Basic -->
-<div class="form-group">
-<label class="col-md-4 control-label" for="uf">UF</label>
-<div class="col-md-1">
-<input id="uf" name="uf" type="text" placeholder="UF" class="form-control input-md" required="">
-</div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-4 control-label" for="logradouro">Logradouro</label>
-<div class="col-md-6">
-<input id="rua" name="rua" type="text" placeholder="Av...Rua" class="form-control input-md">
-</div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-4 control-label" for="bairro">Bairro</label>
-<div class="col-md-6">
-<input id="bairro" name="bairro" type="text" placeholder="Bairro" class="form-control input-md">
-
-</div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-4 control-label" for="numero">Numero</label>
-<div class="col-md-2">
-<input id="numero" name="numero" type="text" placeholder="Numero" class="form-control input-md">
-
-</div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-4 control-label" for="complemento">Complemento</label>
-<div class="col-md-6">
-<input id="complemento" name="complemento" type="text" placeholder="Complemento" class="form-control input-md">
-
-</div>
-</div>
+      <!-- Text input-->
+      <div class="form-group">
+      <label class="col-md-4 control-label" for="insc_estadual">Razão Social</label>
+      <div class="col-md-6">
+      <input id="r_social" name="r_social" type="text" placeholder="Razao social" class="form-control input-md" required="">
+      </div>
+      </div>';
+} else {
+      echo '<legend>Cadastro - Pessoa Física</legend>
+      <!-- Text input-->
+      <div class="form-group">
+      <label class="col-md-4 control-label" for="nome">Nome</label>
+      <div class="col-md-6">
+      <input id="nome" name="nome" type="text" placeholder="Nome" class="form-control input-md" required="">
+      </div>
+      </div>
+      <!-- Text input-->
+      <div class="form-group">
+      <label class="col-md-4 control-label" for="CPF">CPF</label>
+      <div class="col-md-6">
+      <input id="CNPJ" name="cpf" type="text" placeholder="CPF" class="form-control input-md" required="">
+      </div>
+      </div>
+      <!-- Text input-->
+      <div class="form-group">
+      <label class="col-md-4 control-label" for="insc_estadual">RG</label>
+      <div class="col-md-6">
+      <input id="nome" name="rg" type="text" placeholder="RG" class="form-control input-md" required="">
+      </div>
+      </div>
+      <!-- Text input-->
+      <div class="form-group">
+      <label class="col-md-4 control-label" for="insc_estadual">Data Expedição</label>
+      <div class="col-md-2">
+      <input id="nome" name="exp" type="date_format" placeholder="00/00/00" class="form-control input-md" required="">
+      </div>
+      </div>
+      <div class="form-group">
+      <label class="col-md-4 control-label" for="org">Orgão Expedidor</label>
+      <div class="col-md-1">
+      <input id="nome" name="org" type="text" placeholder="Org" class="form-control input-md" required="">
+      </div>
+      </div>';
+  }?>
 
 <legend>Email Senha</legend>
 <!-- Text input-->
@@ -95,13 +71,13 @@
 <div class="form-group">
 <label class="col-md-4 control-label" for="pwd">Senha</label>
 <div class="col-md-6">
-<input id="pwd" name="pwd" type="password" placeholder="" class="form-control input-md">
+<input id="pwd" name="pwd" type="password" placeholder="Senha" class="form-control input-md">
 </div>
 </div>
 <div class="form-group">
 <label class="col-md-4 control-label" for="pwd">Confirmar Senha</label>
 <div class="col-md-6">
-<input id="pwd" name="pws_conf" type="password" placeholder="" class="form-control input-md">
+<input id="pwd" name="pws_conf" type="password" placeholder="Confirma Senha" class="form-control input-md">
 </div>
 </div>
 
@@ -110,7 +86,7 @@
 <label class="col-md-4 control-label" for="button1id"></label>
 <div class="col-md-6">
 <button id="button1id" name="button1id" class="btn btn-success">Salvar</button>
-<button id="Cancelar" name="Cancelar" class="btn btn-danger">Cancelar</button>
+<button id="Cancelar" type="reset" name="Cancelar" class="btn btn-danger">Limpar</button>
 </div>
 </div>
 
