@@ -1,5 +1,8 @@
 <?php
-session_start();
+include ('config.php');
+
+//redirect_user();
+
 require_once 'app/controller/PagesController.php';
 require_once 'app/controller/ProdutosController.php';
 
@@ -10,9 +13,4 @@ $actionName = $_GET['action'];
 
 $controller = new $controllerName;
 
-if (isset($_POST['param'])) {
-  $param = $_POST['param'];
-  $controller->$actionName($param);
-} else {
-  $controller->$actionName();
-}
+$controller->$actionName();

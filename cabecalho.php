@@ -25,9 +25,14 @@
         </div>
         <div>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/?controller=produtos&action=login">Login</a></li>
-            <li><a href="/?controller=produtos&action=lista">Listar telemarketing</a></li>
-            <li><a href="#">Sair</a></li>
+            <?php if(isset($_SESSION['user_name']) && isset($_SESSION['user_id'])){?>
+              <li style="color:#fff;"><?php  echo "Bem vindo ".$_SESSION['user_name'];?></li>
+                <?php echo '<li><a href="/?controller=produtos&action=lista">Listar telemarketing</a></li>';
+                      echo '<li><a href="/?controller=produtos&action=logout">Sair</a></li>';
+                } else {
+                    echo '<li><a href="/?controller=produtos&action=login">Login</a></li>';
+                }
+            ?>
           </ul>
         </div>
       </div>

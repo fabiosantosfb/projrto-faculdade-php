@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Controller Produtos
- */
 class ProdutosController {
 
   function home()
@@ -24,6 +21,38 @@ class ProdutosController {
 
   function login() {
      include 'app/view/login.php';
+  }
+
+  function logar() {
+    if (!empty($_POST['email']) && !empty($_POST['pwd'])) {
+        $email = $_POST['email'];
+        $pwd = $_POST['pwd'];
+
+        include ('app/model/Logar.class.php');
+        include ('app/model/Dao/DaoLogin.class.php');
+
+        $d_logar = new DaoLogin(new Login($email, $pwd));
+        if(!$d_logar->loginDb()){
+              $msg_erro = $d_logar->getErro();
+              echo "<script>alert('Erro $msg_erro')</script>";
+              self::login();
+        } else {
+          header("Location: /?controller=produtos&action=user");
+        }
+    } else {
+        echo "<script>alert('Campos em Branco!')</script>";
+        self::login();
+    }
+  }
+
+  function logout() {
+    include_once ('app/model/Session.class.php');
+    Session::destroiSession();
+    self::home();
+  }
+
+  function user(){
+    include 'app/view/user-pages.php';
   }
 
   function adiciona($cnpj, $r_social, $rua, $uf, $bairro, $cidade, $cep, $email, $numero, $complemento, $pwd, $pws_conf)
@@ -50,9 +79,6 @@ class ProdutosController {
         $msgRet = "O produto $nome não foi adicionado:  $msg";
       }
       mysqli_close($conexao);
-
-      ProdutosController::cadastra();
-
   }
 
   function remove($id)
