@@ -25,7 +25,7 @@
         </div>
         <div>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/?controller=produtos&action=cadastra">Listar Usuarios</a></li>
+            <li><a href="/?controller=produtos&action=login">Login</a></li>
             <li><a href="/?controller=produtos&action=lista">Listar telemarketing</a></li>
             <li><a href="#">Sair</a></li>
           </ul>

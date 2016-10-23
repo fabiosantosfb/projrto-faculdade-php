@@ -22,6 +22,10 @@ class ProdutosController {
       self::home();
   }
 
+  function login() {
+     include 'app/view/login.php';
+  }
+
   function adiciona($cnpj, $r_social, $rua, $uf, $bairro, $cidade, $cep, $email, $numero, $complemento, $pwd, $pws_conf)
   {
       require_once('app/model/banco-produto.php');

@@ -20,9 +20,12 @@ echo '<legend>Cadastro - Pessoa Jurídica</legend>
       <label class="col-md-4 control-label" for="insc_estadual">Razão Social</label>
       <div class="col-md-6">
       <input id="r_social" name="r_social" type="text" placeholder="Razao social" class="form-control input-md" required="">
+        <label>
+          <input type="checkbox" name="tipo_empresa"> Sou Telemarketing
+        </label>
       </div>
       </div>';
-} else {
+} else if($_GET['action'] == 'home') {
       echo '<legend>Cadastro - Pessoa Física</legend>
       <!-- Text input-->
       <div class="form-group">
@@ -59,37 +62,35 @@ echo '<legend>Cadastro - Pessoa Jurídica</legend>
       </div>
       </div>';
   }?>
+  <legend>Email Senha</legend>
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="email">Email</label>
+    <div class="col-md-6">
+      <input id="email" name="email" type="text" placeholder="Email" class="form-control input-md">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="pwd">Senha</label>
+    <div class="col-md-6">
+      <input id="pwd" name="pwd" type="password" placeholder="Senha" class="form-control input-md">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="pwd">Confirmar Senha</label>
+      <div class="col-md-6">
+        <input id="pwd" name="pws_conf" type="password" placeholder="Confirma Senha" class="form-control input-md">
+      </div>
+  </div>
 
-<legend>Email Senha</legend>
-<!-- Text input-->
-<div class="form-group">
-<label class="col-md-4 control-label" for="email">Email</label>
-<div class="col-md-6">
-<input id="email" name="email" type="text" placeholder="Email" class="form-control input-md">
-</div>
-</div>
-<div class="form-group">
-<label class="col-md-4 control-label" for="pwd">Senha</label>
-<div class="col-md-6">
-<input id="pwd" name="pwd" type="password" placeholder="Senha" class="form-control input-md">
-</div>
-</div>
-<div class="form-group">
-<label class="col-md-4 control-label" for="pwd">Confirmar Senha</label>
-<div class="col-md-6">
-<input id="pwd" name="pws_conf" type="password" placeholder="Confirma Senha" class="form-control input-md">
-</div>
-</div>
-
-<!-- Button (Double) -->
-<div class="form-group">
-<label class="col-md-4 control-label" for="button1id"></label>
-<div class="col-md-6">
-<button id="button1id" name="button1id" class="btn btn-success">Salvar</button>
-<button id="Cancelar" type="reset" name="Cancelar" class="btn btn-danger">Limpar</button>
-</div>
-</div>
-
+  <!-- Button (Double) -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="button1id"></label>
+      <div class="col-md-6">
+        <button id="button1id" name="button1id" class="btn btn-success">Salvar</button>
+        <button id="Cancelar" type="reset" name="Cancelar" class="btn btn-danger">Limpar</button>
+      </div>
+  </div>
 </fieldset>
 </form>
 
