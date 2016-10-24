@@ -1,7 +1,7 @@
 <?php include 'conecta.php' ?>
 <?php
 
-function insereProduto($conexao, $cnpj, $r_social, $rua, $numero, $uf, $bairro, $cidade, $cep, $email, $complemento, $pwd)
+function inserirPessoaJuridica($cnpj, $r_social,$email, $pwd)
 {
     $usuario = "INSERT INTO usuario (id_usuario, login, senha, ativo) values (default,'{$email}','{$pwd}',0)";
     if($resultadoDaInsercao = mysqli_query($conexao, $usuario)){

@@ -55,13 +55,12 @@
         <td><?= $empresa['data_atualiza'] ?></td>
         <td>
           <form method="post" action="/?controller=produtos&action=remove">
-            <input type="hidden" name="param" value="<?=$empresa['id_telemarketing']?>">
-            <button class="btn btn-danger btn-xs">REMOVER</button>
+            <input type="hidden" name="id_telemarketing" value="<?=$empresa['id_telemarketing']?>">
           </form>
         </td>
         <td>
           <form method="post" action="<?php if($empresa['ativa']==0) echo '/?controller=produtos&action=ativar'; else echo '/?controller=produtos&action=desativar';?>">
-            <input type="hidden" name="param" value="<?=$empresa['id_telemarketing']?>">
+            <input type="hidden" name="id_telemarketing" value="<?=$empresa['id_telemarketing']?>">
             <button class="<?php if($empresa['ativa']==0){ echo 'btn btn-danger btn-xs'; echo '">Ativar';}else {echo 'btn ativar btn-xs'; echo '">Desativar';}?></button>
           </form>
         </td>

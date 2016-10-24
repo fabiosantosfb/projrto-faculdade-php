@@ -4,9 +4,7 @@ class Session {
   private $id_session;
   private $name_session;
 
-  public function __construct($id, $name) {
-      $this->id_session = $id;
-      $this->name_session = $name;
+  public function __construct() {
   }
 
   public function getIdSession() {

@@ -6,22 +6,12 @@ public class Empresa {
   private $status;
   private $dateCriacao;
   private $dateAtualizacao;
-  private $email;
-
-  public function __construct($id, $nome_razao, $status, $dateCriacao, $dateAtualizacao, $email){
-    $this->id = $id;
-    $this->nome_razao = $nome_razao;
-    $this->status = $status;
-    $this->dateCriacao = $dateCriacao;
-    $this->dateAtualizacao = $dateAtualizacao;
-    $this->email = $email;
-  }
 
   public function __construct(){
-    
+
   }
 
-  public function getIde(){
+  public function getId(){
     return $this->id;
   }
 
@@ -41,11 +31,27 @@ public class Empresa {
     return $this->dateAtualizacao;
   }
 
-  public function getEmail(){
-    return $this->email;
+  public function setStatus($status){
+    $this->status = $status;
+  }
+
+  public function setId($id){
+    $this->id = $id;
+  }
+
+  public function setRazaoSocial($nome_razao){
+    $this->nome_razao = $nome_razao;
   }
 
   public function setStatus($status){
     $this->status = $status;
+  }
+
+  public function setDataCriacao($dateCriacao){
+    $this->dateCriacao = $dateCriacao;
+  }
+
+  public function setAtualizacao($dateAtualizacao){
+    $this->dateAtualizacao = $dateAtualizacao;
   }
 }

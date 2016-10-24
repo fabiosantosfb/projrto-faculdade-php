@@ -8,7 +8,7 @@ class ProdutosController {
   }
 
   function lista() {
-    include 'app/view/produto-lista.php';
+    include 'app/view/lista-telemarketing.php';
   }
 
   function proximo() {
@@ -24,14 +24,26 @@ class ProdutosController {
   }
 
   function logar() {
-    if (!empty($_POST['email']) && !empty($_POST['pwd'])) {
+    include_once ('app/controller/DataValidator.php');
+
+    $validate = new DataValidator();
+
+    $erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
+    $erro =  $validate->set('pwd', $_POST['pwd'])->is_required();
+
+    if ($validate->validate()){
+
         $email = $_POST['email'];
         $pwd = $_POST['pwd'];
 
         include ('app/model/Logar.class.php');
         include ('app/model/Dao/DaoLogin.class.php');
 
-        $d_logar = new DaoLogin(new Login($email, $pwd));
+          $login = new Login();
+          $login->setEmail($email);
+          $login->setPassword($pwd);
+
+        $d_logar = new DaoLogin($login);
         if(!$d_logar->loginDb()){
               $msg_erro = $d_logar->getErro();
               echo "<script>alert('Erro $msg_erro')</script>";
@@ -40,50 +52,97 @@ class ProdutosController {
           header("Location: /?controller=produtos&action=user");
         }
     } else {
-        echo "<script>alert('Campos em Branco!')</script>";
+      $array = $validate->get_errors();
+      foreach ($array as $key => $value) {
+        echo "<script>alert('Erro $key')</script>";
+      }
         self::login();
     }
   }
 
   function logout() {
     include_once ('app/model/Session.class.php');
-    Session::destroiSession();
-    self::home();
+      $session = new   Session();
+      $session->destroiSession();
+
+      self::home();
   }
 
   function user(){
     include 'app/view/user-pages.php';
   }
 
-  function adiciona($cnpj, $r_social, $rua, $uf, $bairro, $cidade, $cep, $email, $numero, $complemento, $pwd, $pws_conf)
+  function next()
   {
-      require_once('app/model/banco-produto.php');
+      include_once ('app/controller/DataValidator.php');
 
-      $cnpj = $_POST['cnpj'];
-      $r_social = $_POST['r_social'];
-      $rua = $_POST['rua'];
-      $uf = $_POST['uf'];
-      $bairro = $_POST['bairro'];
-      $cidade = $_POST['cidade'];
-      $cep = $_POST['cep'];
-      $email = $_POST['email'];
-      $numero = $_POST['numero'];
-      $complemento = $_POST['complemento'];
-      $pwd = $_POST['pwd'];
-      $pwd_repet = $_POST['pws_conf'];
+      $validate = new DataValidator();
 
-      if(insereProduto($conexao, $cnpj, $r_social, $rua, $numero, $uf, $bairro, $cidade, $cep, $email, $complemento, $pwd)) {
-          header("Location: /?controller=produtos&action=lista");
+      $erro =  $validate->set('cnpj', $_POST['cnpj'])->is_required();
+      $erro =  $validate->set('r_social', $_POST['r_social'])->is_required();
+      $erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
+      $erro =  $validate->set('pwd', $_POST['pwd'])->is_required();
+      $erro =  $validate->set('pwdconf', $_POST['pwdconf'])->is_required()->is_equals($_POST['pwd'], true);
+
+      require('app/model/banco-produto.php');
+
+      if($validate->validate()){
+          if(inserirPessoaJuridica($_POST['cnpj'], $_POST['r_social'], $_POST['email'], $_POST['pwd'])) {
+              self::endereco();
+          } else {
+            $msg = mysqli_error($conexao);
+            echo "Não inserio Pessoa Juridica no banco:  $msg";
+            self::home();
+          }
       } else {
-        $msg = mysqli_error($conexao);
-        $msgRet = "O produto $nome não foi adicionado:  $msg";
+        $array = $validate->get_errors();
+        foreach ($array as $key => $value) {
+            echo "<script>alert('Erro - $key')</script>";
+        }
+        self::home();
       }
-      mysqli_close($conexao);
+  }
+
+  function add()
+  {
+      include_once ('app/controller/DataValidator.php');
+
+      $validate = new DataValidator();
+
+      $erro =  $validate->set('cep', $_POST['cep'])->is_required();
+      $erro =  $validate->set('numero', $_POST['numero'])->is_required();
+      $erro =  $validate->set('complemento', $_POST['complemento'])->is_required();
+      $erro =  $validate->set('cidade', $_POST['cidade'])->is_required();
+      $erro =  $validate->set('rua', $_POST['rua'])->is_required()->is_email();
+      $erro =  $validate->set('bairro', $_POST['bairro'])->is_required();
+
+      require('app/model/banco-produto.php');
+
+      if($validate->validate()){
+          if(insereEndereco($_POST['cep'], $_POST['cidade'], $_POST['rua'], $_POST['bairro'], $_POST['numero'], $_POST['complemento'])) {
+              self::lista();
+          } else {
+            $msg = mysqli_error($conexao);
+            echo "Não inserio Pessoa Juridica no banco:  $msg";
+            self::home();
+          }
+      } else {
+        $array = $validate->get_errors();
+        foreach ($array as $key => $value) {
+            echo "<script>alert('Erro - $key')</script>";
+        }
+        self::home();
+      }
   }
 
   function remove($id)
   {
     require('app/model/banco-produto.php');
+
+
+    if(!empty($_POST['id_telemarketing'])){
+
+      $id = $_POST['id_telemarketing'];
 
     if(removeProduto($conexao, $id)) {
       $msgRet = "Produto $id removido com sucesso!";
@@ -94,11 +153,15 @@ class ProdutosController {
     mysqli_close($conexao);
     header("Location: /?controller=produtos&action=lista");
     ProdutosController::lista();
-  }
+  }}
 
-  function ativar($id)
+  function ativar()
   {
     require('app/model/banco-produto.php');
+
+    if(!empty($_POST['id_telemarketing'])){
+
+      $id = $_POST['id_telemarketing'];
 
     if(ativarProduto($conexao, $id, $ativa=1)) {
       $msgRet = "Produto $id removido com sucesso!";
@@ -109,11 +172,15 @@ class ProdutosController {
     mysqli_close($conexao);
     header("Location: /?controller=produtos&action=lista");
     ProdutosController::lista();
-  }
+  }}
 
-  function desativar($id)
+  function desativar()
   {
     require('app/model/banco-produto.php');
+
+    if(!empty($_POST['id_telemarketing'])){
+
+      $id = $_POST['id_telemarketing'];
 
     if(ativarProduto($conexao, $id, $ativa=0)) {
       $msgRet = "Produto $id removido com sucesso!";
@@ -124,7 +191,7 @@ class ProdutosController {
     mysqli_close($conexao);
     header("Location: /?controller=produtos&action=lista");
     ProdutosController::lista();
-  }
+  }}
 
   function search($id)
   {

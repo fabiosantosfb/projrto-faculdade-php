@@ -1,7 +1,7 @@
 <?php
     include ('app/model/Session.class.php');
 
-    class DaoLogin extends Session {
+    class DaoLogin {
         private $login;
         private $error;
 
@@ -23,8 +23,10 @@
               $row = mysqli_fetch_array($result);
 
                 if ($this->login->getPassword() == $row['senha']) {
-                    Parent::__construct($row['id_usuario'], $row['login']);
-                    Parent::gerarSession(true);
+                    $session = new Session();
+                    $session->setIdSession($row['id_usuario']);
+                    $session->setNameSession($row['login']);
+                    $session->gerarSession(true);
                     return true;
                 } else {
                     $this->error = "Senha invalida";
