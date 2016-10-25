@@ -31,6 +31,7 @@
                       echo '<li><a href="/?controller=produtos&action=logout">Sair</a></li>';
                 } else {
                     echo '<li><a href="/?controller=produtos&action=login">Login</a></li>';
+                    echo '<li><a href="/?controller=produtos&action=lista">Listar telemarketing</a></li>';
                 }
             ?>
           </ul>

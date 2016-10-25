@@ -21,7 +21,7 @@
     <div class="form-group">
     <label class="col-md-4 control-label" for="button1id"></label>
     <div class="col-md-6">
-    <input id="button1id" class="btn btn-success" type="submit" value="Entrar">
+    <button id="button1id" class="btn btn-success" type="submit">Entrar</button>
     <button id="Cancelar" type="reset" name="Cancelar" class="btn btn-danger" onClick="history.go(-1)">Retornar</button>
     </div>
     </div>

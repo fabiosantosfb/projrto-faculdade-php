@@ -2,7 +2,7 @@
 
 </head>
 <body>
-  <form class="form-horizontal" method="post" action="/?controller=produtos&action=adiciona">
+  <form class="form-horizontal" method="post" action="/?controller=produtos&action=add">
 <fieldset>
 
 <!-- Text input-->
@@ -21,14 +21,6 @@
 </div>
 </div>
 
-<!-- Select Basic -->
-<div class="form-group">
-<label class="col-md-4 control-label" for="uf">UF</label>
-<div class="col-md-1">
-<input id="uf" name="uf" type="text" placeholder="UF" class="form-control input-md" required="">
-</div>
-</div>
-
 <!-- Text input-->
 <div class="form-group">
 <label class="col-md-4 control-label" for="logradouro">Logradouro</label>
@@ -42,7 +34,6 @@
 <label class="col-md-4 control-label" for="bairro">Bairro</label>
 <div class="col-md-6">
 <input id="bairro" name="bairro" type="text" placeholder="Bairro" class="form-control input-md">
-
 </div>
 </div>
 
