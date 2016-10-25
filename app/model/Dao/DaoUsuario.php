@@ -5,11 +5,16 @@ include_once ('app/model/Session.class.php');
 class DaoUsuario {
   private $dataAutenticacao;
   private $dataEmpresa;
+  private $endereco;
   private $erro;
 
   public function __construct($empresa, $login){
     $this->dataEmpresa = $empresa;
     $this->dataAutenticacao = $login;
+  }
+
+  public function __construct($endereco){
+    $this->endereco = $endereco;
   }
 
   public function insertEmpresa(){
@@ -42,6 +47,16 @@ class DaoUsuario {
           }
       } return false;
     } return false;
+  }
+
+  public function inserirEndereco(){
+      $usuario = "INSERT INTO endereco (id, cep, rua, bairro, cidade, numero, complemento) values (default,'{$this->$endereco->getCep()}','{$this->$endereco->getRua()}','{$this->$endereco->getBairro()}','{$this->$endereco->getCidade()}','{$this->$endereco->getNumero()}','{$this->$endereco->getComplemento()}')";
+      if(mysqli_query($conexao, $usuario)){
+        return true;
+      } else {
+        $this->erro = "Error no Cadastro de Endereço";
+        return false;
+      }
   }
 
   public function verificarEmailExist(){

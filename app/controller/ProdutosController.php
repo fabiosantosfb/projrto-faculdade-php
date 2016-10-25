@@ -95,6 +95,7 @@ class ProdutosController {
           if($insertEmpresa->inserirPessoaJuridica()) {
               self::add();
           } else {
+            $insertEmpresa->getErro();
             self::home();
           }
       } else {
@@ -119,14 +120,18 @@ class ProdutosController {
       $erro =  $validate->set('rua', $_POST['rua'])->is_required()->is_email();
       $erro =  $validate->set('bairro', $_POST['bairro'])->is_required();
 
-      require('app/model/banco-produto.php');
-
       if($validate->validate()){
-          if(insereEndereco($_POST['cep'], $_POST['cidade'], $_POST['rua'], $_POST['bairro'], $_POST['numero'], $_POST['complemento'])) {
-              self::lista();
+          include ('app/model/Endereco.class.php');
+          include ('app/model/Dao/DaoUsuario.class.php');
+          include ('app/model/Session.class.php');
+
+          $insertEmpresaEnd = new DaoUsuario( new Endereco($_POST['cep'], $_POST['rua'], $_POST['bairro'], $_POST['cidade'],  $_POST['numero'], $_POST['complemento']));
+
+          if($insertEmpresaEnd->insereEndereco()) {
+              // ----- PODE FAZER ALGO AQUI ANTES DE DERIRECIONAR O USUARIO PARA PAGINA DELE ----- //
+              self::login();
           } else {
-            $msg = mysqli_error($conexao);
-            echo "Não inserio Pessoa Juridica no banco:  $msg";
+            $insertEmpresaEnd->getErro();
             self::home();
           }
       } else {
