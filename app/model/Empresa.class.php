@@ -1,18 +1,24 @@
 <?php
 
-public class Empresa {
+public class Empresa extends Telefone {
   private $id;
+  private $cnpj;
   private $nome_razao;
   private $status;
   private $dateCriacao;
   private $dateAtualizacao;
 
-  public function __construct(){
-
+  public function __construct($cnpj, $nome_razao){
+    $this->cnpj = $ncpj;
+    $this->nome_razao = $nome_razao;
   }
 
   public function getId(){
     return $this->id;
+  }
+
+  public function getCnpj(){
+    return $this->cnpj;
   }
 
   public function getRazaoSocial(){
@@ -39,12 +45,12 @@ public class Empresa {
     $this->id = $id;
   }
 
-  public function setRazaoSocial($nome_razao){
-    $this->nome_razao = $nome_razao;
+  public function setCnpj($cnpj){
+    $this->cnpj = $ncpj;
   }
 
-  public function setStatus($status){
-    $this->status = $status;
+  public function setRazaoSocial($nome_razao){
+    $this->nome_razao = $nome_razao;
   }
 
   public function setDataCriacao($dateCriacao){

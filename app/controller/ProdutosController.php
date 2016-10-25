@@ -77,21 +77,24 @@ class ProdutosController {
       include_once ('app/controller/DataValidator.php');
 
       $validate = new DataValidator();
-
+      // ---- DADOS PESSOAL JURIDICA ----- //
       $erro =  $validate->set('cnpj', $_POST['cnpj'])->is_required();
       $erro =  $validate->set('r_social', $_POST['r_social'])->is_required();
+
       $erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
       $erro =  $validate->set('pwd', $_POST['pwd'])->is_required();
       $erro =  $validate->set('pwdconf', $_POST['pwdconf'])->is_required()->is_equals($_POST['pwd'], true);
 
-      require('app/model/banco-produto.php');
-
       if($validate->validate()){
-          if(inserirPessoaJuridica($_POST['cnpj'], $_POST['r_social'], $_POST['email'], $_POST['pwd'])) {
-              self::endereco();
+          include ('app/model/Empresa.class.php');
+          include ('app/model/Logar.class.php');
+          include ('app/model/Dao/DaoUsuario.class.php');
+
+          $insertEmpresa = new DaoUsuario(new Empresa($_POST['cnpj'], $_POST['r_social']), new Login($_POST['email'], $_POST['pwd']));
+
+          if($insertEmpresa->inserirPessoaJuridica()) {
+              self::add();
           } else {
-            $msg = mysqli_error($conexao);
-            echo "Não inserio Pessoa Juridica no banco:  $msg";
             self::home();
           }
       } else {

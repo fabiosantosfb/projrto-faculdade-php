@@ -1,5 +1,4 @@
-<?php include 'conecta.php' ?>
-<?php
+<?php include 'conecta.php'
 
 function inserirPessoaJuridica($cnpj, $r_social,$email, $pwd)
 {
@@ -18,7 +17,7 @@ function inserirPessoaJuridica($cnpj, $r_social,$email, $pwd)
         }
     } else {
       printf("Error Cadastro Login: %s\n", mysqli_error($conexao));
-  }
+    }
 
     return false;
 }
