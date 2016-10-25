@@ -4,8 +4,9 @@ class Login {
       private $email;
       private $password;
 
-      public function __construct() {
-
+      public function __construct($email, $password) {
+        $this->password = $password;
+        $this->email = $email;
       }
 
       public function getPassword() {

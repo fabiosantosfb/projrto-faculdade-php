@@ -39,11 +39,8 @@ class ProdutosController {
         include ('app/model/Logar.class.php');
         include ('app/model/Dao/DaoLogin.class.php');
 
-          $login = new Login();
-          $login->setEmail($email);
-          $login->setPassword($pwd);
+        $d_logar = new DaoLogin(new Login($email, $pwd));
 
-        $d_logar = new DaoLogin($login);
         if(!$d_logar->loginDb()){
               $msg_erro = $d_logar->getErro();
               echo "<script>alert('Erro $msg_erro')</script>";
@@ -79,20 +76,25 @@ class ProdutosController {
       $validate = new DataValidator();
       // ---- DADOS PESSOAL JURIDICA ----- //
       $erro =  $validate->set('cnpj', $_POST['cnpj'])->is_required();
-      $erro =  $validate->set('r_social', $_POST['r_social'])->is_required();
+      $erro =  $validate->set('nome', $_POST['nome'])->is_required();
 
       $erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
+      $erro =  $validate->set('tel', $_POST['tel'])->is_required();
+      $erro =  $validate->set('operadora', $_POST['operadora'])->is_required();
       $erro =  $validate->set('pwd', $_POST['pwd'])->is_required();
       $erro =  $validate->set('pwdconf', $_POST['pwdconf'])->is_required()->is_equals($_POST['pwd'], true);
 
       if($validate->validate()){
-          include ('app/model/Empresa.class.php');
-          include ('app/model/Logar.class.php');
+          include ('app/model/PessoaJuridica.class.php');
+          include ('app/model/Telefone.class.php');
           include ('app/model/Dao/DaoUsuario.class.php');
 
-          $insertEmpresa = new DaoUsuario(new Empresa($_POST['cnpj'], $_POST['r_social']), new Login($_POST['email'], $_POST['pwd']));
+          $pessoaJuridica = new PessoaJuridica($_POST['cnpj']);
+          $pessoaJuridica->setNome($_POST['nome']);
 
-          if($insertEmpresa->inserirPessoaJuridica()) {
+          //$insertEmpresa = new DaoUsuario($pessoaJuridica->getNome(), new Telefone($_POST['tel'], $_POST['operadora'], $_POST['email'], $_POST['pwd']));
+
+          if($insertUsuario->inserirUsuario()) {
               self::add();
           } else {
             $insertEmpresa->getErro();

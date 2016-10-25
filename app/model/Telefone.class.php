@@ -1,10 +1,11 @@
 <?php
 
-class Telefone {
+class Telefone extends Login {
   private $telefone;
   private $operadora;
 
-  public function __construct($telefone, $operadora){
+  public function __construct($telefone, $operadora, $email, $password){
+    Parent::__construct($email, $password);
     $this->telefone = $telefone;
     $this->operadora = $operadora;
   }

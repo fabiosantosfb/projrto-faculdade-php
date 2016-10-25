@@ -19,7 +19,7 @@ echo '<legend>Cadastro - Pessoa Jurídica</legend>
       <div class="form-group">
       <label class="col-md-4 control-label" for="insc_estadual">Razão Social</label>
       <div class="col-md-6">
-      <input id="r_social" name="r_social" type="text" placeholder="Razao social" class="form-control input-md" >
+      <input id="r_social" name="nome" type="text" placeholder="Razao social" class="form-control input-md" >
         <label>
           <input type="checkbox" name="tipo_empresa"> Sou Telemarketing
         </label>
@@ -69,6 +69,14 @@ echo '<legend>Cadastro - Pessoa Jurídica</legend>
       </div>
       </div>';
   }?>
+  <legend>Telefone</legend>
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="tel">Telefone</label>
+    <div class="col-md-6">
+      <input id="tel" name="tel" type="text" placeholder="00 00000 0000" class="form-control input-md">
+    </div>
+  </div>
   <legend>Email Senha</legend>
   <!-- Text input-->
   <div class="form-group">
