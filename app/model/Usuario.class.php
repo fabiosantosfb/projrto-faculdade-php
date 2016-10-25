@@ -1,4 +1,5 @@
 <?php
+include ('app/model/Endereco.class.php');
 
 class Usuario extends Endereco {
   private $nome;

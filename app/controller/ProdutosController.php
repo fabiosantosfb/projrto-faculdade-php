@@ -1,6 +1,10 @@
 <?php
 
 class ProdutosController {
+  private $pessoa;
+  private $login;
+  private $insertUsuario;
+  private $endereco;
 
   function home()
   {
@@ -33,13 +37,10 @@ class ProdutosController {
 
     if ($validate->validate()){
 
-        $email = $_POST['email'];
-        $pwd = $_POST['pwd'];
-
         include ('app/model/Logar.class.php');
         include ('app/model/Dao/DaoLogin.class.php');
 
-        $d_logar = new DaoLogin(new Login($email, $pwd));
+        $d_logar = new DaoLogin(new Login($_POST['email'], $pwd), $_POST['pwd']);
 
         if(!$d_logar->loginDb()){
               $msg_erro = $d_logar->getErro();
@@ -80,26 +81,25 @@ class ProdutosController {
 
       $erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
       $erro =  $validate->set('tel', $_POST['tel'])->is_required();
-      $erro =  $validate->set('operadora', $_POST['operadora'])->is_required();
       $erro =  $validate->set('pwd', $_POST['pwd'])->is_required();
       $erro =  $validate->set('pwdconf', $_POST['pwdconf'])->is_required()->is_equals($_POST['pwd'], true);
 
       if($validate->validate()){
           include ('app/model/PessoaJuridica.class.php');
           include ('app/model/Telefone.class.php');
-          include ('app/model/Dao/DaoUsuario.class.php');
 
-          $pessoaJuridica = new PessoaJuridica($_POST['cnpj']);
-          $pessoaJuridica->setNome($_POST['nome']);
+          $this->pessoa = new PessoaJuridica($_POST['cnpj'], $_POST['nome']);
+
+          $this->login = new Telefone($_POST['tel'], $_POST['email'], $_POST['pwd']);
 
           //$insertEmpresa = new DaoUsuario($pessoaJuridica->getNome(), new Telefone($_POST['tel'], $_POST['operadora'], $_POST['email'], $_POST['pwd']));
 
-          if($insertUsuario->inserirUsuario()) {
+        //  if($insertUsuario->inserirUsuario()) {
               self::add();
-          } else {
+        /*  } else {
             $insertEmpresa->getErro();
             self::home();
-          }
+          }*/
       } else {
         $array = $validate->get_errors();
         foreach ($array as $key => $value) {
@@ -125,13 +125,14 @@ class ProdutosController {
       if($validate->validate()){
           include ('app/model/Endereco.class.php');
           include ('app/model/Dao/DaoUsuario.class.php');
-          include ('app/model/Session.class.php');
 
-          $insertEmpresaEnd = new DaoUsuario( new Endereco($_POST['cep'], $_POST['rua'], $_POST['bairro'], $_POST['cidade'],  $_POST['numero'], $_POST['complemento']));
+          $this->endereco = new Endereco($_POST['cep'], $_POST['rua'], $_POST['bairro'], $_POST['cidade'],  $_POST['numero'], $_POST['complemento']);
+          $this->insertUsuario = new DaoUsuario($this->pessoa, $this->login, $this->endereco);
 
-          if($insertEmpresaEnd->insereEndereco()) {
-              // ----- PODE FAZER ALGO AQUI ANTES DE DERIRECIONAR O USUARIO PARA PAGINA DELE ----- //
-              self::login();
+          if($insertUsuario->inserirUsuario()) {
+              if($insertUsuario->inserirEndereco()){
+                self::login();
+              }
           } else {
             $insertEmpresaEnd->getErro();
             self::home();
