@@ -1,7 +1,6 @@
-<?php include 'conecta.php' ?>
-<?php
+<?php include 'conecta.php'
 
-function insereProduto($conexao, $cnpj, $r_social, $rua, $numero, $uf, $bairro, $cidade, $cep, $email, $complemento, $pwd)
+function inserirPessoaJuridica($cnpj, $r_social,$email, $pwd)
 {
     $usuario = "INSERT INTO usuario (id_usuario, login, senha, ativo) values (default,'{$email}','{$pwd}',0)";
     if($resultadoDaInsercao = mysqli_query($conexao, $usuario)){
@@ -18,7 +17,7 @@ function insereProduto($conexao, $cnpj, $r_social, $rua, $numero, $uf, $bairro, 
         }
     } else {
       printf("Error Cadastro Login: %s\n", mysqli_error($conexao));
-  }
+    }
 
     return false;
 }
