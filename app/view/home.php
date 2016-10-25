@@ -25,13 +25,9 @@
         </label>
       </div>
       </div>';
-<<<<<<< HEAD
-} elseif ($_GET['action'] == 'home') {
-    echo '<legend>Cadastro - Pessoa Física</legend>
-=======
+
 } else if($_GET['action'] == 'home' || $_GET['action'] == 'logout') {
       echo '<legend>Cadastro - Pessoa Física</legend>
->>>>>>> origin/master
       <!-- Text input-->
       <div class="form-group">
       <label class="col-md-4 control-label" for="nome">Nome</label>
