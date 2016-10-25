@@ -1,2 +1,2 @@
 <?php
-$conexao = mysqli_connect('localhost', 'root', 'fabioadmin', 'np_proconpb');
+$conexao = mysqli_connect('localhost', 'root', 'fabioadmin', 'proconpb_naopertube');
