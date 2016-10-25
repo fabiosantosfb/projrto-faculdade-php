@@ -17,9 +17,9 @@
 
       <!-- Text input-->
       <div class="form-group">
-      <label class="col-md-4 control-label" for="insc_estadual">Razão Social</label>
+      <label class="col-md-4 control-label" for="nome">Razão Social</label>
       <div class="col-md-6">
-      <input id="r_social" name="nome" type="text" placeholder="Razao social" class="form-control input-md" >
+      <input id="nome" name="nome" type="text" placeholder="Razao social" class="form-control input-md" >
         <label>
           <input type="checkbox" name="tipo_empresa"> Sou Telemarketing
         </label>
