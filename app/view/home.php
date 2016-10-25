@@ -1,12 +1,12 @@
-<?php require_once 'cabecalho.php' ?>
+<?php require_once 'cabecalho.php'?>
 
 </head>
 <body>
   <form class="form-horizontal" method="post" action="/?controller=produtos&action=proximo">
 <fieldset>
 <!-- Form Name -->
-<?php if($_GET['action'] == 'empresa'){
-echo '<legend>Cadastro - Pessoa Jurídica</legend>
+<?php if ($_GET['action'] == 'empresa') {
+    echo '<legend>Cadastro - Pessoa Jurídica</legend>
       <!-- Text input-->
       <div class="form-group">
       <label class="col-md-4 control-label" for="CNPJ">CNPJ</label>
@@ -25,8 +25,8 @@ echo '<legend>Cadastro - Pessoa Jurídica</legend>
         </label>
       </div>
       </div>';
-} else if($_GET['action'] == 'home') {
-      echo '<legend>Cadastro - Pessoa Física</legend>
+} elseif ($_GET['action'] == 'home') {
+    echo '<legend>Cadastro - Pessoa Física</legend>
       <!-- Text input-->
       <div class="form-group">
       <label class="col-md-4 control-label" for="nome">Nome</label>
@@ -61,7 +61,7 @@ echo '<legend>Cadastro - Pessoa Jurídica</legend>
       <input id="nome" name="org" type="text" placeholder="Org" class="form-control input-md" required="">
       </div>
       </div>';
-  }?>
+}?>
   <legend>Email Senha</legend>
   <!-- Text input-->
   <div class="form-group">
@@ -94,4 +94,4 @@ echo '<legend>Cadastro - Pessoa Jurídica</legend>
 </fieldset>
 </form>
 
-<?php require_once 'rodape.php' ?>
+<?php require_once 'rodape.php'?>
