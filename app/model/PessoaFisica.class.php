@@ -1,4 +1,5 @@
 <?php
+include ('app/model/Usuario.class.php');
 
 class PessoaFisica extends Usuario {
     private $cpf;

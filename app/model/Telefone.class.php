@@ -1,8 +1,8 @@
 <?php
+include ('app/model/Logar.class.php');
 
 class Telefone extends Login {
   private $telefone;
-  private $operadora;
 
   public function __construct($telefone, $email, $password){
     Parent::__construct($email, $password);

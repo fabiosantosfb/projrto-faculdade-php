@@ -15,7 +15,7 @@ class ProdutosController {
     include 'app/view/lista-telemarketing.php';
   }
 
-  function proximo() {
+  function proximo($pessoa) {
     include 'app/view/endereco.php';
   }
 
@@ -70,8 +70,7 @@ class ProdutosController {
     include 'app/view/user-pages.php';
   }
 
-  function next()
-  {
+  function cadastrar() {
       include_once ('app/controller/DataValidator.php');
 
       $validate = new DataValidator();
@@ -84,128 +83,93 @@ class ProdutosController {
       $erro =  $validate->set('pwd', $_POST['pwd'])->is_required();
       $erro =  $validate->set('pwdconf', $_POST['pwdconf'])->is_required()->is_equals($_POST['pwd'], true);
 
-      if($validate->validate()){
-          include ('app/model/PessoaJuridica.class.php');
-          include ('app/model/Telefone.class.php');
-
-          $this->pessoa = new PessoaJuridica($_POST['cnpj'], $_POST['nome']);
-
-          $this->login = new Telefone($_POST['tel'], $_POST['email'], $_POST['pwd']);
-
-          //$insertEmpresa = new DaoUsuario($pessoaJuridica->getNome(), new Telefone($_POST['tel'], $_POST['operadora'], $_POST['email'], $_POST['pwd']));
-
-        //  if($insertUsuario->inserirUsuario()) {
-              self::add();
-        /*  } else {
-            $insertEmpresa->getErro();
-            self::home();
-          }*/
-      } else {
-        $array = $validate->get_errors();
-        foreach ($array as $key => $value) {
-            echo "<script>alert('Erro - $key')</script>";
-        }
-        self::home();
-      }
-  }
-
-  function add()
-  {
-      include_once ('app/controller/DataValidator.php');
-
-      $validate = new DataValidator();
-
       $erro =  $validate->set('cep', $_POST['cep'])->is_required();
       $erro =  $validate->set('numero', $_POST['numero'])->is_required();
       $erro =  $validate->set('complemento', $_POST['complemento'])->is_required();
       $erro =  $validate->set('cidade', $_POST['cidade'])->is_required();
-      $erro =  $validate->set('rua', $_POST['rua'])->is_required()->is_email();
+      $erro =  $validate->set('rua', $_POST['rua'])->is_required();
       $erro =  $validate->set('bairro', $_POST['bairro'])->is_required();
 
       if($validate->validate()){
-          include ('app/model/Endereco.class.php');
-          include ('app/model/Dao/DaoUsuario.class.php');
+          require_once ('conecta.php');
+          include_once ('app/model/PessoaJuridica.class.php');
+          include_once ('app/model/Telefone.class.php');
+          include_once ('app/model/Endereco.class.php');
+          include_once ('app/model/Dao/DaoUsuario.class.php');
 
+          $this->pessoa = new PessoaJuridica($_POST['cnpj'], $_POST['nome']);
+          $this->login = new Telefone($_POST['tel'], $_POST['email'], $_POST['pwd']);
           $this->endereco = new Endereco($_POST['cep'], $_POST['rua'], $_POST['bairro'], $_POST['cidade'],  $_POST['numero'], $_POST['complemento']);
+
           $this->insertUsuario = new DaoUsuario($this->pessoa, $this->login, $this->endereco);
 
-          if($insertUsuario->inserirUsuario()) {
-              if($insertUsuario->inserirEndereco()){
-                self::login();
-              }
+          if($this->insertUsuario->insertUsuario($conexao)) {
+            self::login();
           } else {
-            $insertEmpresaEnd->getErro();
+            $this->insertUsuario->getErro();
             self::home();
           }
-      } else {
-        $array = $validate->get_errors();
-        foreach ($array as $key => $value) {
-            echo "<script>alert('Erro - $key')</script>";
+        } else {
+          $array = $validate->get_errors();
+          foreach ($array as $key => $value) {
+              echo "<script>alert('Erro - $key')</script>";
+          }
+          self::home();
         }
-        self::home();
+  }
+
+  function remove($id) {
+    require('app/model/banco-produto.php');
+
+    if(!empty($_POST['id_telemarketing'])){
+      $id = $_POST['id_telemarketing'];
+        if(removeProduto($conexao, $id)) {
+          $msgRet = "Produto $id removido com sucesso!";
+        } else {
+          $msg = mysqli_error($conexao);
+          $msgRet = "O produto $id não foi adicionado:  $msg";
+        }
+        mysqli_close($conexao);
+        header("Location: /?controller=produtos&action=lista");
+        ProdutosController::lista();
+    }
+  }
+
+  function ativar() {
+    require('app/model/banco-produto.php');
+
+      if(!empty($_POST['id_telemarketing'])){
+        $id = $_POST['id_telemarketing'];
+          if(ativarProduto($conexao, $id, $ativa=1)) {
+            $msgRet = "Produto $id removido com sucesso!";
+          } else {
+            $msg = mysqli_error($conexao);
+            $msgRet = "O produto $id não foi adicionado:  $msg";
+          }
+          mysqli_close($conexao);
+          header("Location: /?controller=produtos&action=lista");
+          ProdutosController::lista();
       }
   }
 
-  function remove($id)
-  {
-    require('app/model/banco-produto.php');
-
-
-    if(!empty($_POST['id_telemarketing'])){
-
-      $id = $_POST['id_telemarketing'];
-
-    if(removeProduto($conexao, $id)) {
-      $msgRet = "Produto $id removido com sucesso!";
-    } else {
-      $msg = mysqli_error($conexao);
-      $msgRet = "O produto $id não foi adicionado:  $msg";
-    }
-    mysqli_close($conexao);
-    header("Location: /?controller=produtos&action=lista");
-    ProdutosController::lista();
-  }}
-
-  function ativar()
-  {
+  function desativar() {
     require('app/model/banco-produto.php');
 
     if(!empty($_POST['id_telemarketing'])){
-
-      $id = $_POST['id_telemarketing'];
-
-    if(ativarProduto($conexao, $id, $ativa=1)) {
-      $msgRet = "Produto $id removido com sucesso!";
-    } else {
-      $msg = mysqli_error($conexao);
-      $msgRet = "O produto $id não foi adicionado:  $msg";
+        $id = $_POST['id_telemarketing'];
+        if(ativarProduto($conexao, $id, $ativa=0)) {
+          $msgRet = "Produto $id removido com sucesso!";
+        } else {
+          $msg = mysqli_error($conexao);
+          $msgRet = "O produto $id não foi adicionado:  $msg";
+        }
+        mysqli_close($conexao);
+        header("Location: /?controller=produtos&action=lista");
+        ProdutosController::lista();
     }
-    mysqli_close($conexao);
-    header("Location: /?controller=produtos&action=lista");
-    ProdutosController::lista();
-  }}
+  }
 
-  function desativar()
-  {
-    require('app/model/banco-produto.php');
-
-    if(!empty($_POST['id_telemarketing'])){
-
-      $id = $_POST['id_telemarketing'];
-
-    if(ativarProduto($conexao, $id, $ativa=0)) {
-      $msgRet = "Produto $id removido com sucesso!";
-    } else {
-      $msg = mysqli_error($conexao);
-      $msgRet = "O produto $id não foi adicionado:  $msg";
-    }
-    mysqli_close($conexao);
-    header("Location: /?controller=produtos&action=lista");
-    ProdutosController::lista();
-  }}
-
-  function search($id)
-  {
+  function search($id) {
     require('app/model/banco-produto.php');
 
     if(!searchTelemarketing($conexao, $id)) {

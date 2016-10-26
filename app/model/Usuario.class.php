@@ -1,14 +1,13 @@
 <?php
 include ('app/model/Endereco.class.php');
 
-class Usuario extends Endereco {
+class Usuario {
   private $nome;
   private $status;
   private $dateCriacao;
   private $dateAtualizacao;
 
-  public function __construct($nome, $cep, $rua, $bairro, $cidade, $numero, $complemento){
-    Parent::__construct($cep, $rua, $bairro, $cidade, $numero, $complemento);
+  public function __construct($nome){
     $this->nome = $nome;
   }
 

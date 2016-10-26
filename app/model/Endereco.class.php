@@ -1,6 +1,7 @@
 <?php
 
 class Endereco {
+  
   private $cep;
   private $rua;
   private $bairro;
@@ -26,7 +27,7 @@ class Endereco {
   }
 
   public function getBairro(){
-     return $thi->bairro;
+     return $this->bairro;
   }
 
   public function getCidade(){
