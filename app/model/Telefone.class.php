@@ -1,13 +1,11 @@
 <?php
-include ('app/model/Logar.class.php');
+include_once ('app/model/Logar.class.php');
 
 class Telefone extends Login {
   private $telefone;
+  private $statusBloqueio;
 
-  public function __construct($telefone, $email, $password){
-    Parent::__construct($email, $password);
-    $this->telefone = $telefone;
-  }
+  public function __construct(){}
 
   public function getTelefone(){
     return $this->telefone;
@@ -15,5 +13,13 @@ class Telefone extends Login {
 
   public function setTelefone($telefone){
     $this->telefone = $telefone;
+  }
+
+  public function getStatusBloqueio(){
+    return $this->statusBloqueio;
+  }
+
+  public function setStatusBloqueio($statusBloqueio){
+    $this->statusBloqueio = $statusBloqueio;
   }
 }

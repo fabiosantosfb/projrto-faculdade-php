@@ -18,22 +18,12 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/?controller=pages&action=home">Procon Paraiba</a>
-          <?php if($_GET['action'] == 'empresa') echo '<a class="navbar" href="/?controller=pages&action=home">Pessoa Física</a>';
-                else if($_GET['action'] == 'home') echo '<a class="navbar" href="/?controller=produtos&action=empresa">Pessoa Jurídica</a>';
-          ?>
+          <?php echo $HOME;?>
+          <?php echo $PESSOA;?>
         </div>
         <div>
           <ul class="nav navbar-nav navbar-right">
-            <?php if(isset($_SESSION['user_name']) && isset($_SESSION['user_id'])){?>
-              <li style="color:#fff;"><?php  echo "Bem vindo ".$_SESSION['user_name'];?></li>
-                <?php echo '<li><a href="/?controller=produtos&action=lista">Listar telemarketing</a></li>';
-                      echo '<li><a href="/?controller=produtos&action=logout">Sair</a></li>';
-                } else {
-                    echo '<li><a href="/?controller=produtos&action=login">Login</a></li>';
-                    echo '<li><a href="/?controller=produtos&action=lista">Listar telemarketing</a></li>';
-                }
-            ?>
+            <?php echo $LOGIN; ?>
           </ul>
         </div>
       </div>

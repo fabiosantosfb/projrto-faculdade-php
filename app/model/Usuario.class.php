@@ -1,14 +1,22 @@
 <?php
-include ('app/model/Endereco.class.php');
+include_once ('app/model/Endereco.class.php');
 
-class Usuario {
+class Usuario extends Endereco {
   private $nome;
   private $status;
   private $dateCriacao;
   private $dateAtualizacao;
+  private static $usuario = null;
 
-  public function __construct($nome){
-    $this->nome = $nome;
+  public function __construct(){
+
+  }
+
+  public static function getInstanceUsuario() {
+    if (!isset(self::$usuario)) {
+        self::$usuario = new Usuario();
+    }
+    return self::$usuario;
   }
 
   public function getNome(){

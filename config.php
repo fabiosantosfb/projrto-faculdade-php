@@ -16,7 +16,6 @@
 // ******* INICIAR SESSIONS ******** //
 session_start();
 // ************ SESSIONS *********** //
-
 if (!defined('LIVE')) DEFINE('LIVE', false);
 // ************ CONSTANTS *********** //
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";

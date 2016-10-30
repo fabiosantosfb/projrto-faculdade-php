@@ -1,7 +1,7 @@
-<?php require_once 'cabecalho.php' ?>
+<?php require_once 'app/view/cabecalho.php' ?>
 </head>
 <body>
-<form class="form-horizontal" method="post" action="/?controller=produtos&action=logar">
+<form class="form-horizontal" method="post" action="/?controller=pages&action=logar">
 <fieldset>
   <legend>Login</legend>
 <!-- Text input-->

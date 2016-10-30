@@ -3,6 +3,14 @@
 class Session {
   private $id_session;
   private $name_session;
+  private static $session = null;
+
+  public static function getInstanceSession() {
+    if (!isset(self::$session)) {
+      self::$session = new Session();
+    }
+    return self::$session;
+  }
 
   public function __construct() {
   }
@@ -24,11 +32,11 @@ class Session {
   }
 
   public function destroiSession() {
-    session_destroy();
+    return session_destroy();
   }
 
   public function startSession() {
-     session_start();
+     return session_start();
   }
   public function statusSession() {
     return session_status();

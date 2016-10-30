@@ -1,7 +1,8 @@
 <?php
+include_once ('app/model/Telefone.class.php');
 
-class Endereco {
-  
+class Endereco extends Telefone {
+
   private $cep;
   private $rua;
   private $bairro;
@@ -9,14 +10,7 @@ class Endereco {
   private $numero;
   private $complemento;
 
-  public function __construct($cep, $rua, $bairro, $cidade, $numero, $complemento){
-      $this->cep = $cep;
-      $this->rua = $rua;
-      $this->bairro = $bairro;
-      $this->cidade = $cidade;
-      $this->numero = $numero;
-      $this->complemento = $complemento;
-  }
+  public function __construct(){}
 
   public function getCep(){
      return $this->cep;
@@ -40,5 +34,29 @@ class Endereco {
 
   public function getComplemento(){
      return $this->complemento;
+  }
+
+  public function setCep($cep){
+     $this->cep = $cep;
+  }
+
+  public function setRua($rua){
+     $this->rua = $rua;
+  }
+
+  public function setBairro($bairro){
+     $this->bairro = $bairro;
+  }
+
+  public function setCidade($cidade){
+     $this->cidade = $cidade;
+  }
+
+  public function setNumero($numero){
+     $this->numero = $numero;
+  }
+
+  public function setComplemento($complemento){
+     $this->complemento = $complemento;
   }
 }

@@ -1,10 +1,8 @@
-<?php include 'conecta.php' ?>
-<?php include 'cabecalho.php'; ?>
-<?php  require_once 'app/model/banco-produto.php'; ?>
+<?php require_once ('app/view/view-admin/admin-home.php'); ?>
 
 <form class="form-inline" method="post" action="/?controller=produtos&action=search">
   <div class="form-group">
-    <input type="txt" class="form-control" id="empresa" name="param" placeholder="Empresa">
+    <input type="txt" class="form-control" id="empresa" name="param" placeholder="Buscar por Id">
   </div>
   <button class="btn btn-primary">Buscar</button>
 </form>

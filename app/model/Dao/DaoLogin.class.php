@@ -1,7 +1,8 @@
 <?php
     include ('app/model/Session.class.php');
+    require_once ('conecta.php');
 
-    class DaoLogin {
+    class DaoLogin extends ConexaoDb {
         private $login;
         private $error;
 
@@ -10,30 +11,34 @@
         }
 
         public function loginDb() {
-            require_once ('conecta.php');
-            $query = "SELECT id_usuario, login, senha FROM usuario WHERE login = '{$this->login->getEmail()}'";
+            try {
+                $query = "SELECT id_usuario, email, senha FROM usuario WHERE email = :_email";
 
-            $result = mysqli_query($conexao, $query);
+                $validar = Parent::getInstance()->prepare($query);
+                $validar->bindValue(":_email",$this->login->getEmail());
+    		        $validar->execute();
 
-            if (!$result) {
-              printf("Error: %s\n", mysqli_error($conexao));
-            }
+                if ($validar->rowCount() === 1) {
 
-            if (mysqli_num_rows($result) === 1) {
-              $row = mysqli_fetch_array($result);
+                  	$row = $validar->fetch(PDO::FETCH_ASSOC);
+                    if ($this->login->getPassword() == $row['senha']) {
 
-                if ($this->login->getPassword() == $row['senha']) {
-                    $session = new Session();
-                    $session->setIdSession($row['id_usuario']);
-                    $session->setNameSession($row['login']);
-                    $session->gerarSession(true);
-                    return true;
+                        $session = new Session();
+                        $this->login->setId($row['id_usuario']);
+                        $session->setIdSession($row['id_usuario']);
+                        $session->setNameSession($row['email']);
+                        $session->gerarSession(true);
+                        return true;
+                    } else {
+                        $this->error = "Senha invalida";
+                        return false;
+                    }
                 } else {
-                    $this->error = "Senha invalida";
+                    $this->error = "Email Não Encontrado";
                     return false;
                 }
-            } else {
-                $this->error = "Email Não Encontrado";
+            } catch (ErrorException $ex) {
+                $this->error = "Exessão no Login $ex";
                 return false;
             }
         }

@@ -1,12 +1,16 @@
 <?php
-include ('app/model/Usuario.class.php');
 
 class PessoaJuridica extends Usuario {
     private $cnpj;
+    private static $pessoaJuridica;
 
-    public function __construct($cnpj, $nome){
-      Parent::__construct($nome);
-      $this->cnpj = $cnpj;
+    public function __construct(){}
+
+    public static function getInstancePessoaJuridica() {
+      if (!isset(self::$pessoaJuridica)) {
+        self::$pessoaJuridica = new PessoaJuridica();
+      }
+      return self::$pessoaJuridica;
     }
 
     public function getCnpj(){
