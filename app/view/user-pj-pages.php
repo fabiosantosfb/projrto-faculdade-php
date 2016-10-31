@@ -1,9 +1,13 @@
-<?php     $LOGIN = '<li><a href="/?controller=pages&action=logout">Sair</a></li>';
-          $PESSOA = '';
-          $HOME = '<a class="navbar-brand">Procon Paraiba</a>';
-?>
-<?php include 'app/view/cabecalho.php'; ?>
-<?php include_once ('app/model/PessoaJuridica.class.php'); ?>
+<?php
+$LOGIN = '<li><a href="/?controller=pages&action=logout">Sair</a></li>';
+$PESSOA = '';
+$MARKETING = '<ul class="list-inline">
+                <li><a href="/?controller=pages&action=listar">Lista de Bloqueio</a></li>
+                <li><a href="/?controller=pages&action=logar">Meu Dados</a></li>
+              </ul>';
+$HOME = '<a class="navbar-brand">Procon Paraiba</a>';
+ ?>
+<?php include_once 'app/view/cabecalho.php'; ?>
 
 <table class="table table-striped table-bordered btn-primary">
 <legend>Dados - Pessoa Jurídica</legend>
@@ -24,8 +28,7 @@
 </thead>
 <tbody>
 <?php
-    $pesssoaJuridica = PessoaJuridica::getInstancePessoaJuridica();
-    $email = Login::getInstanceLogin();
+  //  $email = Login::getInstanceLogin();
 ?>
     <tr style="color:#000">
         <td><?= $pesssoaJuridica->getCnpj(); ?></td>
@@ -90,10 +93,6 @@
     </th>
     <th>
     <th>
-      <p>STATUS DE BLOQUEIO</p>
-    </th>
-    <th>
-    <th>
       <p>DATA CADASTRO</p>
     </th>
       <th>
@@ -108,8 +107,6 @@
 <tbody>
     <tr style="color:#000">
       <td ><?= $pesssoaJuridica->getTelefone(); ?></td>
-      <td></td>
-      <td><?php if($pesssoaJuridica->getStatusBloqueio() == 1)echo "Bloqueado para rebecer ligações Telemarketing"; else echo "Liberado para receber ligações Telemarketing"; ?></td>
       <td></td>
       <td><?= $pesssoaJuridica->getDataCriacao(); ?></td>
       <td></td>

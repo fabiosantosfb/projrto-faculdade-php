@@ -1,10 +1,11 @@
 <?php
 
 class PagesController {
-  private $pessoa;
+  private $tipoCadastro;
   private $login;
-  private $insertUsuario;
   private $endereco;
+  private $pessoa;
+  private $erro;
 
   function login() {
      $HOME = '<a class="navbar-brand" href="/?controller=pages&action=pessoajuridica">Procon Paraiba</a>';
@@ -15,8 +16,8 @@ class PagesController {
      include 'app/view/login.php';
   }
 
-  function telemarketing() {
-     include_once ('app/view/telemarketing-pages.php');
+  function listar() {
+     include_once ('app/view/list-bloqueios.php');
   }
 
   function userPessoaJuridica() {
@@ -40,7 +41,7 @@ class PagesController {
   }
 
   function adminpessoajuridica() {
-    include_once ('app/model/Dao/DaoListarUsuarios.class.php');
+    include_once ('app/Dao/DaoListarUsuarios.class.php');
       $list_arry = array();
 
       $listar = Listar::getInstanceListar();
@@ -79,9 +80,9 @@ class PagesController {
     $erro =  $validate->set('pwd', $_POST['pwd'])->is_required();
 
     if ($validate->validate()){
-        include ('app/model/Logar.class.php');
-        include ('app/model/Dao/DaoLogin.class.php');
-        include ('app/model/Dao/DaoSelecionarUsuario.class.php');
+        include_once ('app/model/Logar.class.php');
+        include_once ('app/Dao/DaoLogin.class.php');
+        include_once ('app/Dao/DaoSelecionarUsuario.class.php');
 
         $this->login = Login::getInstanceLogin();
         $this->login->setEmail($_POST['email']);
@@ -101,8 +102,6 @@ class PagesController {
             self::userPessoaFisica();
           } else if($selecionaUser->getTypeUser() === "pessoa_juridica") {
             self::userPessoaJuridica();
-          } else if($selecionaUser->getTypeUser() === "telemarketing"){
-            self::telemarketing();
           } else if($selecionaUser->getTypeUser() === "admin"){
             self::adminAdministrador();
           }
@@ -127,46 +126,116 @@ class PagesController {
       self::login();
   }
 
+  function cadastrarpj(){
+    include_once ('app/controller/DataValidator.php');
+
+    $validate = new DataValidator();
+    // ---- DADOS PESSOAL JURIDICA ----- //
+
+    $validate->set('cnpj', $_POST['cnpj'])->is_required();
+
+    if($validate->validate()){
+        $this->tipoCadastro = "pessoa_juridica";
+        self::cadastrar();
+    } else {
+      $array = array();
+      $array = $validate->get_errors();
+      foreach ($array as $key => $value) {
+          echo "<script>alert('Erro - $key')</script>";
+      }
+      self::userPessoaJuridica();
+    }
+  }
+
+  function cadastrarpf(){
+    include_once ('app/controller/DataValidator.php');
+
+    $validate = new DataValidator();
+    // ---- DADOS PESSOAL FISICA ----- //
+    $validate->set('cpf', $_POST['cpf'])->is_required();
+    $validate->set('rg', $_POST['rg'])->is_required();
+    $validate->set('exp', $_POST['exp'])->is_required();
+    $validate->set('org', $_POST['rg'])->is_required();
+    $validate->set('uf', $_POST['uf'])->is_required();
+
+    if($validate->validate()){
+        $this->tipoCadastro = "pessoa_fisica";
+        self::cadastrar();
+    } else {
+      $array = array();
+      $array = $validate->get_errors();
+      foreach ($array as $key => $value) {
+          echo "<script>alert('Erro - $key')</script>";
+      }
+      self::userPessoaFisica();
+    }
+  }
+
   function cadastrar() {
       include_once ('app/controller/DataValidator.php');
 
       $validate = new DataValidator();
-      // ---- DADOS PESSOAL JURIDICA ----- //
-      $erro =  $validate->set('cnpj', $_POST['cnpj'])->is_required();
-      $erro =  $validate->set('nome', $_POST['nome'])->is_required();
 
-      $erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
-      $erro =  $validate->set('tel', $_POST['tel'])->is_required();
-      $erro =  $validate->set('pwd', $_POST['pwd'])->is_required();
-      $erro =  $validate->set('pwdconf', $_POST['pwdconf'])->is_required()->is_equals($_POST['pwd'], true);
+      $validate->set('nome', $_POST['nome'])->is_required();
+      $validate->set('email', $_POST['email'])->is_required()->is_email();
+      $validate->set('tel', $_POST['tel'])->is_required();
+      $validate->set('pwd', $_POST['pwd'])->is_required();
+      $validate->set('pwdconf', $_POST['pwdconf'])->is_required()->is_equals($_POST['pwd'], true);
 
-      $erro =  $validate->set('cep', $_POST['cep'])->is_required();
-      $erro =  $validate->set('numero', $_POST['numero'])->is_required();
-      $erro =  $validate->set('complemento', $_POST['complemento'])->is_required();
-      $erro =  $validate->set('cidade', $_POST['cidade'])->is_required();
-      $erro =  $validate->set('rua', $_POST['rua'])->is_required();
-      $erro =  $validate->set('bairro', $_POST['bairro'])->is_required();
+      $validate->set('cep', $_POST['cep'])->is_required();
+      $validate->set('cidade', $_POST['cidade'])->is_required();
+      $validate->set('rua', $_POST['rua'])->is_required();
+      $validate->set('bairro', $_POST['bairro'])->is_required();
 
-      if($validate->validate()){
-          require_once ('conecta.php');
+      if($validate->validate()) {
           include_once ('app/model/PessoaJuridica.class.php');
+          include_once ('app/model/PessoaFisica.class.php');
           include_once ('app/model/Telefone.class.php');
           include_once ('app/model/Endereco.class.php');
-          include_once ('app/model/Dao/DaoInserirUsuario.class.php');
 
-          $this->pessoa = new PessoaJuridica($_POST['cnpj'], $_POST['nome']);
-          $this->login = new Telefone($_POST['tel'], $_POST['email'], $_POST['pwd']);
-          $this->endereco = new Endereco($_POST['cep'], $_POST['rua'], $_POST['bairro'], $_POST['cidade'],  $_POST['numero'], $_POST['complemento']);
+          $this->login = Telefone::getInstanceTelefone();
+          $this->login->setTelefone($_POST['tel']);
+          $this->login->setEmail($_POST['email']);
+          $this->login->setPassword($_POST['pwd']);
 
-          $this->insertUsuario = new DaoUsuario($this->pessoa, $this->login, $this->endereco);
+          $this->endereco = Endereco::getInstanceEndereco();
+          $this->endereco->setCep($_POST['cep']);
+          $this->endereco->setRua($_POST['rua']);
+          $this->endereco->setBairro($_POST['bairro']);
+          $this->endereco->setCidade($_POST['cidade']);
 
-          if($this->insertUsuario->insertUsuario($conexao)) {
-            self::login();
-          } else {
-            $this->insertUsuario->getErro();
-              self::userPessoaFisica();
+          if(!empty($_POST['complemento'])){
+            $this->endereco->setComplemento($_POST['complemento']);
           }
+          if (!empty($_POST['numero'])){
+            $this->endereco->setNumero($_POST['numero']);
+          }
+
+          if($this->tipoCadastro == "pessoa_juridica") {
+            echo "<script>alert('Set PJ')</script>";
+
+              $this->pessoa = PessoaJuridica::getInstancePessoaJuridica();
+              $this->pessoa->setCnpj($_POST['cnpj']);
+              $this->pessoa->setNome($_POST['nome']);
+
+              if(!empty($_POST['telemarketing'])){
+                echo "<script>alert('Set telemarketing')</script>";
+                $this->pessoa->setTelemarketing(true);
+              }
+          } else if($this->tipoCadastro == "pessoa_fisica") {
+              $this->pessoa = PessoaFisica::getInstancePessoaFisica();
+              $this->pessoa->setCpf($_POST['cpf']);
+              $this->pessoa->setNome($_POST['nome']);
+              $this->pessoa->setRg($_POST['rg']);
+              $this->pessoa->setDataExpdicao($_POST['exp']);
+              $this->pessoa->setOrgExpedidor($_POST['org']);
+              $this->pessoa->setUf($_POST['uf']);
+          }
+
+          self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro);
+
         } else {
+          $array = array();
           $array = $validate->get_errors();
           foreach ($array as $key => $value) {
               echo "<script>alert('Erro - $key')</script>";
@@ -175,8 +244,56 @@ class PagesController {
         }
   }
 
+  function insertUsuario($pessoa, $login, $endereco, $tipoCadastro) {
+      include_once ('app/Dao/DaoInserirUsuario.class.php');
+      $insertUsuario = new DaoUsuario($pessoa, $login, $endereco);
+
+      if($tipoCadastro == "pessoa_juridica" && $pessoa->getCnpj() != null) { // ---- VERIFICAR SE E PESSOA JURIDICAR ----- //
+          try{
+            if(!$insertUsuario->verificarEmailExist()) {
+              if(!$insertUsuario->verificarTelefonelExist()) {
+                if(!$insertUsuario->verificarCnpjExist()) {
+                  if($insertUsuario->inserirEndereco()) {
+                    if($pessoa->getTelemarketing()) {
+                      if(!$insertUsuario->inserirTelemarketing()) {
+                        $this->erro = $insertUsuario->getErro();
+                        echo "<script>alert('Error telemarketing - $this->erro')</script>";
+                      }
+                    }
+                    self::login();
+                  }
+                }
+              }
+            }
+            $this->erro = $insertUsuario->getErro();
+            echo   $this->erro;//"<script>alert('Error - $this->erro')</script>";
+          } catch (Exception $ex){
+            $this->erro = "Exeção no Cadastro de Pessoa Fisica!";
+            self::pessoaJuridica();
+          }
+      } else if($tipoCadastro == "pessoa_fisica" && $pessoa->getCpf() != null) {
+            try {
+              if(!$insertUsuario->verificarEmailExist()){
+                if(!$insertUsuario->verificarTelefonelExist()){
+                  if(!$insertUsuario->verificarCpfExist()){
+                    if($insertUsuario->inserirEndereco()){
+                        self::login();
+                    }
+                  }
+                }
+              }
+              $this->erro = $insertUsuario->getErro();
+              echo "<script>alert('Error - $this->erro')</script>";
+              self::pessoafisica();
+            } catch (Exception $ex){
+              $this->erro = "Exeção no Cadastro de Pessoa Fisica!";
+              self::pessoafisica();
+            }
+      }
+  }
+
   function remove($id) {
-    include_once ('app/model/Dao/DaoSelecionarUsuario.class.php');
+    include_once ('app/Dao/DaoSelecionarUsuario.class.php');
 
     if(!empty($_POST['id_telemarketing'])){
       $id = $_POST['id_telemarketing'];
@@ -193,7 +310,7 @@ class PagesController {
   }
 
   function ativar() {
-    include_once ('app/model/Dao/DaoSelecionarUsuario.class.php');
+    include_once ('app/Dao/DaoSelecionarUsuario.class.php');
 
       if(!empty($_POST['id_telemarketing'])){
         $id = $_POST['id_telemarketing'];
@@ -210,7 +327,7 @@ class PagesController {
   }
 
   function desativar() {
-    include_once ('app/model/Dao/DaoSelecionarUsuario.class.php');
+    include_once ('app/Dao/DaoSelecionarUsuario.class.php');
 
     if(!empty($_POST['id_telemarketing'])){
         $id = $_POST['id_telemarketing'];
@@ -227,7 +344,7 @@ class PagesController {
   }
 
   function search($id) {
-    include_once ('app/model/Dao/DaoSelecionarUsuario.class.php');
+    include_once ('app/Dao/DaoSelecionarUsuario.class.php');
 
     if(!searchTelemarketing($conexao, $id)) {
       $msgRet = "Produto $id removido com sucesso!";

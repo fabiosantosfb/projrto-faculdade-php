@@ -54,6 +54,8 @@ class Selection extends ConexaoDb {
 
     self::seachAddress($pessoa);
     self::seachTelefone($pessoa);
+
+    if(self::selectionTelemarketing($pessoa)){}
     return $pessoa;
   }
 
@@ -115,6 +117,26 @@ class Selection extends ConexaoDb {
         }
     } catch (Exception $pJ){
       $this->erro = "EXCEÇÃO NA CONSULTA DE PESSOA JURIDICA!";
+    }
+  }
+
+  public function selectionTelemarketing($pessoa){
+    try{
+        $queryPj = "SELECT * FROM telemarketing WHERE pessoa_juridica_usuario_id_usuario = :id_usuario";
+        $validar = Parent::getInstance()->prepare($queryPj);
+        $validar->bindValue(":id_usuario",$this->id);
+        $validar->execute();
+
+        if($validar->rowCount() === 1) {
+          $row = $validar->fetch(PDO::FETCH_ASSOC);
+          $pessoa->setTelemarketing(true);
+          $pessoa->setTelemarketingStatus($row['status_ativo']);
+          return true;
+        } else {
+          return false;
+        }
+    } catch (Exception $pJ){
+      $this->erro = "EXCEÇÃO NA CONSULTA DE TELEMARKETING!";
     }
   }
 

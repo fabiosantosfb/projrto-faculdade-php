@@ -3,7 +3,6 @@
           $HOME = '<a class="navbar-brand">Procon Paraiba</a>';
 ?>
 <?php include 'app/view/cabecalho.php'; ?>
-<?php include_once ('app/model/PessoaFisica.class.php'); ?>
 
 <table class="table table-striped table-bordered btn-primary">
 <legend>Dados - Pessoa Física</legend>
@@ -23,10 +22,6 @@
   </tr>
 </thead>
 <tbody>
-<?php
-    $pesssoaFisica = PessoaFisica::getInstancePessoaFisica();
-    $email = Login::getInstanceLogin();
-?>
     <tr style="color:#000">
         <td><?= $pesssoaFisica->getCpf(); ?></td>
         <td></td>
@@ -58,9 +53,6 @@
   </tr>
 </thead>
 <tbody>
-<?php
-    $pesssoaFisica = PessoaFisica::getInstancePessoaFisica();
-?>
     <tr style="color:#000">
         <td><?= $pesssoaFisica->getRg(); ?></td>
         <td></td>
@@ -126,10 +118,6 @@
     </th>
     <th>
     <th>
-      <p>STATUS DE BLOQUEIO</p>
-    </th>
-    <th>
-    <th>
       <p>DATA CADASTRO</p>
     </th>
       <th>
@@ -144,8 +132,6 @@
 <tbody>
     <tr style="color:#000">
       <td ><?= $pesssoaFisica->getTelefone(); ?></td>
-      <td></td>
-      <td><?php if($pesssoaFisica->getStatusBloqueio() == 1)echo "Bloqueado para rebecer ligações Telemarketing"; else echo "Liberado para receber ligações Telemarketing"; ?></td>
       <td></td>
       <td><?= $pesssoaFisica->getDataCriacao(); ?></td>
         <td></td>

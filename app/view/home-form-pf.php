@@ -2,7 +2,7 @@
 
 </head>
 <body>
-  <form class="form-horizontal" method="post" action="/?controller=produtos&action=cadastrar-pf">
+  <form class="form-horizontal" method="post" action="/?controller=pages&action=cadastrarpf">
 <fieldset>
 <legend>Cadastro - Pessoa Física</legend>
 <!-- Text input-->

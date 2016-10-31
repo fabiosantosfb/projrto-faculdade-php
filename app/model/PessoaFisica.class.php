@@ -2,7 +2,7 @@
 include_once ('app/model/Usuario.class.php');
 
 class PessoaFisica extends Usuario {
-    private $cpf;
+    private $cpf = null;
     private $rg;
     private $org_expedidor;
     private $data_expedicao;

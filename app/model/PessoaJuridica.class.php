@@ -1,7 +1,10 @@
 <?php
+include_once ('app/model/Usuario.class.php');
 
 class PessoaJuridica extends Usuario {
-    private $cnpj;
+    private $cnpj = null;
+    private $telemarketing = false;
+    private $telemarketingStatus;
     private static $pessoaJuridica;
 
     public function __construct(){}
@@ -19,5 +22,21 @@ class PessoaJuridica extends Usuario {
 
     public function setCnpj($cnpj){
       $this->cnpj = $cnpj;
+    }
+
+    public function getTelemarketing(){
+      return $this->telemarketing;
+    }
+
+    public function setTelemarketing($telemarketing){
+      $this->telemarketing = $telemarketing;
+    }
+
+    public function getTelemarketingStatus(){
+      return $this->telemarketingStatus;
+    }
+
+    public function setTelemarketingStatus($status){
+      $this->telemarketingStatus = $status;
     }
 }

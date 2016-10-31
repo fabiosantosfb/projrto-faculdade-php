@@ -2,7 +2,7 @@
 
 </head>
 <body>
-  <form class="form-horizontal" method="post" action="/?controller=produtos&action=cadastrar-pj">
+  <form class="form-horizontal" method="post" action="/?controller=pages&action=cadastrarpj">
 <fieldset>
 <!-- Form Name -->
 <legend>Cadastro - Pessoa Jurídica</legend>
@@ -19,7 +19,7 @@
       <div class="col-md-6">
           <input id="nome" name="nome" type="text" placeholder="Razao social" class="form-control input-md" >
         <label>
-          <input type="checkbox" name="tipo_empresa"> Sou Telemarketing
+          <input type="checkbox" name="telemarketing"> Sou Telemarketing
         </label>
       </div>
 </div>

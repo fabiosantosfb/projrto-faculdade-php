@@ -1,3 +1,11 @@
+<?php
+      include_once ('app/model/PessoaJuridica.class.php');
+      include_once ('app/model/PessoaFisica.class.php');
+      $pesssoaFisica = PessoaFisica::getInstancePessoaFisica();
+      $email = Login::getInstanceLogin();
+      $pesssoaJuridica = PessoaJuridica::getInstancePessoaJuridica();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,6 +28,12 @@
         <div class="navbar-header">
           <?php echo $HOME;?>
           <?php echo $PESSOA;?>
+          <?php
+
+                if($pesssoaJuridica->getTelemarketing()){
+                    echo $MARKETING;
+                }
+          ?>
         </div>
         <div>
           <ul class="nav navbar-nav navbar-right">

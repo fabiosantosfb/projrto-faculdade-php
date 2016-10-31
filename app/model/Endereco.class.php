@@ -2,15 +2,22 @@
 include_once ('app/model/Telefone.class.php');
 
 class Endereco extends Telefone {
-
   private $cep;
   private $rua;
   private $bairro;
   private $cidade;
-  private $numero;
-  private $complemento;
+  private $numero = "";
+  private $complemento = "";
+  private static $endereco;
 
   public function __construct(){}
+
+  public static function getInstanceEndereco() {
+    if (!isset(self::$endereco)) {
+      self::$endereco = new Endereco();
+    }
+    return self::$endereco;
+  }
 
   public function getCep(){
      return $this->cep;

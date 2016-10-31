@@ -21,10 +21,6 @@
       <th>
         <p>EMAIL</p>
       </th>
-      <th>
-        <th>
-          <p>ATIVO</p>
-        </th>
         <th>
           <th>
             <p>DATA CRIAÇÃO</p>
@@ -46,8 +42,6 @@
         <td><?= $empresa['nome_razao'] ?></td>
         <td></td>
         <td><?= $empresa['email'] ?></td>
-        <td></td>
-        <td><?= $empresa['ativa'] ?></td>
         <td></td>
         <td><?= $empresa['data_cadastro'] ?></td>
         <td><?= $empresa['data_atualiza'] ?></td>
