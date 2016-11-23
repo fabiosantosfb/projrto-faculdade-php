@@ -58,7 +58,8 @@ class DataValidator {
             'is_instance_of' => '%s não é uma instância de %s ',
             'is_arr'         => 'A variável %s não é um array ',
             'is_directory'   => '%s não é um diretório válido ',
-            'is_equals'      => 'O valor do campo %s deve ser igual à %s ',
+            //'is_equals'      => 'O valor do campo %s deve ser igual à %s ',
+            'is_equals'      => 'O Campo Confirmar Senha deve ter o mesmo valor do Campo Senha! ',
             'is_not_equals'  => 'O valor do campo %s não deve ser igual à %s ',
             'is_cpf'         => 'O valor %s não é um CPF válido ',
             'is_cnpj'        => 'O valor %s não é um CNPJ válido ',
@@ -138,9 +139,24 @@ class DataValidator {
      * @return void
      */
     protected function set_error($error){
-        $this->_errors[$this->_pattern['prefix'] . $this->_data['name'] . $this->_pattern['sufix']][] = $error;
+        $this->_errors [$error][] = $error;
     }
-
+    /**
+     * The messages of invalid data
+     * @param String $param [optional] A specific error
+     * @return Mixed One array with messages or a message of specific error
+     */
+    public function get_errors($param=false){
+        if ($param){
+            if(isset($this->_errors[$this->_pattern['prefix'] . $param . $this->_pattern['sufix']])){
+                return $this->_errors[$this->_pattern['prefix'] . $param . $this->_pattern['sufix']];
+            }
+            else{
+                return false;
+            }
+        }
+        return $this->_errors;
+    }
     /**
      * Verify if the current data is not null
      * @access public
@@ -427,7 +443,7 @@ class DataValidator {
     public function is_equals($value, $identical){
         $verify = ($identical === true ? $this->_data['value'] === $value : strtolower($this->_data['value']) == strtolower($value));
         if(!$verify){
-            $this->set_error(sprintf($this->_messages['is_equals'], $this->_data['name'], $value));
+            $this->set_error(sprintf($this->_messages['is_equals'], $this->_data['name'], "***"));
         }
         return $this;
     }
@@ -788,23 +804,5 @@ class DataValidator {
      */
     public function validate(){
         return (count($this->_errors) > 0 ? false : true);
-    }
-
-
-    /**
-     * The messages of invalid data
-     * @param String $param [optional] A specific error
-     * @return Mixed One array with messages or a message of specific error
-     */
-    public function get_errors($param=false){
-        if ($param){
-            if(isset($this->_errors[$this->_pattern['prefix'] . $param . $this->_pattern['sufix']])){
-                return $this->_errors[$this->_pattern['prefix'] . $param . $this->_pattern['sufix']];
-            }
-            else{
-                return false;
-            }
-        }
-        return $this->_errors;
     }
 }

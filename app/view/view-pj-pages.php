@@ -1,14 +1,4 @@
-<?php
-$LOGIN = '<li><a href="/?controller=pages&action=logout">Sair</a></li>';
-$PESSOA = '';
-$MARKETING = '<ul class="list-inline">
-                <li><a href="/?controller=pages&action=listar">Lista de Bloqueio</a></li>
-                <li><a href="/?controller=pages&action=logar">Meu Dados</a></li>
-              </ul>';
-$HOME = '<a class="navbar-brand">Procon Paraiba</a>';
- ?>
-<?php include_once 'app/view/cabecalho.php'; ?>
-
+<?php include_once 'app/view/partlals/header.php' ?>
 <table class="table table-striped table-bordered btn-primary">
 <legend>Dados - Pessoa Jurídica</legend>
 <thead>
@@ -20,22 +10,13 @@ $HOME = '<a class="navbar-brand">Procon Paraiba</a>';
     <th>
       <p>RAZÃO SOCIAL</p>
     </th>
-    <th>
-    <th>
-      <p>EMAIL</p>
-    </th>
   </tr>
 </thead>
 <tbody>
-<?php
-  //  $email = Login::getInstanceLogin();
-?>
     <tr style="color:#000">
-        <td><?= $pesssoaJuridica->getCnpj(); ?></td>
+        <td><?=$pessoa['cnpj'] ?></td>
         <td></td>
-        <td><?= $pesssoaJuridica->getNome(); ?></td>
-        <td></td>
-        <td><?= $email->getEmail(); ?></td>
+        <td><?=$pessoa['nome'] ?></td>
     </tr>
 </tbody>
 </table>
@@ -70,17 +51,17 @@ $HOME = '<a class="navbar-brand">Procon Paraiba</a>';
 </thead>
 <tbody>
     <tr style="color:#000">
-        <td><?= $pesssoaJuridica->getCep(); ?></td>
+        <td><?=$endereco['cep'] ?></td>
         <td></td>
-        <td><?= $pesssoaJuridica->getRua(); ?></td>
+        <td><?=$endereco['rua'] ?></td>
         <td></td>
-        <td><?= $pesssoaJuridica->getBairro(); ?></td>
+        <td><?=$endereco['bairro'] ?></td>
         <td></td>
-        <td><?= $pesssoaJuridica->getCidade();?></td>
+        <td><?=$endereco['cidade']?></td>
         <td></td>
-        <td><?= $pesssoaJuridica->getNumero(); ?></td>
+        <td><?=$endereco['numero'] ?></td>
         <td></td>
-        <td><?= $pesssoaJuridica->getComplemento(); ?></td>
+        <td><?=$endereco['complemento'] ?></td>
     </tr>
   </tbody>
 </table>
@@ -96,21 +77,19 @@ $HOME = '<a class="navbar-brand">Procon Paraiba</a>';
       <p>DATA CADASTRO</p>
     </th>
       <th>
-
       <form method="post" action="/?controller=produtos&action=desativar">
-        <input type="hidden" name="telefone_numero" value="<?= $pesssoaJuridica->getId();?>">
+        <input type="hidden" name="telefone_numero" value="">
         <button id="button1id" name="button1id" class="btn btn-primary">Adicionar</button>
       </form>
-
   </tr>
 </thead>
 <tbody>
-    <tr style="color:#000">
-      <td ><?= $pesssoaJuridica->getTelefone(); ?></td>
-      <td></td>
-      <td><?= $pesssoaJuridica->getDataCriacao(); ?></td>
-      <td></td>
-    </tr>
+  <tr style="color:#000">
+    <td ><?=$telefone['telefone_numero'] ?></td>
+    <td></td>
+    <td><?=$telefone['data_cadastro'] ?></td>
+    <td></td>
+  </tr>
 </tbody>
 </table>
-<?php include 'rodape.php'?>
+<?php include_once ('app/view/footer.php') ?>

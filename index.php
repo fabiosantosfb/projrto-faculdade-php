@@ -1,13 +1,7 @@
 <?php
-include ('config.php');
+require_once ('vendor/autoload.php');
 
-//redirect_user();
-require_once 'app/controller/PagesController.php';
+Session::getInstanceSession()->startSession();
 
-$controllerName = $_GET['controller'].'Controller';
-
-$actionName = $_GET['action'];
-
-$controller = new $controllerName;
-
-$controller->$actionName();
+Router::load('routes.php')
+    ->direct(Request::uri(), Request::method());

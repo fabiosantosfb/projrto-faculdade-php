@@ -6,7 +6,7 @@ class Session {
   private static $session = null;
 
   public static function getInstanceSession() {
-    if (!isset(self::$session)) {
+    if (empty(self::$session)) {
       self::$session = new Session();
     }
     return self::$session;

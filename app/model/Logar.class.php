@@ -1,16 +1,17 @@
 <?php
 
 class Login {
-      private $id;
+      private $idb;
       private $email;
       private $password;
+      private $type;
       private static $login = null;
 
       public function __construct() {
       }
 
       public static function getInstanceLogin() {
-        if (!isset(self::$login)) {
+        if (empty(self::$login)) {
           self::$login = new Login();
         }
         return self::$login;
@@ -26,6 +27,14 @@ class Login {
 
       public function getId() {
         return $this->id;
+      }
+
+      public function getType() {
+        return $this->type;
+      }
+
+      public function setType($type) {
+        $this->type = $type;
       }
 
       public function setPassword($password) {

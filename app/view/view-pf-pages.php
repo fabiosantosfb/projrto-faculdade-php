@@ -1,9 +1,5 @@
-<?php     $LOGIN = '<li><a href="/?controller=pages&action=logout">Sair</a></li>';
-          $PESSOA = '';
-          $HOME = '<a class="navbar-brand">Procon Paraiba</a>';
-?>
-<?php include 'app/view/cabecalho.php'; ?>
 
+<?php include_once 'app/view/partlals/header.php' ?>
 <table class="table table-striped table-bordered btn-primary">
 <legend>Dados - Pessoa Física</legend>
 <thead>
@@ -15,23 +11,16 @@
     <th>
       <p>Nome</p>
     </th>
-    <th>
-    <th>
-      <p>Email</p>
-    </th>
   </tr>
 </thead>
 <tbody>
     <tr style="color:#000">
-        <td><?= $pesssoaFisica->getCpf(); ?></td>
+        <td><?= $pessoa['cpf']?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getNome(); ?></td>
-        <td></td>
-        <td><?= $email->getEmail(); ?></td>
+        <td><?= $pessoa['nome'] ?></td>
     </tr>
 </tbody>
 </table>
-
 <table class="table table-striped table-bordered btn-primary">
 <thead>
   <tr>
@@ -54,13 +43,13 @@
 </thead>
 <tbody>
     <tr style="color:#000">
-        <td><?= $pesssoaFisica->getRg(); ?></td>
+        <td><?=$pessoa['rg'] ?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getOrgExpedidor(); ?></td>
+        <td><?=$pessoa['org'] ?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getUf(); ?></td>
+        <td><?=$pessoa['uf'] ?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getDataExpedicao(); ?></td>
+        <td><?=$pessoa['data_expedicao'] ?></td>
     </tr>
 </tbody>
 </table>
@@ -95,47 +84,46 @@
 </thead>
 <tbody>
     <tr style="color:#000">
-        <td><?= $pesssoaFisica->getCep(); ?></td>
+        <td><?=$endereco['cep'] ?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getRua(); ?></td>
+        <td><?=$endereco['rua'] ?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getBairro(); ?></td>
+        <td><?=$endereco['bairro'] ?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getCidade();?></td>
+        <td><?=$endereco['cidade'] ?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getNumero(); ?></td>
+        <td><?=$endereco['numero'] ?></td>
         <td></td>
-        <td><?= $pesssoaFisica->getComplemento(); ?></td>
+        <td><?=$endereco['complemento'] ?></td>
     </tr>
   </tbody>
 </table>
 <table class="table table-striped table-bordered btn-primary">
 <!--<legend>Dados - Telefones Cadastrados para Bloqueio</legend>-->
 <thead>
-  <tr>
-    <th>
-      <p>TELEFONE</p>
-    </th>
-    <th>
-    <th>
-      <p>DATA CADASTRO</p>
-    </th>
-      <th>
-
-      <form method="post" action="/?controller=produtos&action=desativar">
-        <input type="hidden" name="telefone_numero" value="<?= $pesssoaFisica->getId();?>">
+<tr>
+  <th>
+    <p>TELEFONE</p>
+  </th>
+  <th>
+  <th>
+    <p>DATA CADASTRO</p>
+  </th>
+  <th>
+    <form method="post" action="?action=add">
+        <input type="hidden" name="telefone_numero" value="<?//= $pesssoaFisica->getId();?>">
         <button id="button1id" name="button1id" class="btn btn-primary">Adicionar</button>
-      </form>
-
-  </tr>
+    </form>
+  </th>
+</tr>
 </thead>
-<tbody>
+  <tbody>
     <tr style="color:#000">
-      <td ><?= $pesssoaFisica->getTelefone(); ?></td>
+      <td ><?=$telefone['telefone_numero'] ?></td>
       <td></td>
-      <td><?= $pesssoaFisica->getDataCriacao(); ?></td>
-        <td></td>
+      <td><?=$telefone['data_cadastro'] ?></td>
+      <td></td>
     </tr>
-</tbody>
+  </tbody>
 </table>
-<?php include 'rodape.php'?>
+<?php include_once ('app/view/partlals/footer.php') ?>

@@ -1,15 +1,14 @@
 <?php
-include_once ('app/model/Logar.class.php');
 
-class Telefone extends Login {
+class Telefone {
   private $telefone;
   private $statusBloqueio;
-  private static $telefoneInstace;
+  private static $telefoneInstace = null;
 
   public function __construct(){}
 
   public static function getInstanceTelefone() {
-    if (!isset(self::$telefoneInstace)) {
+    if (empty(self::$telefoneInstace)) {
       self::$telefoneInstace = new Telefone();
     }
     return self::$telefoneInstace;

@@ -5,12 +5,12 @@ class PessoaJuridica extends Usuario {
     private $cnpj = null;
     private $telemarketing = false;
     private $telemarketingStatus;
-    private static $pessoaJuridica;
+    private static $pessoaJuridica = null;
 
     public function __construct(){}
 
     public static function getInstancePessoaJuridica() {
-      if (!isset(self::$pessoaJuridica)) {
+      if (empty(self::$pessoaJuridica)) {
         self::$pessoaJuridica = new PessoaJuridica();
       }
       return self::$pessoaJuridica;

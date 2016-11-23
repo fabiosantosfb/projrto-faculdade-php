@@ -1,5 +1,5 @@
 <?php
-include_once ('app/model/Endereco.class.php');
+require_once ('Endereco.class.php');
 
 class Usuario extends Endereco {
   private $nome;
@@ -13,7 +13,7 @@ class Usuario extends Endereco {
   }
 
   public static function getInstanceUsuario() {
-    if (!isset(self::$usuario)) {
+    if (empty(self::$usuario)) {
         self::$usuario = new Usuario();
     }
     return self::$usuario;

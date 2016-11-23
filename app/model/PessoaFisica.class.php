@@ -7,12 +7,12 @@ class PessoaFisica extends Usuario {
     private $org_expedidor;
     private $data_expedicao;
     private $uf;
-    private static $pessoaFisica;
+    private static $pessoaFisica = null;
 
     public function __construct(){}
 
     public static function getInstancePessoaFisica() {
-      if (!isset(self::$pessoaFisica)) {
+      if (empty(self::$pessoaFisica)) {
           self::$pessoaFisica = new PessoaFisica();
       }
       return self::$pessoaFisica;

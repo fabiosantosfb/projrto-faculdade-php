@@ -1,10 +1,7 @@
 <?php
-    include ('app/model/Session.class.php');
-    require_once ('conecta.php');
-
     class DaoLogin extends ConexaoDb {
         private $login;
-        private $error;
+        private $erro;
 
         public function __construct($login) {
             $this->login = $login;
@@ -12,38 +9,33 @@
 
         public function loginDb() {
             try {
-                $query = "SELECT id_usuario, email, senha FROM usuario WHERE email = :_email";
+                $query = "SELECT * FROM usuario WHERE email = :_email";
 
-                $validar = Parent::getInstance()->prepare($query);
+                $validar = Parent::getInstanceConexao()->prepare($query);
                 $validar->bindValue(":_email",$this->login->getEmail());
     		        $validar->execute();
 
                 if ($validar->rowCount() === 1) {
-
                   	$row = $validar->fetch(PDO::FETCH_ASSOC);
                     if ($this->login->getPassword() == $row['senha']) {
-
-                        $session = new Session();
-                        $this->login->setId($row['id_usuario']);
-                        $session->setIdSession($row['id_usuario']);
-                        $session->setNameSession($row['email']);
-                        $session->gerarSession(true);
+                        $_SESSION['id'] = $row['id_usuario'];
+                        $_SESSION['type_user'] = $row['type'];
                         return true;
                     } else {
-                        $this->error = "Senha invalida";
+                        $this->erro = "Senha invalida";
                         return false;
                     }
                 } else {
-                    $this->error = "Email Não Encontrado";
+                    $this->erro = "Email Não Encontrado";
                     return false;
                 }
             } catch (ErrorException $ex) {
-                $this->error = "Exessão no Login $ex";
+                $this->erro = "Exessão no Login";
                 return false;
             }
         }
 
-        public function getErro(){
+        public function getErro() {
           return $this->error;
         }
     }
