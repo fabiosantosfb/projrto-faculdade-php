@@ -1,5 +1,4 @@
-<?php include_once ('app/view/view-admin/admin-home.php');?>
-
+<?php include_once ('app/view/partlals/header.php') ?>
 <form class="form-inline" method="post" action="/?controller=produtos&action=search">
   <div class="form-group">
     <input type="txt" class="form-control" id="empresa" name="param" placeholder="Buscar por Id">
@@ -22,26 +21,19 @@
       <th>
         <p>DATA CADASTRO</p>
       </th>
-      <th>
-      <th>
-        <p>STATUS</p>
-      </th>
     </tr>
   </thead>
   <tbody>
-  <?php
-      $pesssoaJuridica = PessoaJuridica::getInstancePessoaJuridica();
-      $email = Login::getInstanceLogin();
-  ?>
+
       <tr style="color:#000">
-          <td><?= $pesssoaJuridica->getCnpj(); ?></td>
+          <td><?=  ?></td>
           <td></td>
-          <td><?= $pesssoaJuridica->getNome(); ?></td>
+          <td><?= ?></td>
           <td></td>
-          <td><?= $email->getEmail(); ?></td>
+          <td><?=  ?></td>
           <td></td>
           <td></td>
       </tr>
   </tbody>
   </table>
-<?php include ('app/view/rodape.php');?>
+<?php include_once ('app/view/partlals/footer.php') ?>

@@ -90,7 +90,9 @@ class PagesController {
               <ul class="list-inline">
                 <li><a href="logout">Sair</a></li>
               </ul>';
-
+    $listar = Listar::getInstanceListar();
+    $listaspf = $listar->listarPessoa();
+    $listaspj = $listar->listarPessoaJuridica();
     require_once ('app/view/view-admin/admin.php');
   }
 
