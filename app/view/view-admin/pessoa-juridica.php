@@ -6,6 +6,7 @@
    </div>
    <button class="btn btn-primary">Buscar</button>
  </form>
+<?php if(count($listaspj) > 0) {?>
 <table class="table table-striped table-bordered btn-primary">
   <legend>Dados - Pessoa Jurídica</legend>
   <thead>
@@ -24,21 +25,16 @@
     </tr>
   </thead>
   <tbody>
-  <?php
-      //$pesssoaJuridica = PessoaJuridica::getInstancePessoaJuridica();
-      //var_dump($pessoa);
-
-  //  while ($pessoa) {
-  ?>
+    <?php foreach ($listaspj as $key) { ?>
       <tr style="color:#000">
-          <td><?= $pessoa->getCnpj(); ?></td>
+          <td><?=$key['cnpj'] ?></td>
           <td></td>
-          <td><?= $pessoa->getNome(); ?></td>
+          <td><?=$key['telefone_numero'] ?></td>
           <td></td>
-          <td><?= $pessoa->getDataCriacao(); ?></td>
-          <td></td>
+          <td><?=$key['data_cadastro'] ?></td>
       </tr>
-      <?php // } ?>
+    <?php } ?>
   </tbody>
   </table>
+  <?php } ?>
   <?php include ('app/view/rodape.php');?>

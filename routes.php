@@ -10,6 +10,9 @@ $router->get('session-pf','PagesController@userPessoaFisica');
 $router->get('session-pj','PagesController@userPessoaJuridica');
 $router->get('admin','PagesController@userAdmin');
 
+$router->get('pessoa-f','PagesController@pessoaFisica');
+$router->get('pessoa-j','PagesController@pessoaJuridica');
+
 $router->post('cadastro-pf','PagesController@cadastroPessoaFisica');
 $router->post('cadastro-pj','PagesController@cadastroPessoaJuridica');
 $router->post('logar','PagesController@logar');

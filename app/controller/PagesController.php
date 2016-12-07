@@ -19,6 +19,7 @@ class PagesController {
     return self::$PagesController;
   }
   public function page_form_login() {
+    $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline">
                         <li><a href="pessoa-fisica">Pessoa Fisica</a></li>
                         <li><a href="pessoa-juridica">Pessoa Juridica</a></li>
@@ -29,6 +30,7 @@ class PagesController {
   }
 
   public function page_form_pessoafisica() {
+    $HOME = '<a class="navbar-brand" href="pessoa-juridica">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline"><li><a href="pessoa-juridica">Pessoa Juridica</a></li></ul>';
     $LOGIN = '<li><a href="login">Logar</a></li>';
 
@@ -36,6 +38,7 @@ class PagesController {
   }
 
   public function page_form_pessoajuridica() {
+    $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline"><li><a href=pessoa-fisica>Pessoa Fisica</a></li></ul>';
     $LOGIN = '<li><a href="login">Logar</a></li>';
 
@@ -81,10 +84,28 @@ class PagesController {
   }
 
   public function userAdmin() {
-    $HOME = '<ul class="list-inline"><li><a href="">Administrador</a></li></ul>';
+
+    $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
     $PESSOA = '<ul class="list-inline">
-                        <li><a href="pessoa-fisica">Pessoa Fisica</a></li>
-                        <li><a href="pessoa-juridica">Pessoa Juridica</a></li>
+                        <li><a href="pessoa-f">Pessoa Fisica</a></li>
+                        <li><a href="pessoa-j">Pessoa Juridica</a></li>
+                    </ul>';
+    $LOGIN = '<li><a href="">Bem vindo</a></li>
+              <ul class="list-inline">
+                <li><a href="logout">Sair</a></li>
+              </ul>';
+    $listar = Listar::getInstanceListar();
+    $listastl = $listar->listarTelemarketing();
+
+    include_once ('app/view/partlals/header.php');
+    require_once ('app/view/view-admin/admin.php');
+  }
+
+  public function pessoaFisica() {
+    $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
+    $PESSOA = '<ul class="list-inline">
+                        <li><a href="pessoa-j">Pessoa Juridica</a></li>
+                        <li><a href="admin">Telemarketing</a></li>
                     </ul>';
     $LOGIN = '<li><a href="">Bem vindo</a></li>
               <ul class="list-inline">
@@ -92,11 +113,29 @@ class PagesController {
               </ul>';
     $listar = Listar::getInstanceListar();
     $listaspf = $listar->listarPessoa();
-    $listaspj = $listar->listarPessoaJuridica();
-    require_once ('app/view/view-admin/admin.php');
+
+    include_once ('app/view/partlals/header.php');
+    require_once ('app/view/view-admin/pessoa-fisica.php');
   }
 
-  function logar() {
+  public function pessoaJuridica() {
+    $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
+    $PESSOA = '<ul class="list-inline">
+                        <li><a href="pessoa-f">Pessoa Fisica</a></li>
+                        <li><a href="admin">Telemarketing</a></li>
+                    </ul>';
+    $LOGIN = '<li><a href="">Bem vindo</a></li>
+              <ul class="list-inline">
+                <li><a href="logout">Sair</a></li>
+              </ul>';
+    $listar = Listar::getInstanceListar();
+    $listaspj = $listar->listarPessoaJuridica();
+
+    include_once ('app/view/partlals/header.php');
+    require_once ('app/view/view-admin/pessoa-juridica.php');
+  }
+
+  public function logar() {
     $validate = new DataValidator();
 
     $erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
@@ -158,7 +197,7 @@ class PagesController {
           //Retorna pagina de formulario pessoa juridica com erro nos dados de endereço ou login
           return false;
         } else {
-          header("Location: /logar");
+          header("Location: /login");
           die;
         }
     }

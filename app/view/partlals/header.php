@@ -14,5 +14,4 @@
     <link rel="stylesheet" href="app/assets/css/bootstrap-theme.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="app/assets/css/naopertube.css" media="screen" title="no title">
   </head>
-<?php $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>'; ?>
 <?php include_once ('app/view/partlals/nav.php'); ?>
