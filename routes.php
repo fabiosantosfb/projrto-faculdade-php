@@ -16,3 +16,4 @@ $router->get('pessoa-j','PagesController@pessoaJuridica');
 $router->post('cadastro-pf','PagesController@cadastroPessoaFisica');
 $router->post('cadastro-pj','PagesController@cadastroPessoaJuridica');
 $router->post('logar','PagesController@logar');
+$router->post('admin-status','PagesController@update');

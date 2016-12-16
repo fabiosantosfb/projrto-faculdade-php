@@ -192,4 +192,5 @@ class DaoUsuario extends ConexaoDb {
   public function getErro() {
     return $this->erro;
   }
+
 }

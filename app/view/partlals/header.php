@@ -13,5 +13,6 @@
     <link rel="stylesheet" href="app/assets/css/bootstrap.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="app/assets/css/bootstrap-theme.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="app/assets/css/naopertube.css" media="screen" title="no title">
+    <script src="app/assets/js/ajax.js" charset="utf-8"></script>
   </head>
 <?php include_once ('app/view/partlals/nav.php'); ?>

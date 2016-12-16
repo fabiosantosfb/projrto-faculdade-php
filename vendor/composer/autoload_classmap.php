@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Atributo' => $baseDir . '/app/model/Atributos.interface.php',
     'ComposerAutoloaderInit25f39ae5674b41fbe5247122846d71b0' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit25f39ae5674b41fbe5247122846d71b0' => $vendorDir . '/composer/autoload_static.php',
@@ -15,7 +14,6 @@ return array(
     'DaoUsuario' => $baseDir . '/app/dao/DaoInserirUsuario.class.php',
     'DataValidator' => $baseDir . '/app/controller/DataValidator.php',
     'Endereco' => $baseDir . '/app/model/Endereco.class.php',
-    'Insert' => $baseDir . '/app/dao/InsertUser.class.php',
     'Listar' => $baseDir . '/app/dao/DaoListarUsuarios.class.php',
     'Login' => $baseDir . '/app/model/Logar.class.php',
     'PagesController' => $baseDir . '/app/controller/PagesController.php',
@@ -26,5 +24,6 @@ return array(
     'Selection' => $baseDir . '/app/dao/DaoSelecionarUsuario.class.php',
     'Session' => $baseDir . '/app/model/Session.class.php',
     'Telefone' => $baseDir . '/app/model/Telefone.class.php',
+    'UpdateUser' => $baseDir . '/app/dao/UpdateUser.class.php',
     'Usuario' => $baseDir . '/app/model/Usuario.class.php',
 );

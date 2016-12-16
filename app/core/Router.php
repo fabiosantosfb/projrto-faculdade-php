@@ -38,6 +38,5 @@ class Router {
           throw new Exception("{$controller} não existe este metado {$action}");
       }
       return $controller->$action();
-      //return (new $controller)->$action();
   }
 }

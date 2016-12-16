@@ -18,6 +18,7 @@ class PagesController {
     }
     return self::$PagesController;
   }
+
   public function page_form_login() {
     $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline">
@@ -46,6 +47,7 @@ class PagesController {
   }
 
   public function home() {
+    $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $LOGIN = '<li><a href="login">Logar</a></li>';
     $PESSOA = '<ul class="list-inline"><li><a href="pessoa-fisica">Pessoa Fisica</a></li></ul>';
 
@@ -53,6 +55,7 @@ class PagesController {
   }
 
   public function userPessoaFisica() {
+    $HOME = '<a class="navbar-brand" href="">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline"><li><a href="pessoa-juridica">Pessoa Fisica</a></li></ul>';
     $LOGIN = '<li><a href="">Bem vindo</a></li>
               <ul class="list-inline">
@@ -69,6 +72,7 @@ class PagesController {
   }
 
   public function userPessoaJuridica() {
+    $HOME = '<a class="navbar-brand" href="">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline"><li><a href="">Pessoa Juridica</a></li></ul>';
     $LOGIN = '<li><a href="">Bem vindo</a></li>
               <ul class="list-inline">
@@ -349,6 +353,14 @@ class PagesController {
               return false;
             }
       }
+  }
+
+  function update(){
+
+        $sta = ($_POST['status'] == 1)? 0: 1;
+        $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
+        $updateTelemarketing->update($sta,$_POST['id']);
+
   }
 
   function remove($id) {
