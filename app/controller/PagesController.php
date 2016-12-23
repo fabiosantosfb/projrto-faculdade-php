@@ -18,7 +18,9 @@ class PagesController {
     }
     return self::$PagesController;
   }
-
+  /*
+  *FUNÇÃO PAGE FORMULARIO DE LOGIN
+  */
   public function page_form_login() {
     $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline">
@@ -29,7 +31,9 @@ class PagesController {
 
     require_once ('app/view/view-form-login.php');
   }
-
+  /*
+  *FUNÇÃO PAGE FORMULARIO DE PESSOA FISICA
+  */
   public function page_form_pessoafisica() {
     $HOME = '<a class="navbar-brand" href="pessoa-juridica">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline"><li><a href="pessoa-juridica">Pessoa Juridica</a></li></ul>';
@@ -37,7 +41,9 @@ class PagesController {
 
     require_once ('app/view/view-form-pf.php');
   }
-
+  /*
+  *FUNÇÃO PAGE FORMULARIO DE PESSOA JURIDICA
+  */
   public function page_form_pessoajuridica() {
     $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $PESSOA = '<ul class="list-inline"><li><a href=pessoa-fisica>Pessoa Fisica</a></li></ul>';
@@ -45,7 +51,9 @@ class PagesController {
 
     require_once ('app/view/view-form-pj.php');
   }
-
+  /*
+  *FUNÇÃO PAGE INICIAL
+  */
   public function home() {
     $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $LOGIN = '<li><a href="login">Logar</a></li>';
@@ -53,10 +61,12 @@ class PagesController {
 
     require_once ('app/view/view-form-pj.php');
   }
-
+  /*
+  *FUNÇÃO PAGE SESSÃO DE PESSOA FISICA
+  */
   public function userPessoaFisica() {
     $HOME = '<a class="navbar-brand" href="">Procon Paraiba</a>';
-    $PESSOA = '<ul class="list-inline"><li><a href="pessoa-juridica">Pessoa Fisica</a></li></ul>';
+    $PESSOA = '<ul class="list-inline"><li><a href="">Pessoa Fisica</a></li></ul>';
     $LOGIN = '<li><a href="">Bem vindo</a></li>
               <ul class="list-inline">
                 <li><a href="logout">Sair</a></li>
@@ -70,25 +80,38 @@ class PagesController {
     require_once ('app/view/view-pf-pages.php');
 
   }
-
+  /*
+  *FUNÇÃO PAGE DA SESSÃO DE PESSOA JURIDICA
+  */
   public function userPessoaJuridica() {
-    $HOME = '<a class="navbar-brand" href="">Procon Paraiba</a>';
-    $PESSOA = '<ul class="list-inline"><li><a href="">Pessoa Juridica</a></li></ul>';
-    $LOGIN = '<li><a href="">Bem vindo</a></li>
-              <ul class="list-inline">
-                <li><a href="logout">Sair</a></li>
-              </ul>';
 
     $pessoaJuridica = Selection::getInstanceSelection();
     $pessoa = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
     $endereco = $pessoaJuridica->seachAddress($_SESSION['id']);
     $telefone = $pessoaJuridica->seachTelefone($_SESSION['id']);
 
+    $telemarketing = $pessoaJuridica->selectionTelemarketing($_SESSION['id']);
+
     require_once ('app/view/view-pj-pages.php');
   }
+  /*
+  *FUNÇÃO PAGE DA SESSÃO DE LISTAGEM PARA TELEMARKETING
+  */
+  public function listagemTelemarketing() {
+      $pessoaJuridica = Selection::getInstanceSelection();
+      $telemarketing = $pessoaJuridica->selectionTelemarketing($_SESSION['id']);
 
+      $listar = Listar::getInstanceListar();
+      $listagemPf = $listar->listarTelefonePf();
+      $listagemPj = $listar->listarTelefonePj();
+
+      //die(var_dump($listagemPj));
+      require_once ('app/view/view-telemarketing.php');
+  }
+  /*
+  *FUNÇÃO PAGE DO ADMINISTRADOR
+  */
   public function userAdmin() {
-
     $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
     $PESSOA = '<ul class="list-inline">
                         <li><a href="pessoa-f">Pessoa Fisica</a></li>
@@ -104,7 +127,9 @@ class PagesController {
     include_once ('app/view/partlals/header.php');
     require_once ('app/view/view-admin/admin.php');
   }
-
+  /*
+  *FUNÇÃO PAGE DE DADOS PESSOA FISICA PARA O ADIMINISTRADOR
+  */
   public function pessoaFisica() {
     $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
     $PESSOA = '<ul class="list-inline">
@@ -121,7 +146,9 @@ class PagesController {
     include_once ('app/view/partlals/header.php');
     require_once ('app/view/view-admin/pessoa-fisica.php');
   }
-
+  /*
+  *FUNÇÃO DE DADOS PESSOA JURIDICA PARA O ADIMINISTRADOR
+  */
   public function pessoaJuridica() {
     $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
     $PESSOA = '<ul class="list-inline">
@@ -138,7 +165,9 @@ class PagesController {
     include_once ('app/view/partlals/header.php');
     require_once ('app/view/view-admin/pessoa-juridica.php');
   }
-
+  /*
+  *FUNÇÃO PARA LOGIN DAS SESSOES DE USUARIO
+  */
   public function logar() {
     $validate = new DataValidator();
 
@@ -158,7 +187,7 @@ class PagesController {
           if($_SESSION['type_user'] == 'pf') {
             header("Location: /session-pf");
             die;
-          } else if($_SESSION['type_user'] == 'pj'){
+          } else if($_SESSION['type_user'] == 'pj' || $_SESSION['type_user'] == 'tlm'){
             header("Location: /session-pj");
             die;
           } else if($_SESSION['type_user'] == 'admin'){
@@ -172,7 +201,9 @@ class PagesController {
       return false;
     }
   }
-
+  /*
+  *FUNÇÃO SAIR DA SESSÃO
+  */
   function logout() {
       include_once ('app/model/Session.class.php');
       $session = Session::getInstanceSession();
@@ -184,7 +215,9 @@ class PagesController {
       header("Location: /login");
       die;
   }
-
+  /*
+  *FUNÇÃO CADASTRO PESSOA JURIDICA OU TELEMARKETING
+  */
   function cadastroPessoaJuridica(){
     $validate = new DataValidator();
     $validate->set('cnpj', $_POST['cnpj'])->is_required();
@@ -207,7 +240,9 @@ class PagesController {
     }
     return true;
   }
-
+  /*
+  *FUNÇÃO CADASTRO PESSSOA FISICA
+  */
   function cadastroPessoaFisica(){
 
     $validate = new DataValidator();
@@ -236,9 +271,10 @@ class PagesController {
         }
     }
   }
-
+  /*
+  *FUNÇÃO CADASTRO DE TODOS USUARIO
+  */
   function cadastrar() {
-
       $validate = new DataValidator();
 
       $validate->set('type', $_POST['type'])->is_required();
@@ -308,7 +344,9 @@ class PagesController {
           return false;
         }
   }
-
+  /*
+  *FUNÇÃO INSERIR DADOS CADASTRO
+  */
   function insertUsuario($pessoa, $login, $endereco, $tipoCadastro, $fone) {
       include_once ('app/dao/DaoInserirUsuario.class.php');
       $insertUsuario = new DaoUsuario($pessoa, $login, $endereco, $fone);
@@ -354,7 +392,9 @@ class PagesController {
             }
       }
   }
-
+  /*
+  *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
+  */
   function update(){
 
         $sta = ($_POST['status'] == 1)? 0: 1;
@@ -362,77 +402,19 @@ class PagesController {
         $updateTelemarketing->update($sta,$_POST['id']);
 
   }
-
-  function remove($id) {
-    include_once ('app/dao/DaoSelecionarUsuario.class.php');
-
-    if(!empty($_POST['id_telemarketing'])){
-      $id = $_POST['id_telemarketing'];
-        if(removeProduto($conexao, $id)) {
-          $msgRet = "Produto $id removido com sucesso!";
-        } else {
-          $msg = mysqli_error($conexao);
-          $msgRet = "O produto $id não foi adicionado:  $msg";
-        }
-        mysqli_close($conexao);
-        header("Location: /?controller=produtos&action=lista");
-        ProdutosController::lista();
-    }
-  }
-
-  function ativar() {
-    include_once ('app/dao/DaoSelecionarUsuario.class.php');
-
-      if(!empty($_POST['id_telemarketing'])){
-        $id = $_POST['id_telemarketing'];
-          if(ativarProduto($conexao, $id, $ativa=1)) {
-            $msgRet = "Produto $id removido com sucesso!";
-          } else {
-            $msg = mysqli_error($conexao);
-            $msgRet = "O produto $id não foi adicionado:  $msg";
-          }
-          mysqli_close($conexao);
-          header("Location: /?controller=produtos&action=lista");
-          ProdutosController::lista();
-      }
-  }
-
-  function desativar() {
-    include_once ('app/dao/DaoSelecionarUsuario.class.php');
-
-    if(!empty($_POST['id_telemarketing'])){
-        $id = $_POST['id_telemarketing'];
-        if(ativarProduto($conexao, $id, $ativa=0)) {
-          $msgRet = "Produto $id removido com sucesso!";
-        } else {
-          $msg = mysqli_error($conexao);
-          $msgRet = "O produto $id não foi adicionado:  $msg";
-        }
-        mysqli_close($conexao);
-        header("Location: /?controller=produtos&action=lista");
-        ProdutosController::lista();
-    }
-  }
-
-  function search($id) {
-    include_once ('app/dao/DaoSelecionarUsuario.class.php');
-
-    if(!searchTelemarketing($conexao, $id)) {
-      $msgRet = "Produto $id removido com sucesso!";
-    }
-      mysqli_close($conexao);
-      header("Location: /?controller=produtos&action=lista");
-      ProdutosController::lista();
-    }
-
-    function getErroForm($validate){
+  /*
+  *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
+  */
+  function getErroForm($validate){
       $array = $validate->get_errors();
       foreach ($array as $key => $value) { }
 
       $this->erro = $key;
-    }
-
-    function erros() {
+  }
+  /*
+  *FUNÇÃO PARA RETORNO DE ERROS OCORRIDO NO FORMULARIO OU CONSULTA DE BANCO
+  */
+  function erros() {
       return $this->erro;
     }
   }

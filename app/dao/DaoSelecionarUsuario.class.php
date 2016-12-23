@@ -98,7 +98,7 @@ class Selection extends ConexaoDb {
         if ($validar->rowCount() === 1){
           return $validar->fetch(PDO::FETCH_ASSOC);
         } else {
-          $this->erro = "Conta não encontrada!";
+          //$this->erro = "Conta não encontrada!";
           return false;
         }
     } catch (Exception $pJ){

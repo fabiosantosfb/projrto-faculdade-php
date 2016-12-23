@@ -8,6 +8,7 @@ $router->get('logout','PagesController@logout');
 
 $router->get('session-pf','PagesController@userPessoaFisica');
 $router->get('session-pj','PagesController@userPessoaJuridica');
+$router->get('list','PagesController@listagemTelemarketing');
 $router->get('admin','PagesController@userAdmin');
 
 $router->get('pessoa-f','PagesController@pessoaFisica');

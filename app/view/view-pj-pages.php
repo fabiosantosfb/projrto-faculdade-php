@@ -1,3 +1,12 @@
+<?php
+      $PESSOA = ($telemarketing)? '<ul class="list-inline"><li><a href="session-pj">Meus Dados</a></li><li><a href="list">Listagem</a></li></ul>' : '<ul class="list-inline"><li><a href="">Pessoa Juridica</a></li></ul>';
+      $HOME = '<a class="navbar-brand" href="">Procon Paraiba</a>';
+      //$PESSOA = '<ul class="list-inline"><li><a href="">Pessoa Juridica</a></li></ul>';
+      $LOGIN = '<li><a href="">Bem vindo</a></li>
+                <ul class="list-inline">
+                  <li><a href="logout">Sair</a></li>
+                  </ul>';
+?>
 <?php include_once 'app/view/partlals/header.php' ?>
 <table class="table table-striped table-bordered btn-primary">
 <legend>Dados - Pessoa Jurídica</legend>
@@ -92,4 +101,4 @@
   </tr>
 </tbody>
 </table>
-<?php include_once ('app/view/footer.php') ?>
+<?php include_once ('app/view/partlals/footer.php') ?>
