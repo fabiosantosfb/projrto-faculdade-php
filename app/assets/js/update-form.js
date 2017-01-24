@@ -1,9 +1,5 @@
-
 function modifiStatus(id, _status){
-    var result  = id;
     var params = "id="+id+"&status="+_status;
-
-    alert("id="+id+"&status="+_status);
     var xhttp = new XMLHttpRequest();
 
     xhttp.open("POST", "admin-status", true);

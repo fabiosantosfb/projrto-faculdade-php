@@ -5,7 +5,7 @@
       $LOGIN = '<li><a href="">Bem vindo</a></li>
                 <ul class="list-inline">
                   <li><a href="logout">Sair</a></li>
-                  </ul>';
+                </ul>';
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
 <table class="table table-striped table-bordered btn-primary">

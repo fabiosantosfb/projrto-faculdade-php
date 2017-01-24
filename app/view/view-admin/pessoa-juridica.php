@@ -1,5 +1,4 @@
-<?php include_once ('app/view/view-admin/admin-home.php');
- ?>
+<?php include_once ('app/view/view-admin/admin-home.php'); ?>
  <form class="form-inline" method="post" action="/?controller=produtos&action=search">
    <div class="form-group">
      <input type="txt" class="form-control" id="empresa" name="param" placeholder="cnpj">

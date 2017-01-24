@@ -1,6 +1,8 @@
   <legend>Telefone</legend>
   <!-- Text input-->
+  <script type="text/javascript">
 
+  </script>
   <div class="form-group">
     <label class="col-md-4 control-label" for="tel">Telefone</label>
     <div class="col-md-6">
@@ -88,5 +90,4 @@
   </fieldset>
   </form>
 <!--  <?php //if($this->ERRO_FORM) echo "<script>alert('$this->erro')</script>";?>-->
-
   <?php include_once 'app/view/partlals/footer.php' ?>

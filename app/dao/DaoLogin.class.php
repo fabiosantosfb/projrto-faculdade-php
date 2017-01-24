@@ -2,9 +2,11 @@
     class DaoLogin extends ConexaoDb {
         private $login;
         private $erro;
+        //private static $session;
 
         public function __construct($login) {
             $this->login = $login;
+            //self::$session = Session::getInstanceSession();
         }
 
         public function loginDb() {
@@ -20,6 +22,11 @@
                     if ($this->login->getPassword() == $row['senha']) {
                         $_SESSION['id'] = $row['id_usuario'];
                         $_SESSION['type_user'] = $row['type'];
+
+                        //self::$session->gerarSession(true);
+                        //self::$session->setIdSession($row['id_usuario']);
+                        //self::$session->setTypeSession($row['type']);
+
                         return true;
                     } else {
                         $this->erro = "Senha invalida";

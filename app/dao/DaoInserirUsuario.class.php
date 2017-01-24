@@ -162,13 +162,13 @@ class DaoUsuario extends ConexaoDb {
         $this->validarEnd->bindValue(":numero", $this->dataEndereco->getNumero());
         $this->validarEnd->bindValue(":complemento", $this->dataEndereco->getComplemento());
 
-        if($this->validarUser->execute()) {
+        /*if($this->validarUser->execute()) {
           $this->validarDoc->execute();
           $this->validarTel->execute();
           $this->validarEnd->execute();
 
           return true;
-        }
+        }*/
         return false;
     } catch (Exception $ex){
        $this->erro = "Exceção ao inserir Endereco!";

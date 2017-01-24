@@ -1,4 +1,11 @@
+<?php
+    $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
+    $PESSOA = '<ul class="list-inline"><li><a href="pessoa-f">Pessoa Fisica</a></li><li><a href="pessoa-j">Pessoa Juridica</a></li></ul>';
+    $LOGIN = '<li><a href="">Bem vindo</a></li><ul class="list-inline"><li><a href="logout">Sair</a></li></ul>';
 
+    include_once ('app/view/partlals/header.php');
+?>
+<script src="app/assets/js/update-form.js" charset="utf-8"></script>
 <form class="form-inline" method="post" action="/search">
   <div class="form-group">
     <input type="txt" class="form-control" id="empresa" name="param" placeholder="Buscar por Id">

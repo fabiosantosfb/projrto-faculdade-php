@@ -17,7 +17,6 @@ class DataValidator {
         $this->define_pattern();
     }
 
-
     /**
      * Set a data for validate
      * @access public
@@ -30,7 +29,6 @@ class DataValidator {
         $this->_data['value'] = $value;
         return $this;
     }
-
 
     /**
      * Set error messages default born in the class
@@ -58,7 +56,7 @@ class DataValidator {
             'is_instance_of' => '%s não é uma instância de %s ',
             'is_arr'         => 'A variável %s não é um array ',
             'is_directory'   => '%s não é um diretório válido ',
-            //'is_equals'      => 'O valor do campo %s deve ser igual à %s ',
+            'is_equals'      => 'O valor do campo %s deve ser igual à %s ',
             'is_equals'      => 'O Campo Confirmar Senha deve ter o mesmo valor do Campo Senha! ',
             'is_not_equals'  => 'O valor do campo %s não deve ser igual à %s ',
             'is_cpf'         => 'O valor %s não é um CPF válido ',
@@ -77,7 +75,8 @@ class DataValidator {
             'is_phone'       => 'O campo %s não é um telefone válido',
             'is_zipCode'     => 'O campo %s não é um CEP válido',
             'is_plate'       => 'O campo $s não é válido',
-            'is_ip'          => 'O campo $s não é um ip válido'
+            'is_ip'          => 'O campo $s não é um ip válido',
+            'is_rg'          => 'O campo não é um RG válido'
         );
     }
 
@@ -180,7 +179,7 @@ class DataValidator {
     public function min_length($length, $inclusive = false){
         $verify = ($inclusive === true ? strlen($this->_data['value']) >= $length : strlen($this->_data['value']) > $length);
         if (!$verify){
-            $this->set_error(sprintf($this->_messages['min_length'], $this->_data['name'], $length));
+            $this->set_error(sprintf($this->_messages['min_length'], $this->_data['name'], $length+1));
         }
         return $this;
     }
@@ -196,7 +195,7 @@ class DataValidator {
     public function max_length($length, $inclusive = false){
         $verify = ($inclusive === true ? strlen($this->_data['value']) <= $length : strlen($this->_data['value']) < $length);
         if (!$verify){
-            $this->set_error(sprintf($this->_messages['max_length'], $this->_data['name'], $length));
+            $this->set_error(sprintf($this->_messages['max_length'], $this->_data['name'], $length-1));
         }
         return $this;
     }
@@ -474,21 +473,12 @@ class DataValidator {
         $verify = true;
 
         $c = preg_replace('/\D/', '', $this->_data['value']);
+        //$c = preg_match('/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{3}$/', $this->_data['value']);
 
         if (strlen($c) != 11)
             $verify = false;
 
         if (preg_match("/^{$c[0]}{11}$/", $c))
-            $verify = false;
-
-        for ($s = 10, $n = 0, $i = 0; $s >= 2; $n += $c[$i++] * $s--);
-
-        if ($c[9] != ((($n %= 11) < 2) ? 0 : 11 - $n))
-            $verify = false;
-
-        for ($s = 11, $n = 0, $i = 0; $s >= 2; $n += $c[$i++] * $s--);
-
-        if ($c[10] != ((($n %= 11) < 2) ? 0 : 11 - $n))
             $verify = false;
 
         if(!$verify){
@@ -498,7 +488,28 @@ class DataValidator {
         return $this;
     }
 
+    /**
+     * Verify if the current data is a valid CPF
+     * @access public
+     * @return Data_Validator The self instance
+     */
+    public function is_rg(){
+        $verify = true;
 
+        $c = preg_replace('/\D/', '', $this->_data['value']);
+
+        if (strlen($c) != 7)
+            $verify = false;
+
+        if (preg_match('/^[0-9]{1}.[0-9]{3}.[0-9]{3}$/', $c))
+            $verify = false;
+
+        if(!$verify){
+            $this->set_error(sprintf($this->_messages['is_rg'], $this->_data['value']));
+        }
+
+        return $this;
+    }
     /**
      * Verify if the current data is a valid CNPJ
      * @access public
@@ -511,15 +522,6 @@ class DataValidator {
         $b = array(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
 
         if (strlen($c) != 14)
-            $verify = false;
-        for ($i = 0, $n = 0; $i<12; $n += $c[$i] * $b[++$i]);
-
-        if ($c[12] != ((($n %= 11) < 2) ? 0 : 11 - $n))
-            $verify = false;
-
-        for ($i = 0, $n = 0; $i <= 12; $n += $c[$i] * $b[$i++]);
-
-        if ($c[13] != ((($n %= 11) < 2) ? 0 : 11 - $n))
             $verify = false;
 
         if(!$verify){
@@ -661,18 +663,19 @@ class DataValidator {
      */
     public function is_date($format = null){
         $verify = true;
+
         if($this->_data['value'] instanceof DateTime){
             return $this;
-        }
-        elseif(!is_string($this->_data['value'])){
+        } else if (!is_string($this->_data['value'])){
             $verify = false;
-        }
-        elseif (is_null($format)){
+        } else if (is_null($format)){
             $verify = (strtotime($this->_data['value']) !== false);
+            //die(var_dump($verify));
             if($verify){
                 return $this;
             }
         }
+
         if($verify){
             $date_from_format = DateTime::createFromFormat($format, $this->_data['value']);
             $verify = $date_from_format && $this->_data['value'] === date($format, $date_from_format->getTimestamp());
@@ -749,6 +752,9 @@ class DataValidator {
      */
     public function is_phone(){
         $verify = preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s.-]?\d{4}$/', $this->_data['value']);
+
+         //preg_match('/^[0-9]{5}-[0-9]{3}$/', $this->_data['value']);
+
         if(!$verify){
             $this->set_error(sprintf($this->_messages['is_phone'], $this->_data['name']));
         }
