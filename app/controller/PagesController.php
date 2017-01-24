@@ -88,6 +88,7 @@ class PagesController {
     $pessoa = $pessoaFisica->selectionPessoaFisica($_SESSION['id']);
     $endereco = $pessoaFisica->seachAddress($_SESSION['id']);
     $telefone = $pessoaFisica->seachTelefone($_SESSION['id']);
+    $usuario = $pessoaFisica->dadosUser($_SESSION['id']);
 
     require_once ('app/view/view-pf-pages.php');
   }

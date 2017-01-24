@@ -109,7 +109,7 @@ class Selection extends ConexaoDb {
 
   public function selectionAdmin($id) {
     try{
-        $usuario = Login::getInstanceLogin();
+        //$usuario = Login::getInstanceLogin();
         $queryPj = "SELECT * FROM admin WHERE usuario_id_usuario = :id_usuario";
         $validar = Parent::getInstanceConexao()->prepare($queryPj);
         $validar->bindValue(":id_usuario",$id);
@@ -123,6 +123,25 @@ class Selection extends ConexaoDb {
         }
     } catch (Exception $pJ){
       $this->erro = "EXCEÇÃO NA CONSULTA DO ADMIN!";
+      return false;
+    }
+  }
+
+  public function dadosUser($id){
+    try{
+        $queryPj = "SELECT * FROM usuario WHERE id_usuario = :id_usuario";
+        $validar = Parent::getInstanceConexao()->prepare($queryPj);
+        $validar->bindValue(":id_usuario",$id);
+        $validar->execute();
+
+        if ($validar->rowCount() === 1){
+          return $validar->fetch(PDO::FETCH_ASSOC);
+        } else {
+          $this->erro = "Conta não encontrada!";
+          return false;
+        }
+    } catch (Exception $pJ){
+      $this->erro = "EXCEÇÃO NA CONSULTA DO USUARIO!";
       return false;
     }
   }

@@ -144,7 +144,11 @@
   </tbody>
 </table>
 <table class="table table-striped table-bordered btn-primary">
-<legend>Dados - Login</legend>
+  <ledend>
+
+    <input type="checkbox" name="telemarketing"> Editar login?
+
+</legend>
 <thead>
   <tr>
     <th>
@@ -162,11 +166,11 @@
 </thead>
 <tbody>
     <tr style="color:#000">
-        <td><input id="demo" onclick="myFunction('<?=$pessoa['usuario_id_usuario'] ?>')"; value="<?=$endereco['cep'] ?>" style="border:0;"></td>
+        <td><input id="demo" onclick="myFunction('<?=$usuario['id_usuario'] ?>')"; value="<?=$usuario['email'] ?>" style="border:0;"></td>
         <td></td>
-        <td><input id="demo" onclick="myFunction('<?=$pessoa['usuario_id_usuario'] ?>')"; value="<?=$endereco['rua'] ?>" style="border:0;"></td>
+        <td><input id="demo" type="password" onclick="myFunction('<?=$pessoa['usuario_id_usuario'] ?>')"; value="*******" style="border:0;"></td>
         <td></td>
-        <td><input id="demo" onclick="myFunction('<?=$pessoa['usuario_id_usuario'] ?>')"; value="<?=$endereco['bairro'] ?>" style="border:0;"></td>
+        <td><input id="demo" type="password" onclick="myFunction('<?=$pessoa['usuario_id_usuario'] ?>')"; value="*******" style="border:0;"></td>
     </tr>
   </tbody>
 </table>
