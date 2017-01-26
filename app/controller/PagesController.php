@@ -2,7 +2,7 @@
 
 class PagesController {
   private $tipoCadastro;
-  private static $login;
+  private $login;
   private $fone;
   private $endereco;
   private $pessoa;
@@ -178,11 +178,11 @@ class PagesController {
     self::$erro =  $validate->set('senha', $_POST['senha'])->is_required();
 
     if ($validate->validate()){
-        self::$login  = Login::getInstanceLogin();
-        self::$login->setEmail($_POST['email']);
-        self::$login->setPassword($_POST['senha']);
+        $this->login  = Login::getInstanceLogin();
+        $this->login->setEmail($_POST['email']);
+        $this->login->setPassword($_POST['senha']);
 
-        $d_logar = new DaoLogin(self::$login);
+        $d_logar = new DaoLogin($this->login);
         if(!$d_logar->loginDb()){
             self::$erro = $d_logar->getErro();
             return false;
@@ -220,7 +220,6 @@ class PagesController {
       self::page_form_pessoajuridica();
     } else {
         if(!self::cadastrar()) {
-          //Retorna pagina de formulario pessoa juridica com erro nos dados de endereço ou login
           self::page_form_pessoajuridica();
         } else {
           header("Location: /login");
@@ -318,17 +317,9 @@ class PagesController {
               $this->pessoa->setOrgExpedidor($_POST['orgao_expedidor']);
               $this->pessoa->setUf($_POST['uf']);
           }
-          if($update) {
-            if(self::updateUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone)) {
-              return true;
-            }
-            return false;
-          }
           if(self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone))
             return true;
-
           return false;
-
         } else {
           self::getErroForm($validate);
           self::$erro_form = true;
@@ -352,7 +343,7 @@ class PagesController {
                   if($insertUsuario->inserirEndereco()) {
                     if($pessoa->getTelemarketing()) {
                       if(!$insertUsuario->inserirTelemarketing()) {
-                        $this->erro = $insertUsuario->getErro();
+                        self::$erro = $insertUsuario->getErro();
                         return false;
                       }
                     }
@@ -361,9 +352,9 @@ class PagesController {
                 }
               }
             }
-            $this->erro = $insertUsuario->getErro();
+            self::$erro = $insertUsuario->getErro();
           } catch (Exception $ex){
-            $this->erro = "Exeção no Cadastro de Pessoa Fisica!";
+            self::$erro = "Exeção no Cadastro de Pessoa Fisica!";
             return false;
           }
       } else if($tipoCadastro == "pessoafisica" && $pessoa->getCpf() != null) {
