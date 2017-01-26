@@ -91,6 +91,10 @@ class PagesController {
     $usuario = $pessoaFisica->dadosUser($_SESSION['id']);
 
     require_once ('app/view/view-pf-pages.php');
+    if(self::$erro_form){
+        $key = self::erros();
+        echo "<script>alert('$key')</script>";
+    }
   }
   /*
   *FUNÇÃO PAGE DA SESSÃO DE PESSOA JURIDICA
@@ -324,6 +328,7 @@ class PagesController {
             return true;
 
           return false;
+
         } else {
           self::getErroForm($validate);
           self::$erro_form = true;
@@ -384,15 +389,24 @@ class PagesController {
   *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
   */
   function update(){
-
         $sta = ($_POST['status'] == 1)? 0: 1;
         $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
         $updateTelemarketing->update($sta,$_POST['id']);
-
   }
 
-  function page_update_form_pessoafisica() {
+  function updateTelefone() {
 
+    $validate = new DataValidator();
+    $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
+
+      if($validate->validate()){
+        $update = UpdateUser::getInstanceUpdateUser();
+        $update->updateTelefone($_POST['telefone'], $_GET['id']);//update($sta,$_POST['id']);
+      } else {
+        self::getErroForm($validate);
+        self::$erro_form = true;
+        self::userPessoaFisica();
+      }
   }
   /*
   *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO

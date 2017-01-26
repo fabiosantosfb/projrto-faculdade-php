@@ -11,7 +11,6 @@ class UpdateUser extends  ConexaoDb {
   }
 
   public function update($status, $id){
-    var_dump("ola $status");
     try{
         $update = "UPDATE telemarketing SET status_ativo = :status  WHERE pessoa_juridica_usuario_id_usuario = :id";
         $validar = Parent::getInstanceConexao()->prepare($update);
@@ -21,6 +20,20 @@ class UpdateUser extends  ConexaoDb {
 
     } catch (Exception $tele){
       $this->erro = "EXCEÇÃO AO ATUALUZAR TELEMARKETING!";
+      return $tele->getMessage();
+    }
+  }
+
+  public function updateTelefone($telefone, $id){
+    try{
+        $update = "UPDATE telefone SET telefone_numero = :telefone  WHERE usuario_id_usuario = :id";
+        $validar = Parent::getInstanceConexao()->prepare($update);
+        $validar->bindValue(":telefone",$telefone);
+        $validar->bindValue(":id",$id);
+        $validar->execute();
+
+    } catch (Exception $tele){
+      $this->erro = "EXCEÇÃO AO ATUALUZAR TELEFONE!";
       return $tele->getMessage();
     }
   }
