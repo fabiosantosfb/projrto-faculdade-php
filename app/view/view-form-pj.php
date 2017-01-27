@@ -1,6 +1,6 @@
 <?php include_once ('app/view/partlals/header.php') ?>
 <script src="app/assets/js/np-procon-pb-pj.js" charset="utf-8"></script>
-<form class="form-horizontal" method="post" action="/cadastro-pj">
+<form class="form-horizontal" method="post" action="cadastro-pj">
 <fieldset>
 <!-- Form Name -->
 <legend>Cadastro - Pessoa Jurídica</legend>
