@@ -1,5 +1,5 @@
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <?php

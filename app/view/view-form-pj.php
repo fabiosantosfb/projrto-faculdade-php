@@ -18,7 +18,7 @@
       <div class="col-md-6">
           <input id="nome" name="nome" type="text" placeholder="Razao social" class="form-control input-md" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
         <label>
-          <input type="checkbox" name="telemarketing"> Sou Telemarketing
+          <input type="checkbox" name="telemarketing"> Empresa de Telemarketing
         </label>
       </div>
 </div>
