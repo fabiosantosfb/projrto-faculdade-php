@@ -1,7 +1,29 @@
 <?php
-    $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
-    $PESSOA = '<ul class="list-inline"><li><a href="pessoa-f">Pessoa Fisica</a></li><li><a href="pessoa-j">Pessoa Juridica</a></li></ul>';
-    $LOGIN = '<li><a href="">Bem vindo</a></li><ul class="list-inline"><li><a href="logout">Sair</a></li></ul>';
+    $HOME = '
+    <a class="nav-item" href="admin">
+      <span class="icon"><i class="fa fa-tachometer"></i></span>
+      <span>Administrador</span>
+    </a>';
+
+    $PESSOA = '
+    <a class="nav-item" href="pessoa-f">
+        <span class="icon"><i class="fa fa-user"></i></span>
+        <span>Pessoa Física</span>
+    </a>
+    <a class="nav-item" href="pessoa-j">
+        <span class="icon"><i class="fa fa-building"></i></span>
+        <span>Pessoa Jurídica</span>
+    </a>
+    ';
+
+    $LOGIN = '
+    <a class="nav-item" href="">Bem Vindo</a>
+    <a class="button is-primary" href="logout">
+        <span class="icon">
+          <i class="fa fa-sign-out"></i>
+        </span>
+        <span>SAIR</span>
+    </a>';
 
     include_once ('app/view/partlals/header.php');
 ?>

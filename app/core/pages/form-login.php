@@ -1,7 +1,15 @@
-<?php $PESSOA = '<ul class="list-inline">
-                    <li><a href="pessoa-fisica">Pessoa Fisica</a></li>
-                    <li><a href="pessoa-juridica">Pessoa Juridica</a></li>
-                </ul>';
-$LOGIN = ''; 
+<?php
+$PESSOA = '
+<a class="nav-item" href="pessoa-fisica">
+    <span class="icon"><i class="fa fa-user"></i></span>
+    <span>Pessoa Física</span>
+</a>
+<a class="nav-item" href="pessoa-juridica">
+<span class="icon"><i class="fa fa-building"></i></span>
+<span>Pessoa Jurídica</span>
+</a>
+';
+
+$LOGIN = '';
 
 require ('app/view/view-form-login.php');

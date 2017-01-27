@@ -1,7 +1,26 @@
 <?php
-      $HOME = '<a class="navbar-brand" href="">Procon Paraiba</a>';
-      $PESSOA = '<ul class="list-inline"><li><a href="">Pessoa Fisica</a></li></ul>';
-      $LOGIN = '<li><a href="">Bem vindo</a></li><ul class="list-inline"><li><a href="logout">Sair</a></li></ul>';
+    $HOME = '
+    <a class="nav-item" href="">
+      <span class="icon"><i class="fa fa-home"></i></span>
+      <span>Início</span>
+    </a>';
+
+    $PESSOA = '
+    <a class="nav-item" href="">
+        <span class="icon"><i class="fa fa-user"></i></span>
+        <span>Pessoa Física</span>
+    </a>
+    ';
+
+    $LOGIN = '
+    <a class="nav-item" href="">Bem Vindo</a>
+    <a class="button is-primary" href="logout">
+      <span class="icon">
+        <i class="fa fa-sign-out"></i>
+      </span>
+      <span>SAIR</span>
+    </a>';
+
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/np-procon-pb-pf.js" charset="utf-8"></script>
