@@ -1,15 +1,12 @@
 <?php
     $PESSOA = ($telemarketing)? '
     <a class="nav-item" href="session-pj">
-        <span class="icon"><i class="fa fa-info"></i></span>
         <span>Meus Dados</span>
     </a>
     <a class="nav-item" href="list">
-        <span class="icon"><i class="fa fa-list"></i></span>
         <span>Listagem</span>
     </a>
     <a class="nav-item" href="">
-        <span class="icon"><i class="fa fa-building"></i></span>
         <span>Pessoa Jurídica</span>
     </a>
     ';
@@ -17,7 +14,6 @@
       $HOME = '
       <a class="nav-item" href="">
         <span class="icon"><i class="fa fa-home"></i></span>
-        <span>Início</span>
       </a>';
 
       $LOGIN = '<li><a href="">Bem vindo</a></li>

@@ -13,7 +13,6 @@
         <span></span>
         <span></span>
         <span></span>
-
       </span>
 
       <!-- This "nav-menu" is hidden on mobile -->
@@ -31,9 +30,9 @@
       </div>
     </nav>
 
-    <section class="hero is-primary">
+    <section class="hero is-primary is-bold">
       <div class="hero-body">
-        <div class="container">
+        <div class="container is-fluid">
           <h1 class="title">
             Não Pertube
           </h1>
@@ -43,5 +42,6 @@
         </div>
       </div>
     </section>
+
     <div class="container is-fluid">
         <div class="principal">

@@ -2,16 +2,13 @@
     $HOME = '
     <a class="nav-item" href="admin">
       <span class="icon"><i class="fa fa-tachometer"></i></span>
-      <span>Administrador</span>
     </a>';
 
     $PESSOA = '
     <a class="nav-item" href="pessoa-f">
-        <span class="icon"><i class="fa fa-user"></i></span>
         <span>Pessoa Física</span>
     </a>
     <a class="nav-item" href="pessoa-j">
-        <span class="icon"><i class="fa fa-building"></i></span>
         <span>Pessoa Jurídica</span>
     </a>
     ';

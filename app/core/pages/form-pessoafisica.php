@@ -1,7 +1,6 @@
 <?php
     $PESSOA = '
     <a class="nav-item" href="pessoa-juridica">
-        <span class="icon"><i class="fa fa-building"></i></span>
         <span>Pessoa Jurídica</span>
     </a>
     ';

@@ -3,12 +3,6 @@
   <script type="text/javascript">
 
   </script>
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="tel">Telefone</label>
-    <div class="col-md-6">
-      <input id="telefone" name="telefone" type="text" placeholder="00 00000 0000" class="form-control input-md" required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>">
-    </div>
-  </div>
   <legend>Email Senha</legend>
   <!-- Text input-->
   <div class="form-group">

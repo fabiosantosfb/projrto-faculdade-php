@@ -2,7 +2,6 @@
 $HOME = '
 <a class="nav-item" href="login">
   <span class="icon"><i class="fa fa-home"></i></span>
-  <span>Início</span>
 </a>';
 
   $LOGIN = '

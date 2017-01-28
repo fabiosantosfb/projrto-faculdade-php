@@ -2,12 +2,10 @@
     $HOME = '
     <a class="nav-item" href="">
       <span class="icon"><i class="fa fa-home"></i></span>
-      <span>Início</span>
     </a>';
 
     $PESSOA = '
     <a class="nav-item" href="">
-        <span class="icon"><i class="fa fa-user"></i></span>
         <span>Pessoa Física</span>
     </a>
     ';
