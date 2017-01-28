@@ -80,7 +80,7 @@
                                     <p class="title is-5">Telefones a serem bloqueados:</p>
                                     <label class="label">Número(s)</label>
                                     <p class="control">
-                                        <input class="input" id="telefone" name="telefone" type="text" placeholder="00 00000 0000" required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                        <input class="input-w-3" id="telefone" name="telefone" type="text" placeholder="00 00000 0000" required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
                                         <span class="help">Ex. (83) 99682-6985</span>
                                     </p>
                                 </div>
@@ -89,17 +89,17 @@
                                     <p class="title is-5">Dados para acesso</p>
                                     <label class="label">Email</label>
                                     <p class="control">
-                                        <input class="input" id="email" name="email" type="text" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
+                                        <input class="input-w-6" id="email" name="email" type="text" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
                                         <span class="help is-success">Ex. seunome@email.com</span>
                                     </p>
                                     <label class="label">Senha</label>
                                     <p class="control">
-                                        <input class="input" id="senha" name="senha" type="password" placeholder="Senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
+                                        <input class="input-w-4" id="senha" name="senha" type="password" placeholder="Senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
                                         <span class="help is-success">Caracteres (a-z, A-Z, 0-9, #@$%!?)</span>
                                     </p>
                                     <label class="label">Confirmar Senha</label>
                                     <p class="control">
-                                        <input class="input" id="repetir_senha" name="repetir_senha" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
+                                        <input class="input-w-4" id="repetir_senha" name="repetir_senha" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
                                         <span class="help is-success">Caracteres (a-z, A-Z, 0-9, #@$%!?)</span>
                                     </p>
                                     <p class="control">
