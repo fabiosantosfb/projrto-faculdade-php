@@ -1,11 +1,11 @@
 <!-- Text input-->
-<p>&nbsp;</p>
-<h1 class="title is-5">
-    Endereço
+<h1 class="title is-6">
+    ENDEREÇO
 </h1>
 <h2 class="subtitle is-6">
-    Informe seu endereço, bairro, número e complemento
+
 </h2>
+<hr>
 <label class="label">Logradouro</label>
 <p class="control">
     <input class="input" id="rua" name="rua" type="text" placeholder="Av...Rua" required="" value="<?php  if(isset($_POST['rua'])) echo htmlspecialchars($_POST['rua']); ?>">

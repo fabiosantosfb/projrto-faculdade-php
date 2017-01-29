@@ -34,7 +34,7 @@
       <div class="hero-body">
         <div class="container is-fluid">
           <h1 class="title">
-            Não Pertube
+            Registro de telefones
           </h1>
           <h2 class="subtitle">
             Cadastro de telefones para bloqueio de ligações de empresas de telemarketing
@@ -43,5 +43,5 @@
       </div>
     </section>
 
-    <div class="container is-fluid">
-        <div class="principal">
+        <div class="container np-padding-t-15 is-fluid has-shadow">
+        <div class="principal ">

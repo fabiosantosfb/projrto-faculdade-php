@@ -1,5 +1,6 @@
 body {
   padding-top: 0px;
+  background-color: rgb(211, 215, 208);
 }
 
 .principal {
@@ -11,6 +12,23 @@ body {
   background-color: #00FF00;
   border-color: #006400;
   color: #fff;
+}
+
+.np-padding-t-15 {
+    padding-top: 15px;
+}
+
+.np-padding-tb-15 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.np-padding-15 {
+    padding: 20px;
+}
+
+.np-padding-20 {
+    padding: 20px;
 }
 
 .input-w-3 {
