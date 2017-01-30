@@ -40,8 +40,7 @@ function updateEndereco(id_user){
 }
 
 function updateTelefone(id_user) {
-
-      var params = "id_pf="+id_user;
+    /*  var params = "id_pf="+id_user;
       var xhttp = new XMLHttpRequest();
 
       xhttp.open("POST", "update-telefone", true);
@@ -53,12 +52,34 @@ function updateTelefone(id_user) {
       			if (xhttp.status == 200){
       				result.innerHTML = xhttp.responseText;
       			} else {
+              alert("#######################################################################################!");
       				result.innerHTML = "Um erro ocorreu: " + xhttp.statusText;
       			}
       	};
       xhttp.send(params);
-      return xhttp;
-
+      return xhttp;*/
+      var xmlHttp;
+      try {// Firefox, Opera 8.0+, Safari
+         xmlHttp = new XMLHttpRequest();
+      } catch (e) {
+          try {// Internet Explorer
+             xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+           } catch (e) {
+               try {
+                 xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+               } catch (e) {
+                 alert("Browser não suporta AJAX!");
+                 return false;
+               }
+          }
+      }
+      xmlHttp.onreadystatechange = function(){
+        if (xmlHttp.readyState == 4){
+          alert(document.telefone.time.value = xmlHttp.responseText);
+        } else {
+          alert("xmlHttp.readyState != 4!");
+        }
+      };
 }
 
 function updateLogin(id_user){

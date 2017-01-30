@@ -5,15 +5,15 @@
     </p>
   </div>
   <div class="column">
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">
-              Login
-            </h1>
-            <h2 class="subtitle">
-              Atualizar seus dados e telefone(s)
-            </h2>
+      <section class="hero np-padding-20">
+          <div class="npTitle">
+              <h1 class="title is-4">
+                  Acesso
+              </h1>
+              <h2 class="subtitle is-6">
+                  Controle de acesso
+              </h2>
+              <hr>
             <form method="post" action="/logar">
                     <label class="label">Email</label>
                     <p class="control has-icon">
@@ -38,8 +38,6 @@
                       </p>
                     </div>
             </form>
-
-          </div>
         </div>
       </section>
   </div>

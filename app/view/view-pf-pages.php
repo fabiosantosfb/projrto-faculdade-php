@@ -2,18 +2,10 @@
     $HOME = '
     <a class="nav-item" href="">
       <span class="icon"><i class="fa fa-home"></i></span>
-<<<<<<< HEAD
-      <span>Início</span>
-=======
->>>>>>> origin/master
     </a>';
 
     $PESSOA = '
     <a class="nav-item" href="">
-<<<<<<< HEAD
-        <span class="icon"><i class="fa fa-user"></i></span>
-=======
->>>>>>> origin/master
         <span>Pessoa Física</span>
     </a>
     ';
@@ -169,7 +161,7 @@
   </th>
 </tr>
 </thead>
-<form method="post">
+<form name="telefone">
   <tbody>
     <tr style="color:#000">
       <td><input id="telefone" name="telefone" value="<?=$telefone['telefone_numero'] ?>" style="border:0;"></td>
@@ -180,7 +172,7 @@
 </table>
 <div class="row">
   <div class="col-md-9">
-      <input onclick="updateTelefone(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success" value="Atualizar"/>
+      <button onclick="updateTelefone(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success"/>Atualizar</button>
       <button onclick="addTelefone(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success">Add</button>
   </div>
 </div>

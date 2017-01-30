@@ -1,9 +1,5 @@
 <?php include_once ('app/view/partlals/header.php') ?>
-<<<<<<< HEAD
-=======
-<script src="app/assets/js/np-procon-pb-pj.js" charset="utf-8"></script>
-<?php include_once ('app/view/partlals/header.php') ?>
->>>>>>> origin/master
+
 <script src="app/assets/js/np-procon-pb-pf.js" charset="utf-8"></script>
 
 
@@ -28,7 +24,7 @@
 
                         </h2>
                         <hr>
-                        <form class="control" method="post" action="/cadastro-pf">
+                        <form class="control" method="post" action="/cadastro-pj">
                             <label class="label">CNPJ</label>
                             <p class="control">
                                 <input name="type" type="hidden" value="pj">
@@ -69,7 +65,7 @@
                             <hr>
                             <label class="label">Número(s)</label>
                             <p class="control">
-                                <input class="input-w-3" maxlength="15" id="telefone" name="telefone" type="text" placeholder="00 00000 0000" required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                <input class="input-w-4" maxlength="15" id="telefone" name="telefone" type="text" placeholder="00 00000 0000" required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
                                 <span class="help">Ex. (83) 99682-6985</span>
                             </p>
                             <h1 class="title is-6">

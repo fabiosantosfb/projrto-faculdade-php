@@ -1,7 +1,7 @@
 <?php
 
 
-    $PESSOA = (telemarketing)? '
+    $PESSOA = ($telemarketing)? '
     <a class="nav-item" href="session-pj">
         <span class="icon"><i class="fa fa-info"></i></span>
         <span>Meus Dados</span>
@@ -14,7 +14,7 @@
         <span class="icon"><i class="fa fa-building"></i></span>
         <span>Pessoa Jurídica</span>
     </a>
-    ';
+    ':
 
       $HOME = '
       <a class="nav-item" href="">

@@ -478,7 +478,8 @@ class PagesController {
   }
 
   function updateTelefone() {
-
+    echo '<script>alert(ola!)</script>';
+    /*
     $validate = new DataValidator();
     $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
 
@@ -489,7 +490,7 @@ class PagesController {
         self::getErroForm($validate);
         self::$erro_form = true;
         self::userPessoaFisica();
-      }
+      }*/
   }
   /*
   *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
