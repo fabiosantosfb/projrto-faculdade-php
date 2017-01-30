@@ -25,12 +25,25 @@ class PagesController {
   *FUNÇÃO PAGE FORMULARIO DE LOGIN
   */
   public function page_form_login() {
-    $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
-    $PESSOA = '<ul class="list-inline">
-                        <li><a href="pessoa-fisica">Pessoa Fisica</a></li>
-                        <li><a href="pessoa-juridica">Pessoa Juridica</a></li>
-                    </ul>';
+    $HOME = '
+    <a class="nav-item" href="pessoa-fisica">
+        <span class="icon"><i class="fa fa-home"></i></span>
+        <span>Início</span>
+    </a>';
+
+    // $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
+    $PESSOA = '
+    <a class="nav-item" href="pessoa-fisica">
+        <span class="icon"><i class="fa fa-person"></i></span>
+        <span>Pessoa Física</span>
+    </a>
+    <a class="nav-item" href="pessoa-juridica">
+        <span class="icon"><i class="fa fa-building"></i></span>
+        <span>Pessoa Jurídica</span>
+    </a>';
+
     $LOGIN = '';
+
 
     require_once ('app/view/view-form-login.php');
     if(self::$erro_form){
@@ -42,9 +55,28 @@ class PagesController {
   *FUNÇÃO PAGE FORMULARIO DE PESSOA FISICA
   */
   public function page_form_pessoafisica() {
-    $HOME = '<a class="navbar-brand" href="pessoa-juridica">Procon Paraiba</a>';
-    $PESSOA = '<ul class="list-inline"><li><a href="pessoa-juridica">Pessoa Juridica</a></li></ul>';
-    $LOGIN = '<li><a href="login">Logar</a></li>';
+    $HOME = '
+    <a class="nav-item" href="pessoa-juridica">
+      <span class="icon"><i class="fa fa-home"></i></span>
+      <span>Início</span>
+    </a>';
+
+    // $HOME = '<a class="navbar-brand" href="pessoa-juridica">Procon Paraiba</a>';
+    $PESSOA = '
+    <a class="nav-item" href="pessoa-juridica">
+        <span class="icon"><i class="fa fa-building"></i></span>
+        <span>Pessoa Jurídica</span>
+    </a>';
+
+    $LOGIN = '
+    <a class="button is-primary" href="login">
+        <span class="icon">
+          <i class="fa fa-sign-in"></i>
+        </span>
+        <span>ENTRAR</span>
+    </a>';
+
+    // $LOGIN = '<li><a href="login">Logar</a></li>';
 
     require_once ('app/view/view-form-pf.php');
     if(self::$erro_form){
@@ -56,9 +88,27 @@ class PagesController {
   *FUNÇÃO PAGE FORMULARIO DE PESSOA JURIDICA
   */
   public function page_form_pessoajuridica() {
-    $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
-    $PESSOA = '<ul class="list-inline"><li><a href=pessoa-fisica>Pessoa Fisica</a></li></ul>';
-    $LOGIN = '<li><a href="login">Logar</a></li>';
+    $HOME = '
+    <a class="nav-item" href="pessoa-fisica">
+      <span class="icon"><i class="fa fa-home"></i></span>
+      <span>Início</span>
+    </a>';
+
+    $PESSOA = '
+    <a class="nav-item" href="pessoa-fisica">
+        <span class="icon"><i class="fa fa-user"></i></span>
+        <span>Pessoa Física</span>
+    </a>';
+
+    $LOGIN = '
+    <a class="button is-primary" href="login">
+        <span class="icon">
+          <i class="fa fa-sign-in"></i>
+        </span>
+        <span>ENTRAR</span>
+    </a>';
+
+    // $LOGIN = '<li><a href="login">Logar</a></li>';
 
     require_once ('app/view/view-form-pj.php');
     if(self::$erro_form){
@@ -70,9 +120,25 @@ class PagesController {
   *FUNÇÃO PAGE INICIAL
   */
   public function home() {
-    $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
-    $LOGIN = '<li><a href="login">Logar</a></li>';
-    $PESSOA = '<ul class="list-inline"><li><a href="pessoa-fisica">Pessoa Fisica</a></li></ul>';
+    $HOME = '
+    <a class="nav-item" href="pessoa-fisica">
+        <span class="icon"><i class="fa fa-home"></i></span>
+        <span>Início</span>
+    </a>';
+
+    $LOGIN = '
+    <a class="button is-primary" href="login">
+        <span class="icon">
+          <i class="fa fa-sign-in"></i>
+        </span>
+        <span>ENTRAR</span>
+    </a>';
+
+    $PESSOA = '
+    <a class="nav-item" href="pessoa-fisica">
+        <span class="icon"><i class="fa fa-user"></i></span>
+        <span>Pessoa Física</span>
+    </a>';
 
     require_once ('app/view/view-form-pj.php');
     if(self::$erro_form){
@@ -134,15 +200,35 @@ class PagesController {
   *FUNÇÃO PAGE DE DADOS PESSOA FISICA PARA O ADIMINISTRADOR
   */
   public function pessoaFisica() {
-    $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
-    $PESSOA = '<ul class="list-inline">
-                        <li><a href="pessoa-j">Pessoa Juridica</a></li>
-                        <li><a href="admin">Telemarketing</a></li>
-                    </ul>';
-    $LOGIN = '<li><a href="">Bem vindo</a></li>
-              <ul class="list-inline">
-                <li><a href="logout">Sair</a></li>
-              </ul>';
+      $HOME = '
+      <a class="nav-item" href="admin">
+        <span class="icon"><i class="fa fa-tachometer"></i></span>
+        <span>Administrador</span>
+      </a>';
+
+      $PESSOA = '
+      <a class="nav-item" href="pessoa-j">
+          <span class="icon"><i class="fa fa-building"></i></span>
+          <span>Pessoa Jurídica</span>
+      </a>
+      <a class="nav-item" href="admin">
+          <span class="icon"><i class="fa fa-tachometer"></i></span>
+          <span>Telemarketing</span>
+      </a>
+      ';
+
+    $LOGIN = '
+    <a class="button is-primary" href="logout">
+        <span class="icon">
+          <i class="fa fa-sign-out"></i>
+        </span>
+        <span>SAIR</span>
+    </a>';
+
+    // $LOGIN = '<li><a href="">Bem vindo</a></li>
+    //           <ul class="list-inline">
+    //             <li><a href="logout">Sair</a></li>
+    //           </ul>';
     $listar = Listar::getInstanceListar();
     $listaspf = $listar->listarPessoa();
 
@@ -153,15 +239,35 @@ class PagesController {
   *FUNÇÃO DE DADOS PESSOA JURIDICA PARA O ADIMINISTRADOR
   */
   public function pessoaJuridica() {
-    $HOME = '<a class="navbar-brand" href="admin">Administrador</a>';
-    $PESSOA = '<ul class="list-inline">
-                        <li><a href="pessoa-f">Pessoa Fisica</a></li>
-                        <li><a href="admin">Telemarketing</a></li>
-                    </ul>';
-    $LOGIN = '<li><a href="">Bem vindo</a></li>
-              <ul class="list-inline">
-                <li><a href="logout">Sair</a></li>
-              </ul>';
+      $HOME = '
+      <a class="nav-item" href="admin">
+        <span class="icon"><i class="fa fa-tachometer"></i></span>
+        <span>Administrador</span>
+      </a>';
+
+      $PESSOA = '
+      <a class="nav-item" href="pessoa-j">
+          <span class="icon"><i class="fa fa-building"></i></span>
+          <span>Pessoa Jurídica</span>
+      </a>
+      <a class="nav-item" href="admin">
+          <span class="icon"><i class="fa fa-tachometer"></i></span>
+          <span>Telemarketing</span>
+      </a>
+      ';
+
+    $LOGIN = '
+    <a class="button is-primary" href="logout">
+        <span class="icon">
+          <i class="fa fa-sign-out"></i>
+        </span>
+        <span>SAIR</span>
+    </a>';
+
+    // $LOGIN = '<li><a href="">Bem vindo</a></li>
+    //           <ul class="list-inline">
+    //             <li><a href="logout">Sair</a></li>
+    //           </ul>';
     $listar = Listar::getInstanceListar();
     $listaspj = $listar->listarPessoaJuridica();
 

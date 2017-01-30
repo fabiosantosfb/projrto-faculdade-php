@@ -6,7 +6,14 @@
   $router->get('session-pf','PagesController@userPessoaFisica');
   $router->get('logout','PagesController@logout');
 
+
+  
+
   $router->post('update-telefone','PagesController@updateTelefone');
+
+
+
+
 //} else if($_SESSION['type_user'] == 'pj'){
   $router->get('session-pj','PagesController@userPessoaJuridica');
   $router->get('logout','PagesController@logout');

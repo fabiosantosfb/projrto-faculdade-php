@@ -1,3 +1,4 @@
+
 function updateDocument(id_user){
     var params = "id="+id_user;
     var xhttp = new XMLHttpRequest();
@@ -38,26 +39,26 @@ function updateEndereco(id_user){
     return xhttp;
 }
 
-function updateTelefone(id_user){
-    var params = "id="+id_user;
-    var xhttp = new XMLHttpRequest();
+function updateTelefone(id_user) {
 
-    var xhttp = new XMLHttpRequest();
+      var params = "id_pf="+id_user;
+      var xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST", "update-telefone", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.setRequestHeader("Content-length", params.length);
-    xhttp.setRequestHeader("Connection", "close");
-    xhttp.onreadystatechange = function(){
-    		if (xhttp.readyState == 4)
-    			if (xhttp.status == 200){
-    				result.innerHTML = xhttp.responseText;
-    			} else {
-    				result.innerHTML = "Um erro ocorreu: " + xhttp.statusText;
-    			}
-    	};
-    xhttp.send(params);
-    return xhttp;
+      xhttp.open("POST", "update-telefone", true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.setRequestHeader("Content-length", params.length);
+      xhttp.setRequestHeader("Connection", "close");
+      xhttp.onreadystatechange = function(){
+      		if (xhttp.readyState == 4)
+      			if (xhttp.status == 200){
+      				result.innerHTML = xhttp.responseText;
+      			} else {
+      				result.innerHTML = "Um erro ocorreu: " + xhttp.statusText;
+      			}
+      	};
+      xhttp.send(params);
+      return xhttp;
+
 }
 
 function updateLogin(id_user){
