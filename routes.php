@@ -7,9 +7,9 @@
   $router->get('logout','PagesController@logout');
 
 
-  
 
-  $router->post('update-telefone','PagesController@updateTelefone');
+
+  $router->post('updtel','PagesController@updateTelefone');
 
 
 

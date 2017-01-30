@@ -161,10 +161,11 @@
   </th>
 </tr>
 </thead>
-<form name="telefone">
+<form>
   <tbody>
     <tr style="color:#000">
-      <td><input id="telefone" name="telefone" value="<?=$telefone['telefone_numero'] ?>" style="border:0;"></td>
+      <input id="usuario" value="<?=$telefone['usuario_id_usuario'] ?>" type="hidden">
+      <td><input id="telefone" name="telefone" value="<?=$telefone['telefone_numero'] ?>" style="border:0;" ></td>
       <td></td>
       <td><?=$telefone['data_cadastro'] ?></td>
     </tr>
@@ -172,11 +173,12 @@
 </table>
 <div class="row">
   <div class="col-md-9">
-      <button onclick="updateTelefone(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success"/>Atualizar</button>
-      <button onclick="addTelefone(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success">Add</button>
+      <button type="button" class="btn btn-success" onclick="updateTelefone()">Alterar</button>
+      <button class="btn btn-success">Add</button>
   </div>
 </div>
 </form>
+
 <br><legend></legend>
   <label>Dados login</label>
 <form>

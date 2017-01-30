@@ -24,7 +24,7 @@ class UpdateUser extends  ConexaoDb {
     }
   }
 
-  public function updateTelefone($telefone, $id){
+  public function updTelefone($telefone, $id){
     try{
         $update = "UPDATE telefone SET telefone_numero = :telefone  WHERE usuario_id_usuario = :id";
         $validar = Parent::getInstanceConexao()->prepare($update);

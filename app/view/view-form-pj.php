@@ -96,7 +96,7 @@
                                     </p>
                                 </div>
                                 <p class="control">
-                                    <input type="checkbox" required="" name="telemarketing">
+                                    <input type="checkbox" required="" name="declaracao">
                                     <label class="checkbox" style="font-size: 11px;">Declaro que todas as informações aqui inseridas são verdadeiras.  Estou ciente que a eventual inexatidão dos dados aqui descritos podem acarretar responsabilização civil e penal.
                                     </label>
                                 </p>

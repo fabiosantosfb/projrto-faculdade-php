@@ -11,6 +11,7 @@ function modifiStatus(id, _status){
     			if (xhttp.status == 200){
     				result.innerHTML = xhttp.responseText;
     			} else {
+
     				result.innerHTML = "Um erro ocorreu: " + xhttp.statusText;
     			}
     	};

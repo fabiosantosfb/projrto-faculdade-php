@@ -472,25 +472,44 @@ class PagesController {
   *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
   */
   function update(){
+
         $sta = ($_POST['status'] == 1)? 0: 1;
         $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
         $updateTelemarketing->update($sta,$_POST['id']);
   }
 
+  /*
+  * FUNCTION ATUALIZAR TELEFONE
+  */
   function updateTelefone() {
-    echo '<script>alert(ola!)</script>';
-    /*
     $validate = new DataValidator();
     $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
 
       if($validate->validate()){
         $update = UpdateUser::getInstanceUpdateUser();
-        $update->updateTelefone($_POST['telefone'], $_GET['id']);//update($sta,$_POST['id']);
+        $update->updTelefone($_POST['telefone'], $_POST['usuario']);
       } else {
         self::getErroForm($validate);
         self::$erro_form = true;
         self::userPessoaFisica();
-      }*/
+      }
+  }
+
+  /*
+  * FUNCTION ATUALIZAR DADOS PESSOA FISICA
+  */
+  function updateDocumento() {
+    $validate = new DataValidator();
+    $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
+
+      if($validate->validate()){
+        $update = UpdateUser::getInstanceUpdateUser();
+        $update->updTelefone($_POST['telefone'], $_POST['usuario']);
+      } else {
+        self::getErroForm($validate);
+        self::$erro_form = true;
+        self::userPessoaFisica();
+      }
   }
   /*
   *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
