@@ -2,7 +2,6 @@
 
 $PESSOA = '
 <a class="nav-item" href="pessoa-fisica">
-    <span class="icon"><i class="fa fa-user"></i></span>
     <span>Pessoa Física</span>
 </a>
 ';

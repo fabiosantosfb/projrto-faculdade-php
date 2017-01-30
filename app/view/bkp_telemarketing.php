@@ -1,7 +1,21 @@
 <?php
-      $PESSOA = ($telemarketing)? '<ul class="list-inline"><li><a href="session-pj">Meus Dados</a></li><li><a href="list">Listagem</a></li></ul>' : '<ul class="list-inline"><li><a href="">Pessoa Juridica</a></li></ul>';
-      $HOME = '<a class="navbar-brand" href="">Procon Paraiba</a>';
-      //$PESSOA = '<ul class="list-inline"><li><a href="">Pessoa Juridica</a></li></ul>';
+    $PESSOA = ($telemarketing)? '
+    <a class="nav-item" href="session-pj">
+        <span>Meus Dados</span>
+    </a>
+    <a class="nav-item" href="list">
+        <span>Listagem</span>
+    </a>
+    <a class="nav-item" href="">
+        <span>Pessoa Jurídica</span>
+    </a>
+    ';
+
+      $HOME = '
+      <a class="nav-item" href="">
+        <span class="icon"><i class="fa fa-home"></i></span>
+      </a>';
+
       $LOGIN = '<li><a href="">Bem vindo</a></li>
                 <ul class="list-inline">
                   <li><a href="logout">Sair</a></li>

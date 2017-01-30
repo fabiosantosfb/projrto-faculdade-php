@@ -2,12 +2,18 @@
     $HOME = '
     <a class="nav-item" href="">
       <span class="icon"><i class="fa fa-home"></i></span>
+<<<<<<< HEAD
       <span>Início</span>
+=======
+>>>>>>> origin/master
     </a>';
 
     $PESSOA = '
     <a class="nav-item" href="">
+<<<<<<< HEAD
         <span class="icon"><i class="fa fa-user"></i></span>
+=======
+>>>>>>> origin/master
         <span>Pessoa Física</span>
     </a>
     ';

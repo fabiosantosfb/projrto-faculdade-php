@@ -28,17 +28,15 @@ class PagesController {
     $HOME = '
     <a class="nav-item" href="pessoa-fisica">
         <span class="icon"><i class="fa fa-home"></i></span>
-        <span>Início</span>
+
     </a>';
 
     // $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $PESSOA = '
     <a class="nav-item" href="pessoa-fisica">
-        <span class="icon"><i class="fa fa-person"></i></span>
         <span>Pessoa Física</span>
     </a>
     <a class="nav-item" href="pessoa-juridica">
-        <span class="icon"><i class="fa fa-building"></i></span>
         <span>Pessoa Jurídica</span>
     </a>';
 
@@ -58,13 +56,11 @@ class PagesController {
     $HOME = '
     <a class="nav-item" href="pessoa-juridica">
       <span class="icon"><i class="fa fa-home"></i></span>
-      <span>Início</span>
     </a>';
 
     // $HOME = '<a class="navbar-brand" href="pessoa-juridica">Procon Paraiba</a>';
     $PESSOA = '
     <a class="nav-item" href="pessoa-juridica">
-        <span class="icon"><i class="fa fa-building"></i></span>
         <span>Pessoa Jurídica</span>
     </a>';
 
@@ -91,12 +87,10 @@ class PagesController {
     $HOME = '
     <a class="nav-item" href="pessoa-fisica">
       <span class="icon"><i class="fa fa-home"></i></span>
-      <span>Início</span>
     </a>';
 
     $PESSOA = '
     <a class="nav-item" href="pessoa-fisica">
-        <span class="icon"><i class="fa fa-user"></i></span>
         <span>Pessoa Física</span>
     </a>';
 
@@ -123,7 +117,6 @@ class PagesController {
     $HOME = '
     <a class="nav-item" href="pessoa-fisica">
         <span class="icon"><i class="fa fa-home"></i></span>
-        <span>Início</span>
     </a>';
 
     $LOGIN = '
@@ -136,7 +129,6 @@ class PagesController {
 
     $PESSOA = '
     <a class="nav-item" href="pessoa-fisica">
-        <span class="icon"><i class="fa fa-user"></i></span>
         <span>Pessoa Física</span>
     </a>';
 
@@ -202,17 +194,14 @@ class PagesController {
   public function pessoaFisica() {
       $HOME = '
       <a class="nav-item" href="admin">
-        <span class="icon"><i class="fa fa-tachometer"></i></span>
-        <span>Administrador</span>
+        <span>ADMINISTRADOR</span>
       </a>';
 
       $PESSOA = '
       <a class="nav-item" href="pessoa-j">
-          <span class="icon"><i class="fa fa-building"></i></span>
           <span>Pessoa Jurídica</span>
       </a>
       <a class="nav-item" href="admin">
-          <span class="icon"><i class="fa fa-tachometer"></i></span>
           <span>Telemarketing</span>
       </a>
       ';
@@ -242,16 +231,13 @@ class PagesController {
       $HOME = '
       <a class="nav-item" href="admin">
         <span class="icon"><i class="fa fa-tachometer"></i></span>
-        <span>Administrador</span>
       </a>';
 
       $PESSOA = '
       <a class="nav-item" href="pessoa-j">
-          <span class="icon"><i class="fa fa-building"></i></span>
           <span>Pessoa Jurídica</span>
       </a>
       <a class="nav-item" href="admin">
-          <span class="icon"><i class="fa fa-tachometer"></i></span>
           <span>Telemarketing</span>
       </a>
       ';

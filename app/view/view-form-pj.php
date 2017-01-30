@@ -1,4 +1,9 @@
 <?php include_once ('app/view/partlals/header.php') ?>
+<<<<<<< HEAD
+=======
+<script src="app/assets/js/np-procon-pb-pj.js" charset="utf-8"></script>
+<?php include_once ('app/view/partlals/header.php') ?>
+>>>>>>> origin/master
 <script src="app/assets/js/np-procon-pb-pf.js" charset="utf-8"></script>
 
 
