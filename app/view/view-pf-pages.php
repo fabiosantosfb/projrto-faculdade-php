@@ -26,7 +26,6 @@
 <label>Dados - Pessoa Física</label>
 
 <form>
-  <input name="type" type="hidden" value="pf">
 <table class="table table-striped table-bordered btn-primary">
 <thead>
   <tr>
@@ -81,10 +80,12 @@
 </table>
   <div class="row">
     <div class="col-md-9">
-        <button id="update-doc" name="update-doc" onclick='updateDocument(<?=$pessoa['usuario_id_usuario'] ?>)'; class="btn btn-success">Atualizar</button>
+        <input id="doc" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+        <button type="button" class="btn btn-success" onclick="updateDoc()">Alterar</button>
     </div>
   </div>
 </form>
+<span><div id="documento"></div></span>
 <br><legend></legend>
 <label>Dados - Endereço</label>
 <form>
@@ -142,10 +143,12 @@
 </table>
 <div class="row">
   <div class="col-md-9">
-      <button id="button1id" name="button1id" onclick="updateEndereco(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success">Atualizar</button>
+    <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+    <button type="button" class="btn btn-success" onclick="updateAddress()">Alterar</button>
   </div>
 </div>
 </form>
+<span><div id="endereco"></div></span>
 <br><legend></legend>
 <label>Dados - Telefone</label>
 
@@ -164,7 +167,6 @@
 <form>
   <tbody>
     <tr style="color:#000">
-      <input id="usuario" value="<?=$telefone['usuario_id_usuario'] ?>" type="hidden">
       <td><input id="telefone" name="telefone" value="<?=$telefone['telefone_numero'] ?>" style="border:0;" ></td>
       <td></td>
       <td><?=$telefone['data_cadastro'] ?></td>
@@ -173,12 +175,13 @@
 </table>
 <div class="row">
   <div class="col-md-9">
+      <input id="usuario" value="<?=$telefone['usuario_id_usuario'] ?>" type="hidden">
       <button type="button" class="btn btn-success" onclick="updateTelefone()">Alterar</button>
       <button class="btn btn-success">Add</button>
   </div>
 </div>
 </form>
-
+<span><div id="telefone"></div></span>
 <br><legend></legend>
   <label>Dados login</label>
 <form>
@@ -210,8 +213,10 @@
 </table>
 <div class="row">
   <div class="col-md-9">
-    <button id="button1id" name="button1id" onclick="updateLogin(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success">Atualizar</button>
+    <input id="id_login" value="<?=$telefone['usuario_id_usuario'] ?>" type="hidden">
+    <button type="button" class="btn btn-success" onclick="updatePassword()">Alterar</button>
   </div>
 </div>
 </form>
+<span><div id="login"></div></span>
 <?php include_once ('app/view/partlals/footer.php') ?>

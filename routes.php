@@ -9,10 +9,10 @@
 
 
 
-  $router->post('updtel','PagesController@updateTelefone');
-
-
-
+  $router->post('up-tel','PagesController@updateTelefone');
+  $router->post('up-doc','PagesController@updateDocumentoPf');
+  $router->post('up-address','PagesController@updateAddress');
+  $router->post('up-password','PagesController@updatePassword');
 
 //} else if($_SESSION['type_user'] == 'pj'){
   $router->get('session-pj','PagesController@userPessoaJuridica');

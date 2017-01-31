@@ -498,19 +498,70 @@ class PagesController {
   /*
   * FUNCTION ATUALIZAR DADOS PESSOA FISICA
   */
-  function updateDocumento() {
+  function updateDocumentoPf() {
+
     $validate = new DataValidator();
-    $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
+    $validate->set('uf', $_POST['uf'])->is_required()->is_alpha()->max_length(3)->min_length(1);
+    $validate->set('orgao_expedidor', $_POST['orgao_expedidor'])->is_required()->is_alpha();
+    $validate->set('dataexpedicao', $_POST['dataexpedicao'])->is_required()->is_date();
+    $validate->set('rg', $_POST['rg'])->is_required()->is_rg();
+    $validate->set('cpf', $_POST['cpf'])->is_required()->is_cpf();
+    $validate->set('nome', $_POST['nome'])->is_required();
 
       if($validate->validate()){
         $update = UpdateUser::getInstanceUpdateUser();
-        $update->updTelefone($_POST['telefone'], $_POST['usuario']);
+        $update->upDocumento($_POST['nome'], $_POST['usuario'], $_POST['cpf'], $_POST['rg'], $_POST['dataexpedicao'], $_POST['orgao_expedidor'], $_POST['uf']);
       } else {
         self::getErroForm($validate);
         self::$erro_form = true;
         self::userPessoaFisica();
       }
   }
+
+  /*
+  * FUNCTION ATUALIZAR ENDEREÇO PESSOA FISICA
+  */
+  function updateAddress() {
+
+    $validate = new DataValidator();
+    $validate->set('cep', $_POST['cep'])->is_required()->is_zipCode();
+    $validate->set('cidade', $_POST['cidade'])->is_required();
+    $validate->set('rua', $_POST['rua'])->is_required();
+    $validate->set('bairro', $_POST['bairro'])->is_required();
+
+      if($validate->validate()){
+        $update = UpdateUser::getInstanceUpdateUser();
+        $update->upAddress($_POST['cep'], $_POST['cidade'], $_POST['rua'], $_POST['bairro'], $_POST['numero'], $_POST['complemento'], $_POST['id_endereco']);
+      } else {
+        self::getErroForm($validate);
+        self::$erro_form = true;
+        self::userPessoaFisica();
+      }
+  }
+
+  /*
+  * FUNCTION ATUALIZAR DADOS PESSOA FISICA
+  */
+  function updatePassword() {
+    echo 'Senha '.$_POST['senha'].'<br>';
+    echo 'Senha repetir '.$_POST['repetir_senha'].'<br>';
+    echo 'Email '.$_POST['email'].'<br>';
+
+    $validate = new DataValidator();
+    $validate->set('senha', $_POST['senha'])->is_required();
+    $validate->set('repetir_senha', $_POST['repetir_senha'])->is_required()->is_equals($_POST['senha'], true);
+    $validate->set('email', $_POST['email'])->is_required()->is_email();
+
+      if($validate->validate()){
+        $update = UpdateUser::getInstanceUpdateUser();
+        $update->upPassword($_POST['senha'], $_POST['email'], $_POST['id']);
+      } else {
+        self::getErroForm($validate);
+        self::$erro_form = true;
+        self::userPessoaFisica();
+      }
+  }
+
   /*
   *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
   */

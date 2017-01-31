@@ -1,32 +1,34 @@
 
-function updateTelefone(user) {
-  $.ajax({
-    type: "POST",
-    url: "updtel",
-    data: {
-      telefone: $('#telefone').val(),
-      usuario: $('#usuario').val()
-    },
-    success: function(data) {
-      $('#txtHint').html(data);
-    }
+function updateTelefone() {
+  $.ajax({ type: "POST", url: "up-tel",
+    data: { telefone: $('#telefone').val(), usuario: $('#usuario').val() },
+    success: function(data) { $('#telefone').html(data); }
   });
 }
 
-function updateDocument(id) {
-  var usuario = id;
+function updateDoc() {
   $.ajax({
-    type: "POST",
-    url: "updtel",
-    data: {
-      usuario: usuario
-    },
-    success: function() {
-     $('#txtHint').html("erro");
-    }
+    type: "POST",url: "up-doc",
+    data: { cpf: $('#cpf').val(), nome: $('#nome').val(), rg: $('#rg').val(), orgao_expedidor: $('#orgao_expedidor').val(), uf: $('#uf').val(), dataexpedicao: $('#dataexpedicao').val(), usuario: $('#doc').val() },
+    success: function(data) { $('#documento').html(data); }
   });
 }
 
+function updateAddress() {
+  $.ajax({
+    type: "POST",url: "up-address",
+    data: { cep: $('#cep').val(), rua: $('#rua').val(), bairro: $('#bairro').val(), cidade: $('#cidade').val(), numero: $('#numero').val(), complemento: $('#complemento').val(), id_endereco: $('#id_endereco').val() },
+    success: function(data) { $('#endereco').html(data); }
+  });
+}
+
+function updatePassword() {
+  $.ajax({
+    type: "POST",url: "up-password",
+    data: { email: $('#email').val(), senha: $('#senha').val(), repetir_senha: $('#repetir_senha').val(), id: $('#id_login').val() },
+    success: function(data) { $('#login').html(data); }
+  });
+}
 
 
 
