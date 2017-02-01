@@ -11,7 +11,7 @@
     <div class="content">
       <p class="">
         <strong>NTI Procon/PB</strong><br>
-        <a href="http://www.procon.pb.gov.br">www.procon.pb.gov.br</a>
+        <a href="http://www.procon.pb.gov.br" target="_blank">www.procon.pb.gov.br</a>
       </p>
     </div>
   </div>

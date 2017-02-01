@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
+    // var_dump($telemarketing);
+=======
 
+>>>>>>> origin/master
     $PESSOA = ($telemarketing)? '
     <a class="nav-item" href="session-pj">
         <span class="icon"><i class="fa fa-info"></i></span>

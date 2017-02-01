@@ -175,9 +175,14 @@
 </table>
 <div class="row">
   <div class="col-md-9">
+<<<<<<< HEAD
+      <button onclick="updateTelefone(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success" value="Atualizar"/>
+      <button onclick="addTelefone(<?=$pessoa['usuario_id_usuario'] ?>)"; class="btn btn-success">Add</button>
+=======
       <input id="usuario" value="<?=$telefone['usuario_id_usuario'] ?>" type="hidden">
       <button type="button" class="btn btn-success" onclick="updateTelefone()">Alterar</button>
       <button class="btn btn-success">Add</button>
+>>>>>>> origin/master
   </div>
 </div>
 </form>

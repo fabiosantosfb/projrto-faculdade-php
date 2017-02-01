@@ -33,7 +33,7 @@
                             </p>
                             <label class="label">Razão Social</label>
                             <p class="control">
-                                <input class="input" id="nome" name="nome" type="text" placeholder="Razao social" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>">
+                                <input class="input" id="nome" maxlength="35" name="nome" type="text" placeholder="Razao social" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>">
                                 <span class="help is-success">Preencha corretamente, conforme o registro na Receita Federal.</span>
                             </p>
                             <p class="control">
