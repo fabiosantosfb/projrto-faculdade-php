@@ -15,6 +15,6 @@
     <link rel="stylesheet" href="app/assets/css/bulma.css" media="screen" title="no title">
     <link rel="stylesheet" href="app/assets/css/font-awesome.min.css" media="screen" title="no title">
     <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css"> -->
-    <link rel="stylesheet" href="app/assets/css/naopertube.css" media="screen" title="no title">
+    <link rel="stylesheet" href="app/assets/css/naoperturbe.css" media="screen" title="no title">
   </head>
 <?php include_once ('app/view/partlals/nav.php'); ?>
