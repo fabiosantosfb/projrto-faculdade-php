@@ -2,7 +2,7 @@
     <nav class="nav has-shadow">
       <div class="nav-left">
         <a class="nav-item">
-          <img src="../../app/assets/img/naoperturbe.png" alt="Não Pertube logo">
+          <img src="../../app/assets/img/naopertube.png" alt="Não Pertube logo">
         </a>
       </div>
 
