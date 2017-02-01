@@ -13,6 +13,10 @@ body {
   border-color: #006400;
   color: #fff;
 }
+.footer {
+    background-color: whitesmoke;
+    padding: 3rem 1.5rem 3rem;
+}
 
 .np-padding-t-15 {
     padding-top: 15px;
