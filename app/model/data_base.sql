@@ -11,20 +11,20 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema proconpb_naopertube
+-- Schema proconpb_naoperturbe
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `proconpb_naopertube` ;
+DROP SCHEMA IF EXISTS `proconpb_naoperturbe` ;
 
 -- -----------------------------------------------------
--- Schema proconpb_naopertube
+-- Schema proconpb_naoperturbe
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `proconpb_naopertube` DEFAULT CHARACTER SET utf8 ;
-USE `proconpb_naopertube` ;
+CREATE SCHEMA IF NOT EXISTS `proconpb_naoperturbe` DEFAULT CHARACTER SET utf8 ;
+USE `proconpb_naoperturbe` ;
 
 -- -----------------------------------------------------
--- Table `proconpb_naopertube`.`usuario`
+-- Table `proconpb_naoperturbe`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`usuario` (
+CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`usuario` (
   `id_usuario` INT(11) NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
   `senha` VARCHAR(60) CHARACTER SET 'utf8' NOT NULL,
@@ -39,9 +39,17 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `proconpb_naopertube`.`endereco`
+-- Table `proconpb_naoperturbe`.`endereco`
 -- -----------------------------------------------------
+<<<<<<< HEAD
+<<<<<<< HEAD
+CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`endereco` (
+=======
 CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`endereco` (
+>>>>>>> origin/master
+=======
+CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`endereco` (
+>>>>>>> origin/master
   `cep` VARCHAR(9) CHARACTER SET 'utf8' NOT NULL,
   `rua` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
   `bairro` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
@@ -52,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`endereco` (
   INDEX `fk_endereco_usuario1_idx` (`usuario_id_usuario` ASC),
   CONSTRAINT `fk_endereco_1`
     FOREIGN KEY (`usuario_id_usuario`)
-    REFERENCES `proconpb_naopertube`.`usuario` (`id_usuario`)
+    REFERENCES `proconpb_naoperturbe`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -62,9 +70,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `proconpb_naopertube`.`pessoa_fisica`
+-- Table `proconpb_naoperturbe`.`pessoa_fisica`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`pessoa_fisica` (
+CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`pessoa_fisica` (
   `nome` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
   `cpf` VARCHAR(14) CHARACTER SET 'utf8' NOT NULL,
   `rg` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
@@ -77,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`pessoa_fisica` (
   UNIQUE INDEX `usuario_id_usuario_UNIQUE` (`usuario_id_usuario` ASC),
   CONSTRAINT `fk_pessoa_fisica_1`
     FOREIGN KEY (`usuario_id_usuario`)
-    REFERENCES `proconpb_naopertube`.`usuario` (`id_usuario`)
+    REFERENCES `proconpb_naoperturbe`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -87,9 +95,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `proconpb_naopertube`.`pessoa_juridica`
+-- Table `proconpb_naoperturbe`.`pessoa_juridica`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`pessoa_juridica` (
+CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`pessoa_juridica` (
   `nome` VARCHAR(35) CHARACTER SET 'utf8' NOT NULL,
   `cnpj` VARCHAR(18) CHARACTER SET 'utf8' NOT NULL,
   `usuario_id_usuario` INT(11) NOT NULL AUTO_INCREMENT,
@@ -97,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`pessoa_juridica` (
   UNIQUE INDEX `usuario_id_usuario_UNIQUE` (`usuario_id_usuario` ASC),
   CONSTRAINT `fk_pessoa_juridica_1`
     FOREIGN KEY (`usuario_id_usuario`)
-    REFERENCES `proconpb_naopertube`.`usuario` (`id_usuario`)
+    REFERENCES `proconpb_naoperturbe`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -107,9 +115,9 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `proconpb_naopertube`.`telefone`
+-- Table `proconpb_naoperturbe`.`telefone`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`telefone` (
+CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`telefone` (
   `status_bloqueio` INT(11) NOT NULL,
   `data_cadastro` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `data_atualizacao` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -119,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`telefone` (
   INDEX `fk_telefone_1_idx` (`usuario_id_usuario` ASC),
   CONSTRAINT `fk_telefone_1`
     FOREIGN KEY (`usuario_id_usuario`)
-    REFERENCES `proconpb_naopertube`.`usuario` (`id_usuario`)
+    REFERENCES `proconpb_naoperturbe`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -128,15 +136,15 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `proconpb_naopertube`.`telemarketing`
+-- Table `proconpb_naoperturbe`.`telemarketing`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`telemarketing` (
+CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`telemarketing` (
   `status_ativo` INT(11) NOT NULL,
   `pessoa_juridica_usuario_id_usuario` INT(11) NOT NULL,
   INDEX `fk_telemarketing_1_idx` (`pessoa_juridica_usuario_id_usuario` ASC),
   CONSTRAINT `fk_telemarketing_1`
     FOREIGN KEY (`pessoa_juridica_usuario_id_usuario`)
-    REFERENCES `proconpb_naopertube`.`pessoa_juridica` (`usuario_id_usuario`)
+    REFERENCES `proconpb_naoperturbe`.`pessoa_juridica` (`usuario_id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

@@ -186,7 +186,7 @@
 <div class="row">
   <div class="col-md-9">
     <input id="novo_tel" name="telefone" placeholder="Digite novo numero Telefone" value="" style="border:0;">
-      <button type="button" class="btn btn-success" onclick="addteTelefone()">Adicionar</button>
+    <button type="button" class="btn btn-success" onclick="addteTelefone()">Adicionar</button>
   </div>
 </div>
 </form>

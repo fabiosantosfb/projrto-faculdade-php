@@ -44,7 +44,7 @@ class UpdateUser extends  ConexaoDb {
   public function upDocumento($nome, $usuario, $cpf, $rg, $dataexpedicao, $orgao_expedidor, $uf){
 
     try{
-        $update = "UPDATE proconpb_naopertube.pessoa_fisica SET nome=:nome, cpf=:cpf, rg=:rg, org=:org, uf=:uf, data_expedicao=:data_expedicao WHERE usuario_id_usuario=:id";
+        $update = "UPDATE proconpb_naoperturbe.pessoa_fisica SET nome=:nome, cpf=:cpf, rg=:rg, org=:org, uf=:uf, data_expedicao=:data_expedicao WHERE usuario_id_usuario=:id";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":nome", $nome);
         $validar->bindValue(":cpf", $cpf);
@@ -64,7 +64,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function upAddress($cep, $cidade, $rua, $bairro, $numero, $complemento, $id_endereco){
     try{
-        $update = "UPDATE proconpb_naopertube.endereco SET cep=:cep, rua=:rua, bairro=:bairro, cidade=:cidade, numero=:numero, complemento=:complemento WHERE usuario_id_usuario=:id_endereco";
+        $update = "UPDATE proconpb_naoperturbe.endereco SET cep=:cep, rua=:rua, bairro=:bairro, cidade=:cidade, numero=:numero, complemento=:complemento WHERE usuario_id_usuario=:id_endereco";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":cep", $cep);
         $validar->bindValue(":rua", $rua);
@@ -85,7 +85,7 @@ class UpdateUser extends  ConexaoDb {
   public function upPassword($pwd, $email, $id){
 
     try{
-        $update = "UPDATE proconpb_naopertube.usuario SET email=:email, senha=:senha WHERE id_usuario=:id";
+        $update = "UPDATE proconpb_naoperturbe.usuario SET email=:email, senha=:senha WHERE id_usuario=:id";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":email", $email);
         $validar->bindValue(":senha", $pwd);
