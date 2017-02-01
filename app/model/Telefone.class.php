@@ -1,12 +1,17 @@
 <?php
 
-class Telefone extends Login {
+class Telefone {
   private $telefone;
-  private $operadora;
+  private $statusBloqueio;
+  private static $telefoneInstace = null;
 
-  public function __construct($telefone, $email, $password){
-    Parent::__construct($email, $password);
-    $this->telefone = $telefone;
+  public function __construct(){}
+
+  public static function getInstanceTelefone() {
+    if (empty(self::$telefoneInstace)) {
+      self::$telefoneInstace = new Telefone();
+    }
+    return self::$telefoneInstace;
   }
 
   public function getTelefone(){
@@ -15,5 +20,13 @@ class Telefone extends Login {
 
   public function setTelefone($telefone){
     $this->telefone = $telefone;
+  }
+
+  public function getStatusBloqueio(){
+    return $this->statusBloqueio;
+  }
+
+  public function setStatusBloqueio($statusBloqueio){
+    $this->statusBloqueio = $statusBloqueio;
   }
 }
