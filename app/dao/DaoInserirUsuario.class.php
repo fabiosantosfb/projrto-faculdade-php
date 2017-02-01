@@ -189,6 +189,23 @@ class DaoUsuario extends ConexaoDb {
           }
   }
 
+  public function addTelefone($telefone, $usuario){
+    try {
+        $telefone = "INSERT INTO telefone (status_bloqueio, data_cadastro, data_atualizacao, telefone_numero, usuario_id_usuario) values (0, default, default, :telefone, :id)";
+        $this->validarTel = Parent::getInstanceConexao()->prepare($telefone);
+        $this->validarTel->bindValue(":telefone", $telefone);
+        $this->validarTel->bindValue(":id", $usuario);
+        $this->validarTel->execute();
+
+        return true;
+    } catch (Exception $ex){
+      echo  "<script>alert('exceção Inserir emil!')</script>";
+       $this->erro = "Exceção ao inserir Telfone!";
+       echo $ex;
+       return false;
+    }
+  }
+
   public function getErro() {
     return $this->erro;
   }

@@ -1,8 +1,10 @@
 
-function updateTelefone() {
-  $.ajax({ type: "POST", url: "up-tel",
-    data: { telefone: $('#telefone').val(), usuario: $('#usuario').val() },
-    success: function(data) { $('#telefone').html(data); }
+function updateTelefone(id, user, tel) {
+  $.ajax({
+    type: "POST", url: "up-tel",
+    data: { telefone: $(tel).val(), usuario: $(user).val(), id_telefone: $(id).val() },
+    success: function(data) { $('#tel').html(data);
+  }
   });
 }
 
@@ -10,7 +12,7 @@ function updateDoc() {
   $.ajax({
     type: "POST",url: "up-doc",
     data: { cpf: $('#cpf').val(), nome: $('#nome').val(), rg: $('#rg').val(), orgao_expedidor: $('#orgao_expedidor').val(), uf: $('#uf').val(), dataexpedicao: $('#dataexpedicao').val(), usuario: $('#doc').val() },
-    success: function(data) { $('#documento').html(data); }
+    success: function(data) { $('#documento').html(data);}
   });
 }
 
@@ -31,37 +33,20 @@ function updatePassword() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function updateLogin(id_user){
-    var params = "id="+id_user;
+function addteTelefone(){
     var xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST", "update-login", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.setRequestHeader("Content-length", params.length);
-    xhttp.setRequestHeader("Connection", "close");
-    xhttp.onreadystatechange = function(){
-    		if (xhttp.readyState == 4)
-    			if (xhttp.status == 200){
-    				result.innerHTML = xhttp.responseText;
-    			} else {
-    				result.innerHTML = "Um erro ocorreu: " + xhttp.statusText;
-    			}
-    	};
-    xhttp.send(params);
+    xhttp.onreadystatechange = result;
+    xhttp.open("POST", "add-telefone", false);
+    xhttp.send(null);
     return xhttp;
 }
+function result(){
+    if (xhttp.readyState == 4)
+      if (xhttp.status == 200){
+        result.innerHTML = xhttp.responseText;
+      } else {
+        result.innerHTML = "Um erro ocorreu: " + xhttp.statusText;
+      }
+  }

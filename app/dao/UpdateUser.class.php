@@ -25,12 +25,13 @@ class UpdateUser extends  ConexaoDb {
     }
   }
 
-  public function updTelefone($telefone, $id){
+  public function updTelefone($telefone, $id, $id_telefone){
     try{
-        $update = "UPDATE telefone SET telefone_numero = :telefone  WHERE usuario_id_usuario = :id";
+        $update = "UPDATE telefone SET telefone_numero = :telefone  WHERE usuario_id_usuario = :id AND id_telefone = :id_telefone";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":telefone",$telefone);
         $validar->bindValue(":id",$id);
+        $validar->bindValue(":id_telefone", $id_telefone);
         $validar->execute();
 
     } catch (Exception $tele){

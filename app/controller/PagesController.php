@@ -31,7 +31,6 @@ class PagesController {
 
     </a>';
 
-    // $HOME = '<a class="navbar-brand" href="pessoa-fisica">Procon Paraiba</a>';
     $PESSOA = '
     <a class="nav-item" href="pessoa-fisica">
         <span>Pessoa Física</span>
@@ -58,7 +57,6 @@ class PagesController {
       <span class="icon"><i class="fa fa-home"></i></span>
     </a>';
 
-    // $HOME = '<a class="navbar-brand" href="pessoa-juridica">Procon Paraiba</a>';
     $PESSOA = '
     <a class="nav-item" href="pessoa-juridica">
         <span>Pessoa Jurídica</span>
@@ -72,7 +70,6 @@ class PagesController {
         <span>ENTRAR</span>
     </a>';
 
-    // $LOGIN = '<li><a href="login">Logar</a></li>';
 
     require_once ('app/view/view-form-pf.php');
     if(self::$erro_form){
@@ -102,7 +99,6 @@ class PagesController {
         <span>ENTRAR</span>
     </a>';
 
-    // $LOGIN = '<li><a href="login">Logar</a></li>';
 
     require_once ('app/view/view-form-pj.php');
     if(self::$erro_form){
@@ -482,12 +478,13 @@ class PagesController {
   * FUNCTION ATUALIZAR TELEFONE
   */
   function updateTelefone() {
+
     $validate = new DataValidator();
-    $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
+    $validate->set('telefone', $_POST['telefone'])->is_required();
 
       if($validate->validate()){
         $update = UpdateUser::getInstanceUpdateUser();
-        $update->updTelefone($_POST['telefone'], $_POST['usuario']);
+        $update->updTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
       } else {
         self::getErroForm($validate);
         self::$erro_form = true;
@@ -555,6 +552,22 @@ class PagesController {
       if($validate->validate()){
         $update = UpdateUser::getInstanceUpdateUser();
         $update->upPassword($_POST['senha'], $_POST['email'], $_POST['id']);
+      } else {
+        self::getErroForm($validate);
+        self::$erro_form = true;
+        self::userPessoaFisica();
+      }
+  }
+  /*
+  *FUNÇÃO PARA ADICIONAR TELEFONE
+  */
+  function addTelefone() {
+    $validate = new DataValidator();
+    $validate->set('telefone', $_POST['novo_tel'])->is_required()->is_phone();
+
+      if($validate->validate()){
+        $update = new DaoUsuario();
+        $update->addTelefone($_POST['telefone'], $_POST['usuario']);
       } else {
         self::getErroForm($validate);
         self::$erro_form = true;

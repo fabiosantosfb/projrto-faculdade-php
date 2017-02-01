@@ -151,7 +151,7 @@
 <span><div id="endereco"></div></span>
 <br><legend></legend>
 <label>Dados - Telefone</label>
-
+<form>
 <table class="table table-striped table-bordered btn-primary">
 <thead>
 <tr>
@@ -164,24 +164,33 @@
   </th>
 </tr>
 </thead>
-<form>
   <tbody>
+
+    <?php
+    $i = 0;
+    foreach ($telefone as $key) { ?>
     <tr style="color:#000">
-      <td><input id="telefone" name="telefone" value="<?=$telefone['telefone_numero'] ?>" style="border:0;" ></td>
+      <td>
+        <input id="id_tel<?=$i?>" value="<?=$key['id_telefone'] ?>" type="hidden">
+        <input id="id_usu<?=$i?>" value="<?=$key['usuario_id_usuario'] ?>" type="hidden">
+        <input id="tel<?=$i?>" name="telefone" value="<?=$key['telefone_numero'] ?>" style="border:0;">
+
+        <button type="button" class="btn btn-success" onclick='updateTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)';>Alterar</button></td>
       <td></td>
-      <td><?=$telefone['data_cadastro'] ?></td>
+      <td><?=$key['data_cadastro'] ?></td>
     </tr>
+    <?php $i++;} ?>
+
   </tbody>
 </table>
 <div class="row">
   <div class="col-md-9">
-      <input id="usuario" value="<?=$telefone['usuario_id_usuario'] ?>" type="hidden">
-      <button type="button" class="btn btn-success" onclick="updateTelefone()">Alterar</button>
-      <button class="btn btn-success">Add</button>
+    <input id="novo_tel" name="telefone" placeholder="Digite novo numero Telefone" value="" style="border:0;">
+      <button type="button" class="btn btn-success" onclick="addteTelefone()">Adicionar</button>
   </div>
 </div>
 </form>
-<span><div id="telefone"></div></span>
+<span><div id="tel"></div></span>
 <br><legend></legend>
   <label>Dados login</label>
 <form>
@@ -213,7 +222,7 @@
 </table>
 <div class="row">
   <div class="col-md-9">
-    <input id="id_login" value="<?=$telefone['usuario_id_usuario'] ?>" type="hidden">
+    <input id="id_login" value="<?=$usuario['id_usuario'] ?>" type="hidden">
     <button type="button" class="btn btn-success" onclick="updatePassword()">Alterar</button>
   </div>
 </div>

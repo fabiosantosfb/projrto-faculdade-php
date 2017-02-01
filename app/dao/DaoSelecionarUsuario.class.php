@@ -39,8 +39,8 @@ class Selection extends ConexaoDb {
         $validar->bindValue(":id_usuario",$id);
         $validar->execute();
 
-        if ($validar->rowCount() === 1){
-          return $validar->fetch(PDO::FETCH_ASSOC);
+        if ($validar->rowCount() > 1){
+          return $validar->fetchAll(PDO::FETCH_ASSOC);
         } else {
           $this->erro = "telefone não encontrada!";
           return false;
