@@ -336,12 +336,12 @@ class PagesController {
       self::$erro_form = true;
       self::page_form_pessoafisica();
     } else {
-         header("Location: /login"); 
-    //   if(!$update) {
-        // if(!self::cadastrar()) { self::page_form_pessoafisica(); } else { header("Location: /login"); die; }
-    //   } else {
-    //     if(!self::cadastrar()){ self::userPessoaFisica(); } else { return true; }
-    //   }
+      if(!self::cadastrar()) {
+        self::page_form_pessoaFisica();
+      } else {
+        header("Location: /login");
+        die;
+      }
     }
   }
   /*
@@ -541,9 +541,6 @@ class PagesController {
   * FUNCTION ATUALIZAR DADOS PESSOA FISICA
   */
   function updatePassword() {
-    echo 'Senha '.$_POST['senha'].'<br>';
-    echo 'Senha repetir '.$_POST['repetir_senha'].'<br>';
-    echo 'Email '.$_POST['email'].'<br>';
 
     $validate = new DataValidator();
     $validate->set('senha', $_POST['senha'])->is_required();
@@ -563,17 +560,21 @@ class PagesController {
   *FUNÇÃO PARA ADICIONAR TELEFONE
   */
   function addTelefone() {
+
     $validate = new DataValidator();
-    $validate->set('telefone', $_POST['novo_tel'])->is_required()->is_phone();
+    $validate->set('telefone', $_POST['novo_tel'])->is_required();
 
       if($validate->validate()){
-        $update = new DaoUsuario();
-        $update->addTelefone($_POST['telefone'], $_POST['usuario']);
+        $update = UpdateUser::getInstanceUpdateUser();
+        if($update->addTelefone($_POST['novo_tel'], $_POST['usuario']))
+          self::redirection();
+
       } else {
         self::getErroForm($validate);
         self::$erro_form = true;
         self::userPessoaFisica();
       }
+
   }
 
   /*
