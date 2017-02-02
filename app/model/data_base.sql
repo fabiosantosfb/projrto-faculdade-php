@@ -41,15 +41,8 @@ COLLATE = utf8_unicode_ci;
 -- -----------------------------------------------------
 -- Table `proconpb_naoperturbe`.`endereco`
 -- -----------------------------------------------------
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`endereco` (
-=======
-CREATE TABLE IF NOT EXISTS `proconpb_naopertube`.`endereco` (
->>>>>>> origin/master
-=======
-CREATE TABLE IF NOT EXISTS `proconpb_naoperturbe`.`endereco` (
->>>>>>> origin/master
   `cep` VARCHAR(9) CHARACTER SET 'utf8' NOT NULL,
   `rua` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
   `bairro` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,

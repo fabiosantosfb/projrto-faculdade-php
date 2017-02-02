@@ -336,11 +336,12 @@ class PagesController {
       self::$erro_form = true;
       self::page_form_pessoafisica();
     } else {
-      if(!$update) {
-        if(!self::cadastrar()) { self::page_form_pessoafisica(); } else { header("Location: /login"); die; }
-      } else {
-        if(!self::cadastrar()){ self::userPessoaFisica(); } else { return true; }
-      }
+         header("Location: /login"); 
+    //   if(!$update) {
+        // if(!self::cadastrar()) { self::page_form_pessoafisica(); } else { header("Location: /login"); die; }
+    //   } else {
+    //     if(!self::cadastrar()){ self::userPessoaFisica(); } else { return true; }
+    //   }
     }
   }
   /*
