@@ -31,22 +31,3 @@ function updatePassword() {
     success: function(data) { $('#login').html(data); }
   });
 }
-
-
-function addteTelefone(){
-    var xhttp = new XMLHttpRequest();
-
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.onreadystatechange = result;
-    xhttp.open("POST", "add-telefone", false);
-    xhttp.send(null);
-    return xhttp;
-}
-function result(){
-    if (xhttp.readyState == 4)
-      if (xhttp.status == 200){
-        result.innerHTML = xhttp.responseText;
-      } else {
-        result.innerHTML = "Um erro ocorreu: " + xhttp.statusText;
-      }
-  }

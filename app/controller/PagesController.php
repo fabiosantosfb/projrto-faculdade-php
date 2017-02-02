@@ -562,12 +562,13 @@ class PagesController {
   *FUNÇÃO PARA ADICIONAR TELEFONE
   */
   function addTelefone() {
+
     $validate = new DataValidator();
-    $validate->set('telefone', $_POST['novo_tel'])->is_required()->is_phone();
+    $validate->set('telefone', $_POST['novo_tel'])->is_required();
 
       if($validate->validate()){
-        $update = new DaoUsuario();
-        $update->addTelefone($_POST['telefone'], $_POST['usuario']);
+        $update = UpdateUser::getInstanceUpdateUser();
+        $update->addTelefone($_POST['novo_tel'], $_POST['usuario']);
       } else {
         self::getErroForm($validate);
         self::$erro_form = true;

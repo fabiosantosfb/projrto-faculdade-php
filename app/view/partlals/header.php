@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Não Pertube</title>
+    <title>Não perturbe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="app/assets/img/favicon.ico" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -16,6 +16,6 @@
     <link rel="stylesheet" href="app/assets/css/bulma.css" media="screen" title="no title">
     <link rel="stylesheet" href="app/assets/css/font-awesome.min.css" media="screen" title="no title">
     <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css"> -->
-    <link rel="stylesheet" href="app/assets/css/naopertube.css" media="screen" title="no title">
+    <link rel="stylesheet" href="app/assets/css/naoperturbe.css" media="screen" title="no title">
   </head>
 <?php include_once ('app/view/partlals/nav.php'); ?>

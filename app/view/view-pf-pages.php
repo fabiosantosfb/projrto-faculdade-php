@@ -183,13 +183,16 @@
 
   </tbody>
 </table>
+</form>
 <div class="row">
   <div class="col-md-9">
-    <input id="novo_tel" name="telefone" placeholder="Digite novo numero Telefone" value="" style="border:0;">
-    <button type="button" class="btn btn-success" onclick="addteTelefone()">Adicionar</button>
+    <form method="post" action="add-telefone">
+      <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+      <input id="novo_tel" name="novo_tel" placeholder="Digite novo numero Telefone" style="border:0;">
+      <input type="submit" class="btn btn-success" value="Adicionar"/>
+    </form>
   </div>
 </div>
-</form>
 <span><div id="tel"></div></span>
 <br><legend></legend>
   <label>Dados login</label>
