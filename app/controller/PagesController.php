@@ -145,10 +145,6 @@ class PagesController {
     $usuario = $pessoaFisica->dadosUser($_SESSION['id']);
 
     require_once ('app/view/view-pf-pages.php');
-    if(self::$erro_form){
-        $key = self::erros();
-        echo "<script>alert('$key')</script>";
-    }
   }
   /*
   *FUNÇÃO PAGE DA SESSÃO DE PESSOA JURIDICA
@@ -469,7 +465,6 @@ class PagesController {
   *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
   */
   function update(){
-
         $sta = ($_POST['status'] == 1)? 0: 1;
         $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
         $updateTelemarketing->update($sta,$_POST['id']);
@@ -486,9 +481,10 @@ class PagesController {
       if($validate->validate()){
         $update = UpdateUser::getInstanceUpdateUser();
         $update->updTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
+
+        echo "Telefone Atualizado Com sucesso!";
       } else {
         self::getErroForm($validate);
-        self::$erro_form = true;
         self::userPessoaFisica();
       }
   }
@@ -511,7 +507,6 @@ class PagesController {
         $update->upDocumento($_POST['nome'], $_POST['usuario'], $_POST['cpf'], $_POST['rg'], $_POST['dataexpedicao'], $_POST['orgao_expedidor'], $_POST['uf']);
       } else {
         self::getErroForm($validate);
-        self::$erro_form = true;
         self::userPessoaFisica();
       }
   }
@@ -532,7 +527,6 @@ class PagesController {
         $update->upAddress($_POST['cep'], $_POST['cidade'], $_POST['rua'], $_POST['bairro'], $_POST['numero'], $_POST['complemento'], $_POST['id_endereco']);
       } else {
         self::getErroForm($validate);
-        self::$erro_form = true;
         self::userPessoaFisica();
       }
   }
@@ -552,7 +546,6 @@ class PagesController {
         $update->upPassword($_POST['senha'], $_POST['email'], $_POST['id']);
       } else {
         self::getErroForm($validate);
-        self::$erro_form = true;
         self::userPessoaFisica();
       }
   }
@@ -571,7 +564,6 @@ class PagesController {
 
       } else {
         self::getErroForm($validate);
-        self::$erro_form = true;
         self::userPessoaFisica();
       }
 
@@ -581,10 +573,12 @@ class PagesController {
   *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
   */
   function getErroForm($validate){
+      self::$erro_form = true;
       $array = $validate->get_errors();
       foreach ($array as $key => $value) { }
 
-      self::$erro = $key;
+      echo $key.'<br>';
+      die;
   }
   /*
   *FUNÇÃO PARA RETORNO DE ERROS OCORRIDO NO FORMULARIO OU CONSULTA DE BANCO

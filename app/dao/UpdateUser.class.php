@@ -43,11 +43,13 @@ class UpdateUser extends  ConexaoDb {
 
   public function addTelefone($telefone, $usuario){
     try {
-        $telefone = "INSERT INTO telefone VALUES (0, default, default, :telefone, :id, default)";
-        $validarTel = Parent::getInstanceConexao()->prepare($telefone);
+        $q = "INSERT INTO telefone VALUES (0, default, default, :telefone, :id, default)";
+        $validarTel = Parent::getInstanceConexao()->prepare($q);
         $validarTel->bindValue(":telefone", $telefone);
         $validarTel->bindValue(":id", $usuario);
         $validarTel->execute();
+
+        return true;
 
     } catch (Exception $ex){
       echo  "Exceção ao inserir Telfone! - <br>".$ex->getMessage();

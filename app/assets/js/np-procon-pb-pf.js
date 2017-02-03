@@ -9,11 +9,20 @@ function formatacaoCpf(digit){ digit=digit.replace(/\D/g,""); digit=digit.replac
 function formatacaoRg(digit){ digit=digit.replace(/\D/g,""); digit=digit.replace(/^(\d)(\d{3})(\d{2})/g,"$1.$2.$3"); return digit }
 function formatacaoCep(digit){ digit=digit.replace(/\D/g,""); digit=digit.replace(/^(\d{5})(\d{3})/g,"$1-$2"); return digit }
 
+
 function id( pf ){ return document.getElementById( pf ); }
 window.onload = function(){
-    id('telefone').onkeypress = function(){ inputDado( this, formatacaoTelefone ); }
-    id('dataexpedicao').onkeypress = function(){ inputDado( this, formatacaoData ); }
+
+    id('dataexpedicao').onkeypress = function(){  inputDado( this, formatacaoData ); }
+
     id('cpf').onkeypress = function(){ inputDado( this, formatacaoCpf ); }
+
     id('rg').onkeypress = function(){ inputDado( this, formatacaoRg ); }
+
+    id('cpf').onkeypress = function(){ inputDado( this, formatacaoCpf ); }
+
     id('cep').onkeypress = function(){ inputDado( this, formatacaoCep ); }
+}
+function telefoneFormat(camp) {
+    id(camp).onkeypress = function(){ inputDado( this, formatacaoTelefone ); }
 }
