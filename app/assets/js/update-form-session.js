@@ -15,6 +15,14 @@ function updateDoc() {
   });
 }
 
+function updateDocPj() {
+  $.ajax({
+    type: "POST",url: "up-cnpj",
+    data: { cnpj: $('#cnpj').val(), nome: $('#nome').val(), usuario: $('#doc').val() },
+    success: function(data) { $('#documento').html(data);}
+  });
+}
+
 function updateAddress() {
   $.ajax({
     type: "POST",url: "up-address",

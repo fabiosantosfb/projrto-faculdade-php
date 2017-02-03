@@ -21,8 +21,8 @@
 
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
-<script src="app/assets/js/update-form-pf.js" charset="utf-8"></script>
-<script src="app/assets/js/np-procon-pb-pf.js" charset="utf-8"></script>
+<script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
+<script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 <label>Dados - Pessoa Física</label>
 <form>
 <table class="table table-striped table-bordered btn-primary">
@@ -106,7 +106,7 @@
 </thead>
 <tbody>
     <tr style="color:#000">
-        <td><input id="cep" name="cep" maxlength="9" value="<?=$endereco['cep'] ?>" required="" style="border:0;"></td>
+        <td><input id="cep" name="cep" maxlength="9" onkeypress='cepFormat("cep")' value="<?=$endereco['cep'] ?>" required="" style="border:0;"></td>
         <td></td>
         <td><input id="rua" name="rua" value="<?=$endereco['rua'] ?>" required="" style="border:0;"></td>
         <td></td>
@@ -164,7 +164,6 @@
 </tr>
 </thead>
   <tbody>
-
     <?php
     $i = 0;
     foreach ($telefone as $key) { ?>
@@ -179,7 +178,6 @@
       <td><?=$key['data_cadastro'] ?></td>
     </tr>
     <?php $i++;} ?>
-
   </tbody>
 </table>
 </form>
@@ -188,7 +186,7 @@
   <div class="col-md-9">
     <form method="post" action="add-telefone">
       <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
-      <input id="novo_tel" name="novo_tel" placeholder="Digite novo numero Telefone" required="" style="border:0;">
+      <input id="novo_tel" name="novo_tel" placeholder="Digite novo numero Telefone" maxlength="14" required="" style="border:0;">
       <input type="submit" class="btn btn-success" value="Adicionar"/>
     </form>
   </div>

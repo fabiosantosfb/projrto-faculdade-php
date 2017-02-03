@@ -28,7 +28,6 @@ class PagesController {
     $HOME = '
     <a class="nav-item" href="pessoa-fisica">
         <span class="icon"><i class="fa fa-home"></i></span>
-
     </a>';
 
     $PESSOA = '
@@ -56,12 +55,10 @@ class PagesController {
     <a class="nav-item" href="pessoa-juridica">
       <span class="icon"><i class="fa fa-home"></i></span>
     </a>';
-
     $PESSOA = '
     <a class="nav-item" href="pessoa-juridica">
         <span>Pessoa Jurídica</span>
     </a>';
-
     $LOGIN = '
     <a class="button is-primary" href="login">
         <span class="icon">
@@ -141,8 +138,8 @@ class PagesController {
     $pessoaFisica = Selection::getInstanceSelection();
     $pessoa = $pessoaFisica->selectionPessoaFisica($_SESSION['id']);
     $endereco = $pessoaFisica->seachAddress($_SESSION['id']);
-    $telefone = $pessoaFisica->seachTelefone($_SESSION['id']);
     $usuario = $pessoaFisica->dadosUser($_SESSION['id']);
+    $telefone = $pessoaFisica->seachTelefone($_SESSION['id']);
 
     require_once ('app/view/view-pf-pages.php');
   }
@@ -153,6 +150,7 @@ class PagesController {
     $pessoaJuridica = Selection::getInstanceSelection();
     $pessoa = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
     $endereco = $pessoaJuridica->seachAddress($_SESSION['id']);
+    $usuario = $pessoaJuridica->dadosUser($_SESSION['id']);
     $telefone = $pessoaJuridica->seachTelefone($_SESSION['id']);
 
     $telemarketing = $pessoaJuridica->selectionTelemarketing($_SESSION['id']);
@@ -476,13 +474,11 @@ class PagesController {
   function updateTelefone() {
 
     $validate = new DataValidator();
-    $validate->set('telefone', $_POST['telefone'])->is_required();
+    $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
 
       if($validate->validate()){
         $update = UpdateUser::getInstanceUpdateUser();
         $update->updTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
-
-        echo "Telefone Atualizado Com sucesso!";
       } else {
         self::getErroForm($validate);
         self::userPessoaFisica();
@@ -510,7 +506,22 @@ class PagesController {
         self::userPessoaFisica();
       }
   }
+  /*
+  * FUNCTION ATUALIZAR DADOS PESSOA FISICA
+  */
+  function updateDocumentoPj() {
+    $validate = new DataValidator();
+    $validate->set('cnpj', $_POST['cnpj'])->is_required()->is_cnpj();
+    $validate->set('nome', $_POST['nome'])->is_required();
 
+      if($validate->validate()){
+        $update = UpdateUser::getInstanceUpdateUser();
+        $update->upDocumentoPj($_POST['nome'], $_POST['usuario'], $_POST['cnpj']);
+      } else {
+        self::getErroForm($validate);
+        self::userPessoaJuridica();
+      }
+  }
   /*
   * FUNCTION ATUALIZAR ENDEREÇO PESSOA FISICA
   */
@@ -559,9 +570,13 @@ class PagesController {
 
       if($validate->validate()){
         $update = UpdateUser::getInstanceUpdateUser();
-        if($update->addTelefone($_POST['novo_tel'], $_POST['usuario']))
+        $up_date = $update->addTelefone($_POST['novo_tel'], $_POST['usuario']);
+        if($up_date) {
           self::redirection();
-
+        } else {
+          self::redirection();
+          echo '<script>alert()</script>';
+        }
       } else {
         self::getErroForm($validate);
         self::userPessoaFisica();
