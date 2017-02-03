@@ -1,4 +1,3 @@
-
 function updateTelefone(id, user, tel) {
   $.ajax({
     type: "POST", url: "up-tel",

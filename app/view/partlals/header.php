@@ -17,5 +17,6 @@
     <link rel="stylesheet" href="app/assets/css/font-awesome.min.css" media="screen" title="no title">
     <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="app/assets/css/naoperturbe.css" media="screen" title="no title">
-  </head>
+    <script src="app/assets/js/np-procon-pb-pf.js" charset="utf-8"></script>
+    </head>
 <?php include_once ('app/view/partlals/nav.php'); ?>
