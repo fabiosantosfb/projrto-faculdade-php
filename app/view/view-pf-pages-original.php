@@ -143,7 +143,7 @@ $LOGIN = '
                                     </table>
                                     <div class="row">
                                         <div class="col-md-9">
-                                            <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+                                             <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
                                             <button type="button" class="btn btn-success" onclick="updateAddress()">Alterar</button>
                                         </div>
                                     </div>

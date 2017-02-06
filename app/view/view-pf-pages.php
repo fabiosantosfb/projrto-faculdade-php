@@ -189,12 +189,12 @@ $LOGIN = '
                                 </p>
                             </div>
                         </div>
-                    <p>&nbsp;</p>
-                </div>
-                <br>
-                <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
-                <button class="button is-primary is-outlined" type="button" onclick="updateDoc()">  Alterar </button>
-            </form>
+                        <p>&nbsp;</p>
+                    </div>
+                    <br>
+                    <input id="doc" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+                    <button class="button is-primary is-outlined" type="button" onclick="updateDoc()">  Alterar </button>
+                </form>
             </div>
             <div class="panel">
                 <div class="panel-heading">
@@ -202,8 +202,8 @@ $LOGIN = '
                         <strong>ENDEREÇO</strong>
                     </p>
                 </div>
-                    <div class="panel-block">
-                        <form class="control">
+                <div class="panel-block">
+                    <form class="control">
                         <div class="columns">
                             <div class="column is-half">
                                 <label class="label">Logradouro</label>
@@ -247,16 +247,15 @@ $LOGIN = '
                             </div>
                         </div>
                         <p>&nbsp;</p>
-                    </form>
-                    </div>
-                    <p>&nbsp;</p>
-                    <p class="control">
-                        <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
-                        <button class="button is-primary is-outlined" type="button" onclick="updateAddress()">  Alterar </button>
-                    </p>
+                </div>
+                <p>&nbsp;</p>
+                <p class="control">
+                    <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+                    <button class="button is-primary is-outlined" type="button" onclick="updateAddress()">  Alterar </button>
+                </p>
+            </form>
+            <span><div id="login"></div></span>
             </div>
-
         </div>
     </section>
-    <span><div id="login"></div></span>
     <?php include_once ('app/view/partlals/footer.php') ?>
