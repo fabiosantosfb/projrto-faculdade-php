@@ -1,5 +1,5 @@
 <?php include_once ('app/view/partlals/header.php') ?>
-<script src="app/assets/js/np-procon-pb-pf.js" charset="utf-8"></script>
+<script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 
 
 <section class="hero np-padding-20">

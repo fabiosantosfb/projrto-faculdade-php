@@ -3,7 +3,7 @@
     <fieldset>
         <legend>Cadastro - Pessoa Física</legend>
         <!-- Text input-->
-        <script src="app/assets/js/np-procon-pb-pf.js" charset="utf-8"></script>
+        <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
         <div class="form-group">
             <label class="col-md-4 control-label" for="nome">Nome</label>
             <div class="col-md-6">

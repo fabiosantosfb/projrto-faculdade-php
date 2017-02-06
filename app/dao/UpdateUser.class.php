@@ -21,7 +21,7 @@ class UpdateUser extends  ConexaoDb {
     } catch (Exception $tlmk){
       echo 'Erro '.$tlmk->getMessage().'<br>';
       //$this->erro = "EXCEÇÃO AO ATUALUZAR TELEMARKETING!";
-      return $tele->getMessage();
+      return false;
     }
   }
 
@@ -32,12 +32,13 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":telefone",$telefone);
         $validar->bindValue(":id",$id);
         $validar->bindValue(":id_telefone", $id_telefone);
-        $validar->execute();
 
+        if($validar->execute()){
+          echo "Atualizado Com sucesso!";
+        }
     } catch (Exception $tele){
-      //$this->erro = "EXCEÇÃO AO ATUALUZAR TELEFONE!";
       echo 'Erro Atualizar Telefone: '.$tele->getMessage().'<br>';
-      return $tele->getMessage();
+      return false;
     }
   }
 
@@ -48,18 +49,19 @@ class UpdateUser extends  ConexaoDb {
         $validarTel->bindValue(":telefone", $telefone);
         $validarTel->bindValue(":id", $usuario);
         $validarTel->execute();
+<<<<<<< HEAD
 
         return true;
 
+=======
+        return true;
+>>>>>>> upfabiano/master
     } catch (Exception $ex){
-      echo  "Exceção ao inserir Telfone! - <br>".$ex->getMessage();
-       //$this->erro = "Exceção ao inserir Telfone!";
-       return $ex->getMessage();
+      return false;
     }
   }
 
   public function upDocumento($nome, $usuario, $cpf, $rg, $dataexpedicao, $orgao_expedidor, $uf){
-
     try{
         $update = "UPDATE proconpb_naoperturbe.pessoa_fisica SET nome=:nome, cpf=:cpf, rg=:rg, org=:org, uf=:uf, data_expedicao=:data_expedicao WHERE usuario_id_usuario=:id";
         $validar = Parent::getInstanceConexao()->prepare($update);
@@ -70,12 +72,30 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":uf", $uf);
         $validar->bindValue(":data_expedicao", $dataexpedicao);
         $validar->bindValue(":id", $usuario);
-        $validar->execute();
+        if($validar->execute()){
+          echo "Atualizado Com sucesso!";
+        }
 
     } catch (Exception $doc){
-      //$this->erro = "EXCEÇÃO AO ATUALUZAR DOCUMENTO!";
       echo 'Erro Atualizar Documento: '.$doc->getMessage().'<br>';
-      return $doc->getMessage();
+      return false;
+    }
+  }
+
+  public function upDocumentoPj($nome, $usuario, $cnpj){
+    try{
+        $update = "UPDATE proconpb_naoperturbe.pessoa_juridica SET nome=:nome, cnpj=:cnpj WHERE usuario_id_usuario=:id";
+        $validar = Parent::getInstanceConexao()->prepare($update);
+        $validar->bindValue(":nome", $nome);
+        $validar->bindValue(":cnpj", $cnpj);
+        $validar->bindValue(":id", $usuario);
+        if($validar->execute()){
+          echo "Atualizado Com sucesso!";
+        }
+
+    } catch (Exception $doc){
+      echo 'Erro Atualizar Documento: '.$doc->getMessage().'<br>';
+      return false;
     }
   }
 
@@ -90,12 +110,14 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":numero", $numero);
         $validar->bindValue(":complemento", $complemento);
         $validar->bindValue(":id_endereco", $id_endereco);
-        $validar->execute();
+        if($validar->execute()){
+          echo "Atualizado Com sucesso!";
+        }
 
     } catch (Exception $end){
       //$this->erro = "EXCEÇÃO AO ATUALUZAR DOCUMENTO!";
       echo 'Erro Atualizar Endereço: '.$end->getMessage().'<br>';
-      return $end->getMessage();
+      return false;
     }
   }
 
@@ -107,12 +129,14 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":email", $email);
         $validar->bindValue(":senha", $pwd);
         $validar->bindValue(":id", $id);
-        $validar->execute();
+        if($validar->execute()){
+          echo "Atualizado Com sucesso!";
+        }
 
     } catch (Exception $pwd){
       //$this->erro = "EXCEÇÃO AO ATUALUZAR DOCUMENTO!";
       echo 'Erro Atualizar Login: '.$pwd->getMessage().'<br>';
-      return $pwd->getMessage();
+      return false;
     }
   }
 

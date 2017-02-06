@@ -13,7 +13,9 @@
 
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
-<script src="app/assets/js/update-form-pf.js" charset="utf-8"></script>
+
+<script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
+<script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 
 <section class="hero np-padding-20">
     <div class="npTitle">
@@ -71,7 +73,9 @@
                                     </p>
                                 </div>
                                 <div class="column">
-                                    <label class="label">&nbsp;</label>
+                                    <?php if ($i == 0) {
+                                    echo '<label class="label">&nbsp;</label>';
+                                }?>
                                     <p class="control">
                                         <button class="button is-primary" type="button" onclick='updateTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)';>Alterar</button>
                                     </p>
@@ -146,15 +150,14 @@
                             <p class="control">
                                 <label class="label">Nome</label>
                             </p>
-                            <input class="input" id="nome" name="nome"  type="text" placeholder="Digite seu nome" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
+                            <input class="input" id="nome" name="nome" value="<?= $pessoa['nome'] ?>" required="" >
                         </div>
                         <div class="column">
                             <p class="control">
                                 <label class="label">CPF</label>
                             </p>
                             <p class="control">
-                                <input name="type" type="hidden" value="pf">
-                                <input class="input-w-6" id="cpf" name="cpf" type="text" placeholder="CPF" required="" value="<?php  if(isset($_POST['cpf'])) echo htmlspecialchars($_POST['cpf']); ?>">
+                                <input class="input-w-6" id="cpf" name="cpf" maxlength="14" value="<?= $pessoa['cpf']?>" required="">
                             </p>
                         </div>
 
@@ -163,28 +166,28 @@
                                 <label class="label">Identidade</label>
                             </p>
                             <p class="control">
-                                <input class="input-w-4" id="rg" name="rg" type="text" placeholder="RG" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
+                                <input class="input-w-4" id="rg" name="rg" maxlength="9" value="<?=$pessoa['rg'] ?>" required="" >
                             </p>
                         </div>
                     </div>
                     <div class="columns">
                         <div class="column is-half">
-                            <label class="label">Data da Expedição</label>
+                            <label class="label">Orgão Expedidor</label>
                             <p class="control">
-                                <input class="input-w-4" id="dataexpedicao" maxlength="8" name="dataexpedicao" type="date_format" placeholder="dd/mm/aaaa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
+                                <input class="input-w-3" id="orgao_expedidor" name="orgao_expedidor" value="<?=$pessoa['org'] ?>" required="" >
                             </p>
                         </div>
                         <div class="column">
-                            <label class="label">Orgão Expedidor</label>
+                            <label class="label">Data da Expedição</label>
                             <p class="control">
-                                <input class="input-w-3" id="nome" name="orgao_expedidor" type="text" placeholder="Org"  required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
+                                <input class="input-w-4" id="dataexpedicao" name="dataexpedicao" maxlength="8" value="<?=$pessoa['data_expedicao'] ?>" required="" >
                             </p>
                         </div>
 
                         <div class="column">
                             <label class="label">UF</label>
                             <p class="control">
-                                <input class="input-w-3" id="uf" name="uf" type="text" placeholder="UF"  required="" value="<?php  if(isset($_POST['uf'])) echo htmlspecialchars($_POST['uf']); ?>"  >
+                                <input class="input-w-3" id="uf" name="uf" value="<?=$pessoa['uf'] ?>" required=""  >
                             </p>
                         </div>
                     </div>
