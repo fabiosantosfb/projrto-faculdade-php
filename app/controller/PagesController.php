@@ -479,8 +479,6 @@ class PagesController {
       if($validate->validate()){
         $update = UpdateUser::getInstanceUpdateUser();
         $update->updTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
-
-        echo "Telefone Atualizado Com sucesso!";
       } else {
         self::getErroForm($validate);
         self::userPessoaFisica();
