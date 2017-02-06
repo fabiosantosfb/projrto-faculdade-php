@@ -49,13 +49,7 @@ class UpdateUser extends  ConexaoDb {
         $validarTel->bindValue(":telefone", $telefone);
         $validarTel->bindValue(":id", $usuario);
         $validarTel->execute();
-<<<<<<< HEAD
-
         return true;
-
-=======
-        return true;
->>>>>>> upfabiano/master
     } catch (Exception $ex){
       return false;
     }

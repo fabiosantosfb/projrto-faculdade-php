@@ -3,11 +3,13 @@ $HOME = '
 <a class="nav-item" href="">
 <span class="icon"><i class="fa fa-home"></i></span>
 </a>';
+
 $PESSOA = '
 <a class="nav-item" href="">
 <span>Pessoa Física</span>
 </a>
 ';
+
 $LOGIN = '
 <a class="nav-item" href="">Bem Vindo</a>
 <a class="button is-primary" href="logout">
@@ -16,11 +18,12 @@ $LOGIN = '
 </span>
 <span>SAIR</span>
 </a>';
+
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
-<script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 
+<script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 <label>Dados - Pessoa Física</label>
 <form>
     <table class="table table-striped table-bordered btn-primary">

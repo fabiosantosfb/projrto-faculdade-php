@@ -10,32 +10,13 @@ function formatacaoRg(digit){ digit=digit.replace(/\D/g,""); digit=digit.replace
 function formatacaoCep(digit){ digit=digit.replace(/\D/g,""); digit=digit.replace(/^(\d{5})(\d{3})/g,"$1-$2"); return digit }
 function formatacaoCnpj(digit){ digit=digit.replace(/\D/g,""); digit=digit.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,"$1.$2.$3/$4-$5"); return digit }
 
-
 function id( pf ){ return document.getElementById( pf ); }
 window.onload = function(){
-<<<<<<< HEAD:app/assets/js/np-procon-pb-pf.js
-
     id('dataexpedicao').onkeypress = function(){  inputDado( this, formatacaoData ); }
-
-=======
-    id('dataexpedicao').onkeypress = function(){  inputDado( this, formatacaoData ); }
->>>>>>> upfabiano/master:app/assets/js/np-procon-pb.js
     id('cpf').onkeypress = function(){ inputDado( this, formatacaoCpf ); }
-
     id('rg').onkeypress = function(){ inputDado( this, formatacaoRg ); }
-<<<<<<< HEAD:app/assets/js/np-procon-pb-pf.js
-
-    id('cpf').onkeypress = function(){ inputDado( this, formatacaoCpf ); }
-
-    id('cep').onkeypress = function(){ inputDado( this, formatacaoCep ); }
-}
-function telefoneFormat(camp) {
-    id(camp).onkeypress = function(){ inputDado( this, formatacaoTelefone ); }
-}
-=======
 }
 function telefoneFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, formatacaoTelefone ); }}
 function cnpjFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, formatacaoCnpj ); }}
 function cepFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, formatacaoCep ); }}
 function newPhone(){ id('novo_tel').onkeypress = function(){ inputDado( this, formatacaoTelefone ); } }
->>>>>>> upfabiano/master:app/assets/js/np-procon-pb.js

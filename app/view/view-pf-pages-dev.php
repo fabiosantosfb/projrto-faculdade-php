@@ -72,7 +72,9 @@
                                     </p>
                                 </div>
                                 <div class="column">
-                                    <label class="label">&nbsp;</label>
+                                    <?php if ($i == 0) {
+                                    echo '<label class="label">&nbsp;</label>';
+                                    }?>
                                     <p class="control">
                                         <button class="button is-primary" type="button" onclick='updateTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)';>Alterar</button>
                                     </p>
