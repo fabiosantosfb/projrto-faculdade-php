@@ -39,7 +39,7 @@
                             </p>
                             <label class="label">Data da Expedição</label>
                             <p class="control">
-                                <input class="input-w-4" id="dataexpedicao" name="dataexpedicao" type="date_format" placeholder="dd/mm/aaaa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
+                                <input class="input-w-4" id="dataexpedicao" maxlength="8" name="dataexpedicao" type="date_format" placeholder="dd/mm/aaaa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
                             </p>
                             <label class="label">Orgão Expedidor</label>
                             <p class="control">

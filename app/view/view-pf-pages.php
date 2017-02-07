@@ -1,232 +1,261 @@
 <?php
-    $HOME = '
-    <a class="nav-item" href="">
-      <span class="icon"><i class="fa fa-home"></i></span>
-    </a>';
+$HOME = '';
 
-    $PESSOA = '
-    <a class="nav-item" href="">
-        <span>Pessoa Física</span>
-    </a>
-    ';
+$PESSOA = '';
 
-    $LOGIN = '
-    <a class="nav-item" href="">Bem Vindo</a>
-    <a class="button is-primary" href="logout">
-      <span class="icon">
-        <i class="fa fa-sign-out"></i>
-      </span>
-      <span>SAIR</span>
-    </a>';
+$LOGIN = '
+<a class="button is-primary" href="logout">
+<span class="icon">
+<i class="fa fa-sign-out"></i>
+</span>
+<span>SAIR</span>
+</a>';
 
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
-
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
-<label>Dados - Pessoa Física</label>
-<form>
-<table class="table table-striped table-bordered btn-primary">
-<thead>
-  <tr>
-    <th>
-      <p>CPF</p>
-    </th>
-    <th>
-    <th>
-      <p>Nome</p>
-    </th>
-  </tr>
-</thead>
-<tbody>
-    <tr style="color:#000">
-        <td><input id="cpf" name="cpf" maxlength="14" value="<?= $pessoa['cpf']?>" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="nome" name="nome" value="<?= $pessoa['nome'] ?>" required="" style="border:0;"></td>
-    </tr>
-</tbody>
-</table>
-<table class="table table-striped table-bordered btn-primary">
-<thead>
-  <tr>
-    <th>
-      <p>RG</p>
-    </th>
-    <th>
-    <th>
-      <p>ORGÃO EMISSOR</p>
-    </th>
-    <th>
-    <th>
-      <p>UF</p>
-    </th>
-    <th>
-    <th>
-      <p>DATA EXPEDIÇÃO</p>
-    </th>
-  </tr>
-</thead>
-<tbody>
-    <tr style="color:#000">
-        <td><input id="rg" name="rg" maxlength="9" value="<?=$pessoa['rg'] ?>" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="orgao_expedidor" name="orgao_expedidor" value="<?=$pessoa['org'] ?>" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="uf" name="uf" value="<?=$pessoa['uf'] ?>" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="dataexpedicao" name="dataexpedicao" maxlength="8" value="<?=$pessoa['data_expedicao'] ?>" required="" style="border:0;"></td>
-    </tr>
-</tbody>
-</table>
-  <div class="row">
-    <div class="col-md-9">
-        <input id="doc" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
-        <button type="button" class="btn btn-success" onclick="updateDoc()">Alterar</button>
-    </div>
-  </div>
-</form>
-<span><div id="documento"></div></span>
-<br><legend></legend>
-<label>Dados - Endereço</label>
-<form>
-<table class="table table-striped table-bordered btn-primary">
-<thead>
-  <tr>
-    <th>
-      <p>CEP</p>
-    </th>
-    <th>
-    <th>
-      <p>RUA</p>
-    </th>
-    <th>
-    <th>
-      <p>BAIRRO</p>
-    </th>
-  </tr>
-</thead>
-<tbody>
-    <tr style="color:#000">
-        <td><input id="cep" name="cep" maxlength="9" onkeypress='cepFormat("cep")' value="<?=$endereco['cep'] ?>" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="rua" name="rua" value="<?=$endereco['rua'] ?>" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="bairro" name="bairro" value="<?=$endereco['bairro'] ?>" required="" style="border:0;"></td>
-    </tr>
-  </tbody>
-</table>
-<table class="table table-striped table-bordered btn-primary">
-<thead>
-  <tr>
-    <th>
-      <p>CIDADE</p>
-    </th>
-    <th>
-    <th>
-      <p>NUMERO</p>
-    </th>
-    <th>
-    <th>
-      <p>COMPLEMENTO</p>
-    </th>
-  </tr>
-</thead>
-<tbody>
-    <tr style="color:#000">
-        <td><input id="cidade" name="cidade" value="<?=$endereco['cidade'] ?>" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="numero" name="numero" value="<?=$endereco['numero'] ?>" style="border:0;"></td>
-        <td></td>
-        <td><input id="complemento" name="complemento" value="<?=$endereco['complemento'] ?>" style="border:0;"></td>
-    </tr>
-  </tbody>
-</table>
-<div class="row">
-  <div class="col-md-9">
-    <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
-    <button type="button" class="btn btn-success" onclick="updateAddress()">Alterar</button>
-  </div>
-</div>
-</form>
-<span><div id="endereco"></div></span>
-<br><legend></legend>
-<label>Dados - Telefone</label>
-<form>
-<table class="table table-striped table-bordered btn-primary">
-<thead>
-<tr>
-  <th>
-    <p>TELEFONE</p>
-  </th>
-  <th>
-  <th>
-    <p>DATA CADASTRO</p>
-  </th>
-</tr>
-</thead>
-  <tbody>
-    <?php
-    $i = 0;
-    foreach ($telefone as $key) { ?>
-    <tr style="color:#000">
-      <td>
-        <input id="id_tel<?=$i?>" value="<?=$key['id_telefone'] ?>" type="hidden"/>
-        <input id="id_usu<?=$i?>" value="<?=$key['usuario_id_usuario'] ?>" type="hidden"/>
-        <input id="tel<?=$i?>" name="telefone" maxlength="14" onkeypress='telefoneFormat("tel"+<?=$i?>)' required="" value="<?=$key['telefone_numero'] ?>" style="border:0;"/>
 
-        <button type="button" class="btn btn-success" onclick='updateTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)'>Alterar</button></td>
-      <td></td>
-      <td><?=$key['data_cadastro'] ?></td>
-    </tr>
-    <?php $i++;} ?>
-  </tbody>
-</table>
-</form>
-<span><div id="tel"></div></span>
-<div class="row">
-  <div class="col-md-9">
-    <form method="post" action="add-telefone">
-      <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
-      <input id="novo_tel" name="novo_tel" placeholder="Digite novo numero Telefone" maxlength="14" required="" style="border:0;">
-      <input type="submit" class="btn btn-success" value="Adicionar"/>
-    </form>
-  </div>
-</div>
-<br><legend></legend>
-  <label>Dados login</label>
-<form>
-  <table class="table table-striped table-bordered btn-primary">
-  <thead>
-  <tr>
-    <th>
-      <p>EMAIL</p>
-    </th>
-    <th>
-    <th>
-      <p>SENHA</p>
-    </th>
-    <th>
-    <th>
-      <p>CONFIRMA SENHA</p>
-    </th>
-  </tr>
-</thead>
-<tbody>
-    <tr style="color:#000">
-        <td><input id="email" name="email"  value="<?=$usuario['email'] ?>" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="senha" name="senha" type="password" value="*******" required="" style="border:0;"></td>
-        <td></td>
-        <td><input id="repetir_senha" name="repetir_senha" type="password" value="*******" required="" style="border:0;"></td>
-    </tr>
-  </tbody>
-</table>
-<div class="row">
-  <div class="col-md-9">
-    <input id="id_login" value="<?=$usuario['id_usuario'] ?>" type="hidden">
-    <button type="button" class="btn btn-success" onclick="updatePassword()">Alterar</button>
-  </div>
-</div>
-</form>
-<span><div id="login"></div></span>
-<?php include_once ('app/view/partlals/footer.php') ?>
+<section class="hero np-padding-20">
+    <div class="npTitle">
+        <h1 class="title is-4">
+            Pessoa Física
+        </h1>
+        <h2 class="subtitle is-6">
+            Perfil
+        </h2>
+        <hr>
+        <div class="columns">
+            <div class="column">
+                <p class="control">
+                    <form method="post" action="add-telefone">
+                        <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+                        <input class="input-w-3" id="novo_tel" name="novo_tel" placeholder="(99)99999-9999" onkeypress='newPhone()' maxlength="14" required="" >
+                        <input class="button is-primary is-outlined" type="submit" value="Adicionar"/>
+                        <span class="help">Aqui é possível adicionar novos números de telefone ao cadastro de bloqueio.</span>
+                    </form>
+                </p>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <p class="title is-6">
+                            <strong>TELEFONE(S)</strong>
+                        </p>
+                    </div>
+                    <div class="panel-block">
+
+                        <form class="control">
+                            <?php
+                            $i = 0;
+                            foreach ($telefone as $key) { ?>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <?php if ($i == 0) {
+                                            echo '<label class="label">Número(s)</label>';
+                                        }?>
+                                        <p class="control">
+                                            <input id="id_tel<?=$i?>" value="<?=$key['id_telefone'] ?>" type="hidden">
+                                            <input id="id_usu<?=$i?>" value="<?=$key['usuario_id_usuario'] ?>" type="hidden">
+                                            <input id="tel<?=$i?>" class="input-w-4" maxlength="14" name="telefone" type="text" placeholder="(99) 99999-9999" onkeypress='telefoneFormat("tel"+<?=$i?>)' required="" value="<?=$key['telefone_numero'] ?>">
+                                        </p>
+                                    </div>
+                                    <div class="column">
+                                        <?php if ($i == 0) {
+                                            echo '<label class="label">Data</label>';
+                                        }?>
+                                        <p class="control">
+                                            <input class="input-w-4" disabled name="data" type="text" value="<?=$key['data_cadastro'] ?>">
+                                        </p>
+                                    </div>
+                                    <div class="column">
+                                        <?php if ($i == 0) {
+                                            echo '<label class="label">&nbsp;</label>';
+                                        }?>
+                                        <p class="control">
+                                            <button class="button is-primary" type="button" onclick='updateTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)';>Alterar</button>
+                                        </p>
+                                    </div>
+                                </div>
+                                <?php $i++;} ?>
+                                <!-- <br> -->
+                            </form>
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <p class="title is-6">
+                                <strong>LOGIN</strong>
+                            </p>
+                        </div>
+                        <div class="panel-block">
+
+                            <form class="control" method="post" action="/cadastro-pf">
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <label class="label">Email</label>
+                                        <p class="control">
+                                            <input class="input" id="email" name="email" type="text" placeholder="Email" value="<?=$usuario['email'] ?>" required="">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <label class="label">Senha</label>
+                                        <p class="control">
+                                            <input class="input" id="senha" name="senha" type="password" placeholder="Senha" value="*******" required="">
+                                        </p>
+                                    </div>
+
+                                    <div class="column">
+                                        <label class="label">Confirmar Senha</label>
+                                        <p class="control">
+                                            <input class="input" id="repetir_senha" name="repetir_senha" type="password" placeholder="Confirma Senha"  value="*******" required="">
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <p>&nbsp;</p>
+                        </div>
+                        <p>&nbsp;</p>
+                        <p class="control">
+                            <input id="id_login" value="<?=$usuario['id_usuario'] ?>" type="hidden">
+                            <button class="button is-primary is-outlined" type="button" onclick="updatePassword()">  Alterar </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <p class="title is-6">
+                        <strong>DADOS</strong>
+                    </p>
+                </div>
+                <div class="panel-block">
+
+                    <form class="control">
+
+                        <div class="columns">
+                            <div class="column is-half">
+                                <p class="control">
+                                    <label class="label">Nome</label>
+                                </p>
+                                <input class="input" id="nome" name="nome" value="<?= $pessoa['nome'] ?>" required="">
+                            </div>
+                            <div class="column">
+                                <p class="control">
+                                    <label class="label">CPF</label>
+                                </p>
+                                <p class="control">
+                                    <input class="input-w-6" id="cpf" name="cpf" maxlength="14" value="<?= $pessoa['cpf']?>" required="">
+                                </p>
+                            </div>
+
+                            <div class="column">
+                                <p class="control">
+                                    <label class="label">Identidade</label>
+                                </p>
+                                <p class="control">
+                                    <input class="input-w-4" id="rg" name="rg" maxlength="9" value="<?=$pessoa['rg'] ?>" required="" >
+                                </p>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column is-half">
+                                <label class="label">Orgão Expedidor</label>
+                                <p class="control">
+                                    <input class="input-w-3" id="orgao_expedidor" name="orgao_expedidor" value="<?=$pessoa['org'] ?>" required="" >
+                                </p>
+                            </div>
+                            <div class="column">
+                                <label class="label">UF</label>
+                                <p class="control">
+                                    <input class="input-w-3" id="uf" name="uf" value="<?=$pessoa['uf'] ?>" required=""  >
+                                </p>
+                            </div>
+                            <div class="column">
+                                <label class="label">Data da Expedição</label>
+                                <p class="control">
+                                    <input class="input-w-4" id="dataexpedicao" name="dataexpedicao" maxlength="8" value="<?=$pessoa['data_expedicao'] ?>" required="" >
+                                </p>
+                            </div>
+                        </div>
+                        <p>&nbsp;</p>
+                    </div>
+                    <br>
+                    <input id="doc" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+                    <button class="button is-primary is-outlined" type="button" onclick="updateDoc()">  Alterar </button>
+                </form>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <p class="title is-6">
+                        <strong>ENDEREÇO</strong>
+                    </p>
+                </div>
+                <div class="panel-block">
+                    <form class="control">
+                        <div class="columns">
+                            <div class="column is-half">
+                                <label class="label">Logradouro</label>
+                                <p class="control">
+                                    <input class="input" id="rua" name="rua" value="<?=$endereco['rua'] ?>" required="">
+                                </p>
+                            </div>
+                            <div class="column">
+                                <label class="label">Número</label>
+                                <p class="control">
+                                    <input class="input-w-3" id="numero" name="numero" value="<?=$endereco['numero'] ?>">
+                                </p>
+                            </div>
+
+                            <div class="column">
+                                <label class="label">Complemento</label>
+                                <p class="control">
+                                    <input class="input-w-4" id="complemento" name="complemento" value="<?=$endereco['complemento'] ?>">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <label class="label">Bairro</label>
+                                <p class="control">
+                                    <input class="input-w-4" id="bairro" name="bairro" value="<?=$endereco['bairro'] ?>" required="">
+                                </p>
+                            </div>
+                            <div class="column">
+                                <label class="label">Cidade</label>
+                                <p class="control">
+                                    <input class="input-w-4" id="cidade" name="cidade" value="<?=$endereco['cidade'] ?>" required="" >
+                                </p>
+                            </div>
+
+                            <div class="column">
+                                <label class="label">CEP</label>
+                                <p class="control">
+                                    <input class="input-w-3" id="cep" name="cep" maxlength="9" onkeypress='cepFormat("cep")' value="<?=$endereco['cep'] ?>" required="" >
+                                </p>
+                            </div>
+                        </div>
+                        <p>&nbsp;</p>
+                </div>
+                <p>&nbsp;</p>
+                <p class="control">
+                    <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+                    <button class="button is-primary is-outlined" type="button" onclick="updateAddress()">  Alterar </button>
+                </p>
+            </form>
+            <span><div id="login"></div></span>
+            </div>
+        </div>
+    </section>
+    <?php include_once ('app/view/partlals/footer.php') ?>
