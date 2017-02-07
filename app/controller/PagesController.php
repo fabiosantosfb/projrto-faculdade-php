@@ -437,7 +437,7 @@ class PagesController {
             }
             self::$erro = $insertUsuario->getErro();
           } catch (Exception $ex){
-            self::$erro = "Exeção no Cadastro de Pessoa Fisica!";
+            self::$erro = "Exceção no Cadastro de Pessoa Fisica!";
             return false;
           }
       } else if($tipoCadastro == "pessoafisica" && $pessoa->getCpf() != null) {
