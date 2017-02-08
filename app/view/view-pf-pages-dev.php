@@ -4,10 +4,7 @@
     $PESSOA = '';
 
     $LOGIN = '
-    <a class="button is-primary" href="logout">
-      <span class="icon">
-        <i class="fa fa-sign-out"></i>
-      </span>
+    <a class="nav-item" href="logout">
       <span>SAIR</span>
     </a>';
 

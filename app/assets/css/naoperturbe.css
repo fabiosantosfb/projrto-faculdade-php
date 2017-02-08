@@ -18,6 +18,10 @@ body {
     padding: 3rem 1.5rem 3rem;
 }
 
+.hero-body {
+    padding: 1em 0.5em;
+}
+
 .ocultar {
     -moz-animation: cssAnimation 2s linear 2s forwards;
     /* Firefox */

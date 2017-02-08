@@ -14,15 +14,11 @@
 
       $HOME = '
       <a class="nav-item" href="">
-        <span class="icon"><i class="fa fa-home"></i></span>
+        <span>Home</span>
       </a>';
 
       $LOGIN = '
-      <a class="nav-item" href="">Bem Vindo</a>
-      <a class="button is-primary" href="logout">
-          <span class="icon">
-            <i class="fa fa-sign-out"></i>
-          </span>
+      <a class="nav-item" href="logout">
           <span>SAIR</span>
       </a>';
 

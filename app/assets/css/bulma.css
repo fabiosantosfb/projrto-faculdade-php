@@ -6036,6 +6036,7 @@ label.panel-block:hover {
  right: 0
  top: 0
 }
+
 @media screen and (max-width: 768px) {
   .hero.is-danger .nav-toggle span {
     background-color: #fff;

@@ -13,7 +13,7 @@
 
       $HOME = '
       <a class="nav-item" href="">
-        <span class="icon"><i class="fa fa-home"></i></span>
+        <span>Home</span>
       </a>';
 
       $LOGIN = '<li><a href="">Bem vindo</a></li>

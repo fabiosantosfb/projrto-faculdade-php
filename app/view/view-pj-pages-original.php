@@ -1,30 +1,26 @@
 <?php
 $PESSOA = ($telemarketing)? '
 <a class="nav-item" href="session-pj">
-<span class="icon"><i class="fa fa-info"></i></span>
+<i class="fa fa-info"></i></span>
 <span>Meus Dados</span>
 </a>
 <a class="nav-item" href="list">
-<span class="icon"><i class="fa fa-list"></i></span>
+<i class="fa fa-list"></i></span>
 <span>Listagem</span>
 </a>
 <a class="nav-item" href="">
-<span class="icon"><i class="fa fa-building"></i></span>
+<i class="fa fa-building"></i></span>
 <span>Pessoa Jurídica</span>
 </a>
 ':
 $HOME = '
 <a class="nav-item" href="">
-<span class="icon"><i class="fa fa-home"></i></span>
+<span>Home</span>
 <span>Início</span>
 </a>';
 
 $LOGIN = '
-<a class="nav-item" href="">Bem vindo</a>
-<a class="button is-primary" href="logout">
-<span class="icon">
-<i class="fa fa-sign-out"></i>
-</span>
+<a class="nav-item" href="logout">
 <span>SAIR</span>
 </a>';
 ?>

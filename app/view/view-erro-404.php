@@ -1,14 +1,11 @@
 <?php
 $HOME = '
 <a class="nav-item" href="login">
-  <span class="icon"><i class="fa fa-home"></i></span>
+  <span>Home</span>
 </a>';
 
   $LOGIN = '
-  <a class="button is-primary" href="login">
-      <span class="icon">
-        <i class="fa fa-sign-in"></i>
-      </span>
+  <a class="nav-item" href="login">
       <span>ENTRAR</span>
   </a>';
 
