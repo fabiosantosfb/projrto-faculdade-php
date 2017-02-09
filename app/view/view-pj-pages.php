@@ -1,16 +1,10 @@
 <?php
 $PESSOA = ($telemarketing)? '
 <a class="nav-item" href="session-pj">
-<i class="fa fa-info"></i></span>
 <span>Meus Dados</span>
 </a>
 <a class="nav-item" href="list">
-<i class="fa fa-list"></i></span>
 <span>Listagem</span>
-</a>
-<a class="nav-item" href="">
-<i class="fa fa-building"></i></span>
-<span>Pessoa Jurídica</span>
 </a>
 ':
 $HOME = '';

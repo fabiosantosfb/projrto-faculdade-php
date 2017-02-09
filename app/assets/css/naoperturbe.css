@@ -8,6 +8,10 @@ body {
     text-align: justify;
 }
 
+.deepskyblue {
+    color: deepskyblue;
+}
+
 .ativar {
     background-color: #00FF00;
     border-color: #006400;
