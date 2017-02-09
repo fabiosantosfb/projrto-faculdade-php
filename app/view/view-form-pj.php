@@ -64,7 +64,7 @@
                             <hr>
                             <label class="label">Número(s)</label>
                             <p class="control">
-                                <input class="input-w-4" id="telefone" name="telefone" type="text" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                <input class="input-w-3" id="telefone" name="telefone" type="text" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
                                 <span class="help">Ex. (83) 99682-6985</span>
                             </p>
                             <h1 class="title is-6">
