@@ -21,7 +21,7 @@ $LOGIN = '
 
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script> -->
 <section class="hero np-padding-20">
     <div class="npTitle">
         <h1 class="title is-4">
