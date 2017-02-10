@@ -21,7 +21,7 @@ $LOGIN = '
 
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>-->
 <section class="hero np-padding-20">
     <div class="npTitle">
         <h1 class="title is-4">
@@ -51,12 +51,12 @@ $LOGIN = '
                             </div>
 
                             <?php } else {?>
-                                <form class="control" method="get" action="/list-pdf">
-                                    <input class="button is-primary is-outlined" id="button1id" type="submit" value="Formato PDF"/>
+                                <form class="control" target="_blank" method="get" action="list-relatorio">
+                                    <input class="button is-primary is-outlined" id="pdf" name="pdf" type="submit" value="Formato PDF"/>
                                     <span class="help">Será gerado uma listagem em PDF com a relação de telefones para bloqueio.</span>
-                                    <input class="button is-primary is-outlined" id="button1id" type="submit" value="Formato XML"/>
+                                    <input class="button is-primary is-outlined" id="xml" name="xml" type="submit" value="Formato XML"/>
                                     <span class="help">Será gerado um arquivo em XML com a relação de telefones para bloqueio.</span>
-                                    <input class="button is-primary is-outlined" id="button1id" type="submit" value="Formato JSON"/>
+                                    <input class="button is-primary is-outlined" id="json" name="json" type="submit" value="Formato JSON"/>
                                     <span class="help">Será gerado um arquivo em formato JSON com a relação de telefones para bloqueio.</span>
                                 </form>
 

@@ -445,10 +445,58 @@ class PagesController {
       }
   }
   /*
+* FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
+*/
+  function listarRelatorio() {
+    if($_GET['json'])
+      self::listarJson();
+    else if($_GET['xml'])
+      self::listarXml();
+    else if($_GET['pdf'])
+      echo "PDF:";
+  }
+
+  function listarJson() {
+    $listar = Listar::getInstanceListar();
+    $listaspf = $listar->listarPessoaRelat();
+    $listaspj = $listar->listarPessoaJuridicaRelat();
+
+    header("Content-type: application/json");
+
+    $JSON = json_encode($listaspj+$listaspf);
+    echo $JSON;
+  }
+  /*
+  * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
+  */
+    function listarXml() {
+      $listar = Listar::getInstanceListar();
+      $listaspf = $listar->listarPessoaRelat();
+      $listaspj = $listar->listarPessoaJuridicaRelat();
+
+      header("Content-type: application/xml");
+      $xmlstr = "<?xml version='1.0' encoding='utf-8' ?>"."<consumidor>\n</consumidor>";
+      $xml = new SimpleXMLElement($xmlstr);
+
+      $line = $xml->addChild('usuario');
+      foreach ($listaspf as $key) {
+          $line->addChild("numero", '&lt;'.$key['telefone_numero']);
+          $line->addChild("data", $key['data_cadastro'].'&gt;');
+      }
+      $line_j = $xml->addChild('usuario');
+      foreach ($listaspj as $key) {
+          $line_j->addChild("numero", '&lt;'.$key['telefone_numero']);
+          $line_j->addChild("data", $key['data_cadastro'].'&gt;');
+      }
+
+      echo $xml->asXML();
+
+    }
+  /*
   *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
   */
   function update(){
-        $sta = ($_POST['status'] == 1)? 0: 1;
+        $sta = ($_GET['status'] == 1)? 0: 1;
         $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
         $updateTelemarketing->update($sta,$_POST['id']);
   }

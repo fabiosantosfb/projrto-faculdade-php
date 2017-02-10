@@ -21,7 +21,7 @@
   $router->get('logout','PagesController@logout');
 //} else if($_SESSION['type_user'] == 'tlm') {
   $router->get('list','PagesController@listagemTelemarketing');
-  $router->get('list-pdf','PagesController@listarPdf');
+  $router->get('list-relatorio','PagesController@listarRelatorio');
   $router->get('session-pj','PagesController@userPessoaJuridica');
   $router->get('logout','PagesController@logout');
 //} else if($_SESSION['type_user'] == 'admin'){
