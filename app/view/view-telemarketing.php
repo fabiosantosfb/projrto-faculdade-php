@@ -18,6 +18,7 @@ $LOGIN = '
 
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>-->
 <section class="hero np-padding-20">
     <div class="npTitle">
         <h1 class="title is-4">
@@ -40,10 +41,10 @@ $LOGIN = '
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
                             <div class="control notification is-danger">
-                              <button class="delete"></button>
-                              <p>
-                                  No momento você não está habilitado para receber a listagem de bloqueio. <br/>Aguarde a liberação.
-                              </p>
+                                <button class="delete"></button>
+                                <p>
+                                    No momento você não está habilitado para receber a listagem de bloqueio. <br/>Aguarde a liberação.
+                                </p>
                             </div>
 
                             <?php } else {?>
