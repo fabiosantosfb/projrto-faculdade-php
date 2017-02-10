@@ -51,7 +51,7 @@ $LOGIN = '
                             </div>
 
                             <?php } else {?>
-                                <form class="control" target="_blank" method="get" action="list-relatorio">
+                                <form class="control" method="get" action="list-relatorio">
                                     <input class="button is-primary is-outlined" id="pdf" name="pdf" type="submit" value="Formato PDF"/>
                                     <span class="help">Será gerado uma listagem em PDF com a relação de telefones para bloqueio.</span>
                                     <input class="button is-primary is-outlined" id="xml" name="xml" type="submit" value="Formato XML"/>

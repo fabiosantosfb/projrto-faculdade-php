@@ -448,12 +448,21 @@ class PagesController {
 * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
 */
   function listarRelatorio() {
-    if($_GET['json'])
-      self::listarJson();
-    else if($_GET['xml'])
-      self::listarXml();
-    else if($_GET['pdf'])
-      echo "PDF:";
+    if(isset($_GET['json']) && !empty($_GET['json'])){
+      header("Content-type: application/json");
+      header('Content-Disposition: attachment; filename="nao-perturbe.json"');
+      readfile(self::listarJson());
+      die;
+    } else if(isset($_GET['xml']) && !empty($_GET['xml'])){
+      header("Content-type: application/xml");
+      header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
+      readfile(self::listarXml());
+      die;
+    } else if(isset($_GET['pdf']) && !empty($_GET['pdf']))
+      header('Content-Type: pdf/pdf');
+      header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
+      readfile(self::listarPdf());
+      die;
   }
 
   function listarJson() {
@@ -461,10 +470,26 @@ class PagesController {
     $listaspf = $listar->listarPessoaRelat();
     $listaspj = $listar->listarPessoaJuridicaRelat();
 
-    header("Content-type: application/json");
-
     $JSON = json_encode($listaspj+$listaspf);
     echo $JSON;
+  }
+
+  function listarPdf(){
+    $listar = Listar::getInstanceListar();
+    $listaspf = $listar->listarPessoaRelat();
+    $listaspj = $listar->listarPessoaJuridicaRelat();
+
+    echo 'Relatorio não pertube<br>';
+    foreach ($listaspf as $key => $value) {
+        echo '<br>Usuario:';
+        echo '<br>Numero telefone : '.$value['telefone_numero'];
+        echo '<br>Data cadastro : '.$value['data_cadastro'];
+    }
+    foreach ($listaspj as $key => $value) {
+        echo '<br>Usuario:';
+        echo '<br>Numero telefone : '.$value['telefone_numero'];
+        echo '<br>Data cadastro : '.$value['data_cadastro'];
+    }
   }
   /*
   * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
@@ -474,23 +499,20 @@ class PagesController {
       $listaspf = $listar->listarPessoaRelat();
       $listaspj = $listar->listarPessoaJuridicaRelat();
 
-      header("Content-type: application/xml");
       $xmlstr = "<?xml version='1.0' encoding='utf-8' ?>"."<consumidor>\n</consumidor>";
       $xml = new SimpleXMLElement($xmlstr);
 
       $line = $xml->addChild('usuario');
       foreach ($listaspf as $key) {
-          $line->addChild("numero", '&lt;'.$key['telefone_numero']);
-          $line->addChild("data", $key['data_cadastro'].'&gt;');
+          $line->addChild("numero-telefone", $key['telefone_numero']);
+          $line->addChild("data-cadastro", $key['data_cadastro']);
       }
       $line_j = $xml->addChild('usuario');
       foreach ($listaspj as $key) {
-          $line_j->addChild("numero", '&lt;'.$key['telefone_numero']);
-          $line_j->addChild("data", $key['data_cadastro'].'&gt;');
+          $line_j->addChild("numero-telefone", $key['telefone_numero']);
+          $line_j->addChild("data-cadastro", $key['data_cadastro']);
       }
-
       echo $xml->asXML();
-
     }
   /*
   *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
