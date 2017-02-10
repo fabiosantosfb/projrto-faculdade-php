@@ -1,7 +1,7 @@
 <?php
     $HOME = '
     <a class="nav-item" href="admin">
-      <i class="fa fa-tachometer"></i></span>
+     <span>Liberação Telemarketing</span>
     </a>';
 
     $PESSOA = '
