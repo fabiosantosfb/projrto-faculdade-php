@@ -1,6 +1,6 @@
 <?php
 require_once ('app/model/Conexao.class.php');
-class DaoUsuario extends ConexaoDb {
+class _DaoUsuario extends ConexaoDb { //NOMES DE CLASSES AMBIGUOUS PARA O COMPOSER
     private $dataAutenticacao;
     private $dataUsuario;
     private $dataEndereco;

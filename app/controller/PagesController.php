@@ -451,18 +451,19 @@ class PagesController {
     if(isset($_GET['json']) && !empty($_GET['json'])){
       header("Content-type: application/json");
       header('Content-Disposition: attachment; filename="nao-perturbe.json"');
-      readfile(self::listarJson());
+      self::listarJson();
       die;
     } else if(isset($_GET['xml']) && !empty($_GET['xml'])){
       header("Content-type: application/xml");
       header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
-      readfile(self::listarXml());
+      self::listarXml();
       die;
-    } else if(isset($_GET['pdf']) && !empty($_GET['pdf']))
-      header('Content-Type: pdf/pdf');
+    } else if(isset($_GET['pdf']) && !empty($_GET['pdf'])){
+      header('Content-type: application/pdf');
       header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
-      readfile(self::listarPdf());
+      self::listarPdf();
       die;
+    }
   }
 
   function listarJson() {
@@ -479,17 +480,32 @@ class PagesController {
     $listaspf = $listar->listarPessoaRelat();
     $listaspj = $listar->listarPessoaJuridicaRelat();
 
-    echo 'Relatorio não pertube<br>';
+    header("Content-type: unicode/utf-8");
+    $pdf= new FPDF("P","pt","A4");
+    $pdf->AddPage();
+    $pdf->SetFont('arial','B',12);
+    $pdf->Cell(0,5,"Relatorio nao pertube",0,1,'L');
+    $pdf->Ln(20);
+
+    $pdf->SetFont('arial','I',9);
+    $pdf->Cell(50, 8, "", 1, 0, ‘C’);
+    $pdf->Cell(150, 8, "NUMERO TELEFONE", 1, 0, ‘L’);
+
+    $pdf->Cell(150, 8, "DATA CADASTRO", 1, 1, ‘L’);
+
     foreach ($listaspf as $key => $value) {
-        echo '<br>Usuario:';
-        echo '<br>Numero telefone : '.$value['telefone_numero'];
-        echo '<br>Data cadastro : '.$value['data_cadastro'];
+        $pdf->Cell(50, 8, "", 1, 0, ‘C’);
+        $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
+        $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
     }
+
     foreach ($listaspj as $key => $value) {
-        echo '<br>Usuario:';
-        echo '<br>Numero telefone : '.$value['telefone_numero'];
-        echo '<br>Data cadastro : '.$value['data_cadastro'];
+      $pdf->Cell(50, 8, "", 1, 0, ‘C’);
+      $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
+      $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
     }
+    $pdf->Ln(8);
+    $pdf->Output("nao-pertube.pdf","D");
   }
   /*
   * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING

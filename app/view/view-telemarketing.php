@@ -53,19 +53,18 @@ $LOGIN = '
                             <?php } else {?>
                                 <form class="control" method="get" action="list-relatorio">
                                     <input class="button is-primary is-outlined" id="pdf" name="pdf" type="submit" value="Formato PDF"/>
-                                    <span class="help">Será gerado uma listagem em PDF com a relação de telefones para bloqueio.</span>
+                                    <span class="help">Será gerado um arquivo em PDF com a relação de telefones para bloqueio.</span>
                                     <input class="button is-primary is-outlined" id="xml" name="xml" type="submit" value="Formato XML"/>
                                     <span class="help">Será gerado um arquivo em XML com a relação de telefones para bloqueio.</span>
                                     <input class="button is-primary is-outlined" id="json" name="json" type="submit" value="Formato JSON"/>
                                     <span class="help">Será gerado um arquivo em formato JSON com a relação de telefones para bloqueio.</span>
                                 </form>
-
-                                <form class="control" id="form1">
+                                <form class="control"  method="get" action="list-relatorio">
                                     <div id="dvContainer">
                                         Listagem Pdf.
                                     </div>
-                                    <input class="button is-primary is-outlined" id="btnPrint" onclick="pdf()" type="button" value="Gerar arquivo PDF"/>
-                                    <span class="help">Será gerado um arquivo em PDF com a relação de telefones para bloqueio.</span>
+                                    <input class="button is-primary is-outlined" id="pdf-g" name="pdf-g" type="submit" value="Gerar arquivo PDF"/>
+                                    <span class="help">Será gerado uma listagem em PDF com a relação de telefones para bloqueio.</span>
                                 </form>
                                 <?php } ?>
 
