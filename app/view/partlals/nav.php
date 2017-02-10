@@ -11,7 +11,7 @@
         <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
         <span class="nav-toggle">
             <span>
-                <a class="nav-item" href="pessoa-fisica">
+                <a class="nav-item is-active" href="pessoa-fisica">
                     Home
                 </a>';
             </span>
