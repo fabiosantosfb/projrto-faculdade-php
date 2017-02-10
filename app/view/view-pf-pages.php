@@ -4,10 +4,7 @@ $HOME = '';
 $PESSOA = '';
 
 $LOGIN = '
-<a class="button is-primary" href="logout">
-<span class="icon">
-<i class="fa fa-sign-out"></i>
-</span>
+<a class="nav-item" href="logout">
 <span>SAIR</span>
 </a>';
 
@@ -85,7 +82,8 @@ $LOGIN = '
                             </form>
                             <p>&nbsp;</p>
                         </div>
-                    </div>
+                        <div id="tel"></div>
+                </div>
                 </div>
                 <div class="column">
                     <div class="panel">
@@ -110,14 +108,14 @@ $LOGIN = '
                                     <div class="column">
                                         <label class="label">Senha</label>
                                         <p class="control">
-                                            <input class="input" id="senha" name="senha" type="password" placeholder="Senha" value="*******" required="">
+                                            <input class="input" id="senha" name="senha" type="password" placeholder="**********" required="">
                                         </p>
                                     </div>
 
                                     <div class="column">
                                         <label class="label">Confirmar Senha</label>
                                         <p class="control">
-                                            <input class="input" id="repetir_senha" name="repetir_senha" type="password" placeholder="Confirma Senha"  value="*******" required="">
+                                            <input class="input" id="repetir_senha" name="repetir_senha" type="password" placeholder="*********" required="">
                                         </p>
                                     </div>
 
@@ -125,6 +123,7 @@ $LOGIN = '
                             </form>
                             <p>&nbsp;</p>
                         </div>
+                        <div id="login"></div>
                         <p>&nbsp;</p>
                         <p class="control">
                             <input id="id_login" value="<?=$usuario['id_usuario'] ?>" type="hidden">
@@ -191,6 +190,7 @@ $LOGIN = '
                         </div>
                         <p>&nbsp;</p>
                     </div>
+                    <div id="documento"></div>
                     <br>
                     <input id="doc" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
                     <button class="button is-primary is-outlined" type="button" onclick="updateDoc()">  Alterar </button>
@@ -248,13 +248,13 @@ $LOGIN = '
                         </div>
                         <p>&nbsp;</p>
                 </div>
+                <div id="endereco"></div>
                 <p>&nbsp;</p>
                 <p class="control">
                     <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
                     <button class="button is-primary is-outlined" type="button" onclick="updateAddress()">  Alterar </button>
                 </p>
             </form>
-            <span><div id="login"></div></span>
             </div>
         </div>
     </section>

@@ -27,7 +27,7 @@ class PagesController {
   public function page_form_login() {
     $HOME = '
     <a class="nav-item" href="pessoa-fisica">
-        <span class="icon"><i class="fa fa-home"></i></span>
+        <span>Home</span>
     </a>';
 
     $PESSOA = '
@@ -53,17 +53,14 @@ class PagesController {
   public function page_form_pessoafisica() {
     $HOME = '
     <a class="nav-item" href="pessoa-juridica">
-      <span class="icon"><i class="fa fa-home"></i></span>
+      <span>Home</span>
     </a>';
     $PESSOA = '
     <a class="nav-item" href="pessoa-juridica">
         <span>Pessoa Jurídica</span>
     </a>';
     $LOGIN = '
-    <a class="button is-primary" href="login">
-        <span class="icon">
-          <i class="fa fa-sign-in"></i>
-        </span>
+    <a class="nav-item" href="login">
         <span>ENTRAR</span>
     </a>';
 
@@ -80,7 +77,7 @@ class PagesController {
   public function page_form_pessoajuridica() {
     $HOME = '
     <a class="nav-item" href="pessoa-fisica">
-      <span class="icon"><i class="fa fa-home"></i></span>
+      <span>Home</span>
     </a>';
 
     $PESSOA = '
@@ -89,10 +86,7 @@ class PagesController {
     </a>';
 
     $LOGIN = '
-    <a class="button is-primary" href="login">
-        <span class="icon">
-          <i class="fa fa-sign-in"></i>
-        </span>
+    <a class="nav-item" href="login">
         <span>ENTRAR</span>
     </a>';
 
@@ -109,14 +103,11 @@ class PagesController {
   public function home() {
     $HOME = '
     <a class="nav-item" href="pessoa-fisica">
-        <span class="icon"><i class="fa fa-home"></i></span>
+        <span>Home</span>
     </a>';
 
     $LOGIN = '
-    <a class="button is-primary" href="login">
-        <span class="icon">
-          <i class="fa fa-sign-in"></i>
-        </span>
+    <a class="nav-item" href="login">
         <span>ENTRAR</span>
     </a>';
 
@@ -197,10 +188,7 @@ class PagesController {
       ';
 
     $LOGIN = '
-    <a class="button is-primary" href="logout">
-        <span class="icon">
-          <i class="fa fa-sign-out"></i>
-        </span>
+    <a class="nav-item" href="logout">
         <span>SAIR</span>
     </a>';
 
@@ -220,7 +208,7 @@ class PagesController {
   public function pessoaJuridica() {
       $HOME = '
       <a class="nav-item" href="admin">
-        <span class="icon"><i class="fa fa-tachometer"></i></span>
+        <i class="fa fa-tachometer"></i></span>
       </a>';
 
       $PESSOA = '
@@ -233,10 +221,7 @@ class PagesController {
       ';
 
     $LOGIN = '
-    <a class="button is-primary" href="logout">
-        <span class="icon">
-          <i class="fa fa-sign-out"></i>
-        </span>
+    <a class="nav-item" href="logout">
         <span>SAIR</span>
     </a>';
 
@@ -437,7 +422,7 @@ class PagesController {
             }
             self::$erro = $insertUsuario->getErro();
           } catch (Exception $ex){
-            self::$erro = "Exeção no Cadastro de Pessoa Fisica!";
+            self::$erro = "Exceção no Cadastro de Pessoa Fisica!";
             return false;
           }
       } else if($tipoCadastro == "pessoafisica" && $pessoa->getCpf() != null) {

@@ -1,7 +1,7 @@
 <?php
     $HOME = '
     <a class="nav-item" href="admin">
-      <span class="icon"><i class="fa fa-tachometer"></i></span>
+      <i class="fa fa-tachometer"></i></span>
     </a>';
 
     $PESSOA = '
@@ -14,11 +14,7 @@
     ';
 
     $LOGIN = '
-    <a class="nav-item" href="">Bem Vindo</a>
-    <a class="button is-primary" href="logout">
-        <span class="icon">
-          <i class="fa fa-sign-out"></i>
-        </span>
+    <a class="nav-item" href="logout">
         <span>SAIR</span>
     </a>';
 

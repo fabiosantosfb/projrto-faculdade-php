@@ -20,3 +20,7 @@ function telefoneFormat(camp) { id(camp).onkeypress = function(){ inputDado( thi
 function cnpjFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, formatacaoCnpj ); }}
 function cepFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, formatacaoCep ); }}
 function newPhone(){ id('novo_tel').onkeypress = function(){ inputDado( this, formatacaoTelefone ); } }
+
+function ocultarMsg(){
+    $(".ocultar").hide("slow",callback);
+}

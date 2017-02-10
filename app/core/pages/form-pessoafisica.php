@@ -7,10 +7,7 @@
 
 
     $LOGIN = '
-    <a class="button is-primary" href="login">
-        <span class="icon">
-          <i class="fa fa-sign-in"></i>
-        </span>
+    <a class="nav-item" href="login">
         <span>ENTRAR</span>
     </a>';
 

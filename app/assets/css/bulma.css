@@ -568,7 +568,7 @@ a.box:hover, a.box:focus {
 }
 
 a.box:active {
-  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2), 0 0 0 1px #00d1b2;
+  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.2), 0 0 0 1px #00d1b2;
 }
 
 .button {
@@ -6036,6 +6036,7 @@ label.panel-block:hover {
  right: 0
  top: 0
 }
+
 @media screen and (max-width: 768px) {
   .hero.is-danger .nav-toggle span {
     background-color: #fff;
@@ -6094,7 +6095,7 @@ label.panel-block:hover {
 }
 
 .footer {
-  background-color: whitesmoke;
+  background-color: #fff;
   padding: 3rem 1.5rem 6rem;
 }
 

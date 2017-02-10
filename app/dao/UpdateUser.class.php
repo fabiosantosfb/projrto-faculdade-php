@@ -19,7 +19,7 @@ class UpdateUser extends  ConexaoDb {
         $validar->execute();
 
     } catch (Exception $tlmk){
-      echo 'Erro '.$tlmk->getMessage().'<br>';
+      echo '<span class="help is-danger ocultar">Erro '.$tlmk->getMessage().'</span>';
       //$this->erro = "EXCEÇÃO AO ATUALUZAR TELEMARKETING!";
       return false;
     }
@@ -34,10 +34,10 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":id_telefone", $id_telefone);
 
         if($validar->execute()){
-          echo "Atualizado Com sucesso!";
+          echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
         }
     } catch (Exception $tele){
-      echo 'Erro Atualizar Telefone: '.$tele->getMessage().'<br>';
+      echo '<span class="help is-danger ocultar">Erro Atualizar Telefone: '.$tele->getMessage().'</span>';
       return false;
     }
   }
@@ -67,11 +67,11 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":data_expedicao", $dataexpedicao);
         $validar->bindValue(":id", $usuario);
         if($validar->execute()){
-          echo "Atualizado Com sucesso!";
+            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
         }
 
     } catch (Exception $doc){
-      echo 'Erro Atualizar Documento: '.$doc->getMessage().'<br>';
+      echo '<span class="help is-danger ocultar">Erro Atualizar Documento: '.$doc->getMessage().'</span>';
       return false;
     }
   }
@@ -84,11 +84,11 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":cnpj", $cnpj);
         $validar->bindValue(":id", $usuario);
         if($validar->execute()){
-          echo "Atualizado Com sucesso!";
+            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
         }
 
     } catch (Exception $doc){
-      echo 'Erro Atualizar Documento: '.$doc->getMessage().'<br>';
+      echo '<span class="help is-danger ocultar">Erro Atualizar Documento: '.$doc->getMessage().'</span>';
       return false;
     }
   }
@@ -105,12 +105,12 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":complemento", $complemento);
         $validar->bindValue(":id_endereco", $id_endereco);
         if($validar->execute()){
-          echo "Atualizado Com sucesso!";
+            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
         }
 
     } catch (Exception $end){
       //$this->erro = "EXCEÇÃO AO ATUALUZAR DOCUMENTO!";
-      echo 'Erro Atualizar Endereço: '.$end->getMessage().'<br>';
+      echo '<span class="help is-danger ocultar">Erro Atualizar Endereço: '.$end->getMessage().'</span>';
       return false;
     }
   }
@@ -124,12 +124,12 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":senha", $pwd);
         $validar->bindValue(":id", $id);
         if($validar->execute()){
-          echo "Atualizado Com sucesso!";
+            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
         }
 
     } catch (Exception $pwd){
       //$this->erro = "EXCEÇÃO AO ATUALUZAR DOCUMENTO!";
-      echo 'Erro Atualizar Login: '.$pwd->getMessage().'<br>';
+      echo '<span class="help is-danger ocultar">Erro Atualizar Login: '.$pwd->getMessage().'</span>';
       return false;
     }
   }
