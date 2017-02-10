@@ -4,7 +4,7 @@ class ConexaoDb {
   private static $SQL = "mysql:host=localhost;dbname=proconpb_naoperturbe";
   private static $USER = "root";
   private static $PWD = "pr0c0np3";
-
+  
   private static $conexao = null;
 
     public function __construct() {
