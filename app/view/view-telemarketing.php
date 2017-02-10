@@ -9,10 +9,7 @@ $PESSOA = ($telemarketing)? '
 </a>
 ':
 
-$HOME = '
-<a class="nav-item" href="">
-<span>Home</span>
-</a>';
+$HOME = '';
 
 $LOGIN = '
 <a class="nav-item" href="logout">
@@ -28,7 +25,7 @@ $LOGIN = '
             Telemarketing
         </h1>
         <h2 class="subtitle is-6">
-            Listagem de telefones Bloquados
+            Listagem de telefones Bloqueados
         </h2>
         <hr>
         <div class="columns">
@@ -44,10 +41,10 @@ $LOGIN = '
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
                             <div class="control notification is-danger">
-                              <button class="delete"></button>
-                              <p>
-                                  No momento você não está habilitado para receber a listagem de bloqueio. <br/>Aguarde a liberação.
-                              </p>
+                                <button class="delete"></button>
+                                <p>
+                                    No momento você não está habilitado para receber a listagem de bloqueio. <br/>Aguarde a liberação.
+                                </p>
                             </div>
 
                             <?php } else {?>
@@ -67,9 +64,6 @@ $LOGIN = '
                                     <span class="help">Será gerado uma listagem em PDF com a relação de telefones para bloqueio.</span>
                                 </form>
                                 <?php } ?>
-
-
-
                             </form>
                             <p>&nbsp;</p>
                         </div>
