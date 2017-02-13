@@ -434,9 +434,9 @@ class PagesController {
                 self::$erro = "Exeção no Cadastro de Pessoa Fisica!";
                 return false;
             }
-<<<<<<< HEAD
       }
   }
+
   /*
 * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
 */
@@ -503,80 +503,27 @@ class PagesController {
   /*
   * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
   */
-=======
-        }
-    }
-    /*
-    * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
-    */
-    function listarRelatorio() {
-        if(isset($_GET['json']) && !empty($_GET['json'])){
-            header("Content-type: application/json");
-            header('Content-Disposition: attachment; filename="nao-perturbe.json"');
-            readfile(self::listarJson());
-            die;
-        } else if(isset($_GET['xml']) && !empty($_GET['xml'])){
-            header("Content-type: application/xml");
-            header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
-            readfile(self::listarXml());
-            die;
-        } else if(isset($_GET['pdf']) && !empty($_GET['pdf']))
-        header('Content-Type: pdf/pdf');
-        header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
-        readfile(self::listarPdf());
-        die;
-    }
-
-    function listarJson() {
-        $listar = Listar::getInstanceListar();
-        $listaspf = $listar->listarPessoaRelat();
-        $listaspj = $listar->listarPessoaJuridicaRelat();
-
-        $JSON = json_encode($listaspj+$listaspf);
-        echo $JSON;
-    }
-
-    function listarPdf(){
-        $listar = Listar::getInstanceListar();
-        $listaspf = $listar->listarPessoaRelat();
-        $listaspj = $listar->listarPessoaJuridicaRelat();
-
-        echo 'Relatorio não pertube<br>';
-        foreach ($listaspf as $key => $value) {
-            echo '<br>Usuario:';
-            echo '<br>Numero telefone : '.$value['telefone_numero'];
-            echo '<br>Data cadastro : '.$value['data_cadastro'];
-        }
-        foreach ($listaspj as $key => $value) {
-            echo '<br>Usuario:';
-            echo '<br>Numero telefone : '.$value['telefone_numero'];
-            echo '<br>Data cadastro : '.$value['data_cadastro'];
-        }
-    }
-    /*
-    * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
-    */
->>>>>>> 2a1725ee3dfc6aa6c19645724f1296bb467d3f18
     function listarXml() {
-        $listar = Listar::getInstanceListar();
-        $listaspf = $listar->listarPessoaRelat();
-        $listaspj = $listar->listarPessoaJuridicaRelat();
+      $listar = Listar::getInstanceListar();
+      $listaspf = $listar->listarPessoaRelat();
+      $listaspj = $listar->listarPessoaJuridicaRelat();
 
-        $xmlstr = "<?xml version='1.0' encoding='utf-8' ?>"."<consumidor>\n</consumidor>";
-        $xml = new SimpleXMLElement($xmlstr);
+      $xmlstr = "<?xml version='1.0' encoding='utf-8' ?>"."<consumidor>\n</consumidor>";
+      $xml = new SimpleXMLElement($xmlstr);
 
-        $line = $xml->addChild('usuario');
-        foreach ($listaspf as $key) {
-            $line->addChild("numero-telefone", $key['telefone_numero']);
-            $line->addChild("data-cadastro", $key['data_cadastro']);
-        }
-        $line_j = $xml->addChild('usuario');
-        foreach ($listaspj as $key) {
-            $line_j->addChild("numero-telefone", $key['telefone_numero']);
-            $line_j->addChild("data-cadastro", $key['data_cadastro']);
-        }
-        echo $xml->asXML();
+      $line = $xml->addChild('usuario');
+      foreach ($listaspf as $key) {
+          $line->addChild("numero-telefone", $key['telefone_numero']);
+          $line->addChild("data-cadastro", $key['data_cadastro']);
+      }
+      $line_j = $xml->addChild('usuario');
+      foreach ($listaspj as $key) {
+          $line_j->addChild("numero-telefone", $key['telefone_numero']);
+          $line_j->addChild("data-cadastro", $key['data_cadastro']);
+      }
+      echo $xml->asXML();
     }
+
     /*
     *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
     */
