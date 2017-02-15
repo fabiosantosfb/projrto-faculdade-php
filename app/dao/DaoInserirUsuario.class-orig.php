@@ -136,18 +136,18 @@ class _DaoUsuario extends ConexaoDb { //NOMES DE CLASSES AMBIGUOUS PARA O COMPOS
     }
     public function inserirEndereco() {
         try {
-            $endereco = "INSERT INTO endereco (cep, rua, bairro, cidade, numero, complemento, usuario_id_usuario) values (:cep, :rua, :bairro, :cidade, :numero, :complemento, LAST_INSERT_ID())";
-            $this->validarEnd = Parent::getInstanceConexao()->prepare($endereco);
-            $this->validarEnd->bindValue(":cep", $this->dataEndereco->getCep());
-            $this->validarEnd->bindValue(":rua", $this->dataEndereco->getRua());
-            $this->validarEnd->bindValue(":bairro", $this->dataEndereco->getBairro());
-            $this->validarEnd->bindValue(":cidade", $this->dataEndereco->getCidade());
-            $this->validarEnd->bindValue(":numero", $this->dataEndereco->getNumero());
-            $this->validarEnd->bindValue(":complemento", $this->dataEndereco->getComplemento());
+            $endereco = "INSERT INTO endereco (usuario_id_usuario, cep, rua, bairro, cidade, numero, complemento) values (LAST_INSERT_ID(), :cep, :rua, :bairro, :cidade, :numero, :complemento)";
+            $_validarEnd = Parent::getInstanceConexao()->prepare($endereco);
+            $_validarEnd->bindValue(":cep", $this->dataEndereco->getCep());
+            $_validarEnd->bindValue(":rua", $this->dataEndereco->getRua());
+            $_validarEnd->bindValue(":bairro", $this->dataEndereco->getBairro());
+            $_validarEnd->bindValue(":cidade", $this->dataEndereco->getCidade());
+            $_validarEnd->bindValue(":numero", $this->dataEndereco->getNumero());
+            $_validarEnd->bindValue(":complemento", $this->dataEndereco->getComplemento());
             if($this->validarUser->execute()) {
                 $this->validarDoc->execute();
                 $this->validarTel->execute();
-                $this->validarEnd->execute();
+                $_validarEnd->execute();
                 return true;
             }
             return false;
