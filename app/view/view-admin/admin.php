@@ -81,9 +81,6 @@ $LOGIN = '
                                             <p>NOME</p>
                                         </th>
                                         <th>
-                                            <p>DATA CADASTRO</p>
-                                        </th>
-                                        <th>
                                             <p>STATUS</p>
                                         </th>
                                     </tr>
@@ -94,7 +91,6 @@ $LOGIN = '
                                             <tr style="color:#000">
                                                 <td><?=$key['cnpj'] ?></td>
                                                 <td><?=$key['nome'] ?></td>
-                                                <td><?=$key['data_cadastro'] ?></td>
                                                 <td>
                                                     <p class="control">
                                                         <label class="checkbox is-medium">

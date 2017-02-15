@@ -528,7 +528,7 @@ class PagesController {
     *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
     */
     function update(){
-        $sta = ($_GET['status'] == 1)? 0: 1;
+        $sta = ($_POST['status'] == 1)? 0: 1;
         $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
         $updateTelemarketing->update($sta,$_POST['id']);
     }

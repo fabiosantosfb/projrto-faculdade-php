@@ -66,7 +66,7 @@ class Listar extends ConexaoDb {
 
   public function listarTelemarketing(){
     try{
-        $queryTm = "SELECT * FROM pessoa_juridica JOIN telemarketing ON pessoa_juridica.usuario_id_usuario =  telemarketing.pessoa_juridica_usuario_id_usuario JOIN telefone ON pessoa_juridica.usuario_id_usuario =  telefone.usuario_id_usuario";
+        $queryTm = "SELECT *  FROM pessoa_juridica JOIN telemarketing ON pessoa_juridica.usuario_id_usuario =  telemarketing.pessoa_juridica_usuario_id_usuario";
         $validar = Parent::getInstanceConexao()->prepare($queryTm);
         $validar->execute();
 
