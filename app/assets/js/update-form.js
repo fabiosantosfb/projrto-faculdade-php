@@ -1,4 +1,5 @@
 function modifiStatus(id, _status){
+    alert(id + _status);
     var params = "id="+id+"&status="+_status;
     var xhttp = new XMLHttpRequest();
 
