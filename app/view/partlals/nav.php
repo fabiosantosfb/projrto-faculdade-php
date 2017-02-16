@@ -13,7 +13,7 @@
             <span>
                 <a class="nav-item is-active" href="pessoa-fisica">
                     Home
-                </a>';
+                </a>;
             </span>
             <?php
             echo $PESSOA;

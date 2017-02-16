@@ -1,6 +1,6 @@
 <?php
 $PESSOA = ($telemarketing)? '
-<a class="nav-item" href="session-pj">
+<a class="nav-item is-active" href="session-pj">
 <span>Meus Dados</span>
 </a>
 <a class="nav-item" href="list">
@@ -11,7 +11,7 @@ $PESSOA = ($telemarketing)? '
 $HOME = '';
 
 $LOGIN = '
-<a class="nav-item" href="logout">
+<a class="nav-item is_active" href="logout">
 <span>SAIR</span>
 </a>';
 ?>

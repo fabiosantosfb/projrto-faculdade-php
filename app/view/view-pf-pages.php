@@ -4,7 +4,7 @@ $HOME = '';
 $PESSOA = '';
 
 $LOGIN = '
-<a class="nav-item" href="logout">
+<a class="nav-item is-active" href="logout">
 <span>SAIR</span>
 </a>';
 

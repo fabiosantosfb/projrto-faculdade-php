@@ -1,7 +1,7 @@
 <?php
 
 $PESSOA = '
-<a class="nav-item" href="pessoa-fisica">
+<a class="nav-item is-active" href="pessoa-fisica">
     <span>Pessoa Física</span>
 </a>
 ';
