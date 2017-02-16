@@ -26,28 +26,28 @@
                         <form class="control" method="post" action="/cadastro-pf">
                             <label class="label">Nome</label>
                             <p class="control">
-                                <input class="input-w-8" id="nome" name="nome"  type="text" placeholder="Digite seu nome" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
+                                <input class="input-w-8" id="nome" name="nome"  type="text" placeholder="Digite seu nome" maxlength="100" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
                             </p>
                             <label class="label">CPF</label>
                             <p class="control">
                                 <input name="type" type="hidden" value="pf">
-                                <input class="input-w-4" id="cpf" name="cpf" type="text" placeholder="CPF" required="" value="<?php  if(isset($_POST['cpf'])) echo htmlspecialchars($_POST['cpf']); ?>">
+                                <input class="input-w-4" id="cpf" name="cpf" type="text" placeholder="CPF" maxlength="14" required="" value="<?php  if(isset($_POST['cpf'])) echo htmlspecialchars($_POST['cpf']); ?>">
                             </p>
                             <label class="label">Identidade</label>
                             <p class="control">
-                                <input class="input-w-4" id="rg" name="rg" type="text" placeholder="RG" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
+                                <input class="input-w-4" id="rg" name="rg" type="text" placeholder="RG" maxlength="10" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
                             </p>
                             <label class="label">Data da Expedição</label>
                             <p class="control">
-                                <input class="input-w-4" id="dataexpedicao" maxlength="8" name="dataexpedicao" type="date_format" placeholder="dd/mm/aaaa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
+                                <input class="input-w-4" id="dataexpedicao" maxlength="8" name="dataexpedicao" maxlength="8"  type="date_format" placeholder="dd/mm/aa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
                             </p>
                             <label class="label">Orgão Expedidor</label>
                             <p class="control">
-                                <input class="input-w-3" id="nome" name="orgao_expedidor" type="text" placeholder="Org"  required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
+                                <input class="input-w-3" id="nome" name="orgao_expedidor" type="text" maxlength="6" placeholder="Org"  required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
                             </p>
                             <label class="label">UF</label>
                             <p class="control">
-                                <input class="input-w-3" id="uf" name="uf" type="text" placeholder="UF"  required="" value="<?php  if(isset($_POST['uf'])) echo htmlspecialchars($_POST['uf']); ?>"  >
+                                <input class="input-w-3" id="uf" name="uf" type="text" maxlength="2" placeholder="UF"  required="" value="<?php  if(isset($_POST['uf'])) echo htmlspecialchars($_POST['uf']); ?>"  >
                             </p>
                         </div>
                     </section>
@@ -90,11 +90,11 @@
                                 </p>
                                 <label class="label">Senha</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="senha" name="senha" type="password" placeholder="Senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
+                                    <input class="input-w-4" id="senha" name="senha" type="password" maxlength="60" placeholder="Senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
                                 </p>
                                 <label class="label">Confirmar Senha</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="repetir_senha" name="repetir_senha" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
+                                    <input class="input-w-4" id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
                                 </p>
                                 <div class="control is-grouped">
                                     <p class="control">

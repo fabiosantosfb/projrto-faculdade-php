@@ -86,9 +86,10 @@ $LOGIN = '
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <form>
                                         <?php foreach ($listastl as $key) { ?>
-                                            <tr style="color:#000">
+                                            <tr>
                                                 <td><?=$key['cnpj'] ?></td>
                                                 <td><?=$key['nome'] ?></td>
                                                 <td>
