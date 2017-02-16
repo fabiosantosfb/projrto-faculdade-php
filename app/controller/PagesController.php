@@ -40,12 +40,7 @@ class PagesController {
 
         $LOGIN = '';
 
-
         require_once ('app/view/view-form-login.php');
-        if(self::$erro_form){
-            $key = self::erros();
-            echo "<script>alert('$key')</script>";
-        }
     }
     /*
     *FUNÇÃO PAGE FORMULARIO DE PESSOA FISICA
@@ -64,12 +59,7 @@ class PagesController {
         <span>ENTRAR</span>
         </a>';
 
-
         require_once ('app/view/view-form-pf.php');
-        if(self::$erro_form){
-            $key = self::erros();
-            echo "<script>alert('$key')</script>";
-        }
     }
     /*
     *FUNÇÃO PAGE FORMULARIO DE PESSOA JURIDICA
@@ -90,12 +80,7 @@ class PagesController {
         <span>ENTRAR</span>
         </a>';
 
-
         require_once ('app/view/view-form-pj.php');
-        if(self::$erro_form){
-            $key = self::erros();
-            echo "<script>alert('$key')</script>";
-        }
     }
     /*
     *FUNÇÃO PAGE INICIAL
@@ -117,10 +102,6 @@ class PagesController {
         </a>';
 
         require_once ('app/view/view-form-pj.php');
-        if(self::$erro_form){
-            $key = self::erros();
-            echo "<script>alert('$key')</script>";
-        }
     }
     /*
     *FUNÇÃO PAGE SESSÃO DE PESSOA FISICA
@@ -668,20 +649,18 @@ class PagesController {
     }
 
     public function redirection() {
-        if($_SESSION['type_user'] == 'pf') {
-            header("Location: /session-pf");
+        if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pf') {
+            self::userPessoaFisica();
             die;
-        } else if($_SESSION['type_user'] == 'pj') {
-            header("Location: /session-pj");
+        } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pj') {
+            self::userPessoaJuridica();
             die;
-        } else if($_SESSION['type_user'] == 'admin') {
-            header("Location: /admin");
-            die;
-        } else if($_SESSION['type_user'] == 'tlm') {
-            header("Location: /list");
+        } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'admin') {
+            self::userAdmin();
             die;
         } else {
-            header("Location: /login");
+          header("Location: /login");
+          die;
         }
     }
 }
