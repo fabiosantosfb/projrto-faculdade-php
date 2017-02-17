@@ -48,7 +48,7 @@ $LOGIN = '
                             </div>
 
                             <?php } else {?>
-                                <form class="control" method="get" action="list-relatorio">
+                                <form class="control" method="post" action="list-relatorio">
                                     <input class="button is-primary is-outlined" id="pdf" name="pdf" type="submit" value="Formato PDF"/>
                                     <span class="help">Será gerado um arquivo em PDF com a relação de telefones para bloqueio.</span>
                                     <br>
@@ -56,7 +56,16 @@ $LOGIN = '
                                     <span class="help">Será gerado um arquivo em XML com a relação de telefones para bloqueio.</span>
                                     <br>
                                     <input class="button is-primary is-outlined" id="json" name="json" type="submit" value="Formato JSON"/>
-                                    <span class="help">Será gerado um arquivo em formato JSON com a relação de telefones para bloqueio.</span>                                </form>
+
+                                    <span class="help">Será gerado um arquivo em formato JSON com a relação de telefones para bloqueio.</span>
+                                </form>
+                                <form class="control" target="_blank" method="get" action="list-relatorio-browser">
+                                    <div id="dvContainer">
+                                        Listagem Pdf.
+                                    </div>
+                                    <input class="button is-primary is-outlined" id="pdf-g" name="pdf-g" type="submit" value="Gerar arquivo PDF"/>
+                                    <span class="help">Será gerado uma listagem em PDF com a relação de telefones para bloqueio.</span>
+
                                 </form>
                                 <p>&nbsp;</p>
                                 <?php } ?>

@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Bcrypt' => $baseDir . '/app/model/Bcrypt.php',
     'ComposerAutoloaderInit25f39ae5674b41fbe5247122846d71b0' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit25f39ae5674b41fbe5247122846d71b0' => $vendorDir . '/composer/autoload_static.php',

@@ -4,11 +4,9 @@
     class DaoLogin extends ConexaoDb {
         private $login;
         private $erro;
-        //private static $session;
 
         public function __construct($login) {
             $this->login = $login;
-            //self::$session = Session::getInstanceSession();
         }
 
         public function loginDb() {
@@ -20,31 +18,24 @@
     		        $validar->execute();
 
                 if ($validar->rowCount() === 1) {
-                  	$row = $validar->fetch(PDO::FETCH_ASSOC);                
-                    if ($this->login->getPassword() == $row['senha']) {
+                  	$row = $validar->fetch(PDO::FETCH_ASSOC);
+
+                    $pwd = $this->login->getPassword();
+                    $hash = $row['senha'];
+
+                    if (Bcrypt::check($pwd, $hash)) {
                         $_SESSION['id'] = $row['id_usuario'];
                         $_SESSION['type_user'] = $row['type'];
 
-                        //self::$session->gerarSession(true);
-                        //self::$session->setIdSession($row['id_usuario']);
-                        //self::$session->setTypeSession($row['type']);
-
                         return true;
                     } else {
-                        $this->erro = "Senha invalida";
                         return false;
                     }
                 } else {
-                    $this->erro = "Email Não Encontrado";
                     return false;
                 }
             } catch (ErrorException $ex) {
-                $this->erro = "Exessão no Login";
                 return false;
             }
-        }
-
-        public function getErro() {
-          return $this->error;
         }
     }

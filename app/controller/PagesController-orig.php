@@ -66,7 +66,7 @@ class PagesController {
     */
     public function page_form_pessoajuridica() {
         $HOME = '
-        <a class="nav-item is-active" href="pessoa-fisica">
+        <a class="nav-item" href="pessoa-fisica">
         <span>Home</span>
         </a>';
 
@@ -87,7 +87,7 @@ class PagesController {
     */
     public function home() {
         $HOME = '
-        <a class="nav-item is-active" href="pessoa-fisica">
+        <a class="nav-item" href="pessoa-fisica">
         <span>Home</span>
         </a>';
 
