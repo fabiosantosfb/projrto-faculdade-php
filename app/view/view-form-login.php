@@ -1,10 +1,11 @@
 <?php include_once ('app/view/partlals/header.php'); ?>
+<div class="principal">
 <div class="columns">
   <div class="column">
     <p>
     </p>
   </div>
-  <div class="column">
+  <div class="column has-shadowHere">
     <?php if(PagesController::getPagesController()->erros() == 1){ echo 'Email e senha Incorreta!'; } ?>
       <section class="hero np-padding-20">
           <div class="npTitle">

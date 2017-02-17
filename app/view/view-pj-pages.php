@@ -18,7 +18,7 @@ $LOGIN = '
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
-
+<div class="principal  has-shadowHere">
 <section class="hero np-padding-20">
     <div class="npTitle">
         <h1 class="title is-4">
