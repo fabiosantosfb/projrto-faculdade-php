@@ -5,9 +5,10 @@
     </p>
   </div>
   <div class="column">
+    <?php if(PagesController::getPagesController()->erros() == 1){ echo 'Email e senha Incorreta!'; } ?>
       <section class="hero np-padding-20">
           <div class="npTitle">
-              <h1 class="title is-4">
+            <h1 class="title is-4">
                   Acesso
               </h1>
               <h2 class="subtitle is-6">

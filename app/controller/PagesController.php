@@ -7,7 +7,7 @@ class PagesController {
     private $endereco;
     private $pessoa;
 
-    private static $erro;
+    private $erro = 0;
     private static $erro_form;
     private $id;
     private $type;
@@ -214,8 +214,8 @@ class PagesController {
     public function logar() {
         $validate = new DataValidator();
 
-        self::$erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
-        self::$erro =  $validate->set('senha', $_POST['senha'])->is_required();
+        $this->erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
+        $this->erro =  $validate->set('senha', $_POST['senha'])->is_required();
 
         if ($validate->validate()){
             $this->login  = Login::getInstanceLogin();
@@ -224,8 +224,9 @@ class PagesController {
 
             $d_logar = new DaoLogin($this->login);
             if(!$d_logar->loginDb()){
-                self::$erro = $d_logar->getErro();
-                return false;
+                $this->erro = 1;
+                self::page_form_login();
+                die;
             } else {
                 self::redirection();
             }
@@ -315,17 +316,15 @@ class PagesController {
         $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
 
         if($validate->validate()) {
-            include_once ('app/model/PessoaJuridica.class.php');
-            include_once ('app/model/PessoaFisica.class.php');
-            include_once ('app/model/Telefone.class.php');
-            include_once ('app/model/Endereco.class.php');
 
             $this->fone = Telefone::getInstanceTelefone();
             $this->fone->setTelefone($_POST['telefone']);
 
+            $hash = Bcrypt::hash($_POST['senha']);
+
             $this->login = Login::getInstanceLogin();
             $this->login->setEmail($_POST['email']);
-            $this->login->setPassword($_POST['senha']);
+            $this->login->setPassword($hash);
             $this->login->setType($_POST['type']);
 
             $this->endereco = Endereco::getInstanceEndereco();
@@ -384,7 +383,7 @@ class PagesController {
                             if($insertUsuario->inserirEndereco()) {
                                 if($pessoa->getTelemarketing()) {
                                     if(!$insertUsuario->inserirTelemarketing()) {
-                                        self::$erro = $insertUsuario->getErro();
+                                        $this->erro = $insertUsuario->getErro();
                                         return false;
                                     }
                                 }
@@ -395,7 +394,7 @@ class PagesController {
                 }
                 self::$erro = $insertUsuario->getErro();
             } catch (Exception $ex){
-                self::$erro = "Exceção no Cadastro de Pessoa Fisica!";
+                $this->erro = "Exceção no Cadastro de Pessoa Fisica!";
                 return false;
             }
         } else if($tipoCadastro == "pessoafisica" && $pessoa->getCpf() != null) {
@@ -409,10 +408,10 @@ class PagesController {
                         }
                     }
                 }
-                self::$erro = $insertUsuario->getErro();
+                $this->erro = $insertUsuario->getErro();
                 return false;
             } catch (Exception $ex){
-                self::$erro = "Exeção no Cadastro de Pessoa Fisica!";
+                $this->erro = "Exeção no Cadastro de Pessoa Fisica!";
                 return false;
             }
       }
@@ -422,17 +421,22 @@ class PagesController {
 * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
 */
   function listarRelatorio() {
-    if(isset($_GET['json']) && !empty($_GET['json'])){
+    if(isset($_POST['json']) && !empty($_POST['json'])){
       header("Content-type: application/json");
       header('Content-Disposition: attachment; filename="nao-perturbe.json"');
       self::listarJson();
       die;
-    } else if(isset($_GET['xml']) && !empty($_GET['xml'])){
+    } else if(isset($_POST['xml']) && !empty($_POST['xml'])){
       header("Content-type: application/xml");
       header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
       self::listarXml();
       die;
-    } else if(isset($_GET['pdf']) && !empty($_GET['pdf'])){
+    } else if(isset($_POST['pdf']) && !empty($_POST['pdf'])){
+      header('Content-type: application/pdf');
+      header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
+      self::listarPdf();
+      die;
+    } else if(isset($_POST['pdf']) && !empty($_POST['pdf']) || isset($_GET['pdf-g']) && !empty($_GET['pdf-g'])){
       header('Content-type: application/pdf');
       header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
       self::listarPdf();
@@ -462,24 +466,27 @@ class PagesController {
     $pdf->Ln(20);
 
     $pdf->SetFont('arial','I',9);
-    $pdf->Cell(50, 8, "", 1, 0, ‘C’);
-    $pdf->Cell(150, 8, "NUMERO TELEFONE", 1, 0, ‘L’);
+    $pdf->Cell(50, 8, "", 1, 0, 'C');
+    $pdf->Cell(150, 8, "NUMERO TELEFONE", 1, 0, 'L');
 
-    $pdf->Cell(150, 8, "DATA CADASTRO", 1, 1, ‘L’);
+    $pdf->Cell(150, 8, "DATA CADASTRO", 1, 1, 'L');
 
     foreach ($listaspf as $key => $value) {
-        $pdf->Cell(50, 8, "", 1, 0, ‘C’);
+        $pdf->Cell(50, 8, "", 1, 0, 'C');
         $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
         $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
     }
 
     foreach ($listaspj as $key => $value) {
-      $pdf->Cell(50, 8, "", 1, 0, ‘C’);
+      $pdf->Cell(50, 8, "", 1, 0, 'C');
       $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
       $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
     }
     $pdf->Ln(8);
-    $pdf->Output("nao-pertube.pdf","D");
+    if($_GET['pdf-g'])
+      $pdf->Output();
+    else
+      $pdf->Output("nao-pertube.pdf","D");
   }
   /*
   * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
@@ -645,7 +652,7 @@ class PagesController {
     *FUNÇÃO PARA RETORNO DE ERROS OCORRIDO NO FORMULARIO OU CONSULTA DE BANCO
     */
     function erros() {
-        return self::$erro;
+        return $this->erro;
     }
 
     public function redirection() {
@@ -654,6 +661,9 @@ class PagesController {
             die;
         } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pj') {
             self::userPessoaJuridica();
+            die;
+        } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'tlm') {
+            self::listagemTelemarketing();
             die;
         } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'admin') {
             self::userAdmin();
