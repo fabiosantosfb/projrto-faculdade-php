@@ -1,4 +1,4 @@
-body {
+/*152-xzp19#c1fb00body {*/
     padding-top: 0px;
     background-color: rgb(211, 215, 208);
 }
@@ -9,11 +9,24 @@ body {
 }
 
 .scrollArea {
-    /*margin: 0;*/
-    padding: 5px;
-    width: 1200px;
+    font-weight: 200;
+    /*width: 800px;*/
     height: 250px;
+    max-width: 100%;
+    width: 100%;
     overflow: auto;
+    /*border: 1px solid #c1fb00;*/
+    border-radius: 0 0 1px 1px;
+    border-top: none;
+    margin-top: 0.1rem;
+    padding: -5px;
+}
+
+.listagem + .scrollArea {
+    border: 1px solid #ffdd57;
+    border-radius: 0 0 3px 3px;
+    border-top: none;
+    margin-top: -1.5rem;
 }
 
 .deepskyblue {

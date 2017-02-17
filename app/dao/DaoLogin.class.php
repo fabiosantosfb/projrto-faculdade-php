@@ -1,4 +1,6 @@
 <?php
+    require_once('app/core/Bcrypt.php');
+
     class DaoLogin extends ConexaoDb {
         private $login;
         private $erro;
@@ -18,7 +20,7 @@
     		        $validar->execute();
 
                 if ($validar->rowCount() === 1) {
-                  	$row = $validar->fetch(PDO::FETCH_ASSOC);
+                  	$row = $validar->fetch(PDO::FETCH_ASSOC);                
                     if ($this->login->getPassword() == $row['senha']) {
                         $_SESSION['id'] = $row['id_usuario'];
                         $_SESSION['type_user'] = $row['type'];

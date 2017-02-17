@@ -30,7 +30,8 @@
                             <strong>Pessoas Físicas</strong>
                         </p>
                     </div>
-                    <div class="panel-block">
+                    <div class="panel-block listagem">
+                        <div class="scrollArea">
                         <?php if(count($listaspf) > 0) {?>
                             <table class="table table-striped table-narrow">
                                 <thead>
@@ -48,7 +49,8 @@
                                 </thead>
                                 <tbody>
                                     <form>
-                                        <?php foreach ($listaspf as $key) { ?>
+                                        <!-- <p>&nbsp;</p> -->
+                                            <?php foreach ($listaspf as $key) { ?>
                                             <tr style="color:#000">
                                                 <td><?=$key['cpf'] ?></td>
                                                 <td><?=$key['telefone_numero'] ?></td>
@@ -59,6 +61,7 @@
                                 </tbody>
                             </table>
                             <?php } ?>
+                        </div>
                             <p>&nbsp;</p>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 <?php
 require_once ('Endereco.class.php');
+require_once('app/core/Bcrypt.php');
 
 class Usuario extends Endereco {
   private $nome;
