@@ -1,6 +1,6 @@
 <?php include_once ('app/view/partlals/header.php') ?>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
-<div class="principal  has-shadowHere">
+<div class="principal np-card-1">
 
     <section class="hero np-padding-20">
         <div class="npTitle">
@@ -26,7 +26,7 @@
                             <form class="control" method="post" action="/cadastro-pf">
                                 <label class="label">Nome</label>
                                 <p class="control">
-                                    <input class="input-w-8" id="nome" name="nome"  type="text" placeholder="Digite seu nome" maxlength="100" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
+                                    <input class="input-w-8" id="nome" name="nome" autofocus type="text" placeholder="Digite seu nome" maxlength="100" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
                                 </p>
                                 <label class="label">CPF</label>
                                 <p class="control">
@@ -73,7 +73,7 @@
                                 <hr>
                                 <label class="label">Número(s)</label>
                                 <p class="control">
-                                    <input class="input-w-3" id="telefone" name="telefone" type="text" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                    <input class="input-w-4" id="telefone" name="telefone" type="text" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
                                     <span class="help">Ex. (83) 99682-6985</span>
                                 </p>
 
@@ -86,7 +86,7 @@
                                 <hr>
                                 <label class="label">Email</label>
                                 <p class="control">
-                                    <input class="input-w-6" id="email" name="email" type="text" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
+                                    <input class="input-w-6" id="email" name="email" type="text" maxlength="100" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
                                 </p>
                                 <label class="label">Senha</label>
                                 <p class="control">
@@ -96,14 +96,6 @@
                                 <p class="control">
                                     <input class="input-w-4" id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
                                 </p>
-                                <div class="control is-grouped">
-                                    <p class="control">
-                                        <button id="button1id" name="button1id" class="button is-primary" type="submit">Salvar</button>
-                                    </p>
-                                    <p class="control">
-                                        <button id="Cancelar" name="Cancelar" type="reset" class="button is-link" onclick="history.go(-1)">Cancelar</button>
-                                    </p>
-                                </div>
                                 <p class="control">
                                     <div class="media">
                                         <div class="media-left">
@@ -111,12 +103,21 @@
                                         </div>
                                         <div class="media-content">
                                             <div class="content">
-                                                <label class="checkbox" style="font-size: 11px;">Declaro que todas as informações aqui inseridas são verdadeiras.  Estou ciente que a eventual inexatidão dos dados aqui descritos podem acarretar responsabilização civil e penal.
+                                                <label class="checkbox np-justify" style="font-size: 11px;">Declaro que todas as informações aqui inseridas são verdadeiras.  Estou ciente que a eventual inexatidão dos dados aqui descritos podem acarretar responsabilidade civil e penal. A modificação dos dados do cadastro poderá ser efetuada mediante utilização de senha, de caráter pessoal e intransferível, de minha responsabilidade.
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </p>
+                                <br>
+                                <div class="control is-grouped is-pulled-right">
+                                    <p class="control">
+                                        <button id="button1id" name="button1id" class="button is-primary" type="submit">Salvar</button>
+                                    </p>
+                                    <p class="control">
+                                        <button id="Cancelar" name="Cancelar" type="reset" class="button is-warning" onclick="history.go(-1)">Cancelar</button>
+                                    </p>
+                                </div>
                             </form>
                         </div>
                     </section>

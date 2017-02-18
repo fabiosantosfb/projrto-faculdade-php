@@ -1,6 +1,4 @@
 <?php
-require_once('app/core/Bcrypt.php');
-
 class Login {
       private $idb;
       private $email;

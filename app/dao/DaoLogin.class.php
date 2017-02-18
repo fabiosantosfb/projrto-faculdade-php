@@ -1,6 +1,4 @@
 <?php
-    require_once('app/core/Bcrypt.php');
-
     class DaoLogin extends ConexaoDb {
         private $login;
         private $erro;

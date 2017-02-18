@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit25f39ae5674b41fbe5247122846d71b0
 {
     public static $classMap = array (
+        'Bcrypt' => __DIR__ . '/../..' . '/app/model/Bcrypt.php',
         'ComposerAutoloaderInit25f39ae5674b41fbe5247122846d71b0' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit25f39ae5674b41fbe5247122846d71b0' => __DIR__ . '/..' . '/composer/autoload_static.php',

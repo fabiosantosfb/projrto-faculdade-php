@@ -38,8 +38,8 @@
         </div>
     </nav>
 
-    <section class="hero is-primary is-bold">
-        <div class="hero-body has-shadow">
+    <section class="hero is-primary is-bold has-shadowBotom">
+        <div class="hero-body">
             <div class="container is-fluid">
                 <h1 class="title">
                     Registro de telefones
@@ -51,5 +51,5 @@
         </div>
     </section>
 
-    <div class="container np-padding-t-15 is-fluid has-shadow">
+    <div class="container np-padding-t-15">
         <!-- <div class="principal  has-shadowHere"> -->
