@@ -225,8 +225,8 @@ class PagesController {
             $d_logar = new DaoLogin($this->login);
             if(!$d_logar->loginDb()){
                 $this->erro = 1;
-                header("Location: /login");
-                die;
+                self::page_form_login();
+  +             die;
             } else {
                 self::redirection();
             }
@@ -323,8 +323,9 @@ class PagesController {
             $hash = Bcrypt::hash($_POST['senha']);
 
             $this->login = Login::getInstanceLogin();
-            $this->login->setEmail($_POST['email']);
             $this->login->setPassword($hash);
+
+            $this->login->setEmail($_POST['email']);
             $this->login->setType($_POST['type']);
 
             $this->endereco = Endereco::getInstanceEndereco();
@@ -601,13 +602,16 @@ class PagesController {
     function updatePassword() {
 
         $validate = new DataValidator();
+
         $validate->set('senha', $_POST['senha'])->is_required();
         $validate->set('repetir_senha', $_POST['repetir_senha'])->is_required()->is_equals($_POST['senha'], true);
         $validate->set('email', $_POST['email'])->is_required()->is_email();
 
         if($validate->validate()){
             $update = UpdateUser::getInstanceUpdateUser();
-            $update->upPassword($_POST['senha'], $_POST['email'], $_POST['id']);
+            $hash = Bcrypt::hash($_POST['senha']);
+
+            $update->upPassword($hash, $_POST['email'], $_POST['id']);
         } else {
             self::getErroForm($validate);
             self::userPessoaFisica();
