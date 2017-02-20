@@ -225,7 +225,7 @@ class PagesController {
             $d_logar = new DaoLogin($this->login);
             if(!$d_logar->loginDb()){
                 $this->erro = 1;
-                self::page_form_login();
+                header("Location: /login");
                 die;
             } else {
                 self::redirection();
