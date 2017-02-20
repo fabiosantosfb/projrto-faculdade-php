@@ -22,6 +22,7 @@ $LOGIN = '
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form.js" charset="utf-8"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>-->
+<div class="principal  np-card-1">
 <section class="hero np-padding-20">
     <div class="npTitle">
         <h1 class="title is-4">
@@ -86,9 +87,10 @@ $LOGIN = '
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <form>
                                         <?php foreach ($listastl as $key) { ?>
-                                            <tr style="color:#000">
+                                            <tr>
                                                 <td><?=$key['cnpj'] ?></td>
                                                 <td><?=$key['nome'] ?></td>
                                                 <td>
