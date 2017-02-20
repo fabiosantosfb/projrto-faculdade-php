@@ -4,7 +4,7 @@ $PESSOA = ($telemarketing)? '
 <a class="nav-item" href="session-pj">
 <span>Meus Dados</span>
 </a>
-<a class="nav-item" href="list">
+<a class="nav-item is-active" href="list">
 <span>Listagem</span>
 </a>
 ':
@@ -51,9 +51,12 @@ $LOGIN = '
                                 <form class="control" method="post" action="list-relatorio">
                                     <input class="button is-primary is-outlined" id="pdf" name="pdf" type="submit" value="Formato PDF"/>
                                     <span class="help">Será gerado um arquivo em PDF com a relação de telefones para bloqueio.</span>
+                                    <br>
                                     <input class="button is-primary is-outlined" id="xml" name="xml" type="submit" value="Formato XML"/>
                                     <span class="help">Será gerado um arquivo em XML com a relação de telefones para bloqueio.</span>
+                                    <br>
                                     <input class="button is-primary is-outlined" id="json" name="json" type="submit" value="Formato JSON"/>
+
                                     <span class="help">Será gerado um arquivo em formato JSON com a relação de telefones para bloqueio.</span>
                                 </form>
                                 <form class="control" target="_blank" method="get" action="list-relatorio-browser">
@@ -62,56 +65,55 @@ $LOGIN = '
                                     </div>
                                     <input class="button is-primary is-outlined" id="pdf-g" name="pdf-g" type="submit" value="Gerar arquivo PDF"/>
                                     <span class="help">Será gerado uma listagem em PDF com a relação de telefones para bloqueio.</span>
-                                </form>
-                                <?php } ?>
-                            </form>
-                            <p>&nbsp;</p>
-                        </div>
-                        <div id="tel"></div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-left">
-                                    <figure class="image icon is-large" style="height: 40px; width: 40px;">
-                                        <i class="fa fa-exclamation-triangle deepskyblue"></i>
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <p class="title is-4">Não Pertube</p>
-                                    <p class="subtitle is-6">Projeto de Lei N. 599</p>
-                                </div>
-                            </div>
 
-                            <div class="content">
-                                Art. 2 - A partir do 30 (trigésimo) dia do ingresso do usuário no cadastro <strong>"NÃO PERTUBE"</strong>, as empresas que prestam serviços relacionados ao parágrafo único do artigo 1 ou pessoas físicas contratadas com tal propósito, não poderão efetuar ligações telefônicas às pessoas inscritas no cadastro supracitado.
-                                <br>
-                                <small>16:18 PM - 6 Fev 2017</small>
+                                </form>
+                                <p>&nbsp;</p>
+                                <?php } ?>
+                            </div>
+                            <div id="tel"></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <figure class="image icon is-large" style="height: 40px; width: 40px;">
+                                            <i class="fa fa-exclamation-triangle deepskyblue"></i>
+                                        </figure>
+                                    </div>
+                                    <div class="media-content">
+                                        <p class="title is-4">Não Pertube</p>
+                                        <p class="subtitle is-6">Projeto de Lei N. 599</p>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    Art. 2 - A partir do 30 (trigésimo) dia do ingresso do usuário no cadastro <strong>"NÃO PERTUBE"</strong>, as empresas que prestam serviços relacionados ao parágrafo único do artigo 1 ou pessoas físicas contratadas com tal propósito, não poderão efetuar ligações telefônicas às pessoas inscritas no cadastro supracitado.
+                                    <br>
+                                    <small>16:18 PM - 6 Fev 2017</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <script type="text/javascript">
-    function pdf(){
-        var doc = new jsPDF();
-        doc.text('Hello world!', 10, 10);
-        doc.save('a4.pdf');
-    }
-    </script>
+        </section>
+        <script type="text/javascript">
+        function pdf(){
+            var doc = new jsPDF();
+            doc.text('Hello world!', 10, 10);
+            doc.save('a4.pdf');
+        }
+        </script>
 
-    <!--<script>
-    $(document).ready(function() {
-    $("#pdfDiv").click(function() {
-    var pdf = new jsPDF('p','pt','letter');
-    var specialElementHandlers = {
-    '#rentalListCan': function (element, renderer) {return true;}};
-    pdf.addHTML($('#rentalListCan').first(), function() {pdf.save("caravan.pdf");});
-});
+        <!--<script>
+        $(document).ready(function() {
+        $("#pdfDiv").click(function() {
+        var pdf = new jsPDF('p','pt','letter');
+        var specialElementHandlers = {
+        '#rentalListCan': function (element, renderer) {return true;}};
+        pdf.addHTML($('#rentalListCan').first(), function() {pdf.save("caravan.pdf");});
+    });
 });
 </script>-->
 <?php include_once ('app/view/partlals/footer.php') ?>

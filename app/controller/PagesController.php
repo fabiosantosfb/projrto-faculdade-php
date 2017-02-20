@@ -26,19 +26,19 @@ class PagesController {
     */
     public function page_form_login() {
         $HOME = '
-        <a class="nav-item is-active" href="pessoa-fisica">
-        <span>Home</span>
+        <a class="nav-item" href="pessoa-fisica">
+        <span>Pessoa Física</span>
         </a>';
 
         $PESSOA = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Pessoa Física</span>
-        </a>
         <a class="nav-item" href="pessoa-juridica">
         <span>Pessoa Jurídica</span>
         </a>';
 
-        $LOGIN = '';
+        $LOGIN = '
+        <a class="nav-item is-active" href="login">
+        <span>ENTRAR</span>
+        </a>';
 
         require_once ('app/view/view-form-login.php');
     }
@@ -47,15 +47,15 @@ class PagesController {
     */
     public function page_form_pessoafisica() {
         $HOME = '
-        <a class="nav-item is-hidden-mobile is-active" href="pessoa-juridica">
-        <span>Home</span>
+        <a class="nav-item is-active" href="pessoa-fisica">
+        <span>Pessoa Física</span>
         </a>';
         $PESSOA = '
-        <a class="nav-item is-hidden-mobile " href="pessoa-juridica">
+        <a class="nav-item " href="pessoa-juridica">
         <span>Pessoa Jurídica</span>
         </a>';
         $LOGIN = '
-        <a class="nav-item is-hidden-mobile " href="login">
+        <a class="nav-item" href="login">
         <span>ENTRAR</span>
         </a>';
 
@@ -67,12 +67,12 @@ class PagesController {
     public function page_form_pessoajuridica() {
         $HOME = '
         <a class="nav-item" href="pessoa-fisica">
-        <span>Home</span>
+        <span>Pessoa Física</span>
         </a>';
 
         $PESSOA = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Pessoa Física</span>
+        <a class="nav-item is-active" href="pessoa-juridica">
+        <span>Pessoa Jurídica</span>
         </a>';
 
         $LOGIN = '
@@ -87,18 +87,18 @@ class PagesController {
     */
     public function home() {
         $HOME = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Home</span>
+        <a class="nav-item is-active" href="pessoa-fisica">
+        <span>Pessoa Física</span>
+        </a>';
+
+        $PESSOA = '
+        <a class="nav-item" href="pessoa-juridica">
+        <span>Pessoa Jurídica</span>
         </a>';
 
         $LOGIN = '
         <a class="nav-item" href="login">
         <span>ENTRAR</span>
-        </a>';
-
-        $PESSOA = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Pessoa Física</span>
         </a>';
 
         require_once ('app/view/view-form-pj.php');
@@ -414,102 +414,102 @@ class PagesController {
                 $this->erro = "Exeção no Cadastro de Pessoa Fisica!";
                 return false;
             }
-      }
-  }
-
-  /*
-* FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
-*/
-  function listarRelatorio() {
-    if(isset($_POST['json']) && !empty($_POST['json'])){
-      header("Content-type: application/json");
-      header('Content-Disposition: attachment; filename="nao-perturbe.json"');
-      self::listarJson();
-      die;
-    } else if(isset($_POST['xml']) && !empty($_POST['xml'])){
-      header("Content-type: application/xml");
-      header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
-      self::listarXml();
-      die;
-    } else if(isset($_POST['pdf']) && !empty($_POST['pdf'])){
-      header('Content-type: application/pdf');
-      header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
-      self::listarPdf();
-      die;
-    } else if(isset($_POST['pdf']) && !empty($_POST['pdf']) || isset($_GET['pdf-g']) && !empty($_GET['pdf-g'])){
-      header('Content-type: application/pdf');
-      header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
-      self::listarPdf();
-      die;
+        }
     }
-  }
 
-  function listarJson() {
-    $listar = Listar::getInstanceListar();
-    $listaspf = $listar->listarPessoaRelat();
-    $listaspj = $listar->listarPessoaJuridicaRelat();
+    /*
+    * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
+    */
+    function listarRelatorio() {
+        if(isset($_POST['json']) && !empty($_POST['json'])){
+            header("Content-type: application/json");
+            header('Content-Disposition: attachment; filename="nao-perturbe.json"');
+            self::listarJson();
+            die;
+        } else if(isset($_POST['xml']) && !empty($_POST['xml'])){
+            header("Content-type: application/xml");
+            header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
+            self::listarXml();
+            die;
+        } else if(isset($_POST['pdf']) && !empty($_POST['pdf'])){
+            header('Content-type: application/pdf');
+            header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
+            self::listarPdf();
+            die;
+        } else if(isset($_POST['pdf']) && !empty($_POST['pdf']) || isset($_GET['pdf-g']) && !empty($_GET['pdf-g'])){
+            header('Content-type: application/pdf');
+            header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
+            self::listarPdf();
+            die;
+        }
+    }
 
-    $JSON = json_encode($listaspj+$listaspf);
-    echo $JSON;
-  }
+    function listarJson() {
+        $listar = Listar::getInstanceListar();
+        $listaspf = $listar->listarPessoaRelat();
+        $listaspj = $listar->listarPessoaJuridicaRelat();
 
-  function listarPdf(){
-    $listar = Listar::getInstanceListar();
-    $listaspf = $listar->listarPessoaRelat();
-    $listaspj = $listar->listarPessoaJuridicaRelat();
+        $JSON = json_encode($listaspj+$listaspf);
+        echo $JSON;
+    }
 
-    header("Content-type: unicode/utf-8");
-    $pdf= new FPDF("P","pt","A4");
-    $pdf->AddPage();
-    $pdf->SetFont('arial','B',12);
-    $pdf->Cell(0,5,"Relatorio nao pertube",0,1,'L');
-    $pdf->Ln(20);
+    function listarPdf(){
+        $listar = Listar::getInstanceListar();
+        $listaspf = $listar->listarPessoaRelat();
+        $listaspj = $listar->listarPessoaJuridicaRelat();
 
-    $pdf->SetFont('arial','I',9);
-    $pdf->Cell(50, 8, "", 1, 0, 'C');
-    $pdf->Cell(150, 8, "NUMERO TELEFONE", 1, 0, 'L');
+        header("Content-type: unicode/utf-8");
+        $pdf= new FPDF("P","pt","A4");
+        $pdf->AddPage();
+        $pdf->SetFont('arial','B',12);
+        $pdf->Cell(0,5,"Relatorio nao pertube",0,1,'L');
+        $pdf->Ln(20);
 
-    $pdf->Cell(150, 8, "DATA CADASTRO", 1, 1, 'L');
-
-    foreach ($listaspf as $key => $value) {
+        $pdf->SetFont('arial','I',9);
         $pdf->Cell(50, 8, "", 1, 0, 'C');
-        $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
-        $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
-    }
+        $pdf->Cell(150, 8, "NUMERO TELEFONE", 1, 0, 'L');
 
-    foreach ($listaspj as $key => $value) {
-      $pdf->Cell(50, 8, "", 1, 0, 'C');
-      $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
-      $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
+        $pdf->Cell(150, 8, "DATA CADASTRO", 1, 1, 'L');
+
+        foreach ($listaspf as $key => $value) {
+            $pdf->Cell(50, 8, "", 1, 0, 'C');
+            $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
+            $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
+        }
+
+        foreach ($listaspj as $key => $value) {
+            $pdf->Cell(50, 8, "", 1, 0, 'C');
+            $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
+            $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
+        }
+        $pdf->Ln(8);
+        if($_GET['pdf-g'])
+        $pdf->Output();
+        else
+        $pdf->Output("nao-pertube.pdf","D");
     }
-    $pdf->Ln(8);
-    if($_GET['pdf-g'])
-      $pdf->Output();
-    else
-      $pdf->Output("nao-pertube.pdf","D");
-  }
-  /*
-  * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
-  */
+    /*
+    * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
+    */
     function listarXml() {
-      $listar = Listar::getInstanceListar();
-      $listaspf = $listar->listarPessoaRelat();
-      $listaspj = $listar->listarPessoaJuridicaRelat();
+        $listar = Listar::getInstanceListar();
+        $listaspf = $listar->listarPessoaRelat();
+        $listaspj = $listar->listarPessoaJuridicaRelat();
 
-      $xmlstr = "<?xml version='1.0' encoding='utf-8' ?>"."<consumidor>\n</consumidor>";
-      $xml = new SimpleXMLElement($xmlstr);
+        $xmlstr = "<?xml version='1.0' encoding='utf-8' ?>"."<consumidor>\n</consumidor>";
+        $xml = new SimpleXMLElement($xmlstr);
 
-      $line = $xml->addChild('usuario');
-      foreach ($listaspf as $key) {
-          $line->addChild("numero-telefone", $key['telefone_numero']);
-          $line->addChild("data-cadastro", $key['data_cadastro']);
-      }
-      $line_j = $xml->addChild('usuario');
-      foreach ($listaspj as $key) {
-          $line_j->addChild("numero-telefone", $key['telefone_numero']);
-          $line_j->addChild("data-cadastro", $key['data_cadastro']);
-      }
-      echo $xml->asXML();
+        $line = $xml->addChild('usuario');
+        foreach ($listaspf as $key) {
+            $line->addChild("numero-telefone", $key['telefone_numero']);
+            $line->addChild("data-cadastro", $key['data_cadastro']);
+        }
+        $line_j = $xml->addChild('usuario');
+        foreach ($listaspj as $key) {
+            $line_j->addChild("numero-telefone", $key['telefone_numero']);
+            $line_j->addChild("data-cadastro", $key['data_cadastro']);
+        }
+        echo $xml->asXML();
     }
 
     /*
@@ -669,8 +669,8 @@ class PagesController {
             self::userAdmin();
             die;
         } else {
-          header("Location: /login");
-          die;
+            header("Location: /login");
+            die;
         }
     }
 }

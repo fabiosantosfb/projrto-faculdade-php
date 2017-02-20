@@ -1,5 +1,4 @@
 <?php
-
 class Login {
       private $idb;
       private $email;

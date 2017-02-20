@@ -1,11 +1,92 @@
 body {
     padding-top: 0px;
-    background-color: rgb(211, 215, 208);
+    background-color: rgb(255, 255, 255);
+}
+
+.hero {
+    background-color: #eeedd3;
 }
 
 .principal {
-    padding: 15px 15px;
+    padding: 11px 11px;
     text-align: justify;
+}
+
+.np-justify {
+    text-align: justify;
+}
+
+.np-card {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  height: 300px;
+  margin: 1rem;
+  position: relative;
+  width: 300px;
+}
+
+.np-card-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.np-card-1:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.np-card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.np-card-2:hover {
+  box-shadow: 0 18px 32px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.np-card-3 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.np-card-4 {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.np-card-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+
+.has-shadowHere {
+    /*box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);*/
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.has-shadowBotom {
+    /*box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);*/
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.scrollArea {
+    font-weight: 200;
+    /*width: 800px;*/
+    height: 250px;
+    max-width: 100%;
+    width: 100%;
+    overflow: auto;
+    /*border: 1px solid #c1fb00;*/
+    border-radius: 0 0 1px 1px;
+    border-top: none;
+    margin-top: 0.1rem;
+    padding: -5px;
+}
+
+.listagem + .scrollArea {
+    border: 1px solid #ffdd57;
+    border-radius: 0 0 3px 3px;
+    border-top: none;
+    margin-top: -1.5rem;
 }
 
 .deepskyblue {
@@ -13,7 +94,7 @@ body {
 }
 
 .is-active {
-    box-shadow: 0 3px 0 0 #00e8ff;
+    box-shadow: 0 -3px 0 0 #00e8ff inset;
 }
 
 .ativar {
@@ -21,8 +102,21 @@ body {
     border-color: #006400;
     color: #fff;
 }
+
+#nav-toggle-state {
+  display: none;
+}
+
+#nav-toggle-state:checked ~ .nav-menu {
+  display: block;
+  width: 70%;
+}
+
 .footer {
-    background-color: whitesmoke;
+    /*position: absolute;
+    bottom: -250px;
+    width: 100%;*/
+    background-color: #eeedd3;
     padding: 3rem 1.5rem 3rem;
 }
 
@@ -71,12 +165,17 @@ body {
     padding-bottom: 15px;
 }
 
-.np-padding-15 {
-    padding: 20px;
+.np-padding-tb-35 {
+    padding-top: 35px;
+    padding-bottom: 35px;
 }
 
 .np-padding-20 {
     padding: 20px;
+}
+
+.np-padding-t-20 {
+    padding-top: 20px;
 }
 
 .np-form {
