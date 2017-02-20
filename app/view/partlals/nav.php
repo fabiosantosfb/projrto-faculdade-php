@@ -1,33 +1,30 @@
 <body>
     <nav class="nav has-shadow">
-      <div class="nav-left">
-        <a class="nav-item is-brand" href="#">
-          <img src="../../app/assets/img/naoperturbe.png" alt="Não perturbe logo">
-        </a>
-      </div>
+        <div class="nav-left">
+            <a class="nav-item is-brand" href="#">
+                <img src="../../app/assets/img/naoperturbe.png" alt="Não perturbe logo">
+            </a>
+        </div>
+        <label class="nav-toggle" for="nav-toggle-state">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <!-- This checkbox is hidden -->
+        <input type="checkbox" id="nav-toggle-state" />
 
-      <!-- Using a <label /> here -->
-      <label class="nav-toggle" for="nav-toggle-state">
-        <span></span>           <!-- ^^^^^^^^^^^^^^^^ -->
-        <span></span>
-        <span></span>
-      </label>
+        <div class="nav-right nav-menu">
+            <span class="nav-item">
+                <?php echo $HOME; ?>
+            </span>
+            <span class="nav-item">
+                <?php echo $PESSOA; ?>
+            </span>
+            <span class="nav-item">
+                <?php echo $LOGIN; ?>
+            </span>
 
-      <!-- This checkbox is hidden -->
-      <input type="checkbox" id="nav-toggle-state" />
-
-      <div class="nav-right nav-menu">
-        <span class="nav-item">
-            <?php echo $HOME; ?>
-        </span>
-        <span class="nav-item">
-            <?php echo $PESSOA; ?>
-        </span>
-        <span class="nav-item">
-          <?php echo $LOGIN; ?>
-      </span>
-
-      </div>
+        </div>
     </nav>
 
 
@@ -44,5 +41,5 @@
         </div>
     </section>
 
-    <div class="container np-padding-t-15">
+    <div class="container np-padding-tb-35">
         <!-- <div class="principal  has-shadowHere"> -->
