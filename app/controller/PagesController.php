@@ -26,19 +26,19 @@ class PagesController {
     */
     public function page_form_login() {
         $HOME = '
-        <a class="nav-item is-active" href="pessoa-fisica">
-        <span>Home</span>
+        <a class="nav-item" href="pessoa-fisica">
+        <span>Pessoa Física</span>
         </a>';
 
         $PESSOA = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Pessoa Física</span>
-        </a>
         <a class="nav-item" href="pessoa-juridica">
         <span>Pessoa Jurídica</span>
         </a>';
 
-        $LOGIN = '';
+        $LOGIN = '
+        <a class="nav-item is-active" href="login">
+        <span>ENTRAR</span>
+        </a>';
 
         require_once ('app/view/view-form-login.php');
     }
@@ -47,15 +47,15 @@ class PagesController {
     */
     public function page_form_pessoafisica() {
         $HOME = '
-        <a class="nav-item is-hidden-mobile is-active" href="pessoa-juridica">
-        <span>Home</span>
+        <a class="nav-item is-active" href="pessoa-fisica">
+        <span>Pessoa Física</span>
         </a>';
         $PESSOA = '
-        <a class="nav-item is-hidden-mobile " href="pessoa-juridica">
+        <a class="nav-item " href="pessoa-juridica">
         <span>Pessoa Jurídica</span>
         </a>';
         $LOGIN = '
-        <a class="nav-item is-hidden-mobile " href="login">
+        <a class="nav-item" href="login">
         <span>ENTRAR</span>
         </a>';
 
@@ -66,13 +66,13 @@ class PagesController {
     */
     public function page_form_pessoajuridica() {
         $HOME = '
-        <a class="nav-item is-active" href="pessoa-fisica">
-        <span>Home</span>
+        <a class="nav-item" href="pessoa-fisica">
+        <span>Pessoa Física</span>
         </a>';
 
         $PESSOA = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Pessoa Física</span>
+        <a class="nav-item is-active" href="pessoa-juridica">
+        <span>Pessoa Jurídica</span>
         </a>';
 
         $LOGIN = '
@@ -88,17 +88,17 @@ class PagesController {
     public function home() {
         $HOME = '
         <a class="nav-item is-active" href="pessoa-fisica">
-        <span>Home</span>
+        <span>Pessoa Física</span>
+        </a>';
+
+        $PESSOA = '
+        <a class="nav-item" href="pessoa-juridica">
+        <span>Pessoa Jurídica</span>
         </a>';
 
         $LOGIN = '
         <a class="nav-item" href="login">
         <span>ENTRAR</span>
-        </a>';
-
-        $PESSOA = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Pessoa Física</span>
         </a>';
 
         require_once ('app/view/view-form-pj.php');

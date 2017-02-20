@@ -86,6 +86,7 @@
                                 <p class="control">
                                     <input class="input-w-4" id="repetir_senha" name="repetir_senha" type="password" maxlength="60"  placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
                                 </p>
+                                <br>
                                 <p class="control">
                                     <div class="media">
                                         <div class="media-left">

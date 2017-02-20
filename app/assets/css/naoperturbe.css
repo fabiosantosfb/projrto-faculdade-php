@@ -4,7 +4,7 @@ body {
 }
 
 .hero {
-    background-color: #EEEEEE;
+    background-color: #eeedd3;
 }
 
 .principal {
@@ -102,7 +102,20 @@ body {
     border-color: #006400;
     color: #fff;
 }
+
+#nav-toggle-state {
+  display: none;
+}
+
+#nav-toggle-state:checked ~ .nav-menu {
+  display: block;
+  width: 70%;
+}
+
 .footer {
+    /*position: absolute;
+    bottom: -250px;
+    width: 100%;*/
     background-color: #eeedd3;
     padding: 3rem 1.5rem 3rem;
 }

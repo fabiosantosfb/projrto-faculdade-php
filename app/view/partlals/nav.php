@@ -1,42 +1,35 @@
 <body>
     <nav class="nav has-shadow">
-        <div class="nav-left">
-            <a class="nav-item">
-                <img src="../../app/assets/img/naoperturbe.png" alt="Não perturbe logo">
-            </a>
-        </div>
+      <div class="nav-left">
+        <a class="nav-item is-brand" href="#">
+          <img src="../../app/assets/img/naoperturbe.png" alt="Não perturbe logo">
+        </a>
+      </div>
 
+      <!-- Using a <label /> here -->
+      <label class="nav-toggle" for="nav-toggle-state">
+        <span></span>           <!-- ^^^^^^^^^^^^^^^^ -->
+        <span></span>
+        <span></span>
+      </label>
 
-        <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
-        <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
-        <span class="nav-toggle">
-            <span class="nav-item">
-                <a class="nav-item is-active" href="pessoa-fisica">
-                    Home
-                </a>;
-            </span>
-            <span class="nav-item">
-                <?php echo $PESSOA; ?>
-            </span>
-            <span class="nav-item">
-                <?php echo $LOGIN; ?>
-            </span>
-        </span>
+      <!-- This checkbox is hidden -->
+      <input type="checkbox" id="nav-toggle-state" />
 
-        <!-- This "nav-menu" is hidden on mobile -->
-        <!-- Add the modifier "is-active" to display it on mobile -->
-        <div class="nav-right nav-menu">
-            <span class="nav-item">
+      <div class="nav-right nav-menu">
+        <span class="nav-item">
             <?php echo $HOME; ?>
-            </span>
-            <span class="nav-item">
+        </span>
+        <span class="nav-item">
             <?php echo $PESSOA; ?>
-            </span>
-            <span class="nav-item">
-                <?php echo $LOGIN; ?>
-            </span>
-        </div>
+        </span>
+        <span class="nav-item">
+          <?php echo $LOGIN; ?>
+      </span>
+
+      </div>
     </nav>
+
 
     <section class="hero is-primary is-bold has-shadowBotom">
         <div class="hero-body">
