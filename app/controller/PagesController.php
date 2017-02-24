@@ -373,39 +373,29 @@ class PagesController {
     *FUNÇÃO INSERIR DADOS CADASTRO
     */
     function insertUsuario($pessoa, $login, $endereco, $tipoCadastro, $fone) {
-        include_once ('app/dao/DaoInserirUsuario.class.php');
         $insertUsuario = new DaoUsuario($pessoa, $login, $endereco, $fone);
 
         if($tipoCadastro == "pessoajuridica" && $pessoa->getCnpj() != null) { // ---- VERIFICAR SE E PESSOA JURIDICAR ----- //
             try{
                 if($insertUsuario->verificarEmailExist()) {
-                    if($insertUsuario->verificarTelefonelExist()) {
-                        if($insertUsuario->verificarCnpjExist()) {
-                            if($insertUsuario->inserirEndereco()) {
-                                if($pessoa->getTelemarketing()) {
-                                    if(!$insertUsuario->inserirTelemarketing()) {
-                                        $this->erro = $insertUsuario->getErro();
-                                        return false;
-                                    }
-                                }
-                                return true;
-                            }
+                    if($insertUsuario->verificarCnpjExist()) {
+                        if($insertUsuario->verificarTelefonelExist($tipoCadastro)) {
+                            return true;
                         }
                     }
                 }
-                self::$erro = $insertUsuario->getErro();
+                $this->erro = $insertUsuario->getErro();
             } catch (Exception $ex){
                 $this->erro = "Exceção no Cadastro de Pessoa Fisica!";
+                echo $ex;
                 return false;
             }
         } else if($tipoCadastro == "pessoafisica" && $pessoa->getCpf() != null) {
             try {
                 if($insertUsuario->verificarEmailExist()){
-                    if($insertUsuario->verificarTelefonelExist()){
-                        if($insertUsuario->verificarCpfExist()){
-                            if($insertUsuario->inserirEndereco()){
-                                return true;
-                            }
+                    if($insertUsuario->verificarCpfExist()){
+                        if($insertUsuario->verificarTelefonelExist()){
+                            return true;
                         }
                     }
                 }
