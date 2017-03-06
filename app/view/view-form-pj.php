@@ -90,7 +90,7 @@
                                 <p class="control">
                                     <div class="media">
                                         <div class="media-left">
-                                            <input type="checkbox" required="" name="telemarketing">
+                                            <input type="checkbox" required="" name="ok">
                                         </div>
                                         <div class="media-content">
                                             <div class="content">

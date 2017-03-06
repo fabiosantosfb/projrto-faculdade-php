@@ -69,13 +69,13 @@ class DaoUsuario extends ConexaoDb {
                 return false;
             } else {
                 try {
-                    $pessoaJ = "INSERT INTO pessoa_juridica (id_pessoa_juridica, usuario_id_usuario, cnpj, status_telemarketing) values (default, LAST_INSERT_ID(), :cnpj, 0)";
+                    $pessoaJ = "INSERT INTO pessoa_juridica (usuario_id_usuario, cnpj, status_telemarketing) values (LAST_INSERT_ID(), :cnpj, 0)";
                     $this->validarDoc = Parent::getInstanceConexao()->prepare($pessoaJ);
                     $this->validarDoc->bindValue(":cnpj", $this->dataUsuario->getCnpj());
                     $this->validarDoc->execute();
                     return true;
                 } catch (Exception $ex){
-                    $this->erro = "Exceção ao Inserir Cpf!";
+                    $this->erro = "Exceção ao Inserir Cnpj!";
                     echo $this->erro.' - '.$ex;
 
                     $sql = "DELETE FROM usuario WHERE id_usuario=LAST_INSERT_ID()";
@@ -102,13 +102,13 @@ class DaoUsuario extends ConexaoDb {
                 return false;
             } else {
                 try {
-                    $pessoaF = "INSERT INTO pessoa_fisica (id_pessoa_fisica, usuario_id_usuario, cpf, rg, uf, data_expedicao, orgao_expedidor) values (default, LAST_INSERT_ID(), :cpf, :rg, :uf, :data_expedicao, :orgao_expedidor)";
+                    $pessoaF = "INSERT INTO pessoa_fisica (usuario_id_usuario, cpf, rg, uf, data_expedicao, orgao_expedidor) values (LAST_INSERT_ID(), :cpf, :rg, :uf, :data_expedicao, :orgao_expedidor)";
                     $this->validarDoc = Parent::getInstanceConexao()->prepare($pessoaF);
                     $this->validarDoc->bindValue(":cpf", $this->dataUsuario->getCpf());
                     $this->validarDoc->bindValue(":rg", $this->dataUsuario->getRg());
                     $this->validarDoc->bindValue(":uf", $this->dataUsuario->getUf());
-                    $this->validarDoc->bindValue(":data_expedicao", $this->dataUsuario->getOrgExpedidor());
-                    $this->validarDoc->bindValue(":orgao_expedidor", $this->dataUsuario->getDataExpedicao());
+                    $this->validarDoc->bindValue(":data_expedicao", $this->dataUsuario->getDataExpedicao());
+                    $this->validarDoc->bindValue(":orgao_expedidor", $this->dataUsuario->getOrgExpedidor());
                     $this->validarDoc->execute();
                     return true;
                 } catch (Exception $ex){
@@ -169,7 +169,7 @@ class DaoUsuario extends ConexaoDb {
         } catch (Exception $ex){
             $this->erro = "Exceção ao verificar Telefone!";
             echo $this->erro.' - '.$ex;
-            return true;
+            return false;
         }
     }
 }

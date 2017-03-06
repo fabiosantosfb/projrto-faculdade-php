@@ -35,7 +35,7 @@
                                 </p>
                                 <label class="label">Identidade</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="rg" name="rg" type="text" placeholder="RG" maxlength="10" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
+                                    <input class="input-w-4" id="rg" name="rg" type="text" placeholder="RG" maxlength="9" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
                                 </p>
                                 <label class="label">Data da Expedição</label>
                                 <p class="control">
