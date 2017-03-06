@@ -284,7 +284,6 @@ class PagesController {
 
         if(!$validate->validate()){
             self::getErroForm($validate);
-            self::$erro_form = true;
             self::page_form_pessoafisica();
         } else {
             if(!self::cadastrar()) {
@@ -630,12 +629,54 @@ class PagesController {
     *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
     */
     function getErroForm($validate){
-        self::$erro_form = true;
+        //self::$erro_form = true;
         $array = $validate->get_errors();
         foreach ($array as $key => $value) { }
 
         echo $key.'<br>';
-        die;
+    }
+
+    /*
+    *FUNÇÃO PARA VALIDAR CAMPOS DE FORMULARIO PESSOA FISICA FORMULARIO
+    */
+    function ValidateExisting(){
+        $validate = new DataValidator();
+        $userData = new ValidateUserExisting();
+
+        if(!empty($_POST['cpf'])){
+          $validate->set('cpf', $_POST['cpf'])->is_required()->is_cpf();
+          if(!$validate->validate()){
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->validarCpfExist($_POST['cpf']))
+              $userData->erro();
+          }
+        } else if (!empty($_POST['email'])){
+          $validate->set('email', $_POST['email'])->is_required()->is_email();
+          if(!$validate->validate()){
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->validarEmailExist($_POST['email']))
+              $userData->erro();
+          }
+        } else if (!empty($_POST['telefone'])){
+          $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
+          if(!$validate->validate()){
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->validarTelefoneExist($_POST['telefone']))
+              $userData->erro();
+          }
+        } else if (!empty($_POST['rg'])){
+          $validate->set('rg', $_POST['rg'])->is_required()->is_rg();
+          if(!$validate->validate()){
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->verificarRgExist($_POST['rg']))
+              $userData->erro();
+          }
+        }
+
     }
     /*
     *FUNÇÃO PARA RETORNO DE ERROS OCORRIDO NO FORMULARIO OU CONSULTA DE BANCO

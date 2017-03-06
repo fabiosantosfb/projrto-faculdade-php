@@ -39,3 +39,5 @@
   $router->post('up-address','PagesController@updateAddress');
   $router->post('up-password','PagesController@updatePassword');
   $router->post('add-telefone','PagesController@addTelefone');
+
+  $router->post('validate','PagesController@ValidateExisting');

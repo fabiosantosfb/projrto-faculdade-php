@@ -729,8 +729,6 @@ class DataValidator {
         }
         return $this;
     }
-
-
     /**
      * Verify if the current data no contains white spaces
      * @access public
@@ -743,25 +741,19 @@ class DataValidator {
         }
         return $this;
     }
-
-
     /**
      * Verify if the current data is a valid Phone Number (8 or 9 digits)
      * @access public
      * @return Data_Validator The self instance
      */
     public function is_phone(){
-        $verify = preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s.-]?\d{4}$/', $this->_data['value']);
-
-         //preg_match('/^[0-9]{5}-[0-9]{3}$/', $this->_data['value']);
+        $verify = preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{5}[\s.-]?\d{4}$/', $this->_data['value']);
 
         if(!$verify){
-            $this->set_error(sprintf($this->_messages['is_phone'], $this->_data['name']));
+          $this->set_error(sprintf($this->_messages['is_phone'], $this->_data['name']));
         }
         return $this;
     }
-
-
     /**
      * Verify if the current data is a valid License Plate (Brazil)
      * @access public
@@ -774,8 +766,6 @@ class DataValidator {
         }
         return $this;
     }
-
-
     /**
      * Verify if the current data is a valid IP
      * @access public
@@ -787,8 +777,6 @@ class DataValidator {
         }
         return $this;
     }
-
-
     /**
      * Verify if the current data is a valid Zip Code (Brazil)
      * @access public
@@ -801,8 +789,6 @@ class DataValidator {
         }
         return $this;
     }
-
-
     /**
      * Validate the data
      * @access public

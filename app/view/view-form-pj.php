@@ -32,7 +32,7 @@
                                 <label class="label">CNPJ</label>
                                 <p class="control">
                                     <input name="type" type="hidden" value="pj">
-                                    <input class="input-w-4" id="cnpj" name="cnpj" maxlength="19" type="text" placeholder="CNPJ" required="" value="<?php  if(isset($_POST['cnpj'])) echo htmlspecialchars($_POST['cnpj']); ?>" >
+                                    <input class="input-w-4" id="cnpj" name="cnpj" maxlength="18" type="text" onkeypress='cnpjFormat("cnpj")' placeholder="CNPJ" required="" value="<?php  if(isset($_POST['cnpj'])) echo htmlspecialchars($_POST['cnpj']); ?>" >
                                     <span class="help is-success">Ex. 125.966.000/0001-96</span>
                                 </p>
                                 <p class="control">

@@ -1,5 +1,6 @@
 <?php include_once ('app/view/partlals/header.php') ?>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
+<script src="app/assets/js/validate-existing-data.js" charset="utf-8"></script>
 <div class="principal np-card-1">
 
     <section class="hero np-padding-20">
@@ -31,24 +32,29 @@
                                 <label class="label">CPF</label>
                                 <p class="control">
                                     <input name="type" type="hidden" value="pf">
-                                    <input class="input-w-4" id="cpf" name="cpf" type="text" placeholder="CPF" maxlength="14" required="" value="<?php  if(isset($_POST['cpf'])) echo htmlspecialchars($_POST['cpf']); ?>">
+                                    <input class="input-w-4" id="cpf" name="cpf" type="text" onblur="cpfValidadeExisting()" placeholder="CPF" maxlength="14" required="" value="<?php  if(isset($_POST['cpf'])) echo htmlspecialchars($_POST['cpf']); ?>">
                                 </p>
+                                <div id="cpf-erro"></div>
                                 <label class="label">Identidade</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="rg" name="rg" type="text" placeholder="RG" maxlength="9" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
+                                    <input class="input-w-4" id="rg" name="rg" type="text" onblur="rgValidadeExisting()"  placeholder="RG" maxlength="9" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
                                 </p>
+                                <div id="rg-erro"></div>
                                 <label class="label">Data da Expedição</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="dataexpedicao" maxlength="8" name="dataexpedicao" maxlength="8"  type="date_format" placeholder="dd/mm/aa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
+                                    <input class="input-w-4" id="dataexpedicao" maxlength="8" onblur="dataValidadeExisting()"  name="dataexpedicao" maxlength="8"  type="date_format" placeholder="dd/mm/aa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
                                 </p>
+                                <div id="data-erro"></div>
                                 <label class="label">Orgão Expedidor</label>
                                 <p class="control">
-                                    <input class="input-w-3" id="nome" name="orgao_expedidor" type="text" maxlength="6" placeholder="Org"  required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
+                                    <input class="input-w-3" id="nome" name="orgao_expedidor" type="text" onblur="orgValidadeExisting()"  maxlength="6" placeholder="Org"  required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
                                 </p>
+                                <div id="org-erro"></div>
                                 <label class="label">UF</label>
                                 <p class="control">
-                                    <input class="input-w-3" id="uf" name="uf" type="text" maxlength="2" placeholder="UF"  required="" value="<?php  if(isset($_POST['uf'])) echo htmlspecialchars($_POST['uf']); ?>"  >
+                                    <input class="input-w-3" id="uf" name="uf" type="text" maxlength="2" placeholder="UF" onblur="ufValidadeExisting()" required="" value="<?php  if(isset($_POST['uf'])) echo htmlspecialchars($_POST['uf']); ?>"  >
                                 </p>
+                                <div id="uf-erro"></div>
                             </div>
                         </section>
                     </div>
@@ -73,10 +79,10 @@
                                 <hr>
                                 <label class="label">Número(s)</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="telefone" name="telefone" type="text" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                    <input class="input-w-4" id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting()" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
                                     <span class="help">Ex. (83) 99682-6985</span>
                                 </p>
-
+                                <div id="tel-erro"></div>
                                 <h1 class="title is-6">
                                     ACESSO
                                 </h1>
@@ -86,8 +92,9 @@
                                 <hr>
                                 <label class="label">Email</label>
                                 <p class="control">
-                                    <input class="input-w-6" id="email" name="email" type="text" maxlength="100" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
+                                    <input class="input-w-6" id="email" name="email" type="text" maxlength="100" onblur="emailValidadeExisting()" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
                                 </p>
+                                <div id="email-erro"></div>
                                 <label class="label">Senha</label>
                                 <p class="control">
                                     <input class="input-w-4" id="senha" name="senha" type="password" maxlength="60" placeholder="Senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
@@ -96,11 +103,12 @@
                                 <p class="control">
                                     <input class="input-w-4" id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
                                 </p>
+                                <div id="pwd-erro"></div>
                                 <br/>
                                 <p class="control">
                                     <div class="media">
                                         <div class="media-left">
-                                            <input type="checkbox" required="" name="telemarketing">
+                                            <input type="checkbox" required="" name="termo">
                                         </div>
                                         <div class="media-content">
                                             <div class="content">
@@ -110,6 +118,7 @@
                                         </div>
                                     </div>
                                 </p>
+                                <div id="termo-erro"></div>
                                 <br>
                                 <div class="control is-grouped is-pulled-right">
                                     <p class="control">

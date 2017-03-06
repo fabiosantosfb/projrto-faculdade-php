@@ -91,42 +91,43 @@ class DaoUsuario extends ConexaoDb {
             return false;
         }
     }
-    public function verificarCpfExist() {
+    public function validarCpfExist() {
         try {
             $query =  "SELECT cpf FROM pessoa_fisica WHERE cpf = :cpf";
             $validar = Parent::getInstanceConexao()->prepare($query);
             $validar->bindValue(":cpf", $this->dataUsuario->getCpf());
             $validar->execute();
+
             if ($validar->rowCount() === 1) {
-                $this->erro = "Cpf ja se encontar cadastrado no Sistema!";
                 return false;
             } else {
-                try {
-                    $pessoaF = "INSERT INTO pessoa_fisica (usuario_id_usuario, cpf, rg, uf, data_expedicao, orgao_expedidor) values (LAST_INSERT_ID(), :cpf, :rg, :uf, :data_expedicao, :orgao_expedidor)";
-                    $this->validarDoc = Parent::getInstanceConexao()->prepare($pessoaF);
-                    $this->validarDoc->bindValue(":cpf", $this->dataUsuario->getCpf());
-                    $this->validarDoc->bindValue(":rg", $this->dataUsuario->getRg());
-                    $this->validarDoc->bindValue(":uf", $this->dataUsuario->getUf());
-                    $this->validarDoc->bindValue(":data_expedicao", $this->dataUsuario->getDataExpedicao());
-                    $this->validarDoc->bindValue(":orgao_expedidor", $this->dataUsuario->getOrgExpedidor());
-                    $this->validarDoc->execute();
-                    return true;
-                } catch (Exception $ex){
-                    $this->erro = "Exceção ao Inserir Cpf!";
-                    echo $this->erro.' - '.$ex;
-
-                    $sql = "DELETE FROM usuario WHERE id_usuario=LAST_INSERT_ID()";
-                    $this->validarUser = Parent::getInstanceConexao()->prepare($sql);
-                    $this->validarUser->execute();
-
-                    return false;
-                }
+                return true;
             }
         } catch (Exception $ex){
             $this->erro = "Exceção ao Verificar Cpf!";
             echo $this->erro.' - '.$ex;
             return false;
         }
+    }
+
+    public function verificarCpfExist() {
+      if(validarCpfExist()){
+        try {
+            $pessoaF = "INSERT INTO pessoa_fisica (usuario_id_usuario, cpf, rg, uf, data_expedicao, orgao_expedidor) values (LAST_INSERT_ID(), :cpf, :rg, :uf, :data_expedicao, :orgao_expedidor)";
+            $this->validarDoc = Parent::getInstanceConexao()->prepare($pessoaF);
+            $this->validarDoc->bindValue(":cpf", $this->dataUsuario->getCpf());
+            $this->validarDoc->bindValue(":rg", $this->dataUsuario->getRg());
+            $this->validarDoc->bindValue(":uf", $this->dataUsuario->getUf());
+            $this->validarDoc->bindValue(":data_expedicao", $this->dataUsuario->getDataExpedicao());
+            $this->validarDoc->bindValue(":orgao_expedidor", $this->dataUsuario->getOrgExpedidor());
+            $this->validarDoc->execute();
+            return true;
+        } catch (Exception $ex){
+            $this->erro = "Exceção ao Inserir Cpf!";
+            echo $this->erro.' - '.$ex;
+            return false;
+        }
+    }
     }
 
     public function verificarTelefonelExist($tipoCadastro) {

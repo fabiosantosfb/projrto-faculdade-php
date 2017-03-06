@@ -28,5 +28,5 @@
 </p>
 <label class="label">CEP</label>
 <p class="control">
-    <input class="input-w-3" id="cep" name="cep" type="text" placeholder="CEP" required="" maxlength="9" value="<?php  if(isset($_POST['cep'])) echo htmlspecialchars($_POST['cep']); ?>" >
+    <input class="input-w-3" id="cep" name="cep" type="text" placeholder="CEP" onkeypress='cepFormat("cep")' required="" maxlength="9" value="<?php  if(isset($_POST['cep'])) echo htmlspecialchars($_POST['cep']); ?>" >
 </p>
