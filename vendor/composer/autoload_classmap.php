@@ -29,5 +29,5 @@ return array(
     'Telefone' => $baseDir . '/app/model/Telefone.class.php',
     'UpdateUser' => $baseDir . '/app/dao/UpdateUser.class.php',
     'Usuario' => $baseDir . '/app/model/Usuario.class.php',
-    '_DaoUsuario' => $baseDir . '/app/dao/DaoInserirUsuario.class-orig.php',
+    'ValidateUserExisting' => $baseDir . '/app/dao/ValidateUserExisting.php',
 );

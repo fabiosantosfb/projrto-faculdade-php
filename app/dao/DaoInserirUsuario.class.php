@@ -1,5 +1,6 @@
 <?php
-require_once ('app/model/Conexao.class.php');
+//require_once ('app/model/Conexao.class.php');
+
 class DaoUsuario extends ConexaoDb {
     private $dataAutenticacao;
     private $dataUsuario;
@@ -11,12 +12,14 @@ class DaoUsuario extends ConexaoDb {
     private $validarTel;
     private $validarEnd;
     private $validarTlmk;
+
     public function __construct($usuario, $login, $endereco, $fone){
         $this->dataUsuario = $usuario;
         $this->dataAutenticacao = $login;
         $this->dataEndereco = $endereco;
         $this->fone = $fone;
     }
+
     public function verificarEmailExist() {
         try {
             $query =  "SELECT email FROM usuario WHERE email = :email";
@@ -28,20 +31,30 @@ class DaoUsuario extends ConexaoDb {
                 return false;
             } else {
                 try {
-                    $usuario = "INSERT INTO usuario (id_usuario, email, senha, type) values (default, :email, :pwd, :type)";
+                    $usuario = "INSERT INTO usuario (id_usuario, email, senha, nome, type, cep, rua, bairro, cidade, numero, complemento, data_cadastro, data_atualizacao) values (default, :email, :senha, :nome, :type, :cep, :rua, :bairro, :cidade, :numero, :complemento, default, default)";
                     $this->validarUser = Parent::getInstanceConexao()->prepare($usuario);
                     $this->validarUser->bindValue(":email",$this->dataAutenticacao->getEmail());
-                    $this->validarUser->bindValue(":pwd",$this->dataAutenticacao->getPassword());
+                    $this->validarUser->bindValue(":senha",$this->dataAutenticacao->getPassword());
+                    $this->validarUser->bindValue(":nome",$this->dataUsuario->getNome());
                     $this->validarUser->bindValue(":type",$this->dataAutenticacao->getType());
-                    //$this->validarUser->execute();
+                    $this->validarUser->bindValue(":cep", $this->dataEndereco->getCep());
+                    $this->validarUser->bindValue(":rua", $this->dataEndereco->getRua());
+                    $this->validarUser->bindValue(":bairro", $this->dataEndereco->getBairro());
+                    $this->validarUser->bindValue(":cidade", $this->dataEndereco->getCidade());
+                    $this->validarUser->bindValue(":numero", $this->dataEndereco->getNumero());
+                    $this->validarUser->bindValue(":complemento", $this->dataEndereco->getComplemento());
+
+                    $this->validarUser->execute();
                     return true;
                 } catch (Exception $ex){
                     $this->erro = "Exceção ao inserir Ususario!";
+                    echo $this->erro.' - '.$ex->getMessage();
                     return false;
                 }
             }
         } catch (Exception $ex){
             $this->erro = "Exceção ao verificar Email!";
+            echo $this->erro.' - '.$ex;
             return false;
         }
     }
@@ -56,56 +69,68 @@ class DaoUsuario extends ConexaoDb {
                 return false;
             } else {
                 try {
-                    $pessoaJ = "INSERT INTO pessoa_juridica (nome, cnpj, usuario_id_usuario) values (:nome, :cnpj, LAST_INSERT_ID())";
+                    $pessoaJ = "INSERT INTO pessoa_juridica (usuario_id_usuario, cnpj, status_telemarketing) values (LAST_INSERT_ID(), :cnpj, 0)";
                     $this->validarDoc = Parent::getInstanceConexao()->prepare($pessoaJ);
-                    $this->validarDoc->bindValue(":nome", $this->dataUsuario->getNome());
                     $this->validarDoc->bindValue(":cnpj", $this->dataUsuario->getCnpj());
-                    //$this->validarDoc->execute();
+                    $this->validarDoc->execute();
                     return true;
                 } catch (Exception $ex){
-                    $this->erro = "Exceção ao Inserir Cpf!";
+                    $this->erro = "Exceção ao Inserir Cnpj!";
+                    echo $this->erro.' - '.$ex;
+
+                    $sql = "DELETE FROM usuario WHERE id_usuario=LAST_INSERT_ID()";
+                    $this->validarUser = Parent::getInstanceConexao()->prepare($sql);
+                    $this->validarUser->execute();
+
                     return false;
                 }
             }
         } catch (Exception $ex){
             $this->erro = "Exceção ao Verificar Cnpj!";
+            echo $this->erro.' - '.$ex;
             return false;
         }
     }
-    public function verificarCpfExist() {
+    public function validarCpfExist() {
         try {
             $query =  "SELECT cpf FROM pessoa_fisica WHERE cpf = :cpf";
             $validar = Parent::getInstanceConexao()->prepare($query);
             $validar->bindValue(":cpf", $this->dataUsuario->getCpf());
             $validar->execute();
+
             if ($validar->rowCount() === 1) {
-                $this->erro = "Cpf ja se encontar cadastrado no Sistema!";
                 return false;
             } else {
-                try {
-                    $pessoaF = "INSERT INTO pessoa_fisica (nome, cpf, rg, org, uf, data_expedicao, usuario_id_usuario) values (:nome, :cpf, :rg, :org, :uf, :data_expedicao, LAST_INSERT_ID())";
-                    $this->validarDoc = Parent::getInstanceConexao()->prepare($pessoaF);
-                    $this->validarDoc->bindValue(":nome", $this->dataUsuario->getNome());
-                    $this->validarDoc->bindValue(":cpf", $this->dataUsuario->getCpf());
-                    $this->validarDoc->bindValue(":rg", $this->dataUsuario->getRg());
-                    $this->validarDoc->bindValue(":org", $this->dataUsuario->getOrgExpedidor());
-                    $this->validarDoc->bindValue(":uf", $this->dataUsuario->getUf());
-                    $this->validarDoc->bindValue(":data_expedicao", $this->dataUsuario->getDataExpedicao());
-                    //$this->validarDoc->execute();
-                    return true;
-                } catch (Exception $ex){
-                    $this->erro = "Exceção ao Inserir Cpf!";
-                    echo $ex;
-                    return false;
-                }
+                return true;
             }
         } catch (Exception $ex){
             $this->erro = "Exceção ao Verificar Cpf!";
-            echo $ex;
+            echo $this->erro.' - '.$ex;
             return false;
         }
     }
-    public function verificarTelefonelExist() {
+
+    public function verificarCpfExist() {
+      if(validarCpfExist()){
+        try {
+            $pessoaF = "INSERT INTO pessoa_fisica (usuario_id_usuario, cpf, rg, uf, data_expedicao, orgao_expedidor) values (LAST_INSERT_ID(), :cpf, :rg, :uf, :data_expedicao, :orgao_expedidor)";
+            $this->validarDoc = Parent::getInstanceConexao()->prepare($pessoaF);
+            $this->validarDoc->bindValue(":cpf", $this->dataUsuario->getCpf());
+            $this->validarDoc->bindValue(":rg", $this->dataUsuario->getRg());
+            $this->validarDoc->bindValue(":uf", $this->dataUsuario->getUf());
+            $this->validarDoc->bindValue(":data_expedicao", $this->dataUsuario->getDataExpedicao());
+            $this->validarDoc->bindValue(":orgao_expedidor", $this->dataUsuario->getOrgExpedidor());
+            $this->validarDoc->execute();
+            return true;
+        } catch (Exception $ex){
+            $this->erro = "Exceção ao Inserir Cpf!";
+            echo $this->erro.' - '.$ex;
+            return false;
+        }
+    }
+    }
+
+    public function verificarTelefonelExist($tipoCadastro) {
         try {
             $query =  "SELECT telefone_numero FROM telefone WHERE telefone_numero = :telefone_numero";
             $validar = Parent::getInstanceConexao()->prepare($query);
@@ -116,59 +141,36 @@ class DaoUsuario extends ConexaoDb {
                 return false;
             } else {
                 try {
-                    $telefone = "INSERT INTO telefone (status_bloqueio, data_cadastro, data_atualizacao, telefone_numero, usuario_id_usuario, id_telefone) values (0, default, default, :telefone, LAST_INSERT_ID(), default)";
+                    $telefone = "INSERT INTO telefone (id_telefone, usuario_id_usuario, status_bloqueio, telefone_numero, data_cadastro, data_atualizacao) values (default, LAST_INSERT_ID(), 0, :telefone, default, default)";
                     $this->validarTel = Parent::getInstanceConexao()->prepare($telefone);
                     $this->validarTel->bindValue(":telefone", $this->fone->getTelefone());
-                    //$this->validarTel->execute();
+                    $this->validarTel->execute();
                     return true;
                 } catch (Exception $ex){
-                    echo  "<script>alert('exceção Inserir emil!')</script>";
                     $this->erro = "Exceção ao inserir Telfone!";
-                    echo $ex;
+                    echo $this->erro.' - '.$ex;
+
+                    $sql = "DELETE FROM usuario WHERE id_usuario=LAST_INSERT_ID()";
+                    $this->validarUser = Parent::getInstanceConexao()->prepare($sql);
+                    $this->validarUser->execute();
+
+                    if($tipoCadastro == "pessoajuridica") {
+                        $sql = "DELETE FROM pessoa_juridica WHERE usuario_id_usuario=LAST_INSERT_ID()";
+                        $this->validarUser = Parent::getInstanceConexao()->prepare($sql);
+                        $this->validarUser->execute();
+                    } else {
+                        $sql = "DELETE FROM pessoa_fisica WHERE usuario_id_usuario=LAST_INSERT_ID()";
+                        $this->validarUser = Parent::getInstanceConexao()->prepare($sql);
+                        $this->validarUser->execute();
+                    }
+
                     return false;
                 }
             }
         } catch (Exception $ex){
             $this->erro = "Exceção ao verificar Telefone!";
-            echo $ex;
-            return true;
-        }
-    }
-    public function inserirEndereco() {
-        try {
-            $endereco = "INSERT INTO endereco (cep, rua, bairro, cidade, numero, complemento, usuario_id_usuario) values (:cep, :rua, :bairro, :cidade, :numero, :complemento, LAST_INSERT_ID())";
-            $this->validarEnd = Parent::getInstanceConexao()->prepare($endereco);
-            $this->validarEnd->bindValue(":cep", $this->dataEndereco->getCep());
-            $this->validarEnd->bindValue(":rua", $this->dataEndereco->getRua());
-            $this->validarEnd->bindValue(":bairro", $this->dataEndereco->getBairro());
-            $this->validarEnd->bindValue(":cidade", $this->dataEndereco->getCidade());
-            $this->validarEnd->bindValue(":numero", $this->dataEndereco->getNumero());
-            $this->validarEnd->bindValue(":complemento", $this->dataEndereco->getComplemento());
-            if($this->validarUser->execute()) {
-                $this->validarDoc->execute();
-                $this->validarTel->execute();
-                $this->validarEnd->execute();
-                return true;
-            }
-            return false;
-        } catch (Exception $ex){
-            $this->erro = "Exceção ao inserir Endereco!";
-            echo $ex;
+            echo $this->erro.' - '.$ex;
             return false;
         }
-    }
-    public function inserirTelemarketing(){
-        try {
-            $telemarketing = "INSERT INTO telemarketing (status_ativo, pessoa_juridica_usuario_id_usuario) values (0, LAST_INSERT_ID())";
-            $this->validarTlmk = Parent::getInstanceConexao()->prepare($telemarketing);
-            $this->validarTlmk->execute();
-            return true;
-        } catch (Exception $ex){
-            $this->erro = "Exceção ao Inserir telemarketing!";
-            return false;
-        }
-    }
-    public function getErro() {
-        return $this->erro;
     }
 }

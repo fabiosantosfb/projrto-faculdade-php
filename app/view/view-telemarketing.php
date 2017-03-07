@@ -37,7 +37,7 @@ $LOGIN = '
                         </p>
                     </div>
                     <div class="panel-block">
-                        <?php if($telemarketing['status_ativo'] == 0) { ?>
+                        <?php if($telemarketing['status_telemarketing'] == 0) { ?>
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
                             <div class="control notification is-danger">

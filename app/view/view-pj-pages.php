@@ -1,5 +1,5 @@
 <?php
-$PESSOA = ($telemarketing)? '
+$PESSOA = ($pessoa['type']==='tlm')? '
 <a class="nav-item is-active" href="session-pj">
 <span>Meus Dados</span>
 </a>
@@ -32,7 +32,7 @@ $LOGIN = '
             <div class="column">
                 <p class="control">
                     <form method="post" action="add-telefone">
-                        <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+                        <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['id_usuario'] ?>">
                         <input class="input-w-4" id="novo_tel" autofocus name="novo_tel" placeholder="(99)99999-9999" onkeypress='newPhone()' maxlength="14" required="" >
                         <input class="button is-primary is-outlined" type="submit" value="Adicionar"/>
                         <span class="help">Aqui é possível adicionar novos números de telefone ao cadastro de bloqueio.</span>
@@ -106,7 +106,7 @@ $LOGIN = '
                                     <div class="column">
                                         <label class="label">Email</label>
                                         <p class="control">
-                                            <input class="input" id="email" name="email" type="text" maxlength="100" placeholder="Email" value="<?=$usuario['email'] ?>" required="">
+                                            <input class="input" id="email" name="email" type="text" maxlength="100" placeholder="Email" value="<?=$pessoa['email'] ?>" required="">
                                         </p>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@ $LOGIN = '
                         <div id="login"></div>
                         <p>&nbsp;</p>
                         <p class="control">
-                            <input id="id_login" value="<?=$usuario['id_usuario'] ?>" type="hidden">
+                            <input id="id_login" value="<?=$pessoa['id_usuario'] ?>" type="hidden">
                             <button class="button is-primary is-outlined" type="button" onclick="updatePassword()">  Alterar </button>
                         </p>
                     </div>
@@ -146,9 +146,7 @@ $LOGIN = '
                     </p>
                 </div>
                 <div class="panel-block">
-
                     <form class="control">
-
                         <div class="columns">
                             <div class="column is-half">
                                 <p class="control">
@@ -161,7 +159,7 @@ $LOGIN = '
                                     <label class="label">CNPJ</label>
                                 </p>
                                 <p class="control">
-                                    <input class="input-w-6" id="cnpj" name="cnpj" maxlength="18" onkeypress='cnpjFormat("cnpj")' value="<?=$pessoa['cnpj'] ?>" required="">
+                                    <input class="input-w-6" id="cnpj" name="cnpj" maxlength="18" onkeypress='cnpjFormat("cnpj")' value="<?=$dados['cnpj'] ?>" required="">
                                 </p>
                             </div>
                         </div>
@@ -169,8 +167,8 @@ $LOGIN = '
                     </div>
                     <div id="documento"></div>
                     <br>
-                    <input id="doc" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
-                    <button class="button is-primary is-outlined" type="button" onclick="updateDocpJ()">  Alterar </button>
+                    <input id="doc" type="hidden" value="<?=$pessoa['id_usuario'] ?>">
+                    <button class="button is-primary is-outlined" type="button" onclick="updateDocPj()">  Alterar </button>
                 </form>
             </div>
             <div class="panel">
@@ -185,20 +183,20 @@ $LOGIN = '
                             <div class="column is-half">
                                 <label class="label">Logradouro</label>
                                 <p class="control">
-                                    <input class="input" id="rua" name="rua" maxlength="100" value="<?=$endereco['rua'] ?>" required="">
+                                    <input class="input" id="rua" name="rua" maxlength="100" value="<?=$pessoa['rua'] ?>" required="">
                                 </p>
                             </div>
                             <div class="column">
                                 <label class="label">Número</label>
                                 <p class="control">
-                                    <input class="input-w-3" id="numero" name="numero" maxlength="4" value="<?=$endereco['numero'] ?>">
+                                    <input class="input-w-3" id="numero" name="numero" maxlength="4" value="<?=$pessoa['numero'] ?>">
                                 </p>
                             </div>
 
                             <div class="column">
                                 <label class="label">Complemento</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="complemento" name="complemento" maxlength="100" value="<?=$endereco['complemento'] ?>">
+                                    <input class="input-w-4" id="complemento" name="complemento" maxlength="100" value="<?=$pessoa['complemento'] ?>">
                                 </p>
                             </div>
                         </div>
@@ -206,20 +204,20 @@ $LOGIN = '
                             <div class="column">
                                 <label class="label">Bairro</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="bairro" name="bairro" maxlength="45" value="<?=$endereco['bairro'] ?>" required="">
+                                    <input class="input-w-4" id="bairro" name="bairro" maxlength="45" value="<?=$pessoa['bairro'] ?>" required="">
                                 </p>
                             </div>
                             <div class="column">
                                 <label class="label">Cidade</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="cidade" name="cidade" maxlength="45" value="<?=$endereco['cidade'] ?>" required="" >
+                                    <input class="input-w-4" id="cidade" name="cidade" maxlength="45" value="<?=$pessoa['cidade'] ?>" required="" >
                                 </p>
                             </div>
 
                             <div class="column">
                                 <label class="label">CEP</label>
                                 <p class="control">
-                                    <input class="input-w-3" id="cep" name="cep" maxlength="9" onkeypress='cepFormat("cep")' value="<?=$endereco['cep'] ?>" required="" >
+                                    <input class="input-w-3" id="cep" name="cep" maxlength="9" onkeypress='cepFormat("cep")' value="<?=$pessoa['cep'] ?>" required="" >
                                 </p>
                             </div>
                         </div>
@@ -228,7 +226,7 @@ $LOGIN = '
                     <div id="endereco"></div>
                     <p>&nbsp;</p>
                     <p class="control">
-                        <input id="id_endereco" type="hidden" value="<?=$pessoa['usuario_id_usuario'] ?>">
+                        <input id="id_endereco" type="hidden" value="<?=$pessoa['id_usuario'] ?>">
                         <button class="button is-primary is-outlined" type="button" onclick="updateAddress()">  Alterar </button>
                     </p>
                 </form>

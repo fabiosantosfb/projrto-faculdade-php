@@ -44,7 +44,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function addTelefone($telefone, $usuario){
     try {
-        $q = "INSERT INTO telefone VALUES (0, default, default, :telefone, :id, default)";
+        $q = "INSERT INTO telefone VALUES (default, :id, 0, :telefone, default, default)";
         $validarTel = Parent::getInstanceConexao()->prepare($q);
         $validarTel->bindValue(":telefone", $telefone);
         $validarTel->bindValue(":id", $usuario);
@@ -57,17 +57,28 @@ class UpdateUser extends  ConexaoDb {
 
   public function upDocumento($nome, $usuario, $cpf, $rg, $dataexpedicao, $orgao_expedidor, $uf){
     try{
-        $update = "UPDATE proconpb_naoperturbe.pessoa_fisica SET nome=:nome, cpf=:cpf, rg=:rg, org=:org, uf=:uf, data_expedicao=:data_expedicao WHERE usuario_id_usuario=:id";
+        $update = "UPDATE proconpb_naoperturbe_v2.pessoa_fisica SET cpf=:cpf, uf=:uf, rg=:rg, data_expedicao=:data, orgao_expedidor=:org WHERE usuario_id_usuario=:id";
         $validar = Parent::getInstanceConexao()->prepare($update);
-        $validar->bindValue(":nome", $nome);
         $validar->bindValue(":cpf", $cpf);
         $validar->bindValue(":rg", $rg);
         $validar->bindValue(":org", $orgao_expedidor);
         $validar->bindValue(":uf", $uf);
-        $validar->bindValue(":data_expedicao", $dataexpedicao);
+        $validar->bindValue(":data", $dataexpedicao);
         $validar->bindValue(":id", $usuario);
         if($validar->execute()){
-            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
+            try{
+                $update = "UPDATE proconpb_naoperturbe_v2.usuario SET nome=:nome WHERE id_usuario=:id";
+                $validar = Parent::getInstanceConexao()->prepare($update);
+                $validar->bindValue(":nome", $nome);
+                $validar->bindValue(":id", $usuario);
+                if($validar->execute()){
+                    echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
+                }
+
+            } catch (Exception $doc){
+              echo '<span class="help is-danger ocultar">Erro Atualizar Documento: '.$doc->getMessage().'</span>';
+              return false;
+            }
         }
 
     } catch (Exception $doc){
@@ -78,13 +89,24 @@ class UpdateUser extends  ConexaoDb {
 
   public function upDocumentoPj($nome, $usuario, $cnpj){
     try{
-        $update = "UPDATE proconpb_naoperturbe.pessoa_juridica SET nome=:nome, cnpj=:cnpj WHERE usuario_id_usuario=:id";
+        $update = "UPDATE proconpb_naoperturbe_v2.pessoa_juridica SET cnpj=:cnpj WHERE usuario_id_usuario=:id";
         $validar = Parent::getInstanceConexao()->prepare($update);
-        $validar->bindValue(":nome", $nome);
         $validar->bindValue(":cnpj", $cnpj);
         $validar->bindValue(":id", $usuario);
         if($validar->execute()){
-            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
+            try{
+                $update = "UPDATE proconpb_naoperturbe_v2.usuario SET nome=:nome WHERE id_usuario=:id";
+                $validar = Parent::getInstanceConexao()->prepare($update);
+                $validar->bindValue(":nome", $nome);
+                $validar->bindValue(":id", $usuario);
+                if($validar->execute()){
+                  echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
+                }
+
+            } catch (Exception $doc){
+              echo '<span class="help is-danger ocultar">Erro Atualizar Documento: '.$doc->getMessage().'</span>';
+              return false;
+            }
         }
 
     } catch (Exception $doc){
@@ -95,7 +117,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function upAddress($cep, $cidade, $rua, $bairro, $numero, $complemento, $id_endereco){
     try{
-        $update = "UPDATE proconpb_naoperturbe.endereco SET cep=:cep, rua=:rua, bairro=:bairro, cidade=:cidade, numero=:numero, complemento=:complemento WHERE usuario_id_usuario=:id_endereco";
+        $update = "UPDATE proconpb_naoperturbe_v2.usuario SET cep=:cep, rua=:rua, bairro=:bairro, cidade=:cidade, numero=:numero, complemento=:complemento WHERE id_usuario=:id_endereco";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":cep", $cep);
         $validar->bindValue(":rua", $rua);
@@ -104,6 +126,7 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":numero", $numero);
         $validar->bindValue(":complemento", $complemento);
         $validar->bindValue(":id_endereco", $id_endereco);
+
         if($validar->execute()){
             echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
         }
@@ -118,7 +141,7 @@ class UpdateUser extends  ConexaoDb {
   public function upPassword($pwd, $email, $id){
 
     try{
-        $update = "UPDATE proconpb_naoperturbe.usuario SET email=:email, senha=:senha WHERE id_usuario=:id";
+        $update = "UPDATE proconpb_naoperturbe_v2.usuario SET email=:email, senha=:senha WHERE id_usuario=:id";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":email", $email);
         $validar->bindValue(":senha", $pwd);

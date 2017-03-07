@@ -108,10 +108,9 @@ class PagesController {
     */
     public function userPessoaFisica() {
         $pessoaFisica = Selection::getInstanceSelection();
-        $pessoa = $pessoaFisica->selectionPessoaFisica($_SESSION['id']);
-        $endereco = $pessoaFisica->seachAddress($_SESSION['id']);
-        $usuario = $pessoaFisica->dadosUser($_SESSION['id']);
-        $telefone = $pessoaFisica->seachTelefone($_SESSION['id']);
+        $pessoa = $pessoaFisica->selectionUsuario($_SESSION['id']);
+        $dados = $pessoaFisica->selectionPessoaFisica($_SESSION['id']);
+        $telefone = $pessoaFisica->selectionTelefone($_SESSION['id']);
 
         require_once ('app/view/view-pf-pages.php');
     }
@@ -120,12 +119,10 @@ class PagesController {
     */
     public function userPessoaJuridica() {
         $pessoaJuridica = Selection::getInstanceSelection();
-        $pessoa = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
-        $endereco = $pessoaJuridica->seachAddress($_SESSION['id']);
-        $usuario = $pessoaJuridica->dadosUser($_SESSION['id']);
-        $telefone = $pessoaJuridica->seachTelefone($_SESSION['id']);
+        $pessoa = $pessoaJuridica->selectionUsuario($_SESSION['id']);
+        $dados = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
+        $telefone = $pessoaJuridica->selectionTelefone($_SESSION['id']);
 
-        $telemarketing = $pessoaJuridica->selectionTelemarketing($_SESSION['id']);
 
         require_once ('app/view/view-pj-pages.php');
     }
@@ -134,7 +131,8 @@ class PagesController {
     */
     public function listagemTelemarketing() {
         $pessoaJuridica = Selection::getInstanceSelection();
-        $telemarketing = $pessoaJuridica->selectionTelemarketing($_SESSION['id']);
+        $telemarketing = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
+
         $listar = Listar::getInstanceListar();
         $listagemPf = $listar->listarTelefonePf();
         $listagemPj = $listar->listarTelefonePj();
@@ -286,7 +284,6 @@ class PagesController {
 
         if(!$validate->validate()){
             self::getErroForm($validate);
-            self::$erro_form = true;
             self::page_form_pessoafisica();
         } else {
             if(!self::cadastrar()) {
@@ -323,8 +320,9 @@ class PagesController {
             $hash = Bcrypt::hash($_POST['senha']);
 
             $this->login = Login::getInstanceLogin();
-            $this->login->setEmail($_POST['email']);
             $this->login->setPassword($hash);
+
+            $this->login->setEmail($_POST['email']);
             $this->login->setType($_POST['type']);
 
             $this->endereco = Endereco::getInstanceEndereco();
@@ -345,8 +343,8 @@ class PagesController {
                 $this->pessoa->setCnpj($_POST['cnpj']);
                 $this->pessoa->setNome($_POST['nome']);
 
-                if(!empty($_POST['telemarketing'])){
-                    $this->pessoa->setTelemarketing(true);
+                if(isset($_POST['telemarketing'])){
+                    $this->login->setType('tlm');
                 }
             } else if($this->tipoCadastro == "pessoafisica") {
                 $this->pessoa = PessoaFisica::getInstancePessoaFisica();
@@ -358,12 +356,11 @@ class PagesController {
                 $this->pessoa->setUf($_POST['uf']);
             }
             if(self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone))
-            return true;
+              return true;
             return false;
         } else {
             self::getErroForm($validate);
             self::$erro_form = true;
-
             return false;
         }
     }
@@ -372,43 +369,32 @@ class PagesController {
     *FUNÇÃO INSERIR DADOS CADASTRO
     */
     function insertUsuario($pessoa, $login, $endereco, $tipoCadastro, $fone) {
-        include_once ('app/dao/DaoInserirUsuario.class.php');
         $insertUsuario = new DaoUsuario($pessoa, $login, $endereco, $fone);
 
         if($tipoCadastro == "pessoajuridica" && $pessoa->getCnpj() != null) { // ---- VERIFICAR SE E PESSOA JURIDICAR ----- //
             try{
                 if($insertUsuario->verificarEmailExist()) {
-                    if($insertUsuario->verificarTelefonelExist()) {
+                    if($insertUsuario->verificarTelefonelExist($tipoCadastro)) {
                         if($insertUsuario->verificarCnpjExist()) {
-                            if($insertUsuario->inserirEndereco()) {
-                                if($pessoa->getTelemarketing()) {
-                                    if(!$insertUsuario->inserirTelemarketing()) {
-                                        $this->erro = $insertUsuario->getErro();
-                                        return false;
-                                    }
-                                }
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }
-                self::$erro = $insertUsuario->getErro();
+                return false;
             } catch (Exception $ex){
                 $this->erro = "Exceção no Cadastro de Pessoa Fisica!";
+                echo $ex;
                 return false;
             }
         } else if($tipoCadastro == "pessoafisica" && $pessoa->getCpf() != null) {
             try {
                 if($insertUsuario->verificarEmailExist()){
-                    if($insertUsuario->verificarTelefonelExist()){
+                    if($insertUsuario->verificarTelefonelExist($tipoCadastro)){
                         if($insertUsuario->verificarCpfExist()){
-                            if($insertUsuario->inserirEndereco()){
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }
-                $this->erro = $insertUsuario->getErro();
                 return false;
             } catch (Exception $ex){
                 $this->erro = "Exeção no Cadastro de Pessoa Fisica!";
@@ -601,13 +587,16 @@ class PagesController {
     function updatePassword() {
 
         $validate = new DataValidator();
+
         $validate->set('senha', $_POST['senha'])->is_required();
         $validate->set('repetir_senha', $_POST['repetir_senha'])->is_required()->is_equals($_POST['senha'], true);
         $validate->set('email', $_POST['email'])->is_required()->is_email();
 
         if($validate->validate()){
             $update = UpdateUser::getInstanceUpdateUser();
-            $update->upPassword($_POST['senha'], $_POST['email'], $_POST['id']);
+            $hash = Bcrypt::hash($_POST['senha']);
+
+            $update->upPassword($hash, $_POST['email'], $_POST['id']);
         } else {
             self::getErroForm($validate);
             self::userPessoaFisica();
@@ -628,7 +617,6 @@ class PagesController {
                 self::redirection();
             } else {
                 self::redirection();
-                echo '<script>alert()</script>';
             }
         } else {
             self::getErroForm($validate);
@@ -641,12 +629,54 @@ class PagesController {
     *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
     */
     function getErroForm($validate){
-        self::$erro_form = true;
+        //self::$erro_form = true;
         $array = $validate->get_errors();
         foreach ($array as $key => $value) { }
 
         echo $key.'<br>';
-        die;
+    }
+
+    /*
+    *FUNÇÃO PARA VALIDAR CAMPOS DE FORMULARIO PESSOA FISICA FORMULARIO
+    */
+    function ValidateExisting(){
+        $validate = new DataValidator();
+        $userData = new ValidateUserExisting();
+
+        if(!empty($_POST['cpf'])){
+          $validate->set('cpf', $_POST['cpf'])->is_required()->is_cpf();
+          if(!$validate->validate()){
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->validarCpfExist($_POST['cpf']))
+              $userData->erro();
+          }
+        } else if (!empty($_POST['email'])){
+          $validate->set('email', $_POST['email'])->is_required()->is_email();
+          if(!$validate->validate()){
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->validarEmailExist($_POST['email']))
+              $userData->erro();
+          }
+        } else if (!empty($_POST['telefone'])){
+          $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
+          if(!$validate->validate()){
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->validarTelefoneExist($_POST['telefone']))
+              $userData->erro();
+          }
+        } else if (!empty($_POST['rg'])){
+          $validate->set('rg', $_POST['rg'])->is_required()->is_rg();
+          if(!$validate->validate()){
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->verificarRgExist($_POST['rg']))
+              $userData->erro();
+          }
+        }
+
     }
     /*
     *FUNÇÃO PARA RETORNO DE ERROS OCORRIDO NO FORMULARIO OU CONSULTA DE BANCO
@@ -659,7 +689,7 @@ class PagesController {
         if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pf') {
             self::userPessoaFisica();
             die;
-        } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pj') {
+        } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) || $_SESSION['type_user'] == 'pj' || $_SESSION['type_user'] == 'tlm' ) {
             self::userPessoaJuridica();
             die;
         } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'tlm') {
