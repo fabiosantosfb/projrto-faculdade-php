@@ -111,22 +111,38 @@
                                     </div>
                                 </p>
                                 <br>
-                                <div class="control is-grouped is-pulled-right">
+                                <!-- <div class="control is-grouped is-pulled-right">
                                     <p class="control">
                                         <button id="button1id" name="button1id" class="button is-primary" type="submit">Salvar</button>
                                     </p>
                                     <p class="control">
                                         <button id="Cancelar" name="Cancelar" type="reset" class="button is-warning" onclick="history.go(-1)">Cancelar</button>
                                     </p>
-                                </div>
-                            </form>
+                                </div> -->
+                            <!-- </form> -->
                         </div>
                     </section>
                 </div>
             </div>
         </div>
 
-        <section>
+    </section>
+    <section class="hero np-padding-18">
+                    <div class="npTitle">
+
+                        <div class="control is-grouped is-pulled-right">
+                            <p class="control">
+                                <button id="button1id" name="button1id" class="button is-primary" type="submit">Salvar</button>
+                            </p>
+                            <p class="control">
+                                <button id="Cancelar" name="Cancelar" type="reset" class="button is-warning" onclick="history.go(-1)">Cancelar</button>
+                            </p>
+                        </div>
+
+                </div>
+
+            </form>
+    </section>
 
             <!--  <?php //if($this->ERRO_FORM) echo "<script>alert('$this->erro')</script>";?>-->
             <?php include_once 'app/view/partlals/footer.php' ?>

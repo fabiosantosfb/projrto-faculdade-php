@@ -15,6 +15,7 @@ window.onload = function(){
     id('dataexpedicao').onkeypress = function(){  inputDado( this, formatacaoData ); }
     id('cpf').onkeypress = function(){ inputDado( this, formatacaoCpf ); }
     id('rg').onkeypress = function(){ inputDado( this, formatacaoRg ); }
+    id('cep').onkeypress = function(){ inputDado( this, formatacaoCep ); }
 }
 function telefoneFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, formatacaoTelefone ); }}
 function cnpjFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, formatacaoCnpj ); }}

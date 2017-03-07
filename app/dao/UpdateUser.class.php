@@ -34,7 +34,7 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":id_telefone", $id_telefone);
 
         if($validar->execute()){
-          echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
+          echo '<span class="help np-is-primary ocultar">Atualizado com sucesso!</span>';
         }
     } catch (Exception $tele){
       echo '<span class="help is-danger ocultar">Erro Atualizar Telefone: '.$tele->getMessage().'</span>';

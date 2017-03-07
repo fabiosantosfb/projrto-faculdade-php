@@ -15,7 +15,10 @@
    id="svg4738"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="favicon.svg">
+   sodipodi:docname="favicon.svg"
+   inkscape:export-filename="/home/emiliano/Projetos/npproconpb/app/assets/img/favicon.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4740">
     <clipPath
@@ -40,9 +43,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="-167.25259"
-     inkscape:cy="-28.542649"
+     inkscape:zoom="3.959798"
+     inkscape:cx="-66.680328"
+     inkscape:cy="-11.563945"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -64,7 +67,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -75,10 +78,10 @@
      transform="translate(654.25766,11.974261)">
     <g
        transform="matrix(0.08186815,0,0,0.07374412,-606.43348,2.679538)"
-       style="fill:#30dac1;fill-opacity:1"
+       style="fill:#251881;fill-opacity:1"
        id="g4719">
       <rect
-         style="opacity:1;fill:#30dac1;fill-opacity:1;stroke:none;stroke-width:17.71653557;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:#251881;fill-opacity:1;stroke:none;stroke-width:17.71653557;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect4143"
          width="74"
          height="216.91275"
@@ -94,11 +97,11 @@
          height="192.21477"
          width="74"
          id="rect4147"
-         style="opacity:1;fill:#30dac1;fill-opacity:1;stroke:none;stroke-width:17.71653557;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:#251881;fill-opacity:1;stroke:none;stroke-width:17.71653557;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          transform="matrix(0,1,-1,0,0,0)" />
       <rect
          transform="matrix(-0.70710678,0.70710678,-0.70710678,-0.70710678,0,0)"
-         style="opacity:1;fill:#30dac1;fill-opacity:1;stroke:none;stroke-width:17.71653557;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:#251881;fill-opacity:1;stroke:none;stroke-width:17.71653557;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect4155"
          width="110.41608"
          height="286.80542"
