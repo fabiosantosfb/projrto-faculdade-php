@@ -30,7 +30,7 @@ class ComposerStaticInit25f39ae5674b41fbe5247122846d71b0
         'Telefone' => __DIR__ . '/../..' . '/app/model/Telefone.class.php',
         'UpdateUser' => __DIR__ . '/../..' . '/app/dao/UpdateUser.class.php',
         'Usuario' => __DIR__ . '/../..' . '/app/model/Usuario.class.php',
-        '_DaoUsuario' => __DIR__ . '/../..' . '/app/dao/DaoInserirUsuario.class-orig.php',
+        'ValidateUserExisting' => __DIR__ . '/../..' . '/app/dao/ValidateUserExisting.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
