@@ -1,4 +1,9 @@
-<?php include_once ('app/view/partlals/header.php'); ?>
+<?php
+      $HOME = '<a class="nav-item" href="pessoa-fisica"><span>Pessoa Física</span></a>';
+      $PESSOA = '<a class="nav-item" href="pessoa-juridica"><span>Pessoa Jurídica</span></a>';
+      $LOGIN = '<a class="nav-item is-active" href="login"><span>ENTRAR</span></a>';
+      include_once ('app/view/partlals/header.php');
+?>
 <div class="principal">
 <div class="columns">
   <div class="column">
@@ -6,7 +11,7 @@
     </p>
   </div>
   <div class="column np-card-1">
-    <?php if(PagesController::getPagesController()->erros() == 1){ echo 'Email e senha Incorreta!'; } ?>
+    <?php if(PagesController::getPagesController()->erroLogin() == 1){ echo 'Email e senha Incorreta!'; } ?>
       <section class="hero np-padding-20">
           <div class="npTitle">
             <h1 class="title is-4">

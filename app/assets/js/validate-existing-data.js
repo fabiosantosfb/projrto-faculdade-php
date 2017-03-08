@@ -7,6 +7,15 @@ function cpfValidadeExisting() {
   });
 }
 
+function cnpjValidadeExisting() {
+  $.ajax({
+    type: "POST", url: "validate",
+    data: { cnpj: $(cnpj).val() },
+    success: function(data) { $('#cnpj-erro').html(data);
+  }
+  });
+}
+
 function emailValidadeExisting() {
   $.ajax({
     type: "POST",url: "validate",
@@ -30,6 +39,33 @@ function rgValidadeExisting() {
     type: "POST",url: "validate",
     data: { rg: $('#rg').val() },
     success: function(data) { $('#rg-erro').html(data);
+  }
+  });
+}
+
+function dataValidadeExisting() {
+  $.ajax({
+    type: "POST",url: "validate",
+    data: { dataexpedicao: $('#dataexpedicao').val() },
+    success: function(data) { $('#data-erro').html(data);
+  }
+  });
+}
+
+function cepValidadeExisting() {
+  $.ajax({
+    type: "POST",url: "validate",
+    data: { cep: $('#cep').val() },
+    success: function(data) { $('#cep-erro').html(data);
+  }
+  });
+}
+
+function ufValidadeExisting() {
+  $.ajax({
+    type: "POST",url: "validate",
+    data: { uf: $('#uf').val() },
+    success: function(data) { $('#uf-erro').html(data);
   }
   });
 }

@@ -7,8 +7,8 @@ class PagesController {
     private $endereco;
     private $pessoa;
 
-    private $erro = 0;
-    private static $erro_form;
+    private $erro_login = 0;
+    private $erro_form = array('cnpj', 'telefone');
     private $id;
     private $type;
     private $update = null;
@@ -25,82 +25,27 @@ class PagesController {
     *FUNÇÃO PAGE FORMULARIO DE LOGIN
     */
     public function page_form_login() {
-        $HOME = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Pessoa Física</span>
-        </a>';
-
-        $PESSOA = '
-        <a class="nav-item" href="pessoa-juridica">
-        <span>Pessoa Jurídica</span>
-        </a>';
-
-        $LOGIN = '
-        <a class="nav-item is-active" href="login">
-        <span>ENTRAR</span>
-        </a>';
-
         require_once ('app/view/view-form-login.php');
     }
     /*
     *FUNÇÃO PAGE FORMULARIO DE PESSOA FISICA
     */
     public function page_form_pessoafisica() {
-        $HOME = '
-        <a class="nav-item is-active" href="pessoa-fisica">
-        <span>Pessoa Física</span>
-        </a>';
-        $PESSOA = '
-        <a class="nav-item " href="pessoa-juridica">
-        <span>Pessoa Jurídica</span>
-        </a>';
-        $LOGIN = '
-        <a class="nav-item" href="login">
-        <span>ENTRAR</span>
-        </a>';
-
         require_once ('app/view/view-form-pf.php');
     }
     /*
     *FUNÇÃO PAGE FORMULARIO DE PESSOA JURIDICA
     */
     public function page_form_pessoajuridica() {
-        $HOME = '
-        <a class="nav-item" href="pessoa-fisica">
-        <span>Pessoa Física</span>
-        </a>';
-
-        $PESSOA = '
-        <a class="nav-item is-active" href="pessoa-juridica">
-        <span>Pessoa Jurídica</span>
-        </a>';
-
-        $LOGIN = '
-        <a class="nav-item" href="login">
-        <span>ENTRAR</span>
-        </a>';
-
         require_once ('app/view/view-form-pj.php');
     }
     /*
     *FUNÇÃO PAGE INICIAL
     */
     public function home() {
-        $HOME = '
-        <a class="nav-item is-active" href="pessoa-fisica">
-        <span>Pessoa Física</span>
-        </a>';
-
-        $PESSOA = '
-        <a class="nav-item" href="pessoa-juridica">
-        <span>Pessoa Jurídica</span>
-        </a>';
-
-        $LOGIN = '
-        <a class="nav-item" href="login">
-        <span>ENTRAR</span>
-        </a>';
-
+        $HOME = '<a class="nav-item is-active" href="pessoa-fisica"><span>Pessoa Física</span></a>';
+        $PESSOA = '<a class="nav-item" href="pessoa-juridica"><span>Pessoa Jurídica</span></a>';
+        $LOGIN = '<a class="nav-item" href="login"><span>ENTRAR</span></a>';
         require_once ('app/view/view-form-pj.php');
     }
     /*
@@ -122,7 +67,6 @@ class PagesController {
         $pessoa = $pessoaJuridica->selectionUsuario($_SESSION['id']);
         $dados = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
         $telefone = $pessoaJuridica->selectionTelefone($_SESSION['id']);
-
 
         require_once ('app/view/view-pj-pages.php');
     }
@@ -222,7 +166,7 @@ class PagesController {
 
             $d_logar = new DaoLogin($this->login);
             if(!$d_logar->loginDb()){
-                $this->erro = 1;
+                $this->erro_login = 1;
                 self::page_form_login();
                 die;
             } else {
@@ -230,7 +174,7 @@ class PagesController {
             }
         } else {
             self::getErroForm($validate);
-            self::$erro_form = true;
+            self::$erro_form['email'] = "email";
             return false;
         }
     }
@@ -248,14 +192,8 @@ class PagesController {
     *FUNÇÃO CADASTRO PESSOA JURIDICA OU TELEMARKETING
     */
     function cadastroPessoaJuridica(){
-        $validate = new DataValidator();
-        $validate->set('cnpj', $_POST['cnpj'])->is_required()->is_cnpj();
-
         $this->tipoCadastro = "pessoajuridica";
-
-        if(!$validate->validate()){
-            self::getErroForm($validate);
-            self::$erro_form = true;
+        if(isset($_SESSION['erro-cnpj']) || isset($_SESSION['erro-rua']) || isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-senha']) ) {
             self::page_form_pessoajuridica();
         } else {
             if(!self::cadastrar()) {
@@ -282,7 +220,8 @@ class PagesController {
 
         $this->tipoCadastro = "pessoafisica";
 
-        if(!$validate->validate()){
+        if(isset($_SESSION['campo']) && !empty($_SESSION['campo']) && !$validate->validate()){
+            var_dump("Erro no pessoa fisica");
             self::getErroForm($validate);
             self::page_form_pessoafisica();
         } else {
@@ -300,20 +239,24 @@ class PagesController {
     function cadastrar() {
         $validate = new DataValidator();
 
-        $validate->set('cep', $_POST['cep'])->is_required()->is_zipCode();
-        $validate->set('cidade', $_POST['cidade'])->is_required();
-        $validate->set('rua', $_POST['rua'])->is_required();
-        $validate->set('bairro', $_POST['bairro'])->is_required();
+        $erro_validate = $validate->set('cidade', $_POST['cidade'])->is_required()->validate();
+        if(!$erro_validate) self::startSessionError('erro-cidade'); else  self::unsetSessionError('erro-cidade');
+        $erro_validate = $validate->set('rua', $_POST['rua'])->is_required()->validate();
+        if(!$erro_validate) self::startSessionError('erro-rua'); else  self::unsetSessionError('erro-rua');
+        $erro_validate = $validate->set('bairro', $_POST['bairro'])->is_required()->validate();
 
-        $validate->set('senha', $_POST['senha'])->is_required();
-        $validate->set('repetir_senha', $_POST['repetir_senha'])->is_required()->is_equals($_POST['senha'], true);
-        $validate->set('type', $_POST['type'])->is_required();
-        $validate->set('nome', $_POST['nome'])->is_required();
-        $validate->set('email', $_POST['email'])->is_required()->is_email();
-        $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
+        if(!$erro_validate) self::startSessionError('erro-bairro'); else  self::unsetSessionError('erro-bairro');
+        $erro_validate = $validate->set('senha', $_POST['senha'])->is_required()->validate();
+        if(!$erro_validate) self::startSessionError('erro-senha'); else  self::unsetSessionError('erro-senha');
+        $erro_validate = $validate->set('repetir_senha', $_POST['repetir_senha'])->is_required()->is_equals($_POST['senha'], true)->validate();
+        if(!$erro_validate) self::startSessionError('erro-repetir-senha'); else  self::unsetSessionError('erro-repetir-senha');
+        $erro_validate = $validate->set('type', $_POST['type'])->is_required()->validate();
+        $erro_validate = $validate->set('nome', $_POST['nome'])->is_required()->validate();
+        if(!$erro_validate) self::startSessionError('erro-nome'); else  self::unsetSessionError('erro-nome');
+        $erro_validate = $validate->set('termo', $_POST['termo'])->is_required()->validate();
+        if(!$erro_validate) self::startSessionError('erro-termo'); else  self::unsetSessionError('erro-termo');
 
-        if($validate->validate()) {
-
+        if(!isset($_SESSION['erro-termo']) || !isset($_SESSION['erro-cidade']) || !isset($_SESSION['erro-rua']) || !isset($_SESSION['erro-bairro']) || !isset($_SESSION['erro-repetir-senha']) || !isset($_SESSION['erro-nome'])) {
             $this->fone = Telefone::getInstanceTelefone();
             $this->fone->setTelefone($_POST['telefone']);
 
@@ -360,7 +303,6 @@ class PagesController {
             return false;
         } else {
             self::getErroForm($validate);
-            self::$erro_form = true;
             return false;
         }
     }
@@ -511,7 +453,6 @@ class PagesController {
     * FUNCTION ATUALIZAR TELEFONE
     */
     function updateTelefone() {
-
         $validate = new DataValidator();
         $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
 
@@ -528,7 +469,6 @@ class PagesController {
     * FUNCTION ATUALIZAR DADOS PESSOA FISICA
     */
     function updateDocumentoPf() {
-
         $validate = new DataValidator();
         $validate->set('uf', $_POST['uf'])->is_required()->is_alpha()->max_length(3)->min_length(1);
         $validate->set('orgao_expedidor', $_POST['orgao_expedidor'])->is_required()->is_alpha();
@@ -585,7 +525,6 @@ class PagesController {
     * FUNCTION ATUALIZAR DADOS PESSOA FISICA
     */
     function updatePassword() {
-
         $validate = new DataValidator();
 
         $validate->set('senha', $_POST['senha'])->is_required();
@@ -606,7 +545,6 @@ class PagesController {
     *FUNÇÃO PARA ADICIONAR TELEFONE
     */
     function addTelefone() {
-
         $validate = new DataValidator();
         $validate->set('telefone', $_POST['novo_tel'])->is_required();
 
@@ -622,7 +560,6 @@ class PagesController {
             self::getErroForm($validate);
             self::userPessoaFisica();
         }
-
     }
 
     /*
@@ -636,6 +573,18 @@ class PagesController {
         echo $key.'<br>';
     }
 
+    function erroLogin() {
+      return $this->erro_login;
+    }
+
+    function getErroFormulario($campo) {
+      return '<span class="help is-danger ">Error no Campo '.$campo.'</span>';
+    }
+
+    function setErroFormulario() {
+      return '<span class="help is-danger "></span>';
+    }
+
     /*
     *FUNÇÃO PARA VALIDAR CAMPOS DE FORMULARIO PESSOA FISICA FORMULARIO
     */
@@ -646,43 +595,102 @@ class PagesController {
         if(!empty($_POST['cpf'])){
           $validate->set('cpf', $_POST['cpf'])->is_required()->is_cpf();
           if(!$validate->validate()){
+            self::startSessionError('erro-cpf');
             self::getErroForm($validate);
           } else {
-            if(!$userData->validarCpfExist($_POST['cpf']))
+            if(!$userData->validateCpfExist($_POST['cpf'])) {
+              self::startSessionError('erro-cpf');
               $userData->erro();
+            } else {
+              self::unsetSessionError('erro-cpf');
+            }
           }
-        } else if (!empty($_POST['email'])){
+        } if (!empty($_POST['email'])){
           $validate->set('email', $_POST['email'])->is_required()->is_email();
           if(!$validate->validate()){
+            self::startSessionError('erro-email');
             self::getErroForm($validate);
           } else {
-            if(!$userData->validarEmailExist($_POST['email']))
+            if(!$userData->validateEmailExist($_POST['email'])) {
+              self::startSessionError('erro-email');
               $userData->erro();
+            } else {
+              self::unsetSessionError('erro-email');
+            }
           }
-        } else if (!empty($_POST['telefone'])){
-          $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
-          if(!$validate->validate()){
-            self::getErroForm($validate);
-          } else {
-            if(!$userData->validarTelefoneExist($_POST['telefone']))
-              $userData->erro();
-          }
-        } else if (!empty($_POST['rg'])){
+        } if (!empty($_POST['rg'])){
           $validate->set('rg', $_POST['rg'])->is_required()->is_rg();
           if(!$validate->validate()){
+            self::startSessionError('erro-rg');
             self::getErroForm($validate);
           } else {
-            if(!$userData->verificarRgExist($_POST['rg']))
+            if(!$userData->validateRgExist($_POST['rg'])) {
               $userData->erro();
+              self::startSessionError('erro-rg');
+            } else {
+              self::unsetSessionError('erro-rg');
+            }
+          }
+        } if (!empty($_POST['dataexpedicao'])){
+          $validate->set('dataexpedicao', $_POST['dataexpedicao'])->is_required()->is_date();
+          if(!$validate->validate()) {
+            self::startSessionError('erro-dataexpedicao');
+            self::getErroForm($validate);
+          } else {
+            self::startSessionError('erro-dataexpedicao');
+          }
+        } if (!empty($_POST['cnpj'])){
+          $validate->set('cnpj', $_POST['cnpj'])->is_required()->is_cnpj();
+          if(!$validate->validate()) {
+            self::startSessionError('erro-cnpj');
+            self::getErroForm($validate);
+          }  else {
+            if(!$userData->validateCnpjExist($_POST['cnpj'])) {
+              self::startSessionError('erro-cnpj');
+              $userData->erro();
+            } else {
+              self::unsetSessionError('erro-cnpj');
+            }
+          }
+        } if (!empty($_POST['telefone'])){
+          $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
+          if(!$validate->validate()){
+            self::startSessionError('erro-telefone');
+            self::getErroForm($validate);
+          } else {
+            if(!$userData->validateTelefoneExist($_POST['telefone'])) {
+              self::startSessionError('erro-telefone');
+
+              $userData->erro();
+            } else {
+              self::unsetSessionError('erro-telefone');
+            }
+          }
+        } if (!empty($_POST['cep'])){
+          $validate->set('cep', $_POST['cep'])->is_required()->is_zipCode();
+          if(!$validate->validate()) {
+            self::startSessionError('erro-cep');
+            self::getErroForm($validate);
+          } else {
+            self::unsetSessionError('erro-cep');
+          }
+        } if (!empty($_POST['uf'])){
+          $validate->set('uf', $_POST['uf'])->is_required()->is_alpha()->max_length(3)->min_length(1);
+          if(!$validate->validate()) {
+            self::startSessionError('erro-uf');
+            self::getErroForm($validate);
+          } else {
+            self::unsetSessionError('erro-uf');
           }
         }
-
     }
-    /*
-    *FUNÇÃO PARA RETORNO DE ERROS OCORRIDO NO FORMULARIO OU CONSULTA DE BANCO
-    */
-    function erros() {
-        return $this->erro;
+
+    function startSessionError($campo){
+      $_SESSION[$campo] = true;
+    }
+
+    function unsetSessionError($campo){
+      unset($_SESSION[$campo]);
     }
 
     public function redirection() {

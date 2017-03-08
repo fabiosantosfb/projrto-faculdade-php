@@ -1,4 +1,9 @@
-<?php include_once ('app/view/partlals/header.php') ?>
+<?php
+      $HOME = '<a class="nav-item is-active" href="pessoa-fisica"><span>Pessoa Física</span></a>';
+      $PESSOA = '<a class="nav-item " href="pessoa-juridica"><span>Pessoa Jurídica</span></a>';
+      $LOGIN = '<a class="nav-item" href="login"><span>ENTRAR</span></a>';
+      include_once ('app/view/partlals/header.php');
+?>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 <script src="app/assets/js/validate-existing-data.js" charset="utf-8"></script>
 <div class="principal np-card-1">

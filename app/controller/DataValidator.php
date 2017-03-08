@@ -37,46 +37,46 @@ class DataValidator {
      */
     protected function set_messages_default(){
         $this->_messages = array(
-            'is_required'    => '<span class="help is-danger ocultar">O campo %s é obrigatório</span>',
-            'min_length'     => '<span class="help is-danger ocultar">O campo %s deve conter ao mínimo %s caracter(es)</span>',
-            'max_length'     => '<span class="help is-danger ocultar">O campo %s deve conter ao máximo %s caracter(es)</span>',
-            'between_length' => '<span class="help is-danger ocultar">O campo %s deve conter entre %s e %s caracter(es)</span>',
-            'min_value'      => '<span class="help is-danger ocultar">O valor do campo %s deve ser maior que %s </span>',
-            'max_value'      => '<span class="help is-danger ocultar">O valor do campo %s deve ser menor que %s </span>',
-            'between_values' => '<span class="help is-danger ocultar">O valor do campo %s deve estar entre %s e %s</span>',
-            'is_email'       => '<span class="help is-danger ocultar">O email %s não é válido </span>',
-            'is_url'         => '<span class="help is-danger ocultar">A URL %s não é válida </span>',
-            'is_slug'        => '<span class="help is-danger ocultar">%s não é um slug </span>',
-            'is_num'         => '<span class="help is-danger ocultar">O valor %s não é numérico </span>',
-            'is_integer'     => '<span class="help is-danger ocultar">O valor %s não é inteiro </span>',
-            'is_float'       => '<span class="help is-danger ocultar">O valor %s não é float </span>',
-            'is_string'      => '<span class="help is-danger ocultar">O valor %s não é String </span>',
-            'is_boolean'     => '<span class="help is-danger ocultar">O valor %s não é booleano </span>',
-            'is_obj'         => '<span class="help is-danger ocultar">A variável %s não é um objeto </span>',
-            'is_instance_of' => '<span class="help is-danger ocultar">%s não é uma instância de %s </span>',
-            'is_arr'         => '<span class="help is-danger ocultar">A variável %s não é um array </span>',
-            'is_directory'   => '<span class="help is-danger ocultar">%s não é um diretório válido </span>',
-            'is_equals'      => '<span class="help is-danger ocultar">O valor do campo %s deve ser igual à %s </span>',
-            'is_equals'      => '<span class="help is-danger ocultar">O Campo Confirmar Senha deve ter o mesmo valor do Campo Senha! </span>',
-            'is_not_equals'  => '<span class="help is-danger ocultar">O valor do campo %s não deve ser igual à %s </span>',
-            'is_cpf'         => '<span class="help is-danger ocultar">O valor %s não é um CPF válido </span>',
-            'is_cnpj'        => '<span class="help is-danger ocultar">O valor %s não é um CNPJ válido </span>',
-            'contains'       => '<span class="help is-danger ocultar">O campo %s só aceita um do(s) seguinte(s) valore(s): [%s] </span>',
-            'not_contains'   => '<span class="help is-danger ocultar">O campo %s não aceita o(s) seguinte(s) valore(s): [%s] </span>',
-            'is_lowercase'   => '<span class="help is-danger ocultar">O campo %s só aceita caracteres minúsculos </span>',
-            'is_uppercase'   => '<span class="help is-danger ocultar">O campo %s só aceita caracteres maiúsculos </span>',
-            'is_multiple'    => '<span class="help is-danger ocultar">O valor %s não é múltiplo de %s</span>',
-            'is_positive'    => '<span class="help is-danger ocultar">O campo %s só aceita valores positivos</span>',
-            'is_negative'    => '<span class="help is-danger ocultar">O campo %s só aceita valores negativos</span>',
-            'is_date'        => '<span class="help is-danger ocultar">A data %s não é válida</span>',
-            'is_alpha'       => '<span class="help is-danger ocultar">O campo %s só aceita caracteres alfabéticos</span>',
-            'is_alpha_num'   => '<span class="help is-danger ocultar">O campo %s só aceita caracteres alfanuméricos</span>',
-            'no_whitespaces' => '<span class="help is-danger ocultar">O campo %s não aceita espaços em branco</span>',
-            'is_phone'       => '<span class="help is-danger ocultar">O campo %s não é um telefone válido</span>',
-            'is_zipCode'     => '<span class="help is-danger ocultar">O campo %s não é um CEP válido</span>',
-            'is_plate'       => '<span class="help is-danger ocultar">O campo $s não é válido</span>',
-            'is_ip'          => '<span class="help is-danger ocultar">O campo $s não é um ip válido</span>',
-            'is_rg'          => '<span class="help is-danger ocultar">O campo não é um RG válido</span>'
+            'is_required'    => '<span class="help is-danger ">O campo %s é obrigatório</span>',
+            'min_length'     => '<span class="help is-danger ">O campo %s deve conter ao mínimo %s caracter(es)</span>',
+            'max_length'     => '<span class="help is-danger ">O campo %s deve conter ao máximo %s caracter(es)</span>',
+            'between_length' => '<span class="help is-danger ">O campo %s deve conter entre %s e %s caracter(es)</span>',
+            'min_value'      => '<span class="help is-danger ">O valor do campo %s deve ser maior que %s </span>',
+            'max_value'      => '<span class="help is-danger ">O valor do campo %s deve ser menor que %s </span>',
+            'between_values' => '<span class="help is-danger ">O valor do campo %s deve estar entre %s e %s</span>',
+            'is_email'       => '<span class="help is-danger ">O email %s não é válido </span>',
+            'is_url'         => '<span class="help is-danger ">A URL %s não é válida </span>',
+            'is_slug'        => '<span class="help is-danger ">%s não é um slug </span>',
+            'is_num'         => '<span class="help is-danger ">O valor %s não é numérico </span>',
+            'is_integer'     => '<span class="help is-danger ">O valor %s não é inteiro </span>',
+            'is_float'       => '<span class="help is-danger ">O valor %s não é float </span>',
+            'is_string'      => '<span class="help is-danger ">O valor %s não é String </span>',
+            'is_boolean'     => '<span class="help is-danger ">O valor %s não é booleano </span>',
+            'is_obj'         => '<span class="help is-danger ">A variável %s não é um objeto </span>',
+            'is_instance_of' => '<span class="help is-danger ">%s não é uma instância de %s </span>',
+            'is_arr'         => '<span class="help is-danger ">A variável %s não é um array </span>',
+            'is_directory'   => '<span class="help is-danger ">%s não é um diretório válido </span>',
+            'is_equals'      => '<span class="help is-danger ">O valor do campo %s deve ser igual à %s </span>',
+            'is_equals'      => '<span class="help is-danger ">O Campo Confirmar Senha deve ter o mesmo valor do Campo Senha! </span>',
+            'is_not_equals'  => '<span class="help is-danger ">O valor do campo %s não deve ser igual à %s </span>',
+            'is_cpf'         => '<span class="help is-danger ">O valor %s não é um CPF válido </span>',
+            'is_cnpj'        => '<span class="help is-danger ">O valor %s não é um CNPJ válido </span>',
+            'contains'       => '<span class="help is-danger ">O campo %s só aceita um do(s) seguinte(s) valore(s): [%s] </span>',
+            'not_contains'   => '<span class="help is-danger ">O campo %s não aceita o(s) seguinte(s) valore(s): [%s] </span>',
+            'is_lowercase'   => '<span class="help is-danger ">O campo %s só aceita caracteres minúsculos </span>',
+            'is_uppercase'   => '<span class="help is-danger ">O campo %s só aceita caracteres maiúsculos </span>',
+            'is_multiple'    => '<span class="help is-danger ">O valor %s não é múltiplo de %s</span>',
+            'is_positive'    => '<span class="help is-danger ">O campo %s só aceita valores positivos</span>',
+            'is_negative'    => '<span class="help is-danger ">O campo %s só aceita valores negativos</span>',
+            'is_date'        => '<span class="help is-danger ">A data %s não é válida</span>',
+            'is_alpha'       => '<span class="help is-danger ">O campo %s só aceita caracteres alfabéticos</span>',
+            'is_alpha_num'   => '<span class="help is-danger ">O campo %s só aceita caracteres alfanuméricos</span>',
+            'no_whitespaces' => '<span class="help is-danger ">O campo %s não aceita espaços em branco</span>',
+            'is_phone'       => '<span class="help is-danger ">O campo %s não é um telefone válido</span>',
+            'is_zipCode'     => '<span class="help is-danger ">O campo %s não é um CEP válido</span>',
+            'is_plate'       => '<span class="help is-danger ">O campo $s não é válido</span>',
+            'is_ip'          => '<span class="help is-danger ">O campo $s não é um ip válido</span>',
+            'is_rg'          => '<span class="help is-danger ">O campo não é um RG válido</span>'
         );
     }
 
@@ -661,7 +661,7 @@ class DataValidator {
      * @param String $format [optional] The Date format
      * @return Data_Validator The self instance
      */
-    public function is_date($format = null){
+    public function is_date($format = 'd/m/y'){
         $verify = true;
 
         if($this->_data['value'] instanceof DateTime){
@@ -670,7 +670,6 @@ class DataValidator {
             $verify = false;
         } else if (is_null($format)){
             $verify = (strtotime($this->_data['value']) !== false);
-            //die(var_dump($verify));
             if($verify){
                 return $this;
             }
@@ -796,5 +795,7 @@ class DataValidator {
      */
     public function validate(){
         return (count($this->_errors) > 0 ? false : true);
+
+
     }
 }

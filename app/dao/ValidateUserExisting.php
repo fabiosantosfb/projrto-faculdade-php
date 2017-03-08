@@ -5,7 +5,7 @@ class ValidateUserExisting extends ConexaoDb {
 
     public function __construct(){ }
 
-    public function verificarEmailExist($email) {
+    public function validateEmailExist($email) {
         try {
             $query =  "SELECT email FROM usuario WHERE email = :email";
             $validar = Parent::getInstanceConexao()->prepare($query);
@@ -24,7 +24,7 @@ class ValidateUserExisting extends ConexaoDb {
             return false;
         }
     }
-    public function verificarCnpjExist($cnpj) {
+    public function validateCnpjExist($cnpj) {
         try {
             $query =  "SELECT cnpj FROM pessoa_juridica WHERE cnpj = :cnpj";
             $validar = Parent::getInstanceConexao()->prepare($query);
@@ -42,7 +42,8 @@ class ValidateUserExisting extends ConexaoDb {
             return false;
         }
     }
-    public function validarCpfExist($cpf) {
+
+    public function validateCpfExist($cpf) {
         try {
             $query =  "SELECT cpf FROM pessoa_fisica WHERE cpf = :cpf";
             $validar = Parent::getInstanceConexao()->prepare($query);
@@ -50,18 +51,18 @@ class ValidateUserExisting extends ConexaoDb {
             $validar->execute();
 
             if ($validar->rowCount() === 1) {
-              $this->erro = "Cpf não Disponível!";
-              return false;
+                $this->erro = "Cpf ja se encontar cadastrado no Sistema!";
+                return false;
             } else {
-              return true;
+                return true;
             }
         } catch (Exception $ex){
-            $this->erro = "Exceção ao Verificar Cpf!";
+            $this->erro = "Exceção ao verificar Cpf!";
             return false;
         }
     }
 
-    public function verificarTelefonelExist($telefone) {
+    public function validateTelefoneExist($telefone) {
         try {
             $query =  "SELECT telefone_numero FROM telefone WHERE telefone_numero = :telefone_numero";
             $validar = Parent::getInstanceConexao()->prepare($query);
@@ -80,7 +81,7 @@ class ValidateUserExisting extends ConexaoDb {
         }
     }
 
-    public function verificarRgExist($rg) {
+    public function validateRgExist($rg) {
         try {
             $query =  "SELECT rg FROM pessoa_fisica WHERE rg = :rg";
             $validar = Parent::getInstanceConexao()->prepare($query);
@@ -100,6 +101,6 @@ class ValidateUserExisting extends ConexaoDb {
     }
 
     public function erro() {
-      echo "<span class='help is-danger ocultar'>$this->erro</span>";
+      echo "<span class='help is-danger '>$this->erro</span><br>";
     }
 }
