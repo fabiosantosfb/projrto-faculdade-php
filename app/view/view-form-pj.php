@@ -32,7 +32,7 @@
                             <form class="control" method="post" action="/cadastro-pj">
                                 <label class="label">Razão Social</label>
                                 <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="nome" maxlength="35"  autofocus name="nome" type="text" placeholder="Razao social" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>">
+                                    <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-8 is-danger"'; else echo 'class="input-w-8 is-sucess"'; ?> id="nome" maxlength="35"  autofocus name="nome" type="text" placeholder="Razao social" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>">
                                     <span class="help is-success">Preencha corretamente, conforme o registro na Receita Federal.</span>
                                     <div id="nome-erro"><?php if(isset($_SESSION['erro-nome'])) echo $erro_form->getErroFormulario("Nome"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
@@ -86,7 +86,7 @@
                                 <hr>
                                 <label class="label">Email</label>
                                 <p class="control">
-                                    <input  <?php if(isset($_SESSION['erro-email'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="email" name="email" type="text" maxlength="100" placeholder="Email" required="" onblur="emailValidadeExisting()" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
+                                    <input  <?php if(isset($_SESSION['erro-email'])) echo 'class="input-w-6 is-danger"'; else echo 'class="input-w-6 is-sucess"'; ?> id="email" name="email" type="text" maxlength="100" placeholder="Email" required="" onblur="emailValidadeExisting()" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
                                     <div id="email-erro"><?php if(isset($_SESSION['erro-email'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
                                 <label class="label">Senha</label>
@@ -128,8 +128,5 @@
                 </div>
             </div>
         </div>
-
         <section>
-
-            <!--  <?php //if($this->ERRO_FORM) echo "<script>alert('$this->erro')</script>";?>-->
-            <?php include_once 'app/view/partlals/footer.php' ?>
+        <?php include_once 'app/view/partlals/footer.php' ?>

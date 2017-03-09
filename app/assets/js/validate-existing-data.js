@@ -60,12 +60,3 @@ function cepValidadeExisting() {
   }
   });
 }
-
-function ufValidadeExisting() {
-  $.ajax({
-    type: "POST",url: "validate",
-    data: { uf: $('#uf').val() },
-    success: function(data) { $('#uf-erro').html(data);
-  }
-  });
-}

@@ -2,6 +2,8 @@
       $HOME = '<a class="nav-item is-active" href="pessoa-fisica"><span>Pessoa Física</span></a>';
       $PESSOA = '<a class="nav-item " href="pessoa-juridica"><span>Pessoa Jurídica</span></a>';
       $LOGIN = '<a class="nav-item" href="login"><span>ENTRAR</span></a>';
+
+      $erro_form = PagesController::getPagesController();
       include_once ('app/view/partlals/header.php');
 ?>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
@@ -32,34 +34,35 @@
                             <form class="control" method="post" action="/cadastro-pf">
                                 <label class="label">Nome</label>
                                 <p class="control">
-                                    <input class="input-w-8" id="nome" name="nome" autofocus type="text" placeholder="Digite seu nome" maxlength="100" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-8 is-danger"'; else echo 'class="input-w-8 is-sucess"'; ?> id="nome" name="nome" autofocus type="text" placeholder="Digite seu nome" maxlength="100" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
+                                    <div id="nome-erro"><?php if(isset($_SESSION['erro-nome'])) echo $erro_form->getErroFormulario("Nome"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
                                 <label class="label">CPF</label>
                                 <p class="control">
                                     <input name="type" type="hidden" value="pf">
-                                    <input class="input-w-4" id="cpf" name="cpf" type="text" onblur="cpfValidadeExisting()" placeholder="CPF" maxlength="14" required="" value="<?php  if(isset($_POST['cpf'])) echo htmlspecialchars($_POST['cpf']); ?>">
+                                    <input <?php if(isset($_SESSION['erro-cpf'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="cpf" name="cpf" type="text" onblur="cpfValidadeExisting()" placeholder="CPF" maxlength="14" required="" value="<?php  if(isset($_POST['cpf'])) echo htmlspecialchars($_POST['cpf']); ?>">
+                                    <div id="cpf-erro"><?php if(isset($_SESSION['erro-cpf'])) echo $erro_form->getErroFormulario("Cpf"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
-                                <div id="cpf-erro"></div>
                                 <label class="label">Identidade</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="rg" name="rg" type="text" onblur="rgValidadeExisting()"  placeholder="RG" maxlength="9" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-rg'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="rg" name="rg" type="text" onblur="rgValidadeExisting()"  placeholder="RG" maxlength="9" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
+                                    <div id="rg-erro"><?php if(isset($_SESSION['erro-rg'])) echo $erro_form->getErroFormulario("Identidade"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
-                                <div id="rg-erro"></div>
                                 <label class="label">Data da Expedição</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="dataexpedicao" maxlength="8" onblur="dataValidadeExisting()"  name="dataexpedicao" maxlength="8"  type="date_format" placeholder="dd/mm/aa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-data'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="dataexpedicao" maxlength="8" onblur="dataValidadeExisting()"  name="dataexpedicao" maxlength="8"  type="date_format" placeholder="dd/mm/aa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
+                                    <div id="data-erro"><?php if(isset($_SESSION['erro-data'])) echo $erro_form->getErroFormulario("Data"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
-                                <div id="data-erro"></div>
                                 <label class="label">Orgão Expedidor</label>
                                 <p class="control">
-                                    <input class="input-w-3" id="nome" name="orgao_expedidor" type="text" onblur="orgValidadeExisting()"  maxlength="6" placeholder="Org"  required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-org'])) echo 'class="input-w-3 is-danger"'; else echo 'class="input-w-3 is-sucess"'; ?> id="nome" name="orgao_expedidor" type="text" onblur="orgValidadeExisting()"  maxlength="6" placeholder="Org"  required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
+                                    <div id="org-erro"><?php if(isset($_SESSION['erro-org'])) echo $erro_form->getErroFormulario("Orgão Expedidor"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
-                                <div id="org-erro"></div>
                                 <label class="label">UF</label>
                                 <p class="control">
-                                    <input class="input-w-3" id="uf" name="uf" type="text" maxlength="2" placeholder="UF" onblur="ufValidadeExisting()" required="" value="<?php  if(isset($_POST['uf'])) echo htmlspecialchars($_POST['uf']); ?>"  >
+                                    <input <?php if(isset($_SESSION['erro-uf'])) echo 'class="input-w-3 is-danger"'; else echo 'class="input-w-3 is-sucess"'; ?> id="uf" name="uf" type="text" maxlength="2" placeholder="UF" required="" value="<?php  if(isset($_POST['uf'])) echo htmlspecialchars($_POST['uf']); ?>"  >
+                                    <div id="uf-erro"><?php if(isset($_SESSION['erro-uf'])) echo $erro_form->getErroFormulario("UF"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
-                                <div id="uf-erro"></div>
                             </div>
                         </section>
                     </div>
@@ -84,10 +87,10 @@
                                 <hr>
                                 <label class="label">Número(s)</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting()" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting()" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
                                     <span class="help">Ex. (83) 99682-6985</span>
+                                    <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
-                                <div id="tel-erro"></div>
                                 <h1 class="title is-6">
                                     ACESSO
                                 </h1>
@@ -97,19 +100,19 @@
                                 <hr>
                                 <label class="label">Email</label>
                                 <p class="control">
-                                    <input class="input-w-6" id="email" name="email" type="text" maxlength="100" onblur="emailValidadeExisting()" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
+                                    <input <?php if(isset($_SESSION['erro-email'])) echo 'class="input-w-6 is-danger"'; else echo 'class="input-w-6 is-sucess"'; ?> id="email" name="email" type="text" maxlength="100" onblur="emailValidadeExisting()" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
+                                    <div id="email-erro"><?php if(isset($_SESSION['erro-email'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
-                                <div id="email-erro"></div>
                                 <label class="label">Senha</label>
                                 <p class="control">
                                     <input class="input-w-4" id="senha" name="senha" type="password" maxlength="60" placeholder="Senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
                                 </p>
                                 <label class="label">Confirmar Senha</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
+                                    <input <?php if(isset($_SESSION['erro-repetir-senha'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
+                                    <div id="senha-erro"><?php if(isset($_SESSION['erro-repiter-senha'])) echo $erro_form->getErroFormulario("Senha"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
-                                <div id="pwd-erro"></div>
-                                <br/>
+                                <br>
                                 <p class="control">
                                     <div class="media">
                                         <div class="media-left">
@@ -123,7 +126,6 @@
                                         </div>
                                     </div>
                                 </p>
-                                <div id="termo-erro"></div>
                                 <br>
                                 <div class="control is-grouped is-pulled-right">
                                     <p class="control">
@@ -139,8 +141,5 @@
                 </div>
             </div>
         </div>
-
-        <section>
-
-            <!--  <?php //if($this->ERRO_FORM) echo "<script>alert('$this->erro')</script>";?>-->
-            <?php include_once 'app/view/partlals/footer.php' ?>
+   <section>
+<?php include_once 'app/view/partlals/footer.php' ?>
