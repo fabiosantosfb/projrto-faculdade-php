@@ -1,45 +1,57 @@
 <?php
 
 class ValidateUserExisting extends ConexaoDb {
-    private $erro;
+    private $messages_errors = array();
+    private static $error;
 
-    public function __construct(){ }
+    public function __construct(){ $this->messages_erros_insert(); }
+
+    protected function messages_erros_insert() {
+      $this->messages_errors = array(
+        'validar_email'            => 'Exceção ao verificar Email!',
+        'validar_telefone'         => 'Exceção ao verificar Telefone!',
+        'validar_cnpj'             => 'Exceção ao verificar Cnpj!',
+        'validar_cpf'              => 'Exceção ao verificar Cpf!',
+        'validar_rg'               => 'Exceção ao verificar Identidade!',
+        'email_indisponivel'       => 'Email já Existe no Sistema!',
+        'telefone_indisponivel'    => 'Telefone já Existe no Sistema!',
+        'cnpj_indisponivel'        => 'Cnpj já Existe no Sistema!',
+        'cpf_indisponivel'         => 'Cpfjá Existe no Sistema!',
+        'rg_indisponivel'          => 'Identidade já Existe no Sistema!'
+      );
+    }
 
     public function validateEmailExist($email) {
         try {
-            $query =  "SELECT email FROM usuario WHERE email = :email";
-            $validar = Parent::getInstanceConexao()->prepare($query);
+            $validar = Parent::getInstanceConexao()->prepare("SELECT email FROM usuario WHERE email = :email");
             $validar->bindValue(":email",$email);
             $validar->execute();
 
             if ($validar->rowCount() === 1) {
-                $this->erro = "Email não Disponível!";
+                $this->setError($this->messages_errors['email_indisponivel']);
                 return false;
             } else {
                 return true;
             }
-
         } catch (Exception $ex){
-            $this->erro = "Exceção ao verificar Email!";
-            return false;
+            return $this->messages_errors['validar_email'];
         }
     }
+
     public function validateCnpjExist($cnpj) {
         try {
-            $query =  "SELECT cnpj FROM pessoa_juridica WHERE cnpj = :cnpj";
-            $validar = Parent::getInstanceConexao()->prepare($query);
+            $validar = Parent::getInstanceConexao()->prepare("SELECT cnpj FROM pessoa_juridica WHERE cnpj = :cnpj");
             $validar->bindValue(":cnpj", $cnpj);
             $validar->execute();
 
             if ($validar->rowCount() === 1) {
-                $this->erro = "Cnpj ja se encontar cadastrado no Sistema!";
+                $this->setError($this->messages_errors['cnpj_indisponivel']);
                 return false;
             } else {
                 return true;
             }
         } catch (Exception $ex){
-            $this->erro = "Exceção ao Verificar Cnpj!";
-            return false;
+            return $this->messages_errors['validar_cnpj'];
         }
     }
 
@@ -51,14 +63,13 @@ class ValidateUserExisting extends ConexaoDb {
             $validar->execute();
 
             if ($validar->rowCount() === 1) {
-                $this->erro = "Cpf ja se encontar cadastrado no Sistema!";
+                $this->setError($this->messages_errors['cpf_indisponivel']);
                 return false;
             } else {
                 return true;
             }
         } catch (Exception $ex){
-            $this->erro = "Exceção ao verificar Cpf!";
-            return false;
+            return $this->messages_errors['validar_cpf'];
         }
     }
 
@@ -70,14 +81,13 @@ class ValidateUserExisting extends ConexaoDb {
             $validar->execute();
 
             if ($validar->rowCount() === 1) {
-                $this->erro = "Telefone ja se encontar cadastrado no Sistema!";
+                $this->setError($this->messages_errors['telefone_indisponivel']);
                 return false;
             } else {
                 return true;
             }
         } catch (Exception $ex){
-            $this->erro = "Exceção ao verificar Telefone!";
-            return false;
+            return $this->messages_errors['validar_telefone'];
         }
     }
 
@@ -89,18 +99,21 @@ class ValidateUserExisting extends ConexaoDb {
             $validar->execute();
 
             if ($validar->rowCount() === 1) {
-                $this->erro = "Identidade ja se encontar cadastrado no Sistema!";
+                $this->setError($this->messages_errors['rg_indisponivel']);
                 return false;
             } else {
                 return true;
             }
         } catch (Exception $ex){
-            $this->erro = "Exceção ao verificar Identidade!";
-            return false;
+            return $this->messages_errors['validar_rg'];
         }
     }
 
-    public function erro() {
-      echo "<span class='help is-danger '>$this->erro</span><br>";
+    public function setError($message) {
+      self::$error = "<span class='help is-danger '>$message</span><br>";
+    }
+
+    public function getError() {
+      echo self::$error;
     }
 }

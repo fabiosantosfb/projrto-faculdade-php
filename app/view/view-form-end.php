@@ -28,6 +28,7 @@
 </p>
 <label class="label">CEP</label>
 <p class="control">
-    <input class="input-w-3" id="cep" name="cep" type="text" placeholder="CEP" onkeypress='cepFormat("cep")' onblur="cepValidadeExisting()" required="" maxlength="9" value="<?php  if(isset($_POST['cep'])) echo htmlspecialchars($_POST['cep']); ?>" >
+    <input <?php if(isset($_SESSION['erro-cep'])) echo 'class="input-w-3 is-danger"'; else echo 'class="input-w-3 is-sucess"'; ?> id="cep" name="cep" type="text" placeholder="CEP" onkeypress='cepFormat("cep")' onblur="cepValidadeExisting()" required="" maxlength="9" value="<?php  if(isset($_POST['cep'])) echo htmlspecialchars($_POST['cep']); ?>" >
+    <div id="cep-erro"><?php if(isset($_SESSION['erro-cep'])) echo $erro_form->getErroFormulario("CEP"); else echo $erro_form->setErroFormulario(); ?></div>
 </p>
 <div id="cep-erro"></div>

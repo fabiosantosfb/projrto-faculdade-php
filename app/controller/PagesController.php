@@ -8,7 +8,6 @@ class PagesController {
     private $pessoa;
 
     private $erro_login = 0;
-    private $erro_form = array('cnpj', 'telefone');
     private $id;
     private $type;
     private $update = null;
@@ -96,24 +95,9 @@ class PagesController {
     *FUNÇÃO PAGE DE DADOS PESSOA FISICA PARA O ADIMINISTRADOR
     */
     public function pessoaFisica() {
-        $HOME = '
-        <a class="nav-item" href="admin">
-        <span>Liberação Telemarketing</span>
-        </a>';
-
-        $PESSOA = '
-        <a class="nav-item is-active" href="pessoa-f">
-        <span>Pessoa Física</span>
-        </a>
-        <a class="nav-item" href="pessoa-j">
-        <span>Pessoa Jurídica</span>
-        </a>
-        ';
-
-        $LOGIN = '
-        <a class="nav-item" href="logout">
-        <span>SAIR</span>
-        </a>';
+        $HOME = '<a class="nav-item" href="admin"><span>Liberação Telemarketing</span></a>';
+        $PESSOA = '<a class="nav-item is-active" href="pessoa-f"><span>Pessoa Física</span></a><a class="nav-item" href="pessoa-j"><span>Pessoa Jurídica</span></a>';
+        $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
 
         $listar = Listar::getInstanceListar();
         $listaspf = $listar->listarPessoa();
@@ -125,24 +109,9 @@ class PagesController {
     *FUNÇÃO DE DADOS PESSOA JURIDICA PARA O ADIMINISTRADOR
     */
     public function pessoaJuridica() {
-        $HOME = '
-        <a class="nav-item" href="admin">
-        <span>Liberação Telemarketing</span>
-        </a>';
-
-        $PESSOA = '
-        <a class="nav-item" href="pessoa-f">
-        <span>Pessoa Física</span>
-        </a>
-        <a class="nav-item is-active" href="pessoa-j">
-        <span>Pessoa Jurídica</span>
-        </a>
-        ';
-
-        $LOGIN = '
-        <a class="nav-item" href="logout">
-        <span>SAIR</span>
-        </a>';
+        $HOME = '<a class="nav-item" href="admin"><span>Liberação Telemarketing</span></a>';
+        $PESSOA = '<a class="nav-item" href="pessoa-f"><span>Pessoa Física</span></a><a class="nav-item is-active" href="pessoa-j"><span>Pessoa Jurídica</span></a>';
+        $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
 
         $listar = Listar::getInstanceListar();
         $listaspj = $listar->listarPessoaJuridica();
@@ -182,8 +151,8 @@ class PagesController {
     *FUNÇÃO SAIR DA SESSÃO
     */
     function logout() {
-        unset ($_SESSION['id']);
-        unset ($_SESSION['type_user']);
+        unset($_SESSION['id']);
+        unset($_SESSION['type_user']);
         session_destroy();
         header("Location: /login");
         die;
@@ -193,7 +162,7 @@ class PagesController {
     */
     function cadastroPessoaJuridica(){
         $this->tipoCadastro = "pessoajuridica";
-        if(isset($_SESSION['erro-cnpj']) || isset($_SESSION['erro-rua']) || isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-senha']) ) {
+        if(isset($_SESSION['erro-cnpj']) || isset($_SESSION['erro-rua']) || isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha']) ) {
             self::page_form_pessoajuridica();
         } else {
             if(!self::cadastrar()) {
@@ -209,21 +178,20 @@ class PagesController {
     *FUNÇÃO CADASTRO PESSSOA FISICA
     */
     function cadastroPessoaFisica(){
-
         $validate = new DataValidator();
 
-        $validate->set('uf', $_POST['uf'])->is_required()->is_alpha()->max_length(3)->min_length(1);
-        $validate->set('orgao_expedidor', $_POST['orgao_expedidor'])->is_required()->is_alpha();
-        $validate->set('dataexpedicao', $_POST['dataexpedicao'])->is_required()->is_date();
-        $validate->set('rg', $_POST['rg'])->is_required()->is_rg();
-        $validate->set('cpf', $_POST['cpf'])->is_required()->is_cpf();
+        $erro_validate = $validate->set('uf', $_POST['uf'])->is_required()->is_alpha()->max_length(3)->min_length(1)->validate();
+        if(!$erro_validate) self::startSessionError('erro-uf'); else  self::unsetSessionError('erro-uf');
+        $erro_validate = $validate->set('orgao_expedidor', $_POST['orgao_expedidor'])->is_required()->is_alpha()->validate();
+        if(!$erro_validate) self::startSessionError('erro-org'); else  self::unsetSessionError('erro-org');
+        $erro_validate = $validate->set('dataexpedicao', $_POST['dataexpedicao'])->is_required()->is_date()->validate();
+        if(!$erro_validate) self::startSessionError('erro-data'); else  self::unsetSessionError('erro-data');
 
         $this->tipoCadastro = "pessoafisica";
 
-        if(isset($_SESSION['campo']) && !empty($_SESSION['campo']) && !$validate->validate()){
-            var_dump("Erro no pessoa fisica");
-            self::getErroForm($validate);
-            self::page_form_pessoafisica();
+        if(isset($_SESSION['erro-uf']) || isset($_SESSION['erro-org']) || isset($_SESSION['erro-data']) || isset($_SESSION['erro-rg']) || isset($_SESSION['erro-cpf']) || isset($_SESSION['erro-rua']) ||
+           isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha'])){
+           self::page_form_pessoafisica();
         } else {
             if(!self::cadastrar()) {
                 self::page_form_pessoaFisica();
@@ -253,8 +221,6 @@ class PagesController {
         $erro_validate = $validate->set('type', $_POST['type'])->is_required()->validate();
         $erro_validate = $validate->set('nome', $_POST['nome'])->is_required()->validate();
         if(!$erro_validate) self::startSessionError('erro-nome'); else  self::unsetSessionError('erro-nome');
-        $erro_validate = $validate->set('termo', $_POST['termo'])->is_required()->validate();
-        if(!$erro_validate) self::startSessionError('erro-termo'); else  self::unsetSessionError('erro-termo');
 
         if(!isset($_SESSION['erro-termo']) || !isset($_SESSION['erro-cidade']) || !isset($_SESSION['erro-rua']) || !isset($_SESSION['erro-bairro']) || !isset($_SESSION['erro-repetir-senha']) || !isset($_SESSION['erro-nome'])) {
             $this->fone = Telefone::getInstanceTelefone();
@@ -313,38 +279,22 @@ class PagesController {
     function insertUsuario($pessoa, $login, $endereco, $tipoCadastro, $fone) {
         $insertUsuario = new DaoUsuario($pessoa, $login, $endereco, $fone);
 
-        if($tipoCadastro == "pessoajuridica" && $pessoa->getCnpj() != null) { // ---- VERIFICAR SE E PESSOA JURIDICAR ----- //
-            try{
-                if($insertUsuario->verificarEmailExist()) {
-                    if($insertUsuario->verificarTelefonelExist($tipoCadastro)) {
-                        if($insertUsuario->verificarCnpjExist()) {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            } catch (Exception $ex){
-                $this->erro = "Exceção no Cadastro de Pessoa Fisica!";
-                echo $ex;
-                return false;
-            }
+        if($tipoCadastro == "pessoajuridica" && $pessoa->getCnpj() != null) {
+            if($insertUsuario->insertUsuario()) {
+              if($insertUsuario->insertPessoaJuridica()) {
+                if($insertUsuario->insertTelefone()) { return true; } $insertUsuario->getError();
+              } $insertUsuario->getError();
+            } $insertUsuario->getError();
+            return false;
         } else if($tipoCadastro == "pessoafisica" && $pessoa->getCpf() != null) {
-            try {
-                if($insertUsuario->verificarEmailExist()){
-                    if($insertUsuario->verificarTelefonelExist($tipoCadastro)){
-                        if($insertUsuario->verificarCpfExist()){
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            } catch (Exception $ex){
-                $this->erro = "Exeção no Cadastro de Pessoa Fisica!";
-                return false;
-            }
+            if($insertUsuario->insertUsuario()){
+              if($insertUsuario->insertPessoaFisica()){
+                if($insertUsuario->insertTelefone()){ return true; } $insertUsuario->getError();
+              } $insertUsuario->getError();
+            } $insertUsuario->getError();
+            return false;
         }
     }
-
     /*
     * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
     */
@@ -600,7 +550,7 @@ class PagesController {
           } else {
             if(!$userData->validateCpfExist($_POST['cpf'])) {
               self::startSessionError('erro-cpf');
-              $userData->erro();
+              self::getErroFormulario($userData->getError());
             } else {
               self::unsetSessionError('erro-cpf');
             }
@@ -613,7 +563,7 @@ class PagesController {
           } else {
             if(!$userData->validateEmailExist($_POST['email'])) {
               self::startSessionError('erro-email');
-              $userData->erro();
+              $userData->getError();
             } else {
               self::unsetSessionError('erro-email');
             }
@@ -625,7 +575,7 @@ class PagesController {
             self::getErroForm($validate);
           } else {
             if(!$userData->validateRgExist($_POST['rg'])) {
-              $userData->erro();
+              $userData->getError();
               self::startSessionError('erro-rg');
             } else {
               self::unsetSessionError('erro-rg');
@@ -637,7 +587,7 @@ class PagesController {
             self::startSessionError('erro-dataexpedicao');
             self::getErroForm($validate);
           } else {
-            self::startSessionError('erro-dataexpedicao');
+            self::unsetSessionError('erro-dataexpedicao');
           }
         } if (!empty($_POST['cnpj'])){
           $validate->set('cnpj', $_POST['cnpj'])->is_required()->is_cnpj();
@@ -647,7 +597,7 @@ class PagesController {
           }  else {
             if(!$userData->validateCnpjExist($_POST['cnpj'])) {
               self::startSessionError('erro-cnpj');
-              $userData->erro();
+              $userData->getError();
             } else {
               self::unsetSessionError('erro-cnpj');
             }
@@ -660,8 +610,7 @@ class PagesController {
           } else {
             if(!$userData->validateTelefoneExist($_POST['telefone'])) {
               self::startSessionError('erro-telefone');
-
-              $userData->erro();
+              $userData->getError();
             } else {
               self::unsetSessionError('erro-telefone');
             }
@@ -673,14 +622,6 @@ class PagesController {
             self::getErroForm($validate);
           } else {
             self::unsetSessionError('erro-cep');
-          }
-        } if (!empty($_POST['uf'])){
-          $validate->set('uf', $_POST['uf'])->is_required()->is_alpha()->max_length(3)->min_length(1);
-          if(!$validate->validate()) {
-            self::startSessionError('erro-uf');
-            self::getErroForm($validate);
-          } else {
-            self::unsetSessionError('erro-uf');
           }
         }
     }
