@@ -7,62 +7,30 @@ class Endereco {
   private $cidade;
   private $numero = "";
   private $complemento = "";
-  private static $instace_endereco = null;
+  private $INSTANCE_ENDERECO = null;
 
-  public function __construct(){}
+  public function __construct(){ }
 
   public static function getInstanceEndereco() {
-    if (empty(self::$instace_endereco)) {
-      self::$instace_endereco = new Endereco();
-    }
-    return self::$instace_endereco;
+    if (empty($INSTANCE_ENDERECO)) { $INSTANCE_ENDERECO = new Endereco(); }
+    return $INSTANCE_ENDERECO;
   }
 
-  public function getCep(){
-     return $this->cep;
-  }
+  public function getCep(){ return $this->cep; }
+  public function setCep($cep){ $this->cep = $cep; }
 
-  public function getRua(){
-     return $this->rua;
-  }
+  public function getRua(){ return $this->rua; }
+  public function setRua($rua){ $this->rua = $rua; }
 
-  public function getBairro(){
-     return $this->bairro;
-  }
+  public function getBairro(){ return $this->bairro; }
+  public function setBairro($bairro){ $this->bairro = $bairro; }
 
-  public function getCidade(){
-     return $this->cidade;
-  }
+  public function getCidade(){ return $this->cidade; }
+  public function setCidade($cidade){ $this->cidade = $cidade; }
 
-  public function getNumero(){
-     return $this->numero;
-  }
+  public function getNumero(){ return $this->numero; }
+  public function setNumero($numero){ $this->numero = $numero; }
 
-  public function getComplemento(){
-     return $this->complemento;
-  }
-
-  public function setCep($cep){
-     $this->cep = $cep;
-  }
-
-  public function setRua($rua){
-     $this->rua = $rua;
-  }
-
-  public function setBairro($bairro){
-     $this->bairro = $bairro;
-  }
-
-  public function setCidade($cidade){
-     $this->cidade = $cidade;
-  }
-
-  public function setNumero($numero){
-     $this->numero = $numero;
-  }
-
-  public function setComplemento($complemento){
-     $this->complemento = $complemento;
-  }
+  public function getComplemento(){ return $this->complemento; }
+  public function setComplemento($complemento){ $this->complemento = $complemento; }
 }

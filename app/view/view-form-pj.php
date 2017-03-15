@@ -29,7 +29,7 @@
 
                             </h2>
                             <hr>
-                            <form class="control" method="post" action="/cadastro-pj">
+                            <form class="control" method="post" action="/cadastro-pj" enctype="multipart/form-data">
                                 <label class="label">Razão Social</label>
                                 <p class="control">
                                     <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-8 is-danger"'; else echo 'class="input-w-8 is-sucess"'; ?> id="nome" maxlength="35"  autofocus name="nome" type="text" placeholder="Razao social" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>">

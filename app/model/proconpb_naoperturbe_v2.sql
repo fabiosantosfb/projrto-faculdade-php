@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `proconpb_naoperturbe_v2` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `proconpb_naoperturbe_v2`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
 -- Host: localhost    Database: proconpb_naoperturbe_v2
@@ -25,15 +23,19 @@ DROP TABLE IF EXISTS `pessoa_fisica`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pessoa_fisica` (
-  `usuario_id_usuario` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
   `cpf` varchar(14) COLLATE utf8_unicode_ci NOT NULL,
   `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `rg` varchar(10) CHARACTER SET utf8 NOT NULL,
   `data_expedicao` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `orgao_expedidor` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  KEY `fk_pessoa_fisica_1_idx` (`usuario_id_usuario`),
-  CONSTRAINT `fk_pessoa_fisica_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fk_pessoa_fisica` (`id_usuario`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `pk_pessoa_fisica` (`id`),
+  CONSTRAINT `fk_pessoa_fisica` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,13 +46,17 @@ DROP TABLE IF EXISTS `pessoa_juridica`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pessoa_juridica` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_id_usuario` int(11) NOT NULL,
   `cnpj` varchar(19) COLLATE utf8_unicode_ci NOT NULL,
   `status_telemarketing` int(1) NOT NULL,
-  UNIQUE KEY `cnpj_UNIQUE` (`cnpj`),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cnpj_UNIQUE` (`usuario_id_usuario`),
+  UNIQUE KEY `usuario_id_usuario_UNIQUE` (`usuario_id_usuario`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_pessoa_juridica_1_idx` (`usuario_id_usuario`),
   CONSTRAINT `fk_pessoa_juridica_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +78,7 @@ CREATE TABLE `telefone` (
   UNIQUE KEY `id_telefone_UNIQUE` (`id_telefone`),
   KEY `fk_telefone_1_idx` (`usuario_id_usuario`),
   CONSTRAINT `fk_telefone_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,20 +92,20 @@ CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) CHARACTER SET utf8 NOT NULL,
   `senha` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `nome` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `nome` varchar(150) CHARACTER SET utf8 NOT NULL,
   `type` varchar(6) CHARACTER SET utf8 NOT NULL,
-  `cep` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
-  `rua` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `bairro` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `cidade` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `numero` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `complemento` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cep` varchar(9) CHARACTER SET utf8 NOT NULL,
+  `rua` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `bairro` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `cidade` varchar(150) CHARACTER SET utf8 NOT NULL,
+  `numero` varchar(10) CHARACTER SET utf8 DEFAULT NULL,
+  `complemento` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `data_atualizacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -111,4 +117,4 @@ CREATE TABLE `usuario` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-09 12:55:49
+-- Dump completed on 2017-03-15 14:44:52

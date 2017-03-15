@@ -1,9 +1,14 @@
 <?php
 require_once ('vendor/autoload.php');
 
-//session_cache_expire(1);
-session_start();
-session_regenerate_id(true);
+$session = new Session();
+
+$session->start();
+$session->gerarId();
+
+$session->getId();
+$session->getName('user');
+$session->token();
 
 Router::load('routes.php')
   ->direct(Request::uri(), Request::method());

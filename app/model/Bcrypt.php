@@ -9,9 +9,8 @@ class Bcrypt {
 		if (empty($cost)) {
 			$cost = self::$_defaultCost;
 		}
-		// Salt
+
 		$salt = self::generateRandomSalt();
-		// Hash string
 		$hashString = self::__generateHashString((int)$cost, $salt);
 		return crypt($string, $hashString);
 	}
@@ -21,9 +20,7 @@ class Bcrypt {
 	}
 
   public static function generateRandomSalt() {
-		// Salt seed
 		$seed = uniqid(mt_rand(), true);
-		// Generate salt
 		$salt = base64_encode($seed);
 		$salt = str_replace('+', '.', $salt);
 		return substr($salt, 0, self::$_saltLength);

@@ -7,6 +7,7 @@ class DaoUsuario extends ConexaoDb {
     private $fone;
     private $messages_errors = array();
     private static $error;
+    private $last_id;
 
     public function __construct($usuario, $login, $endereco, $fone){
         $this->dataUsuario = $usuario;
@@ -19,15 +20,22 @@ class DaoUsuario extends ConexaoDb {
     private function messages_erros_insert() {
       $this->messages_errors = array(
         'insert_usuario'          => 'Erro ao inserir Usuario!',
+        'id_usuario'              => 'Erro ao pegar id do Usuario!',
+        'id_null_usuario'          => 'Id null!',
         'insert_pessoa_juridica'  => 'Erro ao inserir Pessoa Juridica!',
         'insert_pessoa_fisica'    => 'Erro ao inserir Pessoa Fisica!',
-        'insert_telefone'         => 'Erro ao inserir Telefone!'
+        'delete_usuario'          => 'Erro ao Deletar Usuario!',
+        'insert_telefone'         => 'Erro ao inserir Telefone!',
+        'rollback_usuario'        => 'Erro ao deletar Usuario!',
+        'insert_usuario_commit'   => 'Erro ao efetuar o commit!'
       );
     }
 
-    public function insertUsuario() {
+    public function insertUsuario($pessoaUser) {
         try {
-            $validarUser = Parent::getInstanceConexao()->prepare("INSERT INTO usuario values (default, :email, :senha, :nome, :type, :cep, :rua, :bairro, :cidade, :numero, :complemento, default, default)");
+            $db = Parent::getInstanceConexao();
+            $db->beginTransaction();
+            $validarUser = $db->prepare("INSERT INTO usuario values (default, :email, :senha, :nome, :type, :cep, :rua, :bairro, :cidade, :numero, :complemento, default, default)");
             $validarUser->bindValue(":email",$this->dataAutenticacao->getEmail());
             $validarUser->bindValue(":senha",$this->dataAutenticacao->getPassword());
             $validarUser->bindValue(":nome",$this->dataUsuario->getNome());
@@ -39,52 +47,51 @@ class DaoUsuario extends ConexaoDb {
             $validarUser->bindValue(":numero", $this->dataEndereco->getNumero());
             $validarUser->bindValue(":complemento", $this->dataEndereco->getComplemento());
             $validarUser->execute();
-            return true;
+            $id = $db->lastInsertId();
+
+            self::$pessoaUser($db, $validarUser, $id);
+
+            $validarUser = $db->prepare("INSERT INTO telefone values (default, :id_usuario, 0, :telefone, default, default)");
+            $validarUser->bindValue(":id_usuario", $id);
+            $validarUser->bindValue(":telefone", $this->fone->getTelefone());
+            $validarUser->execute();
+
+            if($db->commit()) {
+              return true;
+            } else {
+              $this->setError($this->messages_errors['insert_usuario_commit']);
+              return false;
+            }
         } catch (Exception $ex){
-            $this->setError($this->messages_errors['insert_usuario']);
+          try {
+            $db->rollback();
+          } catch (Exception $e) {
+            $this->setError($this->messages_errors['rollback_usuario'].$e->getMessage());
             return false;
-        }
-    }
-
-    public function insertPessoaJuridica() {
-        try {
-            $validarDoc = Parent::getInstanceConexao()->prepare("INSERT INTO pessoa_juridica values (LAST_INSERT_ID(), :cnpj, 0)");
-            $validarDoc->bindValue(":cnpj", $this->dataUsuario->getCnpj());
-            $validarDoc->execute();
-            return true;
-        } catch (Exception $ex){
-          $this->setError($this->messages_errors['insert_pessoa_juridica']);
+          }
+          $this->setError($this->messages_errors['insert_usuario'].$ex->getMessage());
           return false;
         }
     }
 
-    public function insertPessoaFisica() {
-        try {
-            $validarDoc = Parent::getInstanceConexao()->prepare("INSERT INTO pessoa_fisica values (LAST_INSERT_ID(), :cpf, :uf, :rg, :data, :orgao)");
-            $validarDoc->bindValue(":cpf", $this->dataUsuario->getCpf());
-            $validarDoc->bindValue(":uf", $this->dataUsuario->getUf());
-            $validarDoc->bindValue(":rg", $this->dataUsuario->getRg());
-            $validarDoc->bindValue(":data", $this->dataUsuario->getDataExpedicao());
-            $validarDoc->bindValue(":orgao", $this->dataUsuario->getOrgExpedidor());
-            $validarDoc->execute();
-            return true;
-        } catch (Exception $ex){
-          $this->setError($this->messages_errors['insert_pessoa_fisica']);
-          return false;
-        }
+    public function pessoajuridica($db, $validarUser, $id) {
+        $validarUser = $db->prepare("INSERT INTO pessoa_juridica values (default, :id_usuario, :cnpj, 0)");
+        $validarUser->bindValue(":id_usuario", $db->lastInsertId());
+        $validarUser->bindValue(":cnpj", $this->dataUsuario->getCnpj());
+        $validarUser->execute();
     }
 
-    public function insertTelefone() {
-        try {
-            $validarTel = Parent::getInstanceConexao()->prepare("INSERT INTO telefone values (default, LAST_INSERT_ID(), 0, :telefone, default, default)");
-            $validarTel->bindValue(":telefone", $this->fone->getTelefone());
-            $validarTel->execute();
-            return true;
-        } catch (Exception $ex){
-          $this->setError($this->messages_errors['insert_telefone']);
-          return false;
-        }
+    public function pessoafisica($db, $validarUser, $id) {
+        $validarUser = $db->prepare("INSERT INTO pessoa_fisica values (default, :id_usuario, :cpf, :uf, :rg, :data, :orgao)");
+        $validarUser->bindValue(":id_usuario", $id);
+        $validarUser->bindValue(":cpf", $this->dataUsuario->getCpf());
+        $validarUser->bindValue(":uf", $this->dataUsuario->getUf());
+        $validarUser->bindValue(":rg", $this->dataUsuario->getRg());
+        $validarUser->bindValue(":data", $this->dataUsuario->getDataExpedicao());
+        $validarUser->bindValue(":orgao", $this->dataUsuario->getOrgExpedidor());
+        $validarUser->execute();
     }
+
 
     public function setError($message) {
       self::$error = $message;

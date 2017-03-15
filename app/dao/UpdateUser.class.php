@@ -44,8 +44,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function addTelefone($telefone, $usuario){
     try {
-        $q = "INSERT INTO telefone VALUES (default, :id, 0, :telefone, default, default)";
-        $validarTel = Parent::getInstanceConexao()->prepare($q);
+        $validarTel = Parent::getInstanceConexao()->prepare("INSERT INTO telefone VALUES (default, :id, 0, :telefone, default, default)");
         $validarTel->bindValue(":telefone", $telefone);
         $validarTel->bindValue(":id", $usuario);
         $validarTel->execute();
