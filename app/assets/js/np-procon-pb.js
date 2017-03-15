@@ -24,3 +24,18 @@ function newPhone(){ id('novo_tel').onkeypress = function(){ inputDado( this, fo
 function ocultarMsg(){
     $(".ocultar").hide("slow",callback);
 }
+
+$(document).ready(function() {
+      //var campos_max = 5;
+      //var x = 1;
+      var wrapper = $(".control-add");
+     $('#add').click (function(e) {
+      e.preventDefault();
+      var length = wrapper.find("input:text").length;
+        //if (x < campos_max) {
+            $('.control-add').append('<div><input class="input-w-4 is-sucess" style="margin-top :5px; margin-right : 3px;" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress=telefoneFormat("telefone' + (length) + '") onblur="telefoneValidadeExisting()" required="" type="text" id="telefone' + (length) + '" /><a style="margin-top :5px;" class="button is-danger" id="remove">Remover</a></div>');
+        //    x++;
+        //}
+      });
+       $(wrapper).on("click","#remove",function(e) {  e.preventDefault(); $(this).parent('div').remove(); x--; });
+      });

@@ -77,7 +77,7 @@ class Selection extends ConexaoDb {
 
   public function selectionPessoaFisica($id){
     try{
-        $queryPj = "SELECT * FROM pessoa_fisica WHERE usuario_id_usuario = :id_usuario";
+        $queryPj = "SELECT * FROM pessoa_fisica WHERE id_usuario = :id_usuario";
         $validar = Parent::getInstanceConexao()->prepare($queryPj);
         $validar->bindValue(":id_usuario",$id);
         $validar->execute();

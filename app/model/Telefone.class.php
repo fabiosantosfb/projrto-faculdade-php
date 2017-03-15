@@ -3,30 +3,15 @@
 class Telefone {
   private $telefone;
   private $statusBloqueio;
-  private static $telefoneInstace = null;
+  private $INSTANCE_TELEFONE = null;
 
   public function __construct(){}
 
   public static function getInstanceTelefone() {
-    if (empty(self::$telefoneInstace)) {
-      self::$telefoneInstace = new Telefone();
-    }
-    return self::$telefoneInstace;
+    if (empty($INSTANCE_TELEFONE)) { $INSTANCE_TELEFONE = new Telefone(); }
+    return $INSTANCE_TELEFONE;
   }
 
-  public function getTelefone(){
-    return $this->telefone;
-  }
-
-  public function setTelefone($telefone){
-    $this->telefone = $telefone;
-  }
-
-  public function getStatusBloqueio(){
-    return $this->statusBloqueio;
-  }
-
-  public function setStatusBloqueio($statusBloqueio){
-    $this->statusBloqueio = $statusBloqueio;
-  }
+  public function getTelefone(){ return $this->telefone; }
+  public function setTelefone($telefone){ $this->telefone = $telefone; }
 }

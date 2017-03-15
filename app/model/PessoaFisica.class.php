@@ -1,5 +1,4 @@
 <?php
-include_once ('app/model/Usuario.class.php');
 
 class PessoaFisica extends Usuario {
     private $cpf = null;
@@ -7,13 +6,13 @@ class PessoaFisica extends Usuario {
     private $org_expedidor;
     private $data_expedicao;
     private $uf;
-    private static $pessoaFisica = null;
+    private $INSTANCE_PESSOA_FISICA = null;
 
     public function __construct(){}
 
     public static function getInstancePessoaFisica() {
-      if (empty(self::$pessoaFisica)) { self::$pessoaFisica = new PessoaFisica(); }
-      return self::$pessoaFisica;
+      if (empty($INSTANCE_PESSOA_FISICA)) { $INSTANCE_PESSOA_FISICA = new PessoaFisica(); }
+      return $INSTANCE_PESSOA_FISICA;
     }
 
     public function getCpf(){ return $this->cpf; }

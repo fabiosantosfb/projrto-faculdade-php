@@ -48,7 +48,6 @@ $LOGIN = '
                             <?php
                             $i = 0;
                             foreach ($telefone as $key) { ?>
-
                                 <div class="columns">
                                     <div class="column">
                                         <?php if ($i == 0) {

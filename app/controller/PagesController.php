@@ -277,20 +277,16 @@ class PagesController {
     *FUNÇÃO INSERIR DADOS CADASTRO
     */
     function insertUsuario($pessoa, $login, $endereco, $tipoCadastro, $fone) {
-        $insertUsuario = new DaoUsuario($pessoa, $login, $endereco, $fone);
+      $insertUsuario = new DaoUsuario($pessoa, $login, $endereco, $fone);
 
-        if($tipoCadastro == "pessoajuridica" && $pessoa->getCnpj() != null) {
-            if($insertUsuario->insertUsuario()) {
-              if($insertUsuario->insertPessoaJuridica()) {
-                if($insertUsuario->insertTelefone()) { return true; } $insertUsuario->getError();
-              } $insertUsuario->getError();
+       if($tipoCadastro == "pessoajuridica" && $pessoa->getCnpj() != null) {
+            if($insertUsuario->insertUsuario($tipoCadastro)) {
+                return true;
             } $insertUsuario->getError();
             return false;
         } else if($tipoCadastro == "pessoafisica" && $pessoa->getCpf() != null) {
-            if($insertUsuario->insertUsuario()){
-              if($insertUsuario->insertPessoaFisica()){
-                if($insertUsuario->insertTelefone()){ return true; } $insertUsuario->getError();
-              } $insertUsuario->getError();
+            if($insertUsuario->insertUsuario($tipoCadastro)){
+                return true;
             } $insertUsuario->getError();
             return false;
         }
@@ -495,6 +491,7 @@ class PagesController {
     *FUNÇÃO PARA ADICIONAR TELEFONE
     */
     function addTelefone() {
+
         $validate = new DataValidator();
         $validate->set('telefone', $_POST['novo_tel'])->is_required();
 
@@ -636,17 +633,29 @@ class PagesController {
 
     public function redirection() {
         if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pf') {
-            self::userPessoaFisica();
-            die;
+          if(isset($_SESSION['token-user-session']) && isset($_SESSION['token-user-agent']) && isset($_SESSION['token-user-ip'])
+          && Bcrypt::check('user'.$_SERVER['HTTP_USER_AGENT'], $_SESSION['token-user-agent']) && Bcrypt::check('user'.$_SERVER['REMOTE_ADDR'], $_SESSION['token-user-ip'])) {
+              self::userPessoaFisica();
+              die;
+            }
         } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) || $_SESSION['type_user'] == 'pj' || $_SESSION['type_user'] == 'tlm' ) {
+          if(isset($_SESSION['token-user-session']) && isset($_SESSION['token-user-agent']) && isset($_SESSION['token-user-ip'])
+          && Bcrypt::check('user'.$_SERVER['HTTP_USER_AGENT'], $_SESSION['token-user-agent']) && Bcrypt::check('user'.$_SERVER['REMOTE_ADDR'], $_SESSION['token-user-ip'])) {
             self::userPessoaJuridica();
             die;
+          }
         } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'tlm') {
+          if(isset($_SESSION['token-user-session']) && isset($_SESSION['token-user-agent']) && isset($_SESSION['token-user-ip'])
+          && Bcrypt::check('user'.$_SERVER['HTTP_USER_AGENT'], $_SESSION['token-user-agent']) && Bcrypt::check('user'.$_SERVER['REMOTE_ADDR'], $_SESSION['token-user-ip'])) {
             self::listagemTelemarketing();
             die;
+          }
         } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'admin') {
+          if(isset($_SESSION['token-user-session']) && isset($_SESSION['token-user-agent']) && isset($_SESSION['token-user-ip'])
+          && Bcrypt::check('user'.$_SERVER['HTTP_USER_AGENT'], $_SESSION['token-user-agent']) && Bcrypt::check('user'.$_SERVER['REMOTE_ADDR'], $_SESSION['token-user-ip'])) {
             self::userAdmin();
             die;
+          }
         } else {
             header("Location: /login");
             die;

@@ -4,12 +4,14 @@
       $LOGIN = '<a class="nav-item" href="login"><span>ENTRAR</span></a>';
 
       $erro_form = PagesController::getPagesController();
+
+      $estados = array('0'  => 'AC','1'  => 'AL','2'  => 'AM','3'  => 'AP','4'  => 'BA','5'  => 'CE','6'  => 'DF','7'  => 'ES','8'  => 'GO','9'  => 'MA','10' => 'MT','11' => 'MS','12' => 'MG','13' => 'PA','14' => 'PB','15' => 'PR','16' => 'PE','17' => 'PI','18' => 'RJ','19' => 'RN','20' => 'RO','21' => 'RS','22' => 'RR','23' => 'SC','24' => 'SE','25' => 'SP','26' => 'TO',
+        );
       include_once ('app/view/partlals/header.php');
 ?>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 <script src="app/assets/js/validate-existing-data.js" charset="utf-8"></script>
 <div class="principal np-card-1">
-
     <section class="hero np-padding-20">
         <div class="npTitle">
             <h1 class="title is-4">
@@ -31,7 +33,7 @@
 
                             </h2>
                             <hr>
-                            <form class="control" method="post" action="/cadastro-pf">
+                            <form class="control" method="post" action="/cadastro-pf" enctype="multipart/form-data">
                                 <label class="label">Nome</label>
                                 <p class="control">
                                     <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-8 is-danger"'; else echo 'class="input-w-8 is-sucess"'; ?> id="nome" name="nome" autofocus type="text" placeholder="Digite seu nome" maxlength="100" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
@@ -59,13 +61,21 @@
                                     <div id="org-erro"><?php if(isset($_SESSION['erro-org'])) echo $erro_form->getErroFormulario("Orgão Expedidor"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
                                 <label class="label">UF</label>
-                                <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-uf'])) echo 'class="input-w-3 is-danger"'; else echo 'class="input-w-3 is-sucess"'; ?> id="uf" name="uf" type="text" maxlength="2" placeholder="UF" required="" value="<?php  if(isset($_POST['uf'])) echo htmlspecialchars($_POST['uf']); ?>"  >
-                                    <div id="uf-erro"><?php if(isset($_SESSION['erro-uf'])) echo $erro_form->getErroFormulario("UF"); else echo $erro_form->setErroFormulario(); ?></div>
-                                </p>
+                                    <p class="control">
+                                      <span class="select">
+                                        <select name="uf">
+                                          <option value="">---</option>
+                                          <?php foreach ($estados as $key => $value) {?>
+                                            <option value="<?=strtolower($value)?>"><?=$value?></option>
+                                          <?php } ?>
+                                        </select>
+                                      </span>
+                                    </p>
+                                  </select>
                             </div>
-                        </section>
+                        <div id="uf-erro"><?php if(isset($_SESSION['erro-uf'])) echo $erro_form->getErroFormulario("UF"); else echo $erro_form->setErroFormulario(); ?></div>
                     </div>
+                  </select>
                     <div class="column">
                         <section class="hero">
                             <div class="npTitle">
@@ -86,10 +96,14 @@
                                 </h2>
                                 <hr>
                                 <label class="label">Número(s)</label>
-                                <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting()" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
-                                    <span class="help">Ex. (83) 99682-6985</span>
-                                    <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone"); else echo $erro_form->setErroFormulario(); ?></div>
+                                  <p class="control">
+                                      <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting()" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                      <a class="button is-success is-active" id="add" >Add +</a>
+                                 </p>
+                                 <div class="control-add"></div>
+
+                                <span class="help">Ex. (83) 99682-6985</span>
+                                <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
                                 <h1 class="title is-6">
                                     ACESSO

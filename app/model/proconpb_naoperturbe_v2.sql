@@ -1,87 +1,7 @@
-CREATE DATABASE  IF NOT EXISTS `proconpb_naoperturbe_v2` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE  IF NOT EXISTS `proconpb_naoperturbe_v2`;
 USE `proconpb_naoperturbe_v2`;
--- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
---
--- Host: localhost    Database: proconpb_naoperturbe_v2
--- ------------------------------------------------------
--- Server version	5.7.17-0ubuntu0.16.04.1
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `pessoa_fisica`
---
-
-DROP TABLE IF EXISTS `pessoa_fisica`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pessoa_fisica` (
-  `usuario_id_usuario` int(11) NOT NULL,
-  `cpf` varchar(14) COLLATE utf8_unicode_ci NOT NULL,
-  `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
-  `rg` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `data_expedicao` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
-  `orgao_expedidor` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  KEY `fk_pessoa_fisica_1_idx` (`usuario_id_usuario`),
-  CONSTRAINT `fk_pessoa_fisica_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `pessoa_juridica`
---
-
-DROP TABLE IF EXISTS `pessoa_juridica`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pessoa_juridica` (
-  `usuario_id_usuario` int(11) NOT NULL,
-  `cnpj` varchar(19) COLLATE utf8_unicode_ci NOT NULL,
-  `status_telemarketing` int(1) NOT NULL,
-  UNIQUE KEY `cnpj_UNIQUE` (`cnpj`),
-  KEY `fk_pessoa_juridica_1_idx` (`usuario_id_usuario`),
-  CONSTRAINT `fk_pessoa_juridica_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `telefone`
---
-
-DROP TABLE IF EXISTS `telefone`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `telefone` (
-  `id_telefone` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id_usuario` int(11) NOT NULL,
-  `status_bloqueio` int(1) NOT NULL,
-  `telefone_numero` varchar(15) CHARACTER SET utf8 NOT NULL,
-  `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `data_atualizacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_telefone`),
-  UNIQUE KEY `telefone_numero_UNIQUE` (`telefone_numero`),
-  UNIQUE KEY `id_telefone_UNIQUE` (`id_telefone`),
-  KEY `fk_telefone_1_idx` (`usuario_id_usuario`),
-  CONSTRAINT `fk_telefone_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `usuario`
---
 
 DROP TABLE IF EXISTS `usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) CHARACTER SET utf8 NOT NULL,
@@ -99,16 +19,43 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+DROP TABLE IF EXISTS `pessoa_fisica`;
+CREATE TABLE `pessoa_fisica` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `cpf` varchar(14) COLLATE utf8_unicode_ci NOT NULL,
+  `uf` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `rg` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `data_expedicao` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `orgao_expedidor` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  KEY `pk_pessoa_fisica` (`id`),
+  CONSTRAINT `fk_pessoa_fisica` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dump completed on 2017-03-09 12:55:49
+
+DROP TABLE IF EXISTS `pessoa_juridica`;
+CREATE TABLE `pessoa_juridica` (
+  `usuario_id_usuario` int(11) NOT NULL,
+  `cnpj` varchar(19) COLLATE utf8_unicode_ci NOT NULL,
+  `status_telemarketing` int(1) NOT NULL,
+  UNIQUE KEY `cnpj_UNIQUE` (`cnpj`),
+  KEY `fk_pessoa_juridica_1_idx` (`usuario_id_usuario`),
+  CONSTRAINT `fk_pessoa_juridica_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `telefone`;
+CREATE TABLE `telefone` (
+  `id_telefone` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id_usuario` int(11) NOT NULL,
+  `status_bloqueio` int(1) NOT NULL,
+  `telefone_numero` varchar(15) CHARACTER SET utf8 NOT NULL,
+  `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_atualizacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_telefone`),
+  UNIQUE KEY `telefone_numero_UNIQUE` (`telefone_numero`),
+  UNIQUE KEY `id_telefone_UNIQUE` (`id_telefone`),
+  KEY `fk_telefone_1_idx` (`usuario_id_usuario`),
+  CONSTRAINT `fk_telefone_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

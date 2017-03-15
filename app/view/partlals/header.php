@@ -5,7 +5,7 @@
     <title>Não perturbe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Language" content="pt-br">
-    <link rel="shortcut icon" href="app/assets/img/favicon.ico" />
+    <link rel="shortcut icon" href="../../app/assets/img/favicon.ico" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -18,5 +18,7 @@
     <link rel="stylesheet" href="app/assets/css/font-awesome.min.css" media="screen" title="no title">
     <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="app/assets/css/naoperturbe.css" media="screen" title="no title">
+    <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <?php include_once ('app/view/partlals/nav.php'); ?>

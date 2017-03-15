@@ -32,3 +32,5 @@
     <div id="cep-erro"><?php if(isset($_SESSION['erro-cep'])) echo $erro_form->getErroFormulario("CEP"); else echo $erro_form->setErroFormulario(); ?></div>
 </p>
 <div id="cep-erro"></div>
+
+<!-- <div class="g-recaptcha" data-theme="dark" data-sitekey="6Le28BgUAAAAALvXMkjgANwlSwQIfbkBQGoO_3Pu"></div> -->

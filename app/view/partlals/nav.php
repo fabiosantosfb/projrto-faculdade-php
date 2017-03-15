@@ -2,7 +2,7 @@
     <nav class="nav has-shadow">
         <div class="nav-left">
             <a class="nav-item is-brand" href="#">
-                <img src="../../app/assets/img/naoperturbe.png" alt="Não perturbe logo">
+                  <img src="../../app/assets/img/naoperturbe.png" alt="Não perturbe logo">
             </a>
         </div>
         <label class="nav-toggle" for="nav-toggle-state">
