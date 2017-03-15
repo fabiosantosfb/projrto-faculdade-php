@@ -36,6 +36,7 @@
                             <i class="fa fa-lock"></i>
                           </span>
                     </p>
+                    <div class="control g-recaptcha" data-sitekey="6LeQXBgUAAAAACzWg3WkYDU_Rgz2vITZ3QyY_gb0"></div>
                     <br>
                     <div class="control is-grouped is-pulled-right">
                       <p class="control">
