@@ -14,6 +14,25 @@ class Selection extends ConexaoDb {
     return self::$SelectionDadosUser;
   }
 
+  public function selectionUsuarioName($nome , $tipo_user){
+    try{
+        $usuario = "SELECT * FROM usuario JOIN $tipo_user ON $tipo_user.id_usuario = usuario.id_usuario WHERE usuario.nome=:nome";
+        $validar = Parent::getInstanceConexao()->prepare($usuario);
+        $validar->bindValue(":nome", $nome);
+        $validar->execute();
+
+        if ($validar->rowCount() === 1){
+          return $validar->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+          $this->erro = "Usuario não encontrada!";
+          return false;
+        }
+    } catch (Exception $pF){
+      $this->erro = "EXCEÇÃO NA CONSULTA USUARIO!";
+      return false;
+    }
+  }
+
   public function selectionTelefone($id) {
     try{
         $queryTl = "SELECT * FROM telefone WHERE usuario_id_usuario = :id_usuario";

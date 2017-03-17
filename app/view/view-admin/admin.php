@@ -1,27 +1,11 @@
 <?php
-$HOME = '
-<a class="nav-item is-active" href="admin">
-<span>Liberação Telemarketing</span>
-</a>';
-
-$PESSOA = '
-<a class="nav-item" href="pessoa-f">
-<span>Pessoa Física</span>
-</a>
-<a class="nav-item" href="pessoa-j">
-<span>Pessoa Jurídica</span>
-</a>
-';
-
-$LOGIN = '
-<a class="nav-item" href="logout">
-<span>SAIR</span>
-</a>';
+    $HOME = '<a class="nav-item is-active" href="admin"><span>Liberação Telemarketing</span></a>';
+    $PESSOA = '<a class="nav-item" href="pessoa-f"><span>Pessoa Física</span></a><a class="nav-item" href="pessoa-j"><span>Pessoa Jurídica</span></a>';
+    $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
 ?>
 
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form.js" charset="utf-8"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>-->
 <div class="principal  np-card-1">
 <section class="hero np-padding-20">
     <div class="npTitle">
@@ -34,15 +18,9 @@ $LOGIN = '
         <hr>
 
         <div class="columns">
-            <div class="column is-half">
-                <!-- <div class="control"> -->
-                <form class="control" method="post" action="/search">
-                    <input class="input-w-10" type="text" id="empresa" name="param" placeholder="Buscar por nome da empresa" >
-                    <input class="button is-primary is-outlined" type="submit" value="Buscar"/>
-                    <span class="help">Digite o nome da empresa para localizar.</span>
-                </form>
-                <!-- </div> -->
-            </div>
+              <form class="control" method="post" action="/search">
+                <input type="hidden" name="pessoa_juridica">
+                  <?php include 'search.tpl';?>
             <div class="column">
                 <div class="card">
                     <div class="card-content">
@@ -71,7 +49,7 @@ $LOGIN = '
                         </p>
                     </div>
                     <div class="panel-block">
-                        <?php if(count($listastl) > 0) {?>
+                        <?php if(count($usuario) > 0) {?>
                             <table class="table table-striped table-narrow">
                                 <thead>
                                     <tr>
@@ -89,14 +67,14 @@ $LOGIN = '
                                 <tbody>
 
                                     <form>
-                                        <?php foreach ($listastl as $key) { ?>
+                                        <?php foreach ($usuario as $key) { ?>
                                             <tr>
                                                 <td><?=$key['cnpj'] ?></td>
                                                 <td><?=$key['nome'] ?></td>
                                                 <td>
                                                     <p class="control">
                                                         <label class="checkbox is-medium">
-                                                            <input type="checkbox" name="id" id="id" onclick='modifiStatus(<?=$key['pessoa_juridica_usuario_id_usuario'] ?>,<?=$key['status_ativo'] ?>)'; <?php if($key['status_ativo'] == 1) echo "checked='checked'"; ?>  >
+                                                            <input type="checkbox" name="id" id="id" onclick='modifiStatus(<?=$key['id_usuario'] ?>,<?=$key['status_telemarketing'] ?>)'; <?php if($key['status_telemarketing'] == 1) echo "checked='checked'"; ?>  >
                                                             Ativo
                                                         </label>
                                                         </p

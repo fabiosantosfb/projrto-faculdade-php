@@ -15,6 +15,7 @@
 
   if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'admin') {
     $router->post('admin-status','PagesController@update');
+    $router->post('search','PagesController@search');
     $router->get('pessoa-f','PagesController@pessoaFisica');
     $router->get('pessoa-j','PagesController@pessoaJuridica');
     $router->get('admin','PagesController@redirection');

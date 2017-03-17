@@ -12,7 +12,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function update($status, $id){
     try{
-        $update = "UPDATE telemarketing SET status_ativo = :status  WHERE pessoa_juridica_usuario_id_usuario = :id";
+        $update = "UPDATE pessoa_juridica SET status_telemarketing = :status  WHERE usuario_id_usuario = :id";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":status",$status);
         $validar->bindValue(":id",$id);
@@ -20,7 +20,6 @@ class UpdateUser extends  ConexaoDb {
 
     } catch (Exception $tlmk){
       echo '<span class="help is-danger ocultar">Erro '.$tlmk->getMessage().'</span>';
-      //$this->erro = "EXCEÇÃO AO ATUALUZAR TELEMARKETING!";
       return false;
     }
   }

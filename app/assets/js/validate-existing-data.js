@@ -25,12 +25,11 @@ function emailValidadeExisting() {
   });
 }
 
-function telefoneValidadeExisting() {
+function telefoneValidadeExisting(id) {
   $.ajax({
     type: "POST",url: "validate",
-    data: { telefone: $('#telefone').val() },
-    success: function(data) { $('#tel-erro').html(data);
-  }
+    data: { telefone: $('#'+id).val() },
+    success: function(data) { $('#tel-erro').html(data); }
   });
 }
 
