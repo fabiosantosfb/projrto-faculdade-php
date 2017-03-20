@@ -44,7 +44,7 @@ class Selection extends ConexaoDb {
         if ($validar->rowCount() === 1){
           return $validar->fetch(PDO::FETCH_ASSOC);
         } else {
-          $this->erro = "Conta não encontrada!";
+          $this->erro = "Usuário não encontrad!";
           //return false;
           echo $this->erro;
         }
@@ -65,7 +65,7 @@ class Selection extends ConexaoDb {
         if ($validar->rowCount() === 1){
           return $validar->fetch(PDO::FETCH_ASSOC);
         } else {
-          $this->erro = "Conta não encontrada!";
+          $this->erro = "Pessoa Juridica não encontrada!";
           //return false;
           echo $this->erro;
         }
@@ -85,7 +85,7 @@ class Selection extends ConexaoDb {
         if ($validar->rowCount() === 1){
           return $validar->fetch(PDO::FETCH_ASSOC);
         } else {
-          $this->erro = "Conta não encontrada!";
+          $this->erro = "Pessoa Física não encontrada!";
           echo $this->erro;//return false;
         }
     } catch (Exception $pJ){

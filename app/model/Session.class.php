@@ -12,7 +12,11 @@ class Session {
   public function getId() {
       $_SESSION['id-user-session'] = session_id();
   }
-  public function start() { return session_start(); }
+  public function start() {
+    session_save_path('app/sessions');
+    ini_set('session.gc_probability', 1);
+    return session_start();
+  }
   public function gerarId() { return session_regenerate_id(); }
   public function destroy() { return session_destroy(); }
 
