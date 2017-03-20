@@ -2,19 +2,28 @@
 
   if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pj') {
     $router->get('session-pj','PagesController@redirection');
+    $router->get('logar','PagesController@redirection');
+    $router->get('','PagesController@redirection');
+  }
+
+  if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'tlm') {
+    $router->get('session-pj','PagesController@redirection');
     $router->get('list','PagesController@listagemTelemarketing');
     $router->get('list-relatorio-browser','PagesController@listarRelatorio');
     $router->post('list-relatorio','PagesController@listarRelatorio');
+    $router->get('logar','PagesController@redirection');
     $router->get('','PagesController@redirection');
   }
 
   if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pf') {
     $router->get('session-pf','PagesController@redirection');
+    $router->get('logar','PagesController@redirection');
     $router->get('','PagesController@redirection');
   }
 
   if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'admin') {
     $router->post('admin-status','PagesController@update');
+    $router->post('search','PagesController@search');
     $router->get('pessoa-f','PagesController@pessoaFisica');
     $router->get('pessoa-j','PagesController@pessoaJuridica');
     $router->get('admin','PagesController@redirection');

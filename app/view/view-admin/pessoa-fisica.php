@@ -13,15 +13,6 @@
         <hr>
 
         <div class="columns">
-            <div class="column">
-                <!-- <div class="control"> -->
-                <form class="control" method="post" action="/search">
-                    <input class="input-w-10" type="text" id="empresa" name="param" placeholder="Buscar por nome" >
-                    <input class="button is-primary is-outlined" type="submit" value="Buscar"/>
-                    <span class="help">Digite o nome para localizar.</span>
-                </form>
-                <!-- </div> -->
-            </div>
         </div>
         <div class="columns">
             <div class="column">
@@ -33,7 +24,7 @@
                     </div>
                     <div class="panel-block listagem">
                         <div class="scrollArea">
-                        <?php if(count($listaspf) > 0) {?>
+                        <?php if(count($usuario) > 0) {?>
                             <table class="table table-striped table-narrow">
                                 <thead>
                                     <tr>
@@ -51,7 +42,7 @@
                                 <tbody>
                                     <form>
                                         <!-- <p>&nbsp;</p> -->
-                                            <?php foreach ($listaspf as $key) { ?>
+                                            <?php foreach ($usuario as $key) { ?>
                                             <tr style="color:#000">
                                                 <td><?=$key['cpf'] ?></td>
                                                 <td><?=$key['telefone_numero'] ?></td>

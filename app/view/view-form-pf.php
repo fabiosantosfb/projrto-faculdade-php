@@ -95,28 +95,27 @@
 
                                 </h2>
                                 <hr>
+
                                 <label class="label">Número(s)</label>
-                                  <p class="control">
-                                      <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting()" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
-                                      <a class="button is-success is-active" id="add" >Add +</a>
-                                 </p>
-                                 <div class="control-add"></div>
+                                  <p class="control" id="telefoneOrigem">
+                                      <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone[]" type="text" onblur="telefoneValidadeExisting('telefone')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone-0'])) echo htmlspecialchars($_POST['telefone-0']); ?>" >
+                                      <!-- <a class="button is-success is-active" id="add" >Add +</a> -->
+                                  </p>
+                                 <div id="control-add"></div>
 
                                 <span class="help">Ex. (83) 99682-6985</span>
                                 <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone"); else echo $erro_form->setErroFormulario(); ?></div>
-                                </p>
                                 <h1 class="title is-6">
                                     ACESSO
                                 </h1>
-                                <h2 class="subtitle is-6">
-
-                                </h2>
+                                <h2 class="subtitle is-6"></h2>
                                 <hr>
                                 <label class="label">Email</label>
                                 <p class="control">
                                     <input <?php if(isset($_SESSION['erro-email'])) echo 'class="input-w-6 is-danger"'; else echo 'class="input-w-6 is-sucess"'; ?> id="email" name="email" type="text" maxlength="100" onblur="emailValidadeExisting()" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
-                                    <div id="email-erro"><?php if(isset($_SESSION['erro-email'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
+                                <div id="email-erro"><?php if(isset($_SESSION['erro-email'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
+
                                 <label class="label">Senha</label>
                                 <p class="control">
                                     <input class="input-w-4" id="senha" name="senha" type="password" maxlength="60" placeholder="Senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
@@ -124,8 +123,9 @@
                                 <label class="label">Confirmar Senha</label>
                                 <p class="control">
                                     <input <?php if(isset($_SESSION['erro-repetir-senha'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
-                                    <div id="senha-erro"><?php if(isset($_SESSION['erro-repiter-senha'])) echo $erro_form->getErroFormulario("Senha"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
+                                <div id="senha-erro"><?php if(isset($_SESSION['erro-repiter-senha'])) echo $erro_form->getErroFormulario("Senha"); else echo $erro_form->setErroFormulario(); ?></div>
+
                                 <br>
                                 <p class="control">
                                     <div class="media">

@@ -1,13 +1,7 @@
 <?php
-$HOME = '';
-
-$PESSOA = '';
-
-$LOGIN = '
-<a class="nav-item is-active" href="logout">
-<span>SAIR</span>
-</a>';
-
+    $HOME = '';
+    $PESSOA = '';
+    $LOGIN = '<a class="nav-item is-active" href="logout"><span>SAIR</span></a>';
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
@@ -55,7 +49,7 @@ $LOGIN = '
                                         }?>
                                         <p class="control">
                                             <input id="id_tel<?=$i?>" value="<?=$key['id_telefone'] ?>" type="hidden">
-                                            <input id="id_usu<?=$i?>" value="<?=$key['usuario_id_usuario'] ?>" type="hidden">
+                                            <input id="id_usu<?=$i?>" value="<?=$key['id_usuario'] ?>" type="hidden">
                                             <input id="tel<?=$i?>" class="input-w-4" maxlength="14" name="telefone" type="text" placeholder="(99) 99999-9999" onkeypress='telefoneFormat("tel"+<?=$i?>)' required="" value="<?=$key['telefone_numero'] ?>">
                                         </p>
                                     </div>

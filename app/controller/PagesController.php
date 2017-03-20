@@ -73,8 +73,10 @@ class PagesController {
     *FUNÇÃO PAGE DA SESSÃO DE LISTAGEM PARA TELEMARKETING
     */
     public function listagemTelemarketing() {
+      $HOME = '';
         $pessoaJuridica = Selection::getInstanceSelection();
         $telemarketing = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
+
 
         $listar = Listar::getInstanceListar();
         $listagemPf = $listar->listarTelefonePf();
@@ -87,7 +89,7 @@ class PagesController {
     */
     public function userAdmin() {
         $listar = Listar::getInstanceListar();
-        $listastl = $listar->listarTelemarketing();
+        $usuario = $listar->listarTelemarketing();
 
         require_once ('app/view/view-admin/admin.php');
     }
@@ -100,9 +102,8 @@ class PagesController {
         $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
 
         $listar = Listar::getInstanceListar();
-        $listaspf = $listar->listarPessoa();
+        $usuario = $listar->listarPessoa();
 
-        include_once ('app/view/partlals/header.php');
         require_once ('app/view/view-admin/pessoa-fisica.php');
     }
     /*
@@ -114,10 +115,37 @@ class PagesController {
         $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
 
         $listar = Listar::getInstanceListar();
-        $listaspj = $listar->listarPessoaJuridica();
+        $usuario = $listar->listarPessoaJuridica();
 
-        include_once ('app/view/partlals/header.php');
         require_once ('app/view/view-admin/pessoa-juridica.php');
+    }
+    /*
+    *ADMINISTRADOR SEARCH BUSCA DE USUARIO
+    */
+    function search() {
+      $tipos = array("pessoa_fisica", "pessoa_juridica");
+      foreach ($_POST as $key => $value) { if(in_array($key, $tipos)) $tipo_user = $key; }
+
+      $validate = new DataValidator();
+      $_usuario = Selection::getInstanceSelection();
+
+      if($validate->set('nome', $_POST['nome'])->is_required()->validate()) {
+          $usuario = $_usuario->selectionUsuarioName($_POST['nome'], $tipo_user);
+          if($usuario == null){
+            $usuario = $_usuario->getErro();
+          } else {
+            if($usuario['type'] == "tlm"){
+              require_once ('app/view/view-admin/admin.php');
+            } else if($usuario['type'] == "pj"){
+              require_once ('app/view/view-admin/pessoa-juridica.php');
+            }else if($usuario['type'] == "pf"){
+              require_once ('app/view/view-admin/pessoa-fisica.php');
+            }
+          }
+
+      } else {
+          self::getErroForm($validate);
+      }
     }
     /*
     *FUNÇÃO PARA LOGIN DAS SESSOES DE USUARIO
@@ -139,7 +167,7 @@ class PagesController {
                 self::page_form_login();
                 die;
             } else {
-                self::redirection();
+                header('Location: /');
             }
         } else {
             self::getErroForm($validate);
@@ -223,6 +251,7 @@ class PagesController {
         if(!$erro_validate) self::startSessionError('erro-nome'); else  self::unsetSessionError('erro-nome');
 
         if(!isset($_SESSION['erro-termo']) || !isset($_SESSION['erro-cidade']) || !isset($_SESSION['erro-rua']) || !isset($_SESSION['erro-bairro']) || !isset($_SESSION['erro-repetir-senha']) || !isset($_SESSION['erro-nome'])) {
+
             $this->fone = Telefone::getInstanceTelefone();
             $this->fone->setTelefone($_POST['telefone']);
 
@@ -385,7 +414,6 @@ class PagesController {
         }
         echo $xml->asXML();
     }
-
     /*
     *FUNÇÃO PARA HABILITAR E DESABILITAR TELEMARKETING
     */
@@ -599,7 +627,7 @@ class PagesController {
               self::unsetSessionError('erro-cnpj');
             }
           }
-        } if (!empty($_POST['telefone'])){
+        }if (!empty($_POST['telefone'][0])){
           $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
           if(!$validate->validate()){
             self::startSessionError('erro-telefone');
@@ -638,26 +666,29 @@ class PagesController {
               self::userPessoaFisica();
               die;
             }
-        } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) || $_SESSION['type_user'] == 'pj' || $_SESSION['type_user'] == 'tlm' ) {
+        }
+        if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pj' || $_SESSION['type_user'] == 'tlm' ) {
           if(isset($_SESSION['token-user-session']) && isset($_SESSION['token-user-agent']) && isset($_SESSION['token-user-ip'])
           && Bcrypt::check('user'.$_SERVER['HTTP_USER_AGENT'], $_SESSION['token-user-agent']) && Bcrypt::check('user'.$_SERVER['REMOTE_ADDR'], $_SESSION['token-user-ip'])) {
             self::userPessoaJuridica();
             die;
           }
-        } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'tlm') {
+        }
+        if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'tlm') {
           if(isset($_SESSION['token-user-session']) && isset($_SESSION['token-user-agent']) && isset($_SESSION['token-user-ip'])
           && Bcrypt::check('user'.$_SERVER['HTTP_USER_AGENT'], $_SESSION['token-user-agent']) && Bcrypt::check('user'.$_SERVER['REMOTE_ADDR'], $_SESSION['token-user-ip'])) {
             self::listagemTelemarketing();
             die;
           }
-        } else if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'admin') {
+        }
+        if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'admin') {
           if(isset($_SESSION['token-user-session']) && isset($_SESSION['token-user-agent']) && isset($_SESSION['token-user-ip'])
           && Bcrypt::check('user'.$_SERVER['HTTP_USER_AGENT'], $_SESSION['token-user-agent']) && Bcrypt::check('user'.$_SERVER['REMOTE_ADDR'], $_SESSION['token-user-ip'])) {
             self::userAdmin();
             die;
           }
         } else {
-            header("Location: /login");
+            self::logout();
             die;
         }
     }
