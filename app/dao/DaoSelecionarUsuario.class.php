@@ -35,7 +35,7 @@ class Selection extends ConexaoDb {
 
   public function selectionTelefone($id) {
     try{
-        $queryTl = "SELECT * FROM telefone WHERE usuario_id_usuario = :id_usuario";
+        $queryTl = "SELECT * FROM telefone WHERE id_usuario = :id_usuario";
         $validar = Parent::getInstanceConexao()->prepare($queryTl);
         $validar->bindValue(":id_usuario",$id);
         $validar->execute();
@@ -76,7 +76,7 @@ class Selection extends ConexaoDb {
 
   public function selectionPessoaJuridica($id){
     try{
-        $queryPj = "SELECT * FROM pessoa_juridica WHERE usuario_id_usuario = :id_usuario";
+        $queryPj = "SELECT * FROM pessoa_juridica WHERE id_usuario = :id_usuario";
         $validar = Parent::getInstanceConexao()->prepare($queryPj);
         $validar->bindValue(":id_usuario",$id);
         $validar->execute();

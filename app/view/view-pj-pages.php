@@ -1,21 +1,10 @@
 <?php
-$PESSOA = ($pessoa['type']==='tlm')? '
-<a class="nav-item is-active" href="session-pj">
-<span>Meus Dados</span>
-</a>
-<a class="nav-item" href="list">
-<span>Listagem</span>
-</a>
-':
+    $PESSOA = ($pessoa['type']==='tlm')? '<a class="nav-item is-active" href="session-pj"><span>Meus Dados</span></a><a class="nav-item" href="list"><span>Listagem</span></a>':'';
+    $HOME = '';
+    $LOGIN = '<a class="nav-item is_active" href="logout"><span>SAIR</span></a>';
 
-$HOME = '';
-
-$LOGIN = '
-<a class="nav-item is_active" href="logout">
-<span>SAIR</span>
-</a>';
+    include_once 'app/view/partlals/header.php';
 ?>
-<?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 <div class="principal np-card-1">
@@ -54,7 +43,6 @@ $LOGIN = '
                             <?php
                             $i = 0;
                             foreach ($telefone as $key) { ?>
-
                                 <div class="columns">
                                     <div class="column">
                                         <?php if ($i == 0) {
@@ -62,7 +50,7 @@ $LOGIN = '
                                         }?>
                                         <p class="control">
                                             <input id="id_tel<?=$i?>" value="<?=$key['id_telefone'] ?>" type="hidden">
-                                            <input id="id_usu<?=$i?>" value="<?=$key['usuario_id_usuario'] ?>" type="hidden">
+                                            <input id="id_usu<?=$i?>" value="<?=$key['id_usuario'] ?>" type="hidden">
                                             <input id="tel<?=$i?>" class="input-w-4" maxlength="14" name="telefone" type="text" placeholder="(99) 99999-9999" onkeypress='telefoneFormat("tel"+<?=$i?>)' required="" value="<?=$key['telefone_numero'] ?>">
                                         </p>
                                     </div>

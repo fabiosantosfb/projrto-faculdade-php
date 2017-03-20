@@ -40,7 +40,7 @@ class Listar extends ConexaoDb {
 
   public function listarPessoaJuridicaRelat(){
     try{
-        $queryPf = "SELECT telefone_numero, data_cadastro FROM pessoa_juridica INNER JOIN telefone ON pessoa_juridica.id_usuario = telefone.id_usuario";
+        $queryPf = "SELECT telefone_numero, data_cadastro FROM pessoa_juridica INNER JOIN telefone ON pessoa_juridica.id_usuario = telefone.id_usuario AND telefone.status_bloqueio = 0 ";
         $validar = Parent::getInstanceConexao()->prepare($queryPf);
         $validar->execute();
 

@@ -1,24 +1,9 @@
 <?php
-
-$PESSOA = ($telemarketing)? '
-<a class="nav-item" href="session-pj">
-<span>Meus Dados</span>
-</a>
-<a class="nav-item is-active" href="list">
-<span>Listagem</span>
-</a>
-':
-
-$HOME = '';
-
-$LOGIN = '
-<a class="nav-item" href="logout">
-<span>SAIR</span>
-</a>';
-
+  $PESSOA = ($telemarketing)? '<a class="nav-item" href="session-pj"><span>Meus Dados</span></a><a class="nav-item is-active" href="list"><span>Listagem</span></a>':
+  $HOME = '';
+  $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
 ?>
 <?php include_once 'app/view/partlals/header.php' ?>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>-->
 <section class="hero np-padding-20">
     <div class="npTitle">
         <h1 class="title is-4">
@@ -98,22 +83,4 @@ $LOGIN = '
                 </div>
             </div>
         </section>
-        <script type="text/javascript">
-        function pdf(){
-            var doc = new jsPDF();
-            doc.text('Hello world!', 10, 10);
-            doc.save('a4.pdf');
-        }
-        </script>
-
-        <!--<script>
-        $(document).ready(function() {
-        $("#pdfDiv").click(function() {
-        var pdf = new jsPDF('p','pt','letter');
-        var specialElementHandlers = {
-        '#rentalListCan': function (element, renderer) {return true;}};
-        pdf.addHTML($('#rentalListCan').first(), function() {pdf.save("caravan.pdf");});
-    });
-});
-</script>-->
 <?php include_once ('app/view/partlals/footer.php') ?>

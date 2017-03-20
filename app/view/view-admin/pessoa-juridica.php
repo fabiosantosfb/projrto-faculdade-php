@@ -12,9 +12,6 @@
         <hr>
 
         <div class="columns">
-          <form class="control" method="post" action="/search">
-            <input type="hidden" name="pessoa_juridica">
-              <?php include 'search.tpl';?>
         </div>
         <div class="columns">
             <div class="column">

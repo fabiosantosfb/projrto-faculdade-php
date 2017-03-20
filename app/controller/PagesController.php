@@ -73,8 +73,10 @@ class PagesController {
     *FUNÇÃO PAGE DA SESSÃO DE LISTAGEM PARA TELEMARKETING
     */
     public function listagemTelemarketing() {
+      $HOME = '';
         $pessoaJuridica = Selection::getInstanceSelection();
         $telemarketing = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
+
 
         $listar = Listar::getInstanceListar();
         $listagemPf = $listar->listarTelefonePf();
@@ -165,7 +167,7 @@ class PagesController {
                 self::page_form_login();
                 die;
             } else {
-                self::redirection();
+                header('Location: /');
             }
         } else {
             self::getErroForm($validate);

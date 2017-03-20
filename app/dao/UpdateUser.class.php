@@ -12,7 +12,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function update($status, $id){
     try{
-        $update = "UPDATE pessoa_juridica SET status_telemarketing = :status  WHERE usuario_id_usuario = :id";
+        $update = "UPDATE pessoa_juridica SET status_telemarketing = :status  WHERE id_usuario = :id";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":status",$status);
         $validar->bindValue(":id",$id);
@@ -26,7 +26,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function updTelefone($telefone, $id, $id_telefone){
     try{
-        $update = "UPDATE telefone SET telefone_numero = :telefone  WHERE usuario_id_usuario = :id AND id_telefone = :id_telefone";
+        $update = "UPDATE telefone SET telefone_numero = :telefone  WHERE id_usuario = :id AND id_telefone = :id_telefone";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":telefone",$telefone);
         $validar->bindValue(":id",$id);
@@ -55,7 +55,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function upDocumento($nome, $usuario, $cpf, $rg, $dataexpedicao, $orgao_expedidor, $uf){
     try{
-        $update = "UPDATE proconpb_naoperturbe_v2.pessoa_fisica SET cpf=:cpf, uf=:uf, rg=:rg, data_expedicao=:data, orgao_expedidor=:org WHERE usuario_id_usuario=:id";
+        $update = "UPDATE proconpb_naoperturbe_v2.pessoa_fisica SET cpf=:cpf, uf=:uf, rg=:rg, data_expedicao=:data, orgao_expedidor=:org WHERE id_usuario=:id";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":cpf", $cpf);
         $validar->bindValue(":rg", $rg);
@@ -87,7 +87,7 @@ class UpdateUser extends  ConexaoDb {
 
   public function upDocumentoPj($nome, $usuario, $cnpj){
     try{
-        $update = "UPDATE proconpb_naoperturbe_v2.pessoa_juridica SET cnpj=:cnpj WHERE usuario_id_usuario=:id";
+        $update = "UPDATE proconpb_naoperturbe_v2.pessoa_juridica SET cnpj=:cnpj WHERE id_usuario=:id";
         $validar = Parent::getInstanceConexao()->prepare($update);
         $validar->bindValue(":cnpj", $cnpj);
         $validar->bindValue(":id", $usuario);

@@ -51,8 +51,11 @@ class DaoUsuario extends ConexaoDb {
 
             self::$pessoaUser($db, $validarUser, $id);
 
-            $validarUser = $db->prepare("INSERT INTO telefone values (default, :id_usuario, 0, :telefone, default, default)");
+            $status_telefone = ($this->dataAutenticacao->getType() == 'tlm') ? 1 : 0;
+
+            $validarUser = $db->prepare("INSERT INTO telefone values (default, :id_usuario, :status_bloqueio, :telefone, default, default)");
             $validarUser->bindValue(":id_usuario", $id);
+            $validarUser->bindValue(":status_bloqueio", $status_telefone);
             $validarUser->bindValue(":telefone", $this->fone->getTelefone());
             $validarUser->execute();
 
