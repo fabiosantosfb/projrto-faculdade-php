@@ -1,4 +1,7 @@
 <?php
+    Session::getName('u_s_pj');
+    Session::gerarId();
+
     $PESSOA = ($pessoa['type']==='tlm')? '<a class="nav-item is-active" href="session-pj"><span>Meus Dados</span></a><a class="nav-item" href="list"><span>Listagem</span></a>':'';
     $HOME = '';
     $LOGIN = '<a class="nav-item is_active" href="logout"><span>SAIR</span></a>';
