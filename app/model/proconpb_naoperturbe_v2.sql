@@ -49,16 +49,16 @@ DROP TABLE IF EXISTS `pessoa_juridica`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pessoa_juridica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   `cnpj` varchar(19) COLLATE utf8_unicode_ci NOT NULL,
   `status_telemarketing` int(1) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `cnpj_UNIQUE` (`usuario_id_usuario`),
-  UNIQUE KEY `usuario_id_usuario_UNIQUE` (`usuario_id_usuario`),
+  UNIQUE KEY `cnpj_UNIQUE` (`id_usuario`),
+  UNIQUE KEY `usuario_id_usuario_UNIQUE` (`id_usuario`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `fk_pessoa_juridica_1_idx` (`usuario_id_usuario`),
-  CONSTRAINT `fk_pessoa_juridica_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `fk_pessoa_juridica_1_idx` (`id_usuario`),
+  CONSTRAINT `fk_pessoa_juridica_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ DROP TABLE IF EXISTS `telefone`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `telefone` (
   `id_telefone` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario_id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   `status_bloqueio` int(1) NOT NULL,
   `telefone_numero` varchar(15) CHARACTER SET utf8 NOT NULL,
   `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -78,9 +78,9 @@ CREATE TABLE `telefone` (
   PRIMARY KEY (`id_telefone`),
   UNIQUE KEY `telefone_numero_UNIQUE` (`telefone_numero`),
   UNIQUE KEY `id_telefone_UNIQUE` (`id_telefone`),
-  KEY `fk_telefone_1_idx` (`usuario_id_usuario`),
-  CONSTRAINT `fk_telefone_1` FOREIGN KEY (`usuario_id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `fk_telefone_1_idx` (`id_usuario`),
+  CONSTRAINT `fk_telefone_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +107,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -119,4 +119,4 @@ CREATE TABLE `usuario` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-16 11:03:10
+-- Dump completed on 2017-03-21  9:25:23

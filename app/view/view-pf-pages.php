@@ -1,4 +1,7 @@
 <?php
+    Session::getName('u_s_pf');
+    Session::gerarId();
+
     $HOME = '';
     $PESSOA = '';
     $LOGIN = '<a class="nav-item is-active" href="logout"><span>SAIR</span></a>';

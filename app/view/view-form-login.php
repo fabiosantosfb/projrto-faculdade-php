@@ -1,4 +1,7 @@
 <?php
+      Session::getName('u_n_login');
+      Session::gerarId();
+
       $HOME = '<a class="nav-item" href="pessoa-fisica"><span>Pessoa Física</span></a>';
       $PESSOA = '<a class="nav-item" href="pessoa-juridica"><span>Pessoa Jurídica</span></a>';
       $LOGIN = '<a class="nav-item is-active" href="login"><span>ENTRAR</span></a>';

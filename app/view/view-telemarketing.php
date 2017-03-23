@@ -1,4 +1,7 @@
 <?php
+  Session::getName('u_s_tlm');
+  Session::gerarId();
+
   $PESSOA = ($telemarketing)? '<a class="nav-item" href="session-pj"><span>Meus Dados</span></a><a class="nav-item is-active" href="list"><span>Listagem</span></a>':
   $HOME = '';
   $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
