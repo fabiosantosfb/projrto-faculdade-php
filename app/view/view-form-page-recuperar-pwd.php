@@ -9,6 +9,7 @@
       $LOGIN = '<a class="nav-item is-active" href="login"><span>ENTRAR</span></a>';
       include_once ('app/view/partlals/header.php');
 ?>
+<script src="app/assets/js/validate-existing-data.js" charset="utf-8"></script>
 <div class="principal">
 <div class="columns">
   <div class="column">
@@ -16,7 +17,7 @@
     </p>
   </div>
   <div class="column np-card-1">
-    <?php if(PagesController::getPagesController()->erroLogin() == 1){ echo 'Email e senha Incorreta!'; } ?>
+      <div id="email-erro-rec"><?php if(isset($_SESSION['erro-email-rec'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
       <section class="hero np-padding-20">
           <div class="npTitle">
             <h1 class="title is-4">
@@ -29,7 +30,7 @@
             <form method="post" action="/recuperar">
                     <label class="label">Email Cadastrado</label>
                     <p class="control has-icon">
-                        <input  <?php if(isset($_SESSION['erro-email'])) echo 'class="input is-danger"'; else echo 'class="input is-sucess"'; ?> id="email" name="email" type="text" autofocus maxlength="100" placeholder="Email" width="48" height="48" required="" onblur="emailValidadeExisting()" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
+                        <input  class="input is-sucess" id="email_rec" name="email_rec" type="text" autofocus maxlength="100" placeholder="Email" width="48" height="48" required="" onblur="emailValidade()" value="<?php  if(isset($_POST['email_rec'])) echo htmlspecialchars($_POST['email_rec']); ?>">
                         <span class="icon is-small">
                             <i class="fa fa-envelope"></i>
                         </span>
@@ -44,12 +45,11 @@
                       </p>
                     </div>
             </form>
-            <div id="email-erro"><?php if(isset($_SESSION['erro-email'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
         </div>
       </section>
   </div>
   <div class="column">
-    <p></p>
+
   </div>
 </div>
 <?php include_once 'app/view/partlals/footer.php' ?>

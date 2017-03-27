@@ -5,13 +5,15 @@ class Bcrypt {
   protected static $_defaultCost = 8;
   protected static $_saltLength = 22;
 
-  public static function hash($string, $cost = null) {
+  public static function hash($string, $cost = null, $link = null) {
 		if (empty($cost)) {
 			$cost = self::$_defaultCost;
 		}
 
 		$salt = self::generateRandomSalt();
-		$hashString = self::__generateHashString((int)$cost, $salt);
+
+    if(!empty($link)) $hashString = self::__generateHashStringLink((int)4, $salt);
+    else $hashString = self::__generateHashString((int)$cost, $salt);
 		return crypt($string, $hashString);
 	}
 
@@ -27,6 +29,10 @@ class Bcrypt {
 	}
 
   private static function __generateHashString($cost, $salt) {
+    return sprintf('$%s$%02d$%s$', self::$_saltPrefix, $cost, $salt);
+  }
+
+  private static function __generateHashStringLink($cost, $salt) {
     return sprintf('$%s$%02d$%s$', self::$_saltPrefix, $cost, $salt);
   }
 

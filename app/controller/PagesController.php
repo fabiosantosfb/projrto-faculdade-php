@@ -126,10 +126,21 @@ class PagesController {
     *
     */
     public function recuperarPwd() {
-      $validate = new DataValidator();
+      if(!isset($_SESSION['erro-email-rec'])) {
+        $link = Bcrypt::hash($_POST['email_rec'],null, "link");
+        $_link = $link."&s=".session_id();
 
-      if($validate->set('email', $_POST['email'])->is_required()->is_email()->validate()) {
-        $validateEmail = ValidateUserExisting::validateCnpjExist($_POST['email']);
+        $_GET['recuperar-pwd'] = $_link ;
+        echo "redirect?recuperar-pwd=".$_link ;
+      }
+    }
+
+    public function linkRecuperarPwd() {
+      if(isset($_GET['recuperar-pwd'])){
+        if($_GET['s'] == session_id())
+          echo "E o usuario!";
+        else
+          echo "Nao é o usuario!";
       }
     }
     /*
@@ -565,13 +576,26 @@ class PagesController {
               self::unsetSessionError('erro-cpf');
             }
           }
+        }  if (!empty($_POST['email_rec'])){
+          $validate->set('email_rec', $_POST['email_rec'])->is_required()->is_email();
+          if(!$validate->validate()){
+            self::startSessionError('erro-email-rec');
+            self::getErroForm($validate);
+          } else {
+            if($userData->validateEmailExist($_POST['email_rec'])) {
+              self::unsetSessionError('erro-email-rec') ;
+            } else {
+              self::startSessionError('erro-email-rec');
+              $userData->getError();
+            }
+          }
         } if (!empty($_POST['email'])){
           $validate->set('email', $_POST['email'])->is_required()->is_email();
           if(!$validate->validate()){
             self::startSessionError('erro-email');
             self::getErroForm($validate);
           } else {
-            if(!$userData->validateEmailExist($_POST['email'])) {
+            if($userData->validateEmailExist($_POST['email'])) {
               self::startSessionError('erro-email');
               $userData->getError();
             } else {
