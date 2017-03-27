@@ -1,5 +1,5 @@
 <?php
-      Session::getName('user_navigation_pj');
+      Session::getName('u_n_pj');
       Session::gerarId();
 
       $HOME = '<a class="nav-item" href="pessoa-fisica"><span>Pessoa Física</span></a>';

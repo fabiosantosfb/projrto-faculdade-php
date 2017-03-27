@@ -1,6 +1,8 @@
 <?php
-      Session::getName('u_n_login');
+      Session::getName('u_n_recuperar_pwd');
       Session::gerarId();
+
+      $erro_form = PagesController::getPagesController();
 
       $HOME = '<a class="nav-item" href="pessoa-fisica"><span>Pessoa Física</span></a>';
       $PESSOA = '<a class="nav-item" href="pessoa-juridica"><span>Pessoa Jurídica</span></a>';
@@ -21,23 +23,16 @@
                   Acesso
               </h1>
               <h2 class="subtitle is-6">
-                  Controle de acesso
+                  Recuperação de Senha
               </h2>
               <hr>
-            <form method="post" action="/logar">
-                    <label class="label">Email</label>
+            <form method="post" action="/recuperar">
+                    <label class="label">Email Cadastrado</label>
                     <p class="control has-icon">
-                        <input id="email" name="email" class="input" autofocus maxlength="100" type="text" placeholder="Digite seu e-mail" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" width="48" height="48">
+                        <input  <?php if(isset($_SESSION['erro-email'])) echo 'class="input is-danger"'; else echo 'class="input is-sucess"'; ?> id="email" name="email" type="text" autofocus maxlength="100" placeholder="Email" width="48" height="48" required="" onblur="emailValidadeExisting()" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
                         <span class="icon is-small">
                             <i class="fa fa-envelope"></i>
                         </span>
-                    </p>
-                    <label class="label">Senha</label>
-                    <p class="control has-icon">
-                        <input id="senha"  name="senha" class="input" type="password" maxlength="60" placeholder="Digite sua senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
-                        <span class="icon is-small">
-                            <i class="fa fa-lock"></i>
-                          </span>
                     </p>
                     <br>
                     <div class="control is-grouped is-pulled-right">
@@ -49,16 +44,12 @@
                       </p>
                     </div>
             </form>
+            <div id="email-erro"><?php if(isset($_SESSION['erro-email'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
         </div>
-        <a  href="recuperar-pwd"><span>Esqueceu Senha</span></a>
       </section>
   </div>
   <div class="column">
     <p></p>
   </div>
 </div>
-  <?php
-    //  $r = new Controller();
-      //if($r->erro_form) echo "<script>alert('$r->erro')</script>";
-   ?>
-  <?php //include_once 'app/view/partlals/footer.php' ?>
+<?php include_once 'app/view/partlals/footer.php' ?>

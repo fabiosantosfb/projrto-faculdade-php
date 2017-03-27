@@ -38,6 +38,10 @@ class PagesController {
     public function page_form_pessoajuridica() {
         require_once ('app/view/view-form-pj.php');
     }
+
+    public function page_form_recuperar_pwd() {
+        require_once ('app/view/view-form-page-recuperar-pwd.php');
+    }
     /*
     *FUNÇÃO PAGE INICIAL
     */
@@ -76,7 +80,6 @@ class PagesController {
       $HOME = '';
         $pessoaJuridica = Selection::getInstanceSelection();
         $telemarketing = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
-
 
         $listar = Listar::getInstanceListar();
         $listagemPf = $listar->listarTelefonePf();
@@ -120,31 +123,13 @@ class PagesController {
         require_once ('app/view/view-admin/pessoa-juridica.php');
     }
     /*
-    *ADMINISTRADOR SEARCH BUSCA DE USUARIO
+    *
     */
-    function search() {
-      $tipos = array("pessoa_fisica", "pessoa_juridica");
-      foreach ($_POST as $key => $value) { if(in_array($key, $tipos)) $tipo_user = $key; }
-
+    public function recuperarPwd() {
       $validate = new DataValidator();
-      $_usuario = Selection::getInstanceSelection();
 
-      if($validate->set('nome', $_POST['nome'])->is_required()->validate()) {
-          $usuario = $_usuario->selectionUsuarioName($_POST['nome'], $tipo_user);
-          if($usuario == null){
-            $usuario = $_usuario->getErro();
-          } else {
-            if($usuario['type'] == "tlm"){
-              require_once ('app/view/view-admin/admin.php');
-            } else if($usuario['type'] == "pj"){
-              require_once ('app/view/view-admin/pessoa-juridica.php');
-            }else if($usuario['type'] == "pf"){
-              require_once ('app/view/view-admin/pessoa-fisica.php');
-            }
-          }
-
-      } else {
-          self::getErroForm($validate);
+      if($validate->set('email', $_POST['email'])->is_required()->is_email()->validate()) {
+        $validateEmail = ValidateUserExisting::validateCnpjExist($_POST['email']);
       }
     }
     /*
