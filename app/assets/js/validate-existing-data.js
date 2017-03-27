@@ -16,6 +16,15 @@ function cnpjValidadeExisting() {
   });
 }
 
+function emailValidade() {
+  $.ajax({
+    type: "POST",url: "validate",
+    data: { email_rec: $('#email_rec').val() },
+    success: function(data) { $('#email-erro-rec').html(data);
+  }
+  });
+}
+
 function emailValidadeExisting() {
   $.ajax({
     type: "POST",url: "validate",

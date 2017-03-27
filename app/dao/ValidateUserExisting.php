@@ -14,6 +14,7 @@ class ValidateUserExisting extends ConexaoDb {
         'validar_cpf'              => 'Exceção ao verificar Cpf!',
         'validar_rg'               => 'Exceção ao verificar Identidade!',
         'email_indisponivel'       => 'Email já Existe no Sistema!',
+        'email_inexistente'        => 'Email Não Existe no Sistema!',
         'telefone_indisponivel'    => 'Telefone já Existe no Sistema!',
         'cnpj_indisponivel'        => 'Cnpj já Existe no Sistema!',
         'cpf_indisponivel'         => 'Cpfjá Existe no Sistema!',
@@ -29,9 +30,10 @@ class ValidateUserExisting extends ConexaoDb {
 
             if ($validar->rowCount() === 1) {
                 $this->setError($this->messages_errors['email_indisponivel']);
-                return false;
-            } else {
                 return true;
+            } else {
+              $this->setError($this->messages_errors['email_inexistente']);
+                return false;
             }
         } catch (Exception $ex){
             return $this->messages_errors['validar_email'];

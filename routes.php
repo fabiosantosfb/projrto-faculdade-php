@@ -36,6 +36,7 @@
     $router->get('pessoa-juridica','PagesController@page_form_pessoajuridica');
     $router->get('login','PagesController@page_form_login');
     $router->get('recuperar-pwd','PagesController@page_form_recuperar_pwd');
+    $router->get('redirect','PagesController@linkRecuperarPwd');
   }
 
   $router->post('cadastro-pf','PagesController@cadastroPessoaFisica');
