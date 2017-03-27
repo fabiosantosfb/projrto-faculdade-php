@@ -35,10 +35,12 @@
     $router->get('pessoa-fisica','PagesController@page_form_pessoafisica');
     $router->get('pessoa-juridica','PagesController@page_form_pessoajuridica');
     $router->get('login','PagesController@page_form_login');
+    $router->get('recuperar-pwd','PagesController@page_form_recuperar_pwd');
   }
 
   $router->post('cadastro-pf','PagesController@cadastroPessoaFisica');
   $router->post('cadastro-pj','PagesController@cadastroPessoaJuridica');
+  $router->post('recuperar','PagesController@recuperarPwd');
   $router->post('logar','PagesController@logar');
   $router->get('logout','PagesController@logout');
 
