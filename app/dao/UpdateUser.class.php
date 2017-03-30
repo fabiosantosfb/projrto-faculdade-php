@@ -145,8 +145,11 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":senha", $pwd);
         $validar->bindValue(":id", $id);
         if($validar->execute()){
-            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
-        }
+          return true;
+          echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
+      }
+      return false;
+      echo '<span class="help is-danger ocultar">Erro Atualizar Login:</span>';
 
     } catch (Exception $pwd){
       //$this->erro = "EXCEÇÃO AO ATUALUZAR DOCUMENTO!";
@@ -163,8 +166,11 @@ class UpdateUser extends  ConexaoDb {
         $validar->bindValue(":_email", $email);
         $validar->bindValue(":pwd", $pwd);
         if($validar->execute()){
-            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
-        }
+          return true;
+          echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
+      }
+      return false;
+      echo '<span class="help is-danger ocultar">Erro Atualizar Login:</span>';
 
     } catch (Exception $pwd){
       //$this->erro = "EXCEÇÃO AO ATUALUZAR DOCUMENTO!";

@@ -541,7 +541,7 @@ class PagesController {
             $update = UpdateUser::getInstanceUpdateUser();
             $hash = Bcrypt::hash($_POST['senha']);
 
-            $update->redefinirPassword($hash, $_POST['email']);
+            if($update->redefinirPassword($hash, $_POST['email']))header("Location: /login");
 
         } else {
             self::getErroForm($validate);
