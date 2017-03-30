@@ -155,4 +155,22 @@ class UpdateUser extends  ConexaoDb {
     }
   }
 
+  public function redefinirPassword($pwd, $email){
+
+    try{
+        $update = "UPDATE proconpb_naoperturbe_v2.usuario SET senha=:pwd WHERE email=:_email";
+        $validar = Parent::getInstanceConexao()->prepare($update);
+        $validar->bindValue(":_email", $email);
+        $validar->bindValue(":pwd", $pwd);
+        if($validar->execute()){
+            echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
+        }
+
+    } catch (Exception $pwd){
+      //$this->erro = "EXCEÇÃO AO ATUALUZAR DOCUMENTO!";
+      echo '<span class="help is-danger ocultar">Erro Atualizar Login: '.$pwd->getMessage().'</span>';
+      return false;
+    }
+  }
+
 }

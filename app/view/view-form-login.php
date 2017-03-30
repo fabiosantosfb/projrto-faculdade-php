@@ -57,8 +57,3 @@
     <p></p>
   </div>
 </div>
-  <?php
-    //  $r = new Controller();
-      //if($r->erro_form) echo "<script>alert('$r->erro')</script>";
-   ?>
-  <?php //include_once 'app/view/partlals/footer.php' ?>

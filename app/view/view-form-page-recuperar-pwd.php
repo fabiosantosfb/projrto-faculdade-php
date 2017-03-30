@@ -1,4 +1,5 @@
 <?php
+
       Session::getName('u_n_recuperar_pwd');
       Session::gerarId();
 
@@ -16,7 +17,9 @@
     <p>
     </p>
   </div>
+
   <div class="column np-card-1">
+      <?php if(!empty($erro_form->_msg)) echo $erro_form->_msg; $erro_form->_msg=null;?>
       <div id="email-erro-rec"><?php if(isset($_SESSION['erro-email-rec'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
       <section class="hero np-padding-20">
           <div class="npTitle">
@@ -38,12 +41,12 @@
                     <br>
                     <div class="control is-grouped is-pulled-right">
                       <p class="control">
-                        <button id="button1id" class="button is-primary" type="submit">Entrar</button>
+                        <button id="button1id" class="button is-primary" type="submit">Enviar</button>
                       </p>
                       <p class="control">
                         <button id="Cancelar" type="reset" name="Cancelar" class="button is-warning" onclick="history.go(-1)">Retornar</button>
                       </p>
-                    </div>
+                   </div>
             </form>
         </div>
       </section>
