@@ -102,7 +102,7 @@
 
                                 <label class="label">Número(s)</label>
                                   <p class="control" id="telefoneOrigem">
-                                      <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone[]" type="text" onblur="telefoneValidadeExisting('telefone')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone-0'])) echo htmlspecialchars($_POST['telefone-0']); ?>" >
+                                      <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting('telefone')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone-0'])) echo htmlspecialchars($_POST['telefone-0']); ?>" >
                                       <!-- <a class="button is-success is-active" id="add" >Add +</a> -->
                                   </p>
                                  <div id="control-add"></div>

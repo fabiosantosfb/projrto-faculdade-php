@@ -18,6 +18,7 @@ return array(
     'FPDF' => $baseDir . '/app/controller/fpdf/fpdf.php',
     'Listar' => $baseDir . '/app/dao/DaoListarUsuarios.class.php',
     'Login' => $baseDir . '/app/model/Logar.class.php',
+    'Mail' => $baseDir . '/app/model/Mail.class.php',
     'PagesController' => $baseDir . '/app/controller/PagesController.php',
     'PessoaFisica' => $baseDir . '/app/model/PessoaFisica.class.php',
     'PessoaJuridica' => $baseDir . '/app/model/PessoaJuridica.class.php',

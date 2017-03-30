@@ -6,6 +6,7 @@ class PagesController {
     private $fone;
     private $endereco;
     private $pessoa;
+    private $_msg;
 
     private $erro_login = 0;
     private $id;
@@ -130,19 +131,34 @@ class PagesController {
         $link = Bcrypt::hash($_POST['email_rec'],null, "link");
         $_link = $link."&s=".session_id();
 
-        $_GET['recuperar-pwd'] = $_link ;
-        echo "redirect?recuperar-pwd=".$_link ;
+        $link_link = "http://localhost:4000/redirect?RecuperarPwD=".$_link ;
+
+        $email = new Mail();
+        $email->to = "fabiosantos_fb@hotmail.com";
+        $email->link = $link_link;
+
+        $this->_msg = $email->prepareHeader();
+        self::page_form_recuperar_pwd();
       }
     }
 
     public function linkRecuperarPwd() {
-      if(isset($_GET['recuperar-pwd'])){
-        if($_GET['s'] == session_id())
-          echo "E o usuario!";
-        else
-          echo "Nao é o usuario!";
+      $_read = array('404' => 'message is-danger','301' => 'message is-primary');
+
+      if(isset($_GET['RecuperarPwD'])) {
+        if(!empty($_GET['s']) && $_GET['s'] == session_id()) {
+          require_once('app/view/redefinir-senha.php');
+          die;
+        }
+        $class = $_read['301'];
+        $_msg = "Tempo Esgotado para Redefinir Senha!";
+      } else {
+        $class = $_read['404'];
+        $_msg = "Erro 404!";
       }
-    }
+    require_once('app/view/view-erro-404.php');
+    exit;
+  }
     /*
     *FUNÇÃO PARA LOGIN DAS SESSOES DE USUARIO
     */
@@ -506,6 +522,27 @@ class PagesController {
             $hash = Bcrypt::hash($_POST['senha']);
 
             $update->upPassword($hash, $_POST['email'], $_POST['id']);
+        } else {
+            self::getErroForm($validate);
+            self::userPessoaFisica();
+        }
+    }
+    /*
+    * FUNCTION ATUALIZAR DADOS PESSOA FISICA
+    */
+    function redefinirPassword() {
+        $validate = new DataValidator();
+
+        $validate->set('senha', $_POST['senha'])->is_required();
+        $validate->set('repetir_senha', $_POST['repetir_senha'])->is_required()->is_equals($_POST['senha'], true);
+        $validate->set('email', $_POST['email'])->is_required()->is_email();
+
+        if($validate->validate()){
+            $update = UpdateUser::getInstanceUpdateUser();
+            $hash = Bcrypt::hash($_POST['senha']);
+
+            if($update->redefinirPassword($hash, $_POST['email']))header("Location: /login");
+
         } else {
             self::getErroForm($validate);
             self::userPessoaFisica();

@@ -35,13 +35,14 @@
     $router->get('pessoa-fisica','PagesController@page_form_pessoafisica');
     $router->get('pessoa-juridica','PagesController@page_form_pessoajuridica');
     $router->get('login','PagesController@page_form_login');
+
     $router->get('recuperar-pwd','PagesController@page_form_recuperar_pwd');
     $router->get('redirect','PagesController@linkRecuperarPwd');
   }
+  $router->post('recuperar','PagesController@recuperarPwd');
 
   $router->post('cadastro-pf','PagesController@cadastroPessoaFisica');
   $router->post('cadastro-pj','PagesController@cadastroPessoaJuridica');
-  $router->post('recuperar','PagesController@recuperarPwd');
   $router->post('logar','PagesController@logar');
   $router->get('logout','PagesController@logout');
 
@@ -50,6 +51,7 @@
   $router->post('up-cnpj','PagesController@updateDocumentoPj');
   $router->post('up-address','PagesController@updateAddress');
   $router->post('up-password','PagesController@updatePassword');
+  $router->post('redefinir-password','PagesController@redefinirPassword');
   $router->post('add-telefone','PagesController@addTelefone');
 
   $router->post('validate','PagesController@ValidateExisting');
