@@ -19,6 +19,7 @@ class ComposerStaticInit25f39ae5674b41fbe5247122846d71b0
         'FPDF' => __DIR__ . '/../..' . '/app/controller/fpdf/fpdf.php',
         'Listar' => __DIR__ . '/../..' . '/app/dao/DaoListarUsuarios.class.php',
         'Login' => __DIR__ . '/../..' . '/app/model/Logar.class.php',
+        'Mail' => __DIR__ . '/../..' . '/app/model/Mail.class.php',
         'PagesController' => __DIR__ . '/../..' . '/app/controller/PagesController.php',
         'PessoaFisica' => __DIR__ . '/../..' . '/app/model/PessoaFisica.class.php',
         'PessoaJuridica' => __DIR__ . '/../..' . '/app/model/PessoaJuridica.class.php',
