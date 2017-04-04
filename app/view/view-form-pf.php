@@ -128,8 +128,7 @@ include_once ('app/view/partlals/header.php');
                   <input <?php if(isset($_SESSION['erro-repetir-senha'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
                 </p>
                 <div id="senha-erro"><?php if(isset($_SESSION['erro-repiter-senha'])) echo $erro_form->getErroFormulario("Senha"); else echo $erro_form->setErroFormulario(); ?></div>
-
-                <br>
+                <div class="control g-recaptcha" data-sitekey="6LeQXBgUAAAAACzWg3WkYDU_Rgz2vITZ3QyY_gb0"></div>
                 <p class="control">
                   <div class="media">
                     <div class="media-left">

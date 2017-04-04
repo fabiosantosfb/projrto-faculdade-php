@@ -6,8 +6,6 @@ class Session {
   private $token;
   private $INSTANCE_SESSION;
 
-
-
   public function getName($name) { return session_name($name); }
   public function getId() {
       $_SESSION['id-user-session'] = session_id();

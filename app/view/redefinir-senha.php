@@ -49,7 +49,7 @@
                       </p>
                       <div id="senha-erro"><?php if(isset($_SESSION['erro-repiter-senha'])) echo $erro_form->getErroFormulario("Senha"); else echo $erro_form->setErroFormulario(); ?></div>
 
-                      <br>
+                      <div class="control g-recaptcha" data-sitekey="6LeQXBgUAAAAACzWg3WkYDU_Rgz2vITZ3QyY_gb0"></div>
                       <div class="control is-grouped is-pulled-right">
                         <p class="control">
                           <button id="button1id" class="button is-primary" type="submit">Redefinir</button>
