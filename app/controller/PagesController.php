@@ -163,43 +163,82 @@ class PagesController {
   *FUNÇÃO PARA LOGIN DAS SESSOES DE USUARIO
   */
   public function logar() {
+
     $validate = new DataValidator();
 
     $this->erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
     $this->erro =  $validate->set('senha', $_POST['senha'])->is_required();
 
-    if ($validate->validate()) {
-      if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
-        //your site secret key
-        $secret = '6LeQXBgUAAAAACzWg3WkYDU_Rgz2vITZ3QyY_gb0';
-
-        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
-        $responseData = json_decode($verifyResponse);
-        if($responseData->success) {
-          $this->login  = Login::getInstanceLogin();
-          $this->login->setEmail($_POST['email']);
-          $this->login->setPassword($_POST['senha']);
-
-          $d_logar = new DaoLogin($this->login);
-          if(!$d_logar->loginDb()) {
-            $this->erro_login = 1;
-            self::page_form_login();
-            die;
-          } else {
-            header('Location: /');
-          }
-        } else {
-          $errMsg = 'Robot verification failed, please try again.';
-        }
+    if ($validate->validate()){
+      $this->login  = Login::getInstanceLogin();
+      $this->login->setEmail($_POST['email']);
+      $this->login->setPassword($_POST['senha']);
+      $d_logar = new DaoLogin($this->login);
+      if(!$d_logar->loginDb()){
+        $this->erro_login = 1;
+        self::page_form_login();
+        die;
       } else {
-        $errMsg = 'Please click on the reCAPTCHA box.';
+        header('Location: /');
       }
+    } else {
+      self::getErroForm($validate);
+      self::$erro_form['email'] = "email";
+      return false;
+    }
+  }
+
+  /*
+  *FUNÇÃO PARA LOGIN DAS SESSOES DE USUARIO COM reCAPTCHA
+  */
+  public function logar_reCAPTCHA() {
+    // lib recaptcha
+    require_once "recaptchalib.php";
+
+    $validate = new DataValidator();
+
+    $this->erro =  $validate->set('email', $_POST['email'])->is_required()->is_email();
+    $this->erro =  $validate->set('senha', $_POST['senha'])->is_required();
+
+    if ($validate->validate() && ((isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response']))) ) {
+      // foreach ($_POST as $key => $value) {
+      //   echo '<p><strong>' . $key.':</strong> '.$value.'</p>';
+      // }
+
+      //site secret key
+      $secret = 'xxx';
+
+      // resposta vazia
+      $response = null;
+
+      $reCaptcha = new ReCaptcha($secret);
+
+      $response = $reCaptcha->verifyResponse(
+        $_SERVER["REMOTE_ADDR"],
+        $_POST["g-recaptcha-response"]
+      );
+
+      if($response != null && $response->success) {
+        $this->login  = Login::getInstanceLogin();
+        $this->login->setEmail($_POST['email']);
+        $this->login->setPassword($_POST['senha']);
+
+        $d_logar = new DaoLogin($this->login);
+        if(!$d_logar->loginDb()) {
+          $this->erro_login = 1;
+          self::page_form_login();
+          die;
+        } else {
+          header('Location: /');
+        }
+
       } else {
         self::getErroForm($validate);
         self::$erro_form['email'] = "email";
         return false;
       }
     }
+
     /*
     *FUNÇÃO SAIR DA SESSÃO
     */
