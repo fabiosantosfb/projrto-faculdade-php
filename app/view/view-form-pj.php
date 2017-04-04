@@ -131,6 +131,7 @@ include_once ('app/view/partlals/header.php');
   </div>
 </div>
 </div>
+</section>
 <section>
   <section class="hero np-padding-18">
     <div class="npTitle">
