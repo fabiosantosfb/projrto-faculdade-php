@@ -1,6 +1,10 @@
 <?php
 
 class Session {
+
+  // private $vendorDir = dirname(dirname(__FILE__));
+  // private $baseDir = dirname($vendorDir);
+
   private $id_session;
   private $type_session;
   private $token;
@@ -11,10 +15,11 @@ class Session {
       $_SESSION['id-user-session'] = session_id();
   }
   public function start() {
-    session_save_path('app/sessions');
+    session_save_path(realpath(dirname($_SERVER['DOCUMENT_ROOT']) . 'app/sessions'));
     ini_set('session.gc_probability', 1);
     return session_start();
   }
+
   public function gerarId() { return session_regenerate_id(); }
   public function destroy() { return session_destroy(); }
 

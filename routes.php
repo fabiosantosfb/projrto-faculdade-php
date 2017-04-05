@@ -44,6 +44,8 @@
   $router->post('cadastro-pf','PagesController@cadastroPessoaFisica');
   $router->post('cadastro-pj','PagesController@cadastroPessoaJuridica');
   $router->post('logar','PagesController@logar');
+  $router->post('logar_reCAPTCHA','PagesController@logar_reCAPTCHA');
+
   $router->get('logout','PagesController@logout');
 
   $router->post('up-tel','PagesController@updateTelefone');

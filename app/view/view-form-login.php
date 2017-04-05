@@ -14,7 +14,7 @@
     </p>
   </div>
   <div class="column np-card-1">
-    <?php if(PagesController::getPagesController()->erroLogin() == 1){ echo 'Email e senha Incorreta!'; } ?>
+    <?php if(PagesController::getPagesController()->erroLogin() == 1){ echo 'Email e senha Incorreta ou valide se é um robo!'; } ?>
       <section class="hero np-padding-20">
           <div class="npTitle">
             <h1 class="title is-4">
@@ -24,7 +24,7 @@
                   Controle de acesso
               </h2>
               <hr>
-            <form method="post" action="/logar">
+            <form method="post" action="/logar_reCAPTCHA">
                     <label class="label">Email</label>
                     <p class="control has-icon">
                         <input id="email" name="email" class="input" autofocus maxlength="100" type="text" placeholder="Digite seu e-mail" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" width="48" height="48">
