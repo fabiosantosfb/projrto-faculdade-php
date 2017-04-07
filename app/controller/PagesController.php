@@ -9,6 +9,7 @@ class PagesController {
     private $_msg;
 
     private $erro_login = 0;
+    private $erro_reCaptcha = 0;
     private $id;
     private $type;
     private $update = null;
@@ -192,8 +193,6 @@ class PagesController {
     *FUNÇÃO PARA LOGIN DAS SESSOES DE USUARIO COM reCAPTCHA
     */
     public function logar_reCAPTCHA() {
-        // lib recaptcha
-        require_once "recaptchalib.php";
 
         $validate = new DataValidator();
 
@@ -202,41 +201,18 @@ class PagesController {
 
         if ($validate->validate()) {
 
-            if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response']))  {
+            if(self::isReCaptcha($_POST['g-recaptcha-response'])) {
+                $this->login  = Login::getInstanceLogin();
+                $this->login->setEmail($_POST['email']);
+                $this->login->setPassword($_POST['senha']);
 
-                //site secret key
-                $secret = 'xxx';
-
-                // resposta vazia
-                $response = null;
-
-                $reCaptcha = new ReCaptcha($secret);
-
-                $response = $reCaptcha->verifyResponse(
-                    $_SERVER["REMOTE_ADDR"],
-                    $_POST["g-recaptcha-response"]
-                );
-
-                // echo '<p><strong> response:</strong> '.$response.'</p>';
-
-                if($response != null && $response->success) {
-                    $this->login  = Login::getInstanceLogin();
-                    $this->login->setEmail($_POST['email']);
-                    $this->login->setPassword($_POST['senha']);
-
-                    $d_logar = new DaoLogin($this->login);
-                    if(!$d_logar->loginDb()) {
-                        $this->erro_login = 1;
-                        self::page_form_login();
-                        die;
-                    } else {
-                        header('Location: /');
-                    }
-
-                } else {
+                $d_logar = new DaoLogin($this->login);
+                if(!$d_logar->loginDb()) {
                     $this->erro_login = 1;
                     self::page_form_login();
                     die;
+                } else {
+                    header('Location: /');
                 }
 
             } else {
@@ -244,6 +220,8 @@ class PagesController {
                 self::page_form_login();
                 die;
             }
+
+
         } else {
             self::getErroForm($validate);
             self::$erro_form['email'] = "email";
@@ -266,10 +244,11 @@ class PagesController {
     */
     function cadastroPessoaJuridica(){
         $this->tipoCadastro = "pessoajuridica";
+        // print_r($_POST);
         if(isset($_SESSION['erro-cnpj']) || isset($_SESSION['erro-rua']) || isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha']) ) {
             self::page_form_pessoajuridica();
         } else {
-            if(!self::cadastrar()) {
+            if(!self::cadastrar($_POST['g-recaptcha-response'])) {
                 self::page_form_pessoajuridica();
             } else {
                 header("Location: /login");
@@ -278,6 +257,7 @@ class PagesController {
         }
         return true;
     }
+
     /*
     *FUNÇÃO CADASTRO PESSSOA FISICA
     */
@@ -297,7 +277,7 @@ class PagesController {
         isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha'])){
             self::page_form_pessoafisica();
         } else {
-            if(!self::cadastrar()) {
+            if(!self::cadastrar($_POST['g-recaptcha-response'])) {
                 self::page_form_pessoaFisica();
             } else {
                 header("Location: /login");
@@ -308,7 +288,10 @@ class PagesController {
     /*
     *FUNÇÃO CADASTRO DE TODOS USUARIO
     */
-    function cadastrar() {
+    function cadastrar($recaptcha_response) {
+
+        $this->erro_reCaptcha = 0;
+
         $validate = new DataValidator();
 
         $erro_validate = $validate->set('cidade', $_POST['cidade'])->is_required()->validate();
@@ -328,50 +311,58 @@ class PagesController {
 
         if(!isset($_SESSION['erro-termo']) || !isset($_SESSION['erro-cidade']) || !isset($_SESSION['erro-rua']) || !isset($_SESSION['erro-bairro']) || !isset($_SESSION['erro-repetir-senha']) || !isset($_SESSION['erro-nome'])) {
 
-            $this->fone = Telefone::getInstanceTelefone();
-            $this->fone->setTelefone($_POST['telefone']);
+            if (self::isReCaptcha($recaptcha_response)) {
 
-            $hash = Bcrypt::hash($_POST['senha']);
+                $this->fone = Telefone::getInstanceTelefone();
+                $this->fone->setTelefone($_POST['telefone']);
 
-            $this->login = Login::getInstanceLogin();
-            $this->login->setPassword($hash);
+                $hash = Bcrypt::hash($_POST['senha']);
 
-            $this->login->setEmail($_POST['email']);
-            $this->login->setType($_POST['type']);
+                $this->login = Login::getInstanceLogin();
+                $this->login->setPassword($hash);
 
-            $this->endereco = Endereco::getInstanceEndereco();
-            $this->endereco->setCep($_POST['cep']);
-            $this->endereco->setRua($_POST['rua']);
-            $this->endereco->setBairro($_POST['bairro']);
-            $this->endereco->setCidade($_POST['cidade']);
+                $this->login->setEmail($_POST['email']);
+                $this->login->setType($_POST['type']);
 
-            if(!empty($_POST['complemento'])){
-                $this->endereco->setComplemento($_POST['complemento']);
-            }
-            if (!empty($_POST['numero'])){
-                $this->endereco->setNumero($_POST['numero']);
-            }
+                $this->endereco = Endereco::getInstanceEndereco();
+                $this->endereco->setCep($_POST['cep']);
+                $this->endereco->setRua($_POST['rua']);
+                $this->endereco->setBairro($_POST['bairro']);
+                $this->endereco->setCidade($_POST['cidade']);
 
-            if($this->tipoCadastro == "pessoajuridica") {
-                $this->pessoa = PessoaJuridica::getInstancePessoaJuridica();
-                $this->pessoa->setCnpj($_POST['cnpj']);
-                $this->pessoa->setNome($_POST['nome']);
-
-                if(isset($_POST['telemarketing'])){
-                    $this->login->setType('tlm');
+                if(!empty($_POST['complemento'])){
+                    $this->endereco->setComplemento($_POST['complemento']);
                 }
-            } else if($this->tipoCadastro == "pessoafisica") {
-                $this->pessoa = PessoaFisica::getInstancePessoaFisica();
-                $this->pessoa->setCpf($_POST['cpf']);
-                $this->pessoa->setNome($_POST['nome']);
-                $this->pessoa->setRg($_POST['rg']);
-                $this->pessoa->setDataExpdicao($_POST['dataexpedicao']);
-                $this->pessoa->setOrgExpedidor($_POST['orgao_expedidor']);
-                $this->pessoa->setUf($_POST['uf']);
+                if (!empty($_POST['numero'])){
+                    $this->endereco->setNumero($_POST['numero']);
+                }
+
+                if($this->tipoCadastro == "pessoajuridica") {
+                    $this->pessoa = PessoaJuridica::getInstancePessoaJuridica();
+                    $this->pessoa->setCnpj($_POST['cnpj']);
+                    $this->pessoa->setNome($_POST['nome']);
+
+                    if(isset($_POST['telemarketing'])){
+                        $this->login->setType('tlm');
+                    }
+                } else if($this->tipoCadastro == "pessoafisica") {
+                    $this->pessoa = PessoaFisica::getInstancePessoaFisica();
+                    $this->pessoa->setCpf($_POST['cpf']);
+                    $this->pessoa->setNome($_POST['nome']);
+                    $this->pessoa->setRg($_POST['rg']);
+                    $this->pessoa->setDataExpdicao($_POST['dataexpedicao']);
+                    $this->pessoa->setOrgExpedidor($_POST['orgao_expedidor']);
+                    $this->pessoa->setUf($_POST['uf']);
+                }
+                if(self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone))
+                {return true;} else {return false;}
+
+            } else {
+                $this->erro_reCaptcha = 1;
+                self::getErroForm($validate);
+                return false;
             }
-            if(self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone))
-            return true;
-            return false;
+
         } else {
             self::getErroForm($validate);
             return false;
@@ -649,11 +640,58 @@ class PagesController {
         return $this->erro_login;
     }
 
+    function erroreCaptcha() {
+        return $this->erro_reCaptcha;
+    }
+
     function getErroFormulario($campo) {
         return '<span class="help is-danger ">Error no Campo '.$campo.'</span>';
     }
 
     function setErroFormulario() {
+        return '<span class="help is-danger "></span>';
+    }
+
+    /*
+    *FUNÇÃO VERIFICAR O reCAPTCHA
+    */
+    function isReCaptcha($Post_G_Captcha) {
+        // lib recaptcha
+        require_once "recaptchalib.php";
+
+        if (isset($Post_G_Captcha) && !empty($Post_G_Captcha)) {
+            // resposta vazia
+            $response = null;
+
+            //site secret key
+            $secret = 'xxx';
+
+            $reCaptcha = new ReCaptcha($secret);
+
+            $response = $reCaptcha->verifyResponse(
+                $_SERVER["REMOTE_ADDR"],
+                $Post_G_Captcha
+            );
+
+            if($response != null && $response->success) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    *FUNÇÃO PARA LER E SETAR AS MENSAGENS DE ERROS NOS FORMULARIOS
+    */
+    function setMsgError($msg) {
+        return '<span class="help is-danger ">'.$msg.'</span>';
+    }
+
+    function unsetMsgError() {
         return '<span class="help is-danger "></span>';
     }
 
