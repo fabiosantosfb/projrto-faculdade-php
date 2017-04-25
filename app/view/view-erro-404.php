@@ -9,7 +9,7 @@
 ?>
     <article class='<?=$class?>'>
         <div class="message-header">
-          <p><strong>Pagina</strong>! <a>Não Encontrada!!</a></p>
+          <p><strong>Pagina</strong> não encontrada ou sessão expirada!!</p>
         </div>
         <div class="message-body">
           <strong><?=$_msg?></strong>

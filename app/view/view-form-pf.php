@@ -15,7 +15,7 @@ include_once ('app/view/partlals/header.php');
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 <script src="app/assets/js/validate-existing-data.js" charset="utf-8"></script>
 <div class="principal np-card-1">
-    <?php if(PagesController::getPagesController()->erroreCaptcha() == 1){ echo 'Verificação de segurança não realizada!'; } ?>    
+    <?php if(PagesController::getPagesController()->erroreCaptcha() == 1){ echo 'Verificação de segurança não realizada!'; } ?>
     <form class="control" method="post" action="/cadastro-pf" enctype="multipart/form-data">
     <section class="hero np-padding-20">
         <div class="npTitle">
@@ -40,7 +40,7 @@ include_once ('app/view/partlals/header.php');
                             <hr>
                                 <label class="label">Nome</label>
                                 <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-8 is-danger"'; else echo 'class="input-w-8 is-sucess"'; ?> id="nome" name="nome" autofocus type="text" placeholder="Digite seu nome" maxlength="100" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-8 is-danger"'; else echo 'class="input-w-8 is-sucess"'; ?> id="nome" name="nome" autofocus type="text" placeholder="Digite seu nome" maxlength="150" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>" >
                                     <div id="nome-erro"><?php if(isset($_SESSION['erro-nome'])) echo $erro_form->getErroFormulario("Nome"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
                                 <label class="label">CPF</label>
@@ -51,7 +51,7 @@ include_once ('app/view/partlals/header.php');
                                 </p>
                                 <label class="label">Identidade</label>
                                 <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-rg'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="rg" name="rg" type="text" onblur="rgValidadeExisting()"  placeholder="RG" maxlength="9" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-rg'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="rg" name="rg" type="text" onblur="rgValidadeExisting()"  placeholder="RG" maxlength="10" required="" value="<?php  if(isset($_POST['rg'])) echo htmlspecialchars($_POST['rg']); ?>" >
                                     <div id="rg-erro"><?php if(isset($_SESSION['erro-rg'])) echo $erro_form->getErroFormulario("Identidade"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
                                 <label class="label">Data da Expedição</label>

@@ -144,7 +144,7 @@
                                 <p class="control">
                                     <label class="label">Nome</label>
                                 </p>
-                                <input class="input" id="nome" name="nome" maxlength="100" value="<?=$pessoa['nome'] ?>" required="">
+                                <input class="input" id="nome" name="nome" maxlength="150" value="<?=$pessoa['nome'] ?>" required="">
                             </div>
                             <div class="column">
                                 <p class="control">

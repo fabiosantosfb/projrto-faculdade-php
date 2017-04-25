@@ -419,7 +419,9 @@ class PagesController {
         $listaspf = $listar->listarPessoaRelat();
         $listaspj = $listar->listarPessoaJuridicaRelat();
 
-        $JSON = json_encode($listaspj+$listaspf);
+        $result = array_merge($listaspj, $listaspf);
+
+        $JSON = json_encode($result);
         echo $JSON;
     }
 
@@ -664,7 +666,7 @@ class PagesController {
             $response = null;
 
             //site secret key
-            $secret = 'xxx';
+            $secret = '';
 
             $reCaptcha = new ReCaptcha($secret);
 
