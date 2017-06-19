@@ -401,17 +401,37 @@ class PagesController {
             header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
             self::listarXml();
             die;
+        } else if(isset($_POST['csv']) && !empty($_POST['csv'])){
+            header('Content-type: text/csv');
+            header('Content-Disposition: attachment; filename="nao-perturbe.csv"');
+            header('Progma: no-cache');
+            header('Expires: 0');
+            self::listarCsv();
+            die;
         } else if(isset($_POST['pdf']) && !empty($_POST['pdf'])){
             header('Content-type: application/pdf');
             header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
             self::listarPdf();
             die;
-        } else if(isset($_POST['pdf']) && !empty($_POST['pdf']) || isset($_GET['pdf-g']) && !empty($_GET['pdf-g'])){
-            header('Content-type: application/pdf');
-            header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
-            self::listarPdf();
-            die;
         }
+    }
+
+    function listarCsv() {
+      $listar = Listar::getInstanceListar();
+      $listaspf = $listar->listarPessoaRelat();
+      $listaspj = $listar->listarPessoaJuridicaRelat();
+
+      $outPut = fopen("php://outPut", "w");
+
+      foreach ($listaspf as $key) {
+        fputcsv($outPut, $key);
+      }
+
+      foreach ($listaspj as $key_j) {
+        fputcsv($outPut, $key_j);
+      }
+
+      fclose($outPut);
     }
 
     function listarJson() {
@@ -657,6 +677,7 @@ class PagesController {
     */
     function isReCaptcha($Post_G_Captcha) {
         // lib recaptcha
+
         require_once "recaptchalib.php";
 
         if (isset($Post_G_Captcha) && !empty($Post_G_Captcha)) {
@@ -664,7 +685,7 @@ class PagesController {
             $response = null;
 
             //site secret key
-            $secret = 'xxx';
+            $secret = '6LeQXBgUAAAAAD-4kBJevxWt1fQj6DTKDxCimuF_';
 
             $reCaptcha = new ReCaptcha($secret);
 
@@ -775,7 +796,7 @@ class PagesController {
                     self::unsetSessionError('erro-cnpj');
                 }
             }
-        }if (!empty($_POST['telefone'][0])){
+        }if (!empty($_POST['telefone'])){
             $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
             if(!$validate->validate()){
                 self::startSessionError('erro-telefone');

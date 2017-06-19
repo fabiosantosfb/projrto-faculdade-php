@@ -3,7 +3,7 @@
 class ConexaoDb {
   private static $SQL = "mysql:host=localhost;dbname=proconpb_naoperturbe_v2";
   private static $USER = "root";
-  private static $PWD = "pr0c0np3";
+  private static $PWD = "fabioadmin";
   private $transactionCount = 0;
   private $INSTANCE_CONEXAO = null;
 

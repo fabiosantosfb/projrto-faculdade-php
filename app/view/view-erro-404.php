@@ -4,15 +4,16 @@
 
     $HOME = '<a class="nav-item" href="login"><span>Home</span></a>';
     $LOGIN = '<a class="nav-item" href="login"><span>ENTRAR</span></a>';
+    $PESSOA = '';
 
     include_once ('app/view/partlals/header.php');
 ?>
-    <article class='<?=$class?>'>
+    <article class='message is-danger'>
         <div class="message-header">
-          <p><strong>Pagina</strong>! <a>Não Encontrada!!</a></p>
+          <p><strong>Error 404</strong></p>
         </div>
         <div class="message-body">
-          <strong><?=$_msg?></strong>
+          <strong>Pagina Não Encontrada!</strong>
         </div>
       </article>
 <?php include_once ('app/view/partlals/footer.php') ?>

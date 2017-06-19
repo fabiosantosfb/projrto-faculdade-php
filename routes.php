@@ -9,7 +9,6 @@
   if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'tlm') {
     $router->get('session-pj','PagesController@redirection');
     $router->get('list','PagesController@listagemTelemarketing');
-    $router->get('list-relatorio-browser','PagesController@listarRelatorio');
     $router->post('list-relatorio','PagesController@listarRelatorio');
     $router->get('logar','PagesController@redirection');
     $router->get('','PagesController@redirection');
