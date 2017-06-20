@@ -31,6 +31,7 @@ var id_telefone = 1;
 $(document).ready(function() {
     var arrays_ids_telefones = new Array();
     var wrapper = $("#control-add");
+    
      $("#add").click(function(e){
           e.preventDefault();
           if(arrays_ids_telefones[id_telefone] == undefined) {

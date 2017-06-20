@@ -8,6 +8,10 @@ body {
   color: #fff;
 }
 
+.dataTables_wrapper {
+    width: 100%;
+}
+
 .np-primary-0 { color: #1D1369 }	/* Main Primary np */
 .np-primary-1 { color: #2816A3 }
 .np-primary-2 { color: #251881 }
@@ -618,4 +622,24 @@ a {outline: none;}
 
 .hero-body npTitle {
   padding: 1rem 1.9rem;
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+.animated.hinge {
+  animation-duration: 2s;
+}
+
+.animated.flipOutX,
+.animated.flipOutY,
+.animated.bounceIn,
+.animated.bounceOut {
+  animation-duration: .75s;
 }

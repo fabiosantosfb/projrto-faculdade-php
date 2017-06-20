@@ -23,6 +23,8 @@ class ComposerStaticInit25f39ae5674b41fbe5247122846d71b0
         'PagesController' => __DIR__ . '/../..' . '/app/controller/PagesController.php',
         'PessoaFisica' => __DIR__ . '/../..' . '/app/model/PessoaFisica.class.php',
         'PessoaJuridica' => __DIR__ . '/../..' . '/app/model/PessoaJuridica.class.php',
+        'ReCaptcha' => __DIR__ . '/../..' . '/app/controller/recaptchalib.php',
+        'ReCaptchaResponse' => __DIR__ . '/../..' . '/app/controller/recaptchalib.php',
         'Request' => __DIR__ . '/../..' . '/app/core/Request.php',
         'Router' => __DIR__ . '/../..' . '/app/core/Router.php',
         'Selection' => __DIR__ . '/../..' . '/app/dao/DaoSelecionarUsuario.class.php',

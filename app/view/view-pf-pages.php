@@ -9,10 +9,10 @@
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
-<div class="principal np-card-1">
+<div class="principal np-card-1 animated animate fadeInDown">
 <section class="hero np-padding-20">
     <div class="npTitle">
-        <h1 class="title is-4">
+        <h1 class="title is-4 animated animate fadeInDown">
             Pessoa Física
         </h1>
         <h2 class="subtitle is-6">
@@ -144,7 +144,7 @@
                                 <p class="control">
                                     <label class="label">Nome</label>
                                 </p>
-                                <input class="input" id="nome" name="nome" maxlength="100" value="<?=$pessoa['nome'] ?>" required="">
+                                <input class="input" id="nome" name="nome" maxlength="150" value="<?=$pessoa['nome'] ?>" required="">
                             </div>
                             <div class="column">
                                 <p class="control">

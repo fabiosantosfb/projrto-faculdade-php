@@ -438,8 +438,9 @@ class PagesController {
         $listar = Listar::getInstanceListar();
         $listaspf = $listar->listarPessoaRelat();
         $listaspj = $listar->listarPessoaJuridicaRelat();
+        $result = array_merge($listaspj, $listaspf);
 
-        $JSON = json_encode($listaspj+$listaspf);
+        $JSON = json_encode($result);
         echo $JSON;
     }
 

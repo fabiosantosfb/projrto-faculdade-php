@@ -22,6 +22,8 @@ return array(
     'PagesController' => $baseDir . '/app/controller/PagesController.php',
     'PessoaFisica' => $baseDir . '/app/model/PessoaFisica.class.php',
     'PessoaJuridica' => $baseDir . '/app/model/PessoaJuridica.class.php',
+    'ReCaptcha' => $baseDir . '/app/controller/recaptchalib.php',
+    'ReCaptchaResponse' => $baseDir . '/app/controller/recaptchalib.php',
     'Request' => $baseDir . '/app/core/Request.php',
     'Router' => $baseDir . '/app/core/Router.php',
     'Selection' => $baseDir . '/app/dao/DaoSelecionarUsuario.class.php',

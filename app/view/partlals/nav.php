@@ -2,7 +2,7 @@
     <nav class="nav has-shadow">
         <div class="nav-left">
             <a class="nav-item" href="#">
-                <img src="../../app/assets/img/naoperturbe.png" alt="Não perturbe logo">
+                <img class="animated fadeInDown" src="../../app/assets/img/naoperturbe.png" alt="Não perturbe logo">
 
             </a>
         </div>
