@@ -678,6 +678,7 @@ class PagesController {
     */
     function isReCaptcha($Post_G_Captcha) {
         // lib recaptcha
+
         require_once "recaptchalib.php";
 
         if (isset($Post_G_Captcha) && !empty($Post_G_Captcha)) {

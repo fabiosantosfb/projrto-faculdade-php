@@ -77,7 +77,7 @@ include_once ('app/view/partlals/header.php');
                                     <hr>
                                     <label class="label">Número(s)</label>
                                     <p class="control">
-                                        <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" maxlength="14" placeholder="(99)99999-9999" onkeypress='telefoneFormat("telefone")' onblur="telefoneValidadeExisting()" required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                        <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" maxlength="14" placeholder="(99) 99999-9999" onkeypress="telefoneFormat('telefone')" onblur="telefoneValidadeExisting('telefone')" required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>">
                                         <span class="help">Ex. (83) 99682-6985</span>
                                         <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone"); else echo $erro_form->setErroFormulario(); ?></div>
                                     </p>
