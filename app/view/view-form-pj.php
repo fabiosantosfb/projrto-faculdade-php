@@ -37,7 +37,7 @@ include_once ('app/view/partlals/header.php');
                                     <!-- <form class="control" method="post" action="/cadastro-pj"> -->
                                     <label class="label">Razão Social</label>
                                     <p class="control">
-                                        <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-8 is-danger"'; else echo 'class="input-w-8 is-sucess"'; ?> id="nome" maxlength="35"  autofocus name="nome" type="text" placeholder="Razao social" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>">
+                                        <input <?php if(isset($_SESSION['erro-nome'])) echo 'class="input-w-8 is-danger"'; else echo 'class="input-w-8 is-sucess"'; ?> id="nome" maxlength="150"  autofocus name="nome" type="text" placeholder="Razao social" required="" value="<?php  if(isset($_POST['nome'])) echo htmlspecialchars($_POST['nome']); ?>">
                                         <span class="help is-success">Preencha corretamente, conforme o registro na Receita Federal.</span>
                                         <div id="nome-erro"><?php if(isset($_SESSION['erro-nome'])) echo $erro_form->getErroFormulario("Nome"); else echo $erro_form->setErroFormulario(); ?></div>
                                     </p>

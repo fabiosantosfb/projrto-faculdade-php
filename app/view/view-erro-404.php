@@ -10,7 +10,7 @@
 ?>
     <article class='message is-danger'>
         <div class="message-header">
-          <p><strong>Error 404</strong></p>
+          <p><strong>Pagina</strong> não encontrada ou sessão expirada!!</p>
         </div>
         <div class="message-body">
           <strong>Pagina Não Encontrada!</strong>

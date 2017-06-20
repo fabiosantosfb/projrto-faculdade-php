@@ -47,20 +47,21 @@
                     </div>
                     <div class="panel-block">
                         <?php if(count($usuario) > 0) {?>
-                            <table class="table table-striped table-narrow">
+                            <table id="dataTable" class="display compact dataTable">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <p>CNPJ</p>
-                                        </th>
-                                        <th>
-                                            <p>NOME</p>
-                                        </th>
-                                        <th>
-                                            <p>STATUS</p>
-                                        </th>
+                                        <th>CNPJ</th>
+                                        <th>NOME/RAZAO SOCIAL</th>
+                                        <th>STATUS</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Cnpj</th>
+                                        <th>Nome/Razão Social</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
 
                                     <form>

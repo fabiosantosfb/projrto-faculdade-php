@@ -23,20 +23,21 @@
                     </div>
                     <div class="panel-block">
                         <?php if(count($usuario) > 0) {?>
-                            <table class="table table-striped table-narrow">
+                            <table id="dataTable" class="display compact dataTable">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <p>CNPJ</p>
-                                        </th>
-                                        <th>
-                                            <p>TELEFONE</p>
-                                        </th>
-                                        <th>
-                                            <p>DATA CADASTRO</p>
-                                        </th>
+                                        <th>CNPJ</th>
+                                        <th>TELEFONE</th>
+                                        <th>CADASTRO</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Cnpj</th>
+                                        <th>Telefone</th>
+                                        <th>Cadastro</th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     <form>
                                         <?php foreach ($usuario as $key) { ?>
