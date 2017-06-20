@@ -14,12 +14,12 @@ include_once ('app/view/partlals/header.php');
 ?>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
 <script src="app/assets/js/validate-existing-data.js" charset="utf-8"></script>
-<div class="principal np-card-1">
+<div class="principal np-card-1 animated animate fadeInDown">
     <?php if(PagesController::getPagesController()->erroreCaptcha() == 1){ echo 'Verificação de segurança não realizada!'; } ?>
     <form class="control" method="post" action="/cadastro-pf" enctype="multipart/form-data">
     <section class="hero np-padding-20">
         <div class="npTitle">
-            <h1 class="title is-4">
+            <h1 class="title is-4 animated animate fadeInDown">
                 Pessoa Física
             </h1>
             <h2 class="subtitle is-6">

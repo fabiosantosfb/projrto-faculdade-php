@@ -47,12 +47,12 @@
 
                                     <span class="help">Será gerado um arquivo em formato JSON com a relação de telefones para bloqueio.</span>
                                 </form>
-                                <form class="control" target="_blank" method="get" action="list-relatorio-browser">
+                                <form class="control" target="_blank" method="post" action="list-relatorio">
                                     <div id="dvContainer">
-                                        Listagem Pdf.
+                                        Download Listagem CSV.
                                     </div>
-                                    <input class="button is-primary is-outlined" id="pdf-g" name="pdf-g" type="submit" value="Gerar arquivo PDF"/>
-                                    <span class="help">Será gerado uma listagem em PDF com a relação de telefones para bloqueio.</span>
+                                    <input class="button is-primary is-outlined" id="csv" name="csv" type="submit" value="Gerar arquivo SVC"/>
+                                    <span class="help">Será gerado uma listagem em CSV com a relação de telefones para bloqueio.</span>
 
                                 </form>
                                 <p>&nbsp;</p>

@@ -23,22 +23,22 @@
                         </p>
                     </div>
                     <div class="panel-block listagem">
-                        <div class="scrollArea">
                         <?php if(count($usuario) > 0) {?>
-                            <table class="table table-striped table-narrow">
+                            <table id="dataTable" class="display compact dataTable">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <p>CPF</p>
-                                        </th>
-                                        <th>
-                                            <p>TELEFONE</p>
-                                        </th>
-                                        <th>
-                                            <p>DATA CADASTRO</p>
-                                        </th>
+                                        <th>CPF</th>
+                                        <th>TELEFONE</th>
+                                        <th>DATA CADASTRO</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>CPF</th>
+                                        <th>Telefone</th>
+                                        <th>Cadastro</th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     <form>
                                         <!-- <p>&nbsp;</p> -->
@@ -53,7 +53,6 @@
                                 </tbody>
                             </table>
                             <?php } ?>
-                        </div>
                             <p>&nbsp;</p>
                         </div>
                     </div>

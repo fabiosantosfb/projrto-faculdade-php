@@ -15,10 +15,13 @@
     <!-- <link rel="stylesheet" href="app/assets/css/bootstrap.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="app/assets/css/bootstrap-theme.min.css" media="screen" title="no title"> -->
     <link rel="stylesheet" href="app/assets/css/bulma.css" media="screen" title="no title">
+    <link rel="stylesheet" href="app/assets/css/animate.min.css" >
     <link rel="stylesheet" href="app/assets/css/font-awesome.min.css" media="screen" title="no title">
     <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="app/assets/css/naoperturbe.css" media="screen" title="no title">
+    <link rel="stylesheet" href="app/assets/css/jquery.dataTables.css" media="screen" title="no title">
     <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="app/assets/js/jquery.dataTables.js"></script>    
 </head>
 <?php include_once ('app/view/partlals/nav.php'); ?>
