@@ -188,7 +188,6 @@ class PagesController {
             return false;
         }
     }
-
     /*
     *FUNÇÃO PARA LOGIN DAS SESSOES DE USUARIO COM reCAPTCHA
     */
@@ -228,7 +227,6 @@ class PagesController {
             return false;
         }
     }
-
     /*
     *FUNÇÃO SAIR DA SESSÃO
     */
@@ -439,7 +437,9 @@ class PagesController {
         $listaspf = $listar->listarPessoaRelat();
         $listaspj = $listar->listarPessoaJuridicaRelat();
 
-        $JSON = json_encode($listaspj+$listaspf);
+        $result = array_merge($listaspf, $listaspj);
+
+        $JSON = json_encode($result);
         echo $JSON;
     }
 
@@ -704,7 +704,6 @@ class PagesController {
             return false;
         }
     }
-
     /*
     *FUNÇÃO PARA LER E SETAR AS MENSAGENS DE ERROS NOS FORMULARIOS
     */
