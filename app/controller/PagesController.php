@@ -132,10 +132,10 @@ class PagesController {
             $link = Bcrypt::hash($_POST['email_rec'],null, "link");
             $_link = $link."&s=".session_id();
 
-            $link_link = "http://localhost:4000/redirect?RecuperarPwD=".$_link ;
+            $link_link = "https://naoperturbe.procon.pb.gov.br/redirect?RecuperarPwD=".$_link ;
 
             $email = new Mail();
-            $email->to = "fabiosantos_fb@hotmail.com";
+            $email->to = $_POST['email_rec'];
             $email->link = $link_link;
 
             $this->_msg = $email->prepareHeader();
@@ -219,8 +219,6 @@ class PagesController {
                 self::page_form_login();
                 die;
             }
-
-
         } else {
             self::getErroForm($validate);
             self::$erro_form['email'] = "email";
@@ -416,17 +414,13 @@ class PagesController {
 
     function listarCsv() {
       $listar = Listar::getInstanceListar();
-      $listaspf = $listar->listarPessoaRelat();
-      $listaspj = $listar->listarPessoaJuridicaRelat();
+      $listastelefone = $listar->listarRelatTelefone();
+      //$listaspj = $listar->listarPessoaJuridicaRelat();
 
       $outPut = fopen("php://outPut", "w");
 
-      foreach ($listaspf as $key) {
+      foreach ($listastelefone as $key) {
         fputcsv($outPut, $key);
-      }
-
-      foreach ($listaspj as $key_j) {
-        fputcsv($outPut, $key_j);
       }
 
       fclose($outPut);
@@ -434,20 +428,17 @@ class PagesController {
 
     function listarJson() {
         $listar = Listar::getInstanceListar();
-        $listaspf = $listar->listarPessoaRelat();
-        $listaspj = $listar->listarPessoaJuridicaRelat();
-        $result = array_merge($listaspj, $listaspf);
+        $listastelefone = $listar->listarRelatTelefone();
+        //$listaspj = $listar->listarPessoaJuridicaRelat();
 
-        $result = array_merge($listaspf, $listaspj);
-
-        $JSON = json_encode($result);
+        $JSON = json_encode($listastelefone);
         echo $JSON;
     }
 
     function listarPdf(){
         $listar = Listar::getInstanceListar();
-        $listaspf = $listar->listarPessoaRelat();
-        $listaspj = $listar->listarPessoaJuridicaRelat();
+        $listastelefone = $listar->listarRelatTelefone();
+        //$listaspj = $listar->listarPessoaJuridicaRelat();
 
         header("Content-type: unicode/utf-8");
         $pdf= new FPDF("P","pt","A4");
@@ -462,17 +453,17 @@ class PagesController {
 
         $pdf->Cell(150, 8, "DATA CADASTRO", 1, 1, 'L');
 
-        foreach ($listaspf as $key => $value) {
+        foreach ($listastelefone as $key => $value) {
             $pdf->Cell(50, 8, "", 1, 0, 'C');
             $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
             $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
         }
 
-        foreach ($listaspj as $key => $value) {
+        /*foreach ($listaspj as $key => $value) {
             $pdf->Cell(50, 8, "", 1, 0, 'C');
             $pdf->Cell(150,8,$value['telefone_numero'],1,0,'L');
             $pdf->Cell(150,8,$value['data_cadastro'],1,1,'L');
-        }
+        }*/
         $pdf->Ln(8);
         if($_GET['pdf-g'])
         $pdf->Output();
@@ -484,22 +475,23 @@ class PagesController {
     */
     function listarXml() {
         $listar = Listar::getInstanceListar();
-        $listaspf = $listar->listarPessoaRelat();
-        $listaspj = $listar->listarPessoaJuridicaRelat();
+        $listastelefone = $listar->listarRelatTelefone();
+        //$listaspj = $listar->listarPessoaJuridicaRelat();
 
         $xmlstr = "<?xml version='1.0' encoding='utf-8' ?>"."<consumidor>\n</consumidor>";
         $xml = new SimpleXMLElement($xmlstr);
 
         $line = $xml->addChild('usuario');
-        foreach ($listaspf as $key) {
+        foreach ($listastelefone as $key) {
             $line->addChild("numero-telefone", $key['telefone_numero']);
             $line->addChild("data-cadastro", $key['data_cadastro']);
         }
+        /*
         $line_j = $xml->addChild('usuario');
         foreach ($listaspj as $key) {
             $line_j->addChild("numero-telefone", $key['telefone_numero']);
             $line_j->addChild("data-cadastro", $key['data_cadastro']);
-        }
+        }*/
         echo $xml->asXML();
     }
     /*
@@ -672,35 +664,25 @@ class PagesController {
     function setErroFormulario() {
         return '<span class="help is-danger "></span>';
     }
-
     /*
     *FUNÇÃO VERIFICAR O reCAPTCHA
     */
     function isReCaptcha($Post_G_Captcha) {
         // lib recaptcha
-
         require_once "recaptchalib.php";
-
         if (isset($Post_G_Captcha) && !empty($Post_G_Captcha)) {
             // resposta vazia
             $response = null;
-
             //site secret key
             $secret = '6LeQXBgUAAAAAD-4kBJevxWt1fQj6DTKDxCimuF_';
-
             $reCaptcha = new ReCaptcha($secret);
-
-            $response = $reCaptcha->verifyResponse(
-                $_SERVER["REMOTE_ADDR"],
-                $Post_G_Captcha
-            );
+            $response = $reCaptcha->verifyResponse($_SERVER["REMOTE_ADDR"], $Post_G_Captcha);
 
             if($response != null && $response->success) {
                 return true;
             } else {
                 return false;
             }
-
         } else {
             return false;
         }
@@ -715,7 +697,6 @@ class PagesController {
     function unsetMsgError() {
         return '<span class="help is-danger "></span>';
     }
-
     /*
     *FUNÇÃO PARA VALIDAR CAMPOS DE FORMULARIO PESSOA FISICA FORMULARIO
     */

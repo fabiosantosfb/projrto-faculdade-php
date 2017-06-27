@@ -26,6 +26,7 @@
                             <table id="dataTable" class="display compact dataTable">
                                 <thead>
                                     <tr>
+                                        <th>NOME</th>
                                         <th>CNPJ</th>
                                         <th>TELEFONE</th>
                                         <th>CADASTRO</th>
@@ -33,6 +34,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Nome</th>
                                         <th>Cnpj</th>
                                         <th>Telefone</th>
                                         <th>Cadastro</th>
@@ -42,6 +44,7 @@
                                     <form>
                                         <?php foreach ($usuario as $key) { ?>
                                             <tr style="color:#000">
+                                                <td><?=$key['nome'] ?></td>
                                                 <td><?=$key['cnpj'] ?></td>
                                                 <td><?=$key['telefone_numero'] ?></td>
                                                 <td><?=$key['data_cadastro'] ?></td>

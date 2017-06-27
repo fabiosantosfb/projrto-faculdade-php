@@ -1,6 +1,6 @@
 <?php
 
-/*  if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pj') {
+ if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pj') {
     $router->get('session-pj','PagesController@redirection');
     $router->get('logar','PagesController@redirection');
     $router->get('','PagesController@redirection');
@@ -55,4 +55,4 @@
   $router->post('redefinir-password','PagesController@redefinirPassword');
   $router->post('add-telefone','PagesController@addTelefone');
 
-  $router->post('validate','PagesController@ValidateExisting');*/
+  $router->post('validate','PagesController@ValidateExisting');

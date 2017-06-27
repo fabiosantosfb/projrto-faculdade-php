@@ -139,7 +139,7 @@ LOCK TABLES `pessoa_fisica` WRITE;
 INSERT INTO `pessoa_fisica` (`id_usuario`, `cpf`, `uf`, `rg`, `data_expedicao`, `orgao_expedidor`) VALUES
 (2, '062.205.294-21', 'pb', '2.685.016', '05/06/99', 'ssp'),
 (3, '016.646.017-67', 'PB', '1.425.691', '26/12/13', 'SSP'),
-(4,'06220529424','pb','2685014','05/05/06','ssp');
+(5,'06220529424','pb','2685014','05/05/06','ssp');
 /*!40000 ALTER TABLE `pessoa_fisica` ENABLE KEYS */;
 UNLOCK TABLES;
 

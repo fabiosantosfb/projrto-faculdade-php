@@ -14,7 +14,9 @@ class Listar extends ConexaoDb {
 
   public function listarPessoa(){
     try{
-        $queryPf = "SELECT * FROM pessoa_fisica INNER JOIN telefone ON pessoa_fisica.id_usuario = telefone.id_usuario";
+        $queryPf = "SELECT usuario.nome, pessoa_fisica.cpf, telefone.telefone_numero, telefone.data_cadastro FROM usuario
+                    INNER JOIN pessoa_fisica ON pessoa_fisica.id_usuario = usuario.id_usuario
+                    INNER JOIN telefone ON telefone.id_usuario = pessoa_fisica.id_usuario AND usuario.type = 'pf'";
         $validar = Parent::getInstanceConexao()->prepare($queryPf);
         $validar->execute();
 
@@ -25,9 +27,9 @@ class Listar extends ConexaoDb {
     }
   }
 
-  public function listarPessoaRelat(){
+  public function listarRelatTelefone(){
     try{
-        $queryPf = "SELECT telefone_numero, data_cadastro  FROM pessoa_fisica INNER JOIN telefone ON pessoa_fisica.id_usuario = telefone.id_usuario";
+        $queryPf = "SELECT telefone_numero, data_cadastro FROM telefone WHERE telefone.id_usuario AND telefone.status_bloqueio = 0";
         $validar = Parent::getInstanceConexao()->prepare($queryPf);
         $validar->execute();
 
@@ -40,7 +42,7 @@ class Listar extends ConexaoDb {
 
   public function listarPessoaJuridicaRelat(){
     try{
-        $queryPf = "SELECT telefone_numero, data_cadastro FROM pessoa_juridica INNER JOIN telefone ON pessoa_juridica.id_usuario = telefone.id_usuario AND telefone.status_bloqueio = 0 ";
+        $queryPf = "SELECT telefone_numero, data_cadastro FROM pessoa_juridica INNER JOIN telefone ON pessoa_juridica.id_usuario = telefone.id_usuario AND telefone.status_bloqueio = 0";
         $validar = Parent::getInstanceConexao()->prepare($queryPf);
         $validar->execute();
 
@@ -53,7 +55,9 @@ class Listar extends ConexaoDb {
 
   public function listarPessoaJuridica(){
     try{
-        $queryPf = "SELECT * FROM pessoa_juridica INNER JOIN telefone ON pessoa_juridica.id_usuario = telefone.id_usuario";
+        $queryPf = "SELECT usuario.nome, pessoa_juridica.cnpj, telefone.telefone_numero, telefone.data_cadastro FROM usuario
+                    INNER JOIN pessoa_juridica ON pessoa_juridica.id_usuario = usuario.id_usuario
+                    INNER JOIN telefone ON telefone.id_usuario = pessoa_juridica.id_usuario AND usuario.type = 'pj'";
         $validar = Parent::getInstanceConexao()->prepare($queryPf);
         $validar->execute();
 
@@ -63,10 +67,22 @@ class Listar extends ConexaoDb {
       return $pF->getMessage();
     }
   }
+  /*public function listarPessoaJuridica(){
+    try{
+        $queryPf = "SELECT * FROM pessoa_juridica INNER JOIN telefone ON pessoa_juridica.id_usuario = telefone.id_usuario";
+        $validar = Parent::getInstanceConexao()->prepare($queryPf);
+        $validar->execute();
+
+        return $validar->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $pF){
+      $this->erro = "EXCEÇÃO NA CONSULTA DE PESSOA FISICA!";
+      return $pF->getMessage();
+    }
+  }*/
 
   public function listarTelemarketing() {
     try{
-        $queryTm = "SELECT *  FROM usuario JOIN pessoa_juridica ON pessoa_juridica.id_usuario = usuario.id_usuario  WHERE usuario.type = 'tlm'";
+        $queryTm = "SELECT * FROM usuario JOIN pessoa_juridica ON pessoa_juridica.id_usuario = usuario.id_usuario  WHERE usuario.type = 'tlm'";
         $validar = Parent::getInstanceConexao()->prepare($queryTm);
         $validar->execute();
 

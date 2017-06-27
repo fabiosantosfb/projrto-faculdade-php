@@ -52,6 +52,7 @@
                                     <tr>
                                         <th>CNPJ</th>
                                         <th>NOME/RAZAO SOCIAL</th>
+                                        <th>EMAIL</th>
                                         <th>STATUS</th>
                                     </tr>
                                 </thead>
@@ -59,6 +60,7 @@
                                     <tr>
                                         <th>Cnpj</th>
                                         <th>Nome/Razão Social</th>
+                                          <th>EMAIL</th>
                                         <th>Status</th>
                                     </tr>
                                 </tfoot>
@@ -69,6 +71,7 @@
                                             <tr>
                                                 <td><?=$key['cnpj'] ?></td>
                                                 <td><?=$key['nome'] ?></td>
+                                                <td><?=$key['email'] ?></td>
                                                 <td>
                                                     <p class="control">
                                                         <label class="checkbox is-medium">

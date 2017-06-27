@@ -1,6 +1,6 @@
 <?php
-    //header("HTTP/1.1 404 Not Found");
-    //header( "refresh:10;url=/" );
+    header("HTTP/1.1 404 Not Found");
+    header( "refresh:10;url=/" );
 
     $HOME = '<a class="nav-item" href="login"><span>Home</span></a>';
     $LOGIN = '<a class="nav-item" href="login"><span>ENTRAR</span></a>';

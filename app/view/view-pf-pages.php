@@ -104,7 +104,7 @@
                                     <div class="column">
                                         <label class="label">Senha</label>
                                         <p class="control">
-                                            <input class="input" id="senha" name="senha" type="password" maxlength="60" placeholder="**********" required="">
+                                            <input class="input" id="senha" name="senha" type="password" maxlength="60" placeholder="*********" required="">
                                         </p>
                                     </div>
 
