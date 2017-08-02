@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="app/assets/css/jquery.dataTables.css" media="screen" title="no title">
     <script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="app/assets/js/jquery.dataTables.js"></script>    
+    <script type="text/javascript" src=" https://cdn.rawgit.com/igorescobar/jQuery-Mask-Plugin/master/src/jquery.mask.js"></script>
+    <script type="text/javascript" charset="utf8" src="app/assets/js/jquery.dataTables.js"></script>
 </head>
 <?php include_once ('app/view/partlals/nav.php'); ?>

@@ -76,11 +76,18 @@ include_once ('app/view/partlals/header.php');
                                     </h2>
                                     <hr>
                                     <label class="label">Número(s)</label>
-                                    <p class="control">
-                                        <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" maxlength="14" placeholder="(99) 99999-9999" onkeypress="telefoneFormat('telefone')" onblur="telefoneValidadeExisting('telefone')" required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>">
-                                        <span class="help">Ex. (83) 99682-6985</span>
-                                        <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone"); else echo $erro_form->setErroFormulario(); ?></div>
+                                    <p class="control" id="telefoneOrigem">
+                                        <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting('telefone')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
                                     </p>
+                                    <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone 2"); else echo $erro_form->setErroFormulario(); ?></div>
+
+                                    <label class="label">Número(s)</label>
+                                    <p class="control" id="telefoneOrigem">
+                                        <input <?php if(isset($_SESSION['erro-telefone_2'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone_2" name="telefone_2" type="text" onblur="telefoneValidadeExisting('telefone_2')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone_2")' value="<?php  if(isset($_POST['telefone_2'])) echo htmlspecialchars($_POST['telefone_2']); ?>" >
+                                    </p>
+                                    <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone_2'])) echo $erro_form->getErroFormulario("Telefone 2"); else echo $erro_form->setErroFormulario(); ?></div>
+
+                                    <span class="help">Ex. (83) 99682-6985</span>
 
                                     <h1 class="title is-6">
                                         ACESSO

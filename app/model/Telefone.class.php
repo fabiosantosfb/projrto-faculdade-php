@@ -1,8 +1,7 @@
 <?php
 
 class Telefone {
-  private $telefone;
-  private $statusBloqueio;
+  private $telefone = array();
   private $INSTANCE_TELEFONE = null;
 
   public function __construct(){}
@@ -13,5 +12,5 @@ class Telefone {
   }
 
   public function getTelefone(){ return $this->telefone; }
-  public function setTelefone($telefone){ $this->telefone = $telefone; }
+  public function setTelefone($telefone){ array_push($this->telefone, $telefone); }
 }

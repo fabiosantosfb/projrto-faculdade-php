@@ -473,20 +473,20 @@ class DataValidator {
      */
     public function is_cpf(){
         $verify = true;
-
         $c = preg_replace('/\D/', '', $this->_data['value']);
-        //$c = preg_match('/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{3}$/', $this->_data['value']);
-
         if (strlen($c) != 11)
             $verify = false;
-
         if (preg_match("/^{$c[0]}{11}$/", $c))
             $verify = false;
-
+        for ($s = 10, $n = 0, $i = 0; $s >= 2; $n += $c[$i++] * $s--);
+        if ($c[9] != ((($n %= 11) < 2) ? 0 : 11 - $n))
+            $verify = false;
+        for ($s = 11, $n = 0, $i = 0; $s >= 2; $n += $c[$i++] * $s--);
+        if ($c[10] != ((($n %= 11) < 2) ? 0 : 11 - $n))
+            $verify = false;
         if(!$verify){
             $this->set_error(sprintf($this->_messages['is_cpf'], $this->_data['value']));
         }
-
         return $this;
     }
 
@@ -518,46 +518,21 @@ class DataValidator {
      * @return Data_Validator The self instance
      */
     public function is_cnpj(){
-      /*  $verify = true;
-
-        $c = preg_replace('/\D/', '', $this->_data['value']);
-        $b = array(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
-
-        if (strlen($c) != 14)
-            $verify = false;
-
-        if(!$verify){
-            $this->set_error(sprintf($this->_messages['is_cnpj'], $this->_data['value']));
-        }
-        return $this;*/
         $verify = true;
-
-        //$c = preg_replace('/\D/', '', $this->_data['value']);
-        $a_ = array(".", "/", "-");
-        $c = str_replace($a_, "", $this->_data['value']);
-
-        $b = array(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
-
-        if (strlen($c) != 14)
-            $verify = false;
-
-        for ($i = 0, $n = 0; $i < 12; $n += $c[$i] * $b[++$i]);
-
-        if ($c[12] != ((($n %= 11) < 2) ? 0 : 11 - $n))
-            $verify = false;
-
-
-
-        for ($i = 0, $n = 0; $i <= 12; $n += $c[$i] * $b[$i++]);
-
-        if ($c[13] != ((($n %= 11) < 2) ? 0 : 11 - $n))
-            $verify = false;
-
-        if(!$verify){
-            $this->set_error(sprintf($this->_messages['is_cnpj'], $this->_data['value']));
-        }
-
-        return $this;
+          $c = preg_replace('/\D/', '', $this->_data['value']);
+          $b = array(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
+          if (strlen($c) != 14)
+              $verify = false;
+          for ($i = 0, $n = 0; $i < 12; $n += $c[$i] * $b[++$i]);
+          if ($c[12] != ((($n %= 11) < 2) ? 0 : 11 - $n))
+              $verify = false;
+          for ($i = 0, $n = 0; $i <= 12; $n += $c[$i] * $b[$i++]);
+          if ($c[13] != ((($n %= 11) < 2) ? 0 : 11 - $n))
+              $verify = false;
+          if(!$verify){
+              $this->set_error(sprintf($this->_messages['is_cnpj'], $this->_data['value']));
+          }
+          return $this;
     }
 
 
@@ -660,7 +635,7 @@ class DataValidator {
      * @access public
      * @param Boolean $inclusive [optional] Include 0 in comparison?
      * @return Data_Validator The self instance
-     */
+     **/
     public function is_positive($inclusive = false){
         $verify = ($inclusive === true ? ($this->_data['value'] >= 0) : ($this->_data['value'] > 0));
         if(!$verify){
@@ -776,9 +751,9 @@ class DataValidator {
      * @return Data_Validator The self instance
      */
     public function is_phone(){
-        $verify = preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{5}[\s.-]?\d{4}$/', $this->_data['value']);
+        //$verify = preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{5}[\s.-]?\d{4}$/', $this->_data['value']);
 
-        if(!$verify){
+        if(!preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{5}[\s.-]?\d{4}$/', $this->_data['value']) && !preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4}[\s.-]?\d{4}$/', $this->_data['value'])){
           $this->set_error(sprintf($this->_messages['is_phone'], $this->_data['name']));
         }
         return $this;

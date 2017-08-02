@@ -2,14 +2,13 @@
 
 class Mail {
   public $to;
-  private $from = "fabiano@procon.pb.gov.br";
+  private $from = "ti@procon.pb.gov.br";
   private $subject = "Redefinir Senha <Não Perturbe>";
   private $message;
   public $link;
   private $html;
   private $newline = "\n";
   private $header;
-
 
   public function prepareHeader() {
 

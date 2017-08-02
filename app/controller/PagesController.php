@@ -13,6 +13,7 @@ class PagesController {
     private $id;
     private $type;
     private $update = null;
+    private $qtd_telefone = 0;
 
     private static $PagesController;
 
@@ -121,6 +122,7 @@ class PagesController {
 
         $listar = Listar::getInstanceListar();
         $usuario = $listar->listarPessoaJuridica();
+        //$usuario = $listar->listarTelemarketing();
 
         require_once ('app/view/view-admin/pessoa-juridica.php');
     }
@@ -129,10 +131,10 @@ class PagesController {
     */
     public function recuperarPwd() {
         if(!isset($_SESSION['erro-email-rec'])) {
-            $link = Bcrypt::hash($_POST['email_rec'],null, "link");
+            $link = Bcrypt::hash($_POST['email_rec'], null, "link");
             $_link = $link."&s=".session_id();
 
-            $link_link = "https://naoperturbe.procon.pb.gov.br/redirect?RecuperarPwD=".$_link ;
+            $link_link = "http://naoperturbe.procon.pb.gov.br/redirect?RecuperarPwD=".$_link ;
 
             $email = new Mail();
             $email->to = $_POST['email_rec'];
@@ -241,7 +243,7 @@ class PagesController {
     function cadastroPessoaJuridica(){
         $this->tipoCadastro = "pessoajuridica";
         // print_r($_POST);
-        if(isset($_SESSION['erro-cnpj']) || isset($_SESSION['erro-rua']) || isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha']) ) {
+        if(isset($_SESSION['erro-cnpj']) || isset($_SESSION['erro-rua']) || isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-telefone_2']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha']) ) {
             self::page_form_pessoajuridica();
         } else {
             if(!self::cadastrar($_POST['g-recaptcha-response'])) {
@@ -270,7 +272,7 @@ class PagesController {
         $this->tipoCadastro = "pessoafisica";
 
         if(isset($_SESSION['erro-uf']) || isset($_SESSION['erro-org']) || isset($_SESSION['erro-data']) || isset($_SESSION['erro-rg']) || isset($_SESSION['erro-cpf']) || isset($_SESSION['erro-rua']) ||
-        isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha'])){
+        isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-telefone_2']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha'])){
             self::page_form_pessoafisica();
         } else {
             if(!self::cadastrar($_POST['g-recaptcha-response'])) {
@@ -310,7 +312,15 @@ class PagesController {
             if (self::isReCaptcha($recaptcha_response)) {
 
                 $this->fone = Telefone::getInstanceTelefone();
-                $this->fone->setTelefone($_POST['telefone']);
+
+                if(!empty($_POST['telefone'])) {
+                  $this->fone->setTelefone($_POST['telefone']);
+                  $this->qtd_telefone = $this->qtd_telefone + 1;
+                }
+                if(!empty($_POST['telefone_2'])) {
+                  $this->fone->setTelefone($_POST['telefone_2']);
+                  $this->qtd_telefone = $this->qtd_telefone + 1;
+                }
 
                 $hash = Bcrypt::hash($_POST['senha']);
 
@@ -350,7 +360,7 @@ class PagesController {
                     $this->pessoa->setOrgExpedidor($_POST['orgao_expedidor']);
                     $this->pessoa->setUf($_POST['uf']);
                 }
-                if(self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone))
+                if(self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone, $this->qtd_telefone))
                 {return true;} else {return false;}
 
             } else {
@@ -368,8 +378,10 @@ class PagesController {
     /*
     *FUNÇÃO INSERIR DADOS CADASTRO
     */
-    function insertUsuario($pessoa, $login, $endereco, $tipoCadastro, $fone) {
-        $insertUsuario = new DaoUsuario($pessoa, $login, $endereco, $fone);
+    function insertUsuario($pessoa, $login, $endereco, $tipoCadastro, $fone, $qtd_t) {
+
+        $insertUsuario = new DaoUsuario($pessoa, $login, $endereco, $fone, $qtd_t);
+
 
         if($tipoCadastro == "pessoajuridica" && $pessoa->getCnpj() != null) {
             if($insertUsuario->insertUsuario($tipoCadastro)) {
@@ -668,6 +680,7 @@ class PagesController {
     *FUNÇÃO VERIFICAR O reCAPTCHA
     */
     function isReCaptcha($Post_G_Captcha) {
+      return true;
         // lib recaptcha
         require_once "recaptchalib.php";
         if (isset($Post_G_Captcha) && !empty($Post_G_Captcha)) {
@@ -777,9 +790,12 @@ class PagesController {
                     self::unsetSessionError('erro-cnpj');
                 }
             }
-        }if (!empty($_POST['telefone'])){
+        } if (!empty($_POST['telefone'])){
+
             $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
-            if(!$validate->validate()){
+
+
+            if(!$validate->validate() && !empty($_POST['telefone'])){
                 self::startSessionError('erro-telefone');
                 self::getErroForm($validate);
             } else {
@@ -790,13 +806,28 @@ class PagesController {
                     self::unsetSessionError('erro-telefone');
                 }
             }
-        } if (!empty($_POST['cep'])){
-            $validate->set('cep', $_POST['cep'])->is_required()->is_zipCode();
-            if(!$validate->validate()) {
-                self::startSessionError('erro-cep');
+        }
+        if (!empty($_SESSION['telefone_2']) ){
+            $validate->set('telefone_2', $_POST['telefone_2'])->is_required()->is_phone();
+
+            if(!$validate->validate() && !empty($_POST['telefone_2'])){
+                self::startSessionError('erro-telefone_2');
                 self::getErroForm($validate);
             } else {
-                self::unsetSessionError('erro-cep');
+                if(!$userData->validateTelefoneExist($_POST['telefone_2'])) {
+                    self::startSessionError('erro-telefone_2');
+                    $userData->getError();
+                } else {
+                    self::unsetSessionError('erro-telefone_2');
+                }
+            } if (!empty($_POST['cep'])){
+                $validate->set('cep', $_POST['cep'])->is_required()->is_zipCode();
+                if(!$validate->validate()) {
+                    self::startSessionError('erro-cep');
+                    self::getErroForm($validate);
+                } else {
+                    self::unsetSessionError('erro-cep');
+                }
             }
         }
     }
@@ -805,11 +836,11 @@ class PagesController {
         $_SESSION[$campo] = true;
     }
 
-    function unsetSessionError($campo){
+    function unsetSessionError($campo) {
         unset($_SESSION[$campo]);
     }
 
-    public function redirection() {
+    function redirection() {
         if(isset($_SESSION['type_user']) && !empty($_SESSION['type_user']) && $_SESSION['type_user'] == 'pf') {
             if(isset($_SESSION['token-user-session']) && isset($_SESSION['token-user-agent']) && isset($_SESSION['token-user-ip'])
             && Bcrypt::check('user'.$_SERVER['HTTP_USER_AGENT'], $_SESSION['token-user-agent']) && Bcrypt::check('user'.$_SERVER['REMOTE_ADDR'], $_SESSION['token-user-ip'])) {

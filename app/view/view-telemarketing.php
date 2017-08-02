@@ -51,7 +51,7 @@
                                     <div id="dvContainer">
                                         Download Listagem CSV.
                                     </div>
-                                    <input class="button is-primary is-outlined" id="csv" name="csv" type="submit" value="Gerar arquivo SVC"/>
+                                    <input class="button is-primary is-outlined" id="csv" name="csv" type="submit" value="Gerar arquivo CSV"/>
                                     <span class="help">Será gerado uma listagem em CSV com a relação de telefones para bloqueio.</span>
 
                                 </form>

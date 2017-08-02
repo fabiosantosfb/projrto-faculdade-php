@@ -8,12 +8,14 @@ class DaoUsuario extends ConexaoDb {
     private $messages_errors = array();
     private static $error;
     private $last_id;
+    private $qtd_t;
 
-    public function __construct($usuario, $login, $endereco, $fone){
+    public function __construct($usuario, $login, $endereco, $fone, $_qtd_t){
         $this->dataUsuario = $usuario;
         $this->dataAutenticacao = $login;
         $this->dataEndereco = $endereco;
         $this->fone = $fone;
+        $this->qtd_t = $_qtd_t;
         $this->messages_erros_insert();
     }
 
@@ -52,11 +54,15 @@ class DaoUsuario extends ConexaoDb {
             self::$pessoaUser($db, $validarUser, $id);
 
             $status_telefone = ($this->dataAutenticacao->getType() == 'tlm') ? 1 : 0;
-            $validarUser = $db->prepare("INSERT INTO telefone values (default, :id_usuario, :status_bloqueio, :telefone, default, default)");
-            $validarUser->bindValue(":id_usuario", $id);
-            $validarUser->bindValue(":status_bloqueio", $status_telefone);
-            $validarUser->bindValue(":telefone", $this->fone->getTelefone());
-            $validarUser->execute();
+            $array_fone = $this->fone->getTelefone();
+
+            for($i = 0; $i < $this->qtd_t; $i++) {
+              $validarUser = $db->prepare("INSERT INTO telefone values (default, :id_usuario, :status_bloqueio, :telefone, default, default)");
+              $validarUser->bindValue(":id_usuario", $id);
+              $validarUser->bindValue(":status_bloqueio", $status_telefone);
+              $validarUser->bindValue(":telefone", $array_fone[$i]);
+              $validarUser->execute();
+            }
 
             if($db->commit()) {
               return true;
