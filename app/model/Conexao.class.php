@@ -1,9 +1,11 @@
 <?php
 
 class ConexaoDb {
-  private static $SQL = "mysql:host=localhost;dbname=proconpb_naoperturbe_v2";
+  private static $ip = "http://192.168.0.253";
+
+  private static $SQL = "mysql:host=192.168.0.253:3306;dbname=proconpb_naoperturbe_v2";
   private static $USER = "root";
-  private static $PWD = "fabioadmin";
+  private static $PWD = "pr0c0np!@#";
   private $transactionCount = 0;
   private $INSTANCE_CONEXAO = null;
 

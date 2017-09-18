@@ -5,8 +5,10 @@
   $PESSOA = ($telemarketing)? '<a class="nav-item" href="session-pj"><span>Meus Dados</span></a><a class="nav-item is-active" href="list"><span>Listagem</span></a>':
   $HOME = '';
   $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
-?>
-<?php include_once 'app/view/partlals/header.php' ?>
+
+  include_once 'app/view/partlals/header.php' ?>
+
+<script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
 <section class="hero np-padding-20">
     <div class="npTitle">
         <h1 class="title is-4">
@@ -61,28 +63,38 @@
                             <div id="tel"></div>
                         </div>
                     </div>
-                    <div class="column">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <figure class="image icon is-large" style="height: 40px; width: 40px;">
-                                            <i class="fa fa-exclamation-triangle deepskyblue"></i>
-                                        </figure>
+                        <div class="column">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <figure class="image icon is-large" style="height: 40px; width: 40px;">
+                                                <i class="fa fa-exclamation-triangle deepskyblue"></i>
+                                            </figure>
+                                        </div>
+                                        <div class="media-content">
+                                            <p class="title is-4">Não Pertube</p>
+                                            <p class="subtitle is-6">Projeto de Lei N. 599</p>
+                                        </div>
                                     </div>
-                                    <div class="media-content">
-                                        <p class="title is-4">Não Pertube</p>
-                                        <p class="subtitle is-6">Projeto de Lei N. 599</p>
+                                    <div class="content">
+                                        Art. 2 - A partir do 30 (trigésimo) dia do ingresso do usuário no cadastro <strong>"NÃO PERTUBE"</strong>, as empresas que prestam serviços relacionados ao parágrafo único do artigo 1 ou pessoas físicas contratadas com tal propósito, não poderão efetuar ligações telefônicas às pessoas inscritas no cadastro supracitado.
+                                        <br>
+                                        <small>16:18 PM - 6 Fev 2017</small>
                                     </div>
-                                </div>
-                                <div class="content">
-                                    Art. 2 - A partir do 30 (trigésimo) dia do ingresso do usuário no cadastro <strong>"NÃO PERTUBE"</strong>, as empresas que prestam serviços relacionados ao parágrafo único do artigo 1 ou pessoas físicas contratadas com tal propósito, não poderão efetuar ligações telefônicas às pessoas inscritas no cadastro supracitado.
-                                    <br>
-                                    <small>16:18 PM - 6 Fev 2017</small>
                                 </div>
                             </div>
+                            <p class="control">
+                                <!--<form method="post" action="add-telefone">-->
+                                <form>
+                                    <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['id_usuario'] ?>">
+                                    <input class="input-w-8" id="token" autofocus name="token"  placeholder="Digite uma palavra chave" required="" >
+                                    <button class="button is-primary" type="button" onclick='gerarToken()';>Gerar</button>
+                                    <span class="help">Gerar token para acesso remoto.</span>
+                                    <p id="tokenerro"></p>
+                                </form>
+                            </p>
                         </div>
-                    </div>
                 </div>
             </div>
         </section>

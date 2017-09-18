@@ -38,3 +38,11 @@ function updatePassword() {
     success: function(data) { $('#login').html(data); }
   });
 }
+
+function gerarToken() {
+    $.ajax({
+      type: "POST", url: "gerar-token",
+      data: { token: $('#token').val() },
+      success: function(data) { $('#tokenerro').html(data); }
+    });
+}

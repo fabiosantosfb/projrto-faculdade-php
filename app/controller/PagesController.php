@@ -52,6 +52,7 @@ class PagesController {
         $HOME = '<a class="nav-item is-active" href="pessoa-fisica"><span>Pessoa Física</span></a>';
         $PESSOA = '<a class="nav-item" href="pessoa-juridica"><span>Pessoa Jurídica</span></a>';
         $LOGIN = '<a class="nav-item" href="login"><span>ENTRAR</span></a>';
+
         require_once ('app/view/view-form-pj.php');
     }
     /*
@@ -136,9 +137,9 @@ class PagesController {
 
             $link_link = "http://naoperturbe.procon.pb.gov.br/redirect?RecuperarPwD=".$_link ;
 
-            $email = new Mail();
-            $email->to = $_POST['email_rec'];
-            $email->link = $link_link;
+            $email = new Mail($_POST['email_rec'], $link_link);
+            //$email->to = $_POST['email_rec'];
+            //$email->link = $link_link;
 
             $this->_msg = $email->prepareHeader();
             self::page_form_recuperar_pwd();
@@ -650,6 +651,14 @@ class PagesController {
         }
     }
 
+    function gerarToken() {
+        $link = Bcrypt::hash($_POST['token'], null, "token");
+        $_link = $link."&s=".session_id();
+
+        $link_link = "http://naoperturbe.procon.pb.gov.br/doc?JSON=".$_link ;
+
+        echo $link_link;
+    }
     /*
     *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
     */

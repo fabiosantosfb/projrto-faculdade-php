@@ -46,6 +46,7 @@
   $router->post('logar_reCAPTCHA','PagesController@logar_reCAPTCHA');
 
   $router->get('logout','PagesController@logout');
+  //$router->get('token','PagesController@tokenValidate');
 
   $router->post('up-tel','PagesController@updateTelefone');
   $router->post('up-doc','PagesController@updateDocumentoPf');
@@ -54,5 +55,6 @@
   $router->post('up-password','PagesController@updatePassword');
   $router->post('redefinir-password','PagesController@redefinirPassword');
   $router->post('add-telefone','PagesController@addTelefone');
+  $router->post('gerar-token','PagesController@gerarToken');
 
   $router->post('validate','PagesController@ValidateExisting');
