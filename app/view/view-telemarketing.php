@@ -86,9 +86,9 @@
                             </div>
                             <p class="control">
                                 <!--<form method="post" action="add-telefone">-->
-                                <form>
-                                    <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['id_usuario'] ?>">
-                                    <input class="input-w-8" id="token" autofocus name="token"  placeholder="Digite uma palavra chave" required="" >
+                                <form  class="control">
+                                    <input id="usuario" name="usuario" type="hidden" value="<?=$telemarketing['id_usuario'] ?>">
+                                    <input class="input-w-8" id="token" required=""  name="token"  placeholder="Digite uma palavra chave">
                                     <button class="button is-primary" type="button" onclick='gerarToken()';>Gerar</button>
                                     <span class="help">Gerar token para acesso remoto.</span>
                                     <p id="tokenerro"></p>

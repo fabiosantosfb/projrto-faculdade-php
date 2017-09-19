@@ -40,9 +40,13 @@ function updatePassword() {
 }
 
 function gerarToken() {
-    $.ajax({
-      type: "POST", url: "gerar-token",
-      data: { token: $('#token').val() },
-      success: function(data) { $('#tokenerro').html(data); }
-    });
+    if($('#token').val() != ""){
+        $.ajax({
+          type: "POST", url: "gerar-token",
+          data: { token: $('#token').val(), id: $('#usuario').val() },
+          success: function(data) { $('#tokenerro').html(data); }
+        });
+    } else {
+        alert("Digiter uma chave!");
+    }
 }

@@ -77,6 +77,7 @@ class DataValidator {
             'is_plate'       => '<span class="help is-danger ">O campo $s não é válido</span>',
             'is_ip'          => '<span class="help is-danger ">O campo $s não é um ip válido</span>',
             'is_rg'          => '<span class="help is-danger ">O campo não é um RG válido</span>',
+            'token'          => '<span class="help is-danger ">O campo token não válido</span>',
             'is_reCaptcha'   => '<span class="help is-danger ">Verificação de segurança não realizada!</span>'
 
         );

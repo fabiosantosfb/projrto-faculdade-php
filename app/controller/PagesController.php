@@ -652,12 +652,28 @@ class PagesController {
     }
 
     function gerarToken() {
-        $link = Bcrypt::hash($_POST['token'], null, "token");
-        $_link = $link."&s=".session_id();
+        $validate   = new DataValidator();
+        $link       = Bcrypt::hash($_POST['token'], null, "token");
+        $_link      = $link."&s=".session_id();
+        $id         = $_POST['id'];
+        $link_link  = "http://naoperturbe.procon.pb.gov.br/doc?JSON=".$_link ;
 
-        $link_link = "http://naoperturbe.procon.pb.gov.br/doc?JSON=".$_link ;
 
-        echo $link_link;
+        $validate->set('token', $_POST['token'])->is_required();
+
+        if(!$validate->validate()){
+            self::startSessionError('tokenerro');
+            self::getErroForm($validate);
+        } else {
+            $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
+            $updateTelemarketing->token($link_link, $id);
+            echo $link_link;
+        }
+    }
+
+    function tokenValidate(){
+        $doc = $_GET['doc'];
+        
     }
     /*
     *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO

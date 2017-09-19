@@ -24,6 +24,20 @@ class UpdateUser extends  ConexaoDb {
     }
   }
 
+  public function token($token, $id){
+    try{
+        $update = "UPDATE pessoa_juridica SET token = :token  WHERE id_usuario = :id";
+        $validar = Parent::getInstanceConexao()->prepare($update);
+        $validar->bindValue(":token",$token);
+        $validar->bindValue(":id",$id);
+        $validar->execute();
+
+    } catch (Exception $tlmk){
+      echo '<span class="help is-danger ocultar">Erro '.$tlmk->getMessage().'</span>';
+      return false;
+    }
+  }
+
   public function updTelefone($telefone, $id, $id_telefone){
     try{
         $update = "UPDATE telefone SET telefone_numero = :telefone  WHERE id_usuario = :id AND id_telefone = :id_telefone";
