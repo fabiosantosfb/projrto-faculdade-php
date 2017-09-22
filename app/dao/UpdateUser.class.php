@@ -67,6 +67,22 @@ class UpdateUser extends  ConexaoDb {
     }
   }
 
+  public function deleteTelefone($telefone, $id, $id_telefone){
+    try{
+        $delete = "DELETE FROM telefone  WHERE id_usuario = :id AND id_telefone = :id_telefone";
+        $validar = Parent::getInstanceConexao()->prepare($delete);
+        $validar->bindValue(":id",$id);
+        $validar->bindValue(":id_telefone", $id_telefone);
+
+        if($validar->execute()){
+          echo '<span class="help np-is-primary ocultar">Removido com sucesso!</span>';
+        }
+    } catch (Exception $tele){
+      echo '<span class="help is-danger ocultar">Erro ao Remover Telefone: '.$tele->getMessage().'</span>';
+      return false;
+    }
+  }
+
   public function upDocumento($nome, $usuario, $cpf, $rg, $dataexpedicao, $orgao_expedidor, $uf){
     try{
         $update = "UPDATE proconpb_naoperturbe_v2.pessoa_fisica SET cpf=:cpf, uf=:uf, rg=:rg, data_expedicao=:data, orgao_expedidor=:org WHERE id_usuario=:id";

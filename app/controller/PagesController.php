@@ -533,6 +533,22 @@ class PagesController {
     }
 
     /*
+    *FUNÇÃO PARA EXCLUIR TELEFONE
+    */
+    function deleteTelefone() {
+      $validate = new DataValidator();
+      $validate->set('telefone', $_POST['telefone']);
+
+      if($validate->validate()){
+          $update = UpdateUser::getInstanceUpdateUser();
+          $update->deleteTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
+      } else {
+          self::getErroForm($validate);
+          self::userPessoaFisica();
+      }
+    }
+
+    /*
     * FUNCTION ATUALIZAR DADOS PESSOA FISICA
     */
     function updateDocumentoPf() {
@@ -673,7 +689,7 @@ class PagesController {
 
     function tokenValidate(){
         $doc = $_GET['doc'];
-        
+
     }
     /*
     *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO

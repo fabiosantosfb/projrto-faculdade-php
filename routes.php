@@ -49,6 +49,7 @@
   $router->get('doc','PagesController@tokenValidate');
 
   $router->post('up-tel','PagesController@updateTelefone');
+  $router->post('del-tel','PagesController@deleteTelefone');
   $router->post('up-doc','PagesController@updateDocumentoPf');
   $router->post('up-cnpj','PagesController@updateDocumentoPj');
   $router->post('up-address','PagesController@updateAddress');
