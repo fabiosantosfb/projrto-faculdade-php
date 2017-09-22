@@ -129,7 +129,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="panel">
                 <div class="panel-heading">
                     <p class="title is-6">
@@ -222,6 +221,61 @@
                     </p>
                 </form>
             </div>
-        </div>
+            <?php if($pessoa['type']==='tlm'){?>
+                <div class="panel">
+                <div class="panel-heading">
+                    <p class="title is-6">
+                        <strong>TOKEN</strong>
+                    </p>
+                </div>
+                <div class="panel-block">
+                    <form class="control">
+                        <div class="columns">
+                            <div class="column is-half">
+                                <label class="label">Chave</label>
+                                <p class="control">
+                                    <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['id_usuario'] ?>">
+                                    <input class="input-w-8" id="token" required=""  name="token"  placeholder="Digite uma palavra chave">
+                                    <button class="button is-primary" type="button" onclick='gerarToken()';>Gerar</button>
+                                    <span class="help">Gerar token para acesso remoto.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <label class="label">Url</label>
+                                <p class="control">
+                                    <span class="help">http://localhost:3000/relatorio/</span>
+                                </p>
+                            </div>
+                            <div class="column">
+                                <label class="label">Tipo Relatorio</label>
+                                <p class="control">
+                                    <span class="help">JSON/XML</span>
+                                </p>
+                            </div>
+                            <div class="column">
+                                <label class="label">Identificador</label>
+                                <p class="control">
+                                    <span class="help" id="identificador"></span>
+                                </p>
+                            </div>
+                            <div class="column">
+                                <label class="label">Token</label>
+                                <p class="control">
+                                    <div class="help" id="tokeng"><?=$pessoa['token'] ?></div>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <label class="label">Exemplo</label>
+                            <p class="control">
+                                <span class="help">http://localhost:3000/relatorio/doc=TIPO&id=IDENTIFICADOR&token=TOKEN</span>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <?php  } ?>
     </section>
     <?php include_once ('app/view/partlals/footer.php') ?>

@@ -8,7 +8,6 @@
 
   include_once 'app/view/partlals/header.php' ?>
 
-<script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
 <section class="hero np-padding-20">
     <div class="npTitle">
         <h1 class="title is-4">
@@ -84,18 +83,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="control">
-                                <!--<form method="post" action="add-telefone">-->
-                                <form  class="control">
-                                    <input id="usuario" name="usuario" type="hidden" value="<?=$telemarketing['id_usuario'] ?>">
-                                    <input class="input-w-8" id="token" required=""  name="token"  placeholder="Digite uma palavra chave">
-                                    <button class="button is-primary" type="button" onclick='gerarToken()';>Gerar</button>
-                                    <span class="help">Gerar token para acesso remoto.</span>
-                                    <p id="tokenerro"></p>
-                                </form>
-                            </p>
                         </div>
                 </div>
             </div>
-        </section>
+</section>
 <?php include_once ('app/view/partlals/footer.php') ?>

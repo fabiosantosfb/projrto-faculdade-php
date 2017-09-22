@@ -54,7 +54,11 @@ function gerarToken() {
         $.ajax({
           type: "POST", url: "gerar-token",
           data: { token: $('#token').val(), id: $('#usuario').val() },
-          success: function(data) { $('#tokenerro').html(data); }
+          success: function(data) {
+               var data = $.parseJSON(data);
+                $('#tokeng').html(data.token);
+                $('#identificador').html(data.id);
+            }
         });
     } else {
         alert("Digiter uma chave!");

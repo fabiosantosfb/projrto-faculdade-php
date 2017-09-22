@@ -46,7 +46,7 @@
   $router->post('logar_reCAPTCHA','PagesController@logar_reCAPTCHA');
 
   $router->get('logout','PagesController@logout');
-  $router->get('doc','PagesController@tokenValidate');
+  $router->get('relatorio','PagesController@tokenValidate');
 
   $router->post('up-tel','PagesController@updateTelefone');
   $router->post('del-tel','PagesController@deleteTelefone');

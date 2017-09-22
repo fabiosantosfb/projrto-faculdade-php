@@ -401,25 +401,15 @@ class PagesController {
     */
     function listarRelatorio() {
         if(isset($_POST['json']) && !empty($_POST['json'])){
-            header("Content-type: application/json");
-            header('Content-Disposition: attachment; filename="nao-perturbe.json"');
             self::listarJson();
             die;
         } else if(isset($_POST['xml']) && !empty($_POST['xml'])){
-            header("Content-type: application/xml");
-            header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
             self::listarXml();
             die;
         } else if(isset($_POST['csv']) && !empty($_POST['csv'])){
-            header('Content-type: text/csv');
-            header('Content-Disposition: attachment; filename="nao-perturbe.csv"');
-            header('Progma: no-cache');
-            header('Expires: 0');
             self::listarCsv();
             die;
         } else if(isset($_POST['pdf']) && !empty($_POST['pdf'])){
-            header('Content-type: application/pdf');
-            header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
             self::listarPdf();
             die;
         }
@@ -429,6 +419,10 @@ class PagesController {
       $listar = Listar::getInstanceListar();
       $listastelefone = $listar->listarRelatTelefone();
       //$listaspj = $listar->listarPessoaJuridicaRelat();
+      header('Content-type: text/csv');
+      header('Content-Disposition: attachment; filename="nao-perturbe.csv"');
+      header('Progma: no-cache');
+      header('Expires: 0');
 
       $outPut = fopen("php://outPut", "w");
 
@@ -440,6 +434,9 @@ class PagesController {
     }
 
     function listarJson() {
+        header("Content-type: application/json");
+        header('Content-Disposition: attachment; filename="nao-perturbe.json"');
+
         $listar = Listar::getInstanceListar();
         $listastelefone = $listar->listarRelatTelefone();
         //$listaspj = $listar->listarPessoaJuridicaRelat();
@@ -452,6 +449,8 @@ class PagesController {
         $listar = Listar::getInstanceListar();
         $listastelefone = $listar->listarRelatTelefone();
         //$listaspj = $listar->listarPessoaJuridicaRelat();
+        header('Content-type: application/pdf');
+        header('Content-Disposition: attachment; filename="nao-perturbe.pdf"');
 
         header("Content-type: unicode/utf-8");
         $pdf= new FPDF("P","pt","A4");
@@ -487,6 +486,9 @@ class PagesController {
     * FUÇÃO DE LISTAGEM JSON PARA TELEMARKETING
     */
     function listarXml() {
+        header("Content-type: application/xml");
+        header('Content-Disposition: attachment; filename="nao-perturbe.xml"');
+
         $listar = Listar::getInstanceListar();
         $listastelefone = $listar->listarRelatTelefone();
         //$listaspj = $listar->listarPessoaJuridicaRelat();
@@ -669,27 +671,54 @@ class PagesController {
 
     function gerarToken() {
         $validate   = new DataValidator();
-        $link       = Bcrypt::hash($_POST['token'], null, "token");
-        $_link      = $link."&s=".session_id();
-        $id         = $_POST['id'];
-        $link_link  = "http://naoperturbe.procon.pb.gov.br/doc?JSON=".$_link ;
+        //$link       = Bcrypt::hash($_POST['token'], null, "token");
+        //$id       = Bcrypt::hash( $_POST['id'], null, "id");
+        $link   =   md5(rand(1, $_POST['token']));
+        $id     =   md5(rand(1, $_POST['id']));
+
+
+        $_token      = $link."&s=".session_id();
+        //$link_link  = "http://localhost:3000/relatorio?doc=JSON&?id=".$id."&?token=".$_token;
+
+        $_token = $_token;
+
 
 
         $validate->set('token', $_POST['token'])->is_required();
 
         if(!$validate->validate()){
-            self::startSessionError('tokenerro');
+            self::startSessionError('tokeng');
             self::getErroForm($validate);
         } else {
             $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
-            $updateTelemarketing->token($link_link, $id);
-            echo $link_link;
+            $updateTelemarketing->token($_token, $_POST['id']);
+            //$data = array('token' => $_token, 'id' => $id);
+            $data = ['token' => $_token, 'id' => $id];
+            print_r(json_encode($data));
         }
     }
 
     function tokenValidate(){
         $doc = $_GET['doc'];
+        $pessoaJuridica = Selection::getInstanceSelection();
+        $dados = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
 
+        // echo json_encode($_GET['doc'])."<br>";
+        // echo json_encode($_GET['token'])."<br><br>";
+
+        if($doc == "JSON"){
+            self::listarJson();
+        } else if($doc == "XML") {
+            self::listarXml();
+        } else if($doc == "CSV") {
+            self::listarCsv();
+        } else if($doc == "PDF") {
+            self::listarPdf();
+        } else {
+            header("Content-type: application/json");
+            echo json_encode(array('erro' => 'type doc invalid link','validate-link-json' => 'doc=JSON','validate-link-xml' => 'doc=XML','validate-link-csv' => 'doc=CSV'));
+            die;
+        }
     }
     /*
     *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
