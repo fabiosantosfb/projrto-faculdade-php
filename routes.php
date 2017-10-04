@@ -46,7 +46,6 @@
   $router->post('logar_reCAPTCHA','PagesController@logar_reCAPTCHA');
 
   $router->get('logout','PagesController@logout');
-  $router->get('relatorio','PagesController@tokenValidate');
 
   $router->post('up-tel','PagesController@updateTelefone');
   $router->post('del-tel','PagesController@deleteTelefone');
@@ -56,6 +55,10 @@
   $router->post('up-password','PagesController@updatePassword');
   $router->post('redefinir-password','PagesController@redefinirPassword');
   $router->post('add-telefone','PagesController@addTelefone');
-  $router->post('gerar-token','PagesController@gerarToken');
+  $router->post('gerar-token','PagesController@gerarTokenAcesso');
 
   $router->post('validate','PagesController@ValidateExisting');
+
+  /** METODOS RESPOSAVEIS PELA API **/
+  $router->post('relatorio','PagesController@tokenValidate');
+  $router->get('relatorio','PagesController@erroMethod');

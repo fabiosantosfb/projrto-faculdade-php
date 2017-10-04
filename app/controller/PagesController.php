@@ -522,6 +522,7 @@ class PagesController {
     * FUNCTION ATUALIZAR TELEFONE
     */
     function updateTelefone() {
+        echo "<script>alert('tel')</script>";
         $validate = new DataValidator();
         $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
 
@@ -538,6 +539,7 @@ class PagesController {
     *FUNÇÃO PARA EXCLUIR TELEFONE
     */
     function deleteTelefone() {
+
       $validate = new DataValidator();
       $validate->set('telefone', $_POST['telefone']);
 
@@ -669,56 +671,55 @@ class PagesController {
         }
     }
 
-    function gerarToken() {
+    function gerarTokenAcesso() {
         $validate   = new DataValidator();
-        //$link       = Bcrypt::hash($_POST['token'], null, "token");
-        //$id       = Bcrypt::hash( $_POST['id'], null, "id");
-        $link   =   md5(rand(1, $_POST['token']));
-        $id     =   md5(rand(1, $_POST['id']));
-
-
-        $_token      = $link."&s=".session_id();
-        //$link_link  = "http://localhost:3000/relatorio?doc=JSON&?id=".$id."&?token=".$_token;
-
-        $_token = $_token;
-
-
 
         $validate->set('token', $_POST['token'])->is_required();
 
         if(!$validate->validate()){
-            self::startSessionError('tokeng');
+            self::startSessionError('token');
             self::getErroForm($validate);
         } else {
+            $_token      =   md5($_POST['token']);
+            $identicador =   md5(rand(1, $_POST['id']));
+
+            $token      = $_token."&s=".session_id();
+            $link_link  = "http://localhost:3000/relatorio?doc=JSON&?id=".$identicador."&?token=".$token;
+
             $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
-            $updateTelemarketing->token($_token, $_POST['id']);
+            $updateTelemarketing->token($token, $_POST['id'], $identicador);
             //$data = array('token' => $_token, 'id' => $id);
-            $data = ['token' => $_token, 'id' => $id];
-            print_r(json_encode($data));
+            $data = ['token' => $token, 'id' => $identicador];
+            print_r(json_encode($data, true));
         }
     }
 
     function tokenValidate(){
-        $doc = $_GET['doc'];
+        $doc = $_POST['doc'];
         $pessoaJuridica = Selection::getInstanceSelection();
-        $dados = $pessoaJuridica->selectionPessoaJuridica($_SESSION['id']);
+        $dados = $pessoaJuridica->selectionPessoaTelemarketing($_POST['id'], $_POST['token']);
 
-        // echo json_encode($_GET['doc'])."<br>";
-        // echo json_encode($_GET['token'])."<br><br>";
-
-        if($doc == "JSON"){
-            self::listarJson();
-        } else if($doc == "XML") {
-            self::listarXml();
-        } else if($doc == "CSV") {
-            self::listarCsv();
-        } else if($doc == "PDF") {
-            self::listarPdf();
+        if($dados) {
+            if(strtolower($doc) == "json"){
+                self::listarJson();
+            } else if(strtolower($doc) == "xml") {
+                self::listarXml();
+            } else if(strtolower($doc) == "csv") {
+                self::listarCsv();
+            } else {
+                header("Content-type: application/json");
+                echo json_encode(array('erro' => 'type doc invalid link','validate-link-json' => 'doc=JSON','validate-link-xml' => 'doc=XML','validate-link-csv' => 'doc=CSV'));
+                die;
+            }
         } else {
             header("Content-type: application/json");
-            echo json_encode(array('erro' => 'type doc invalid link','validate-link-json' => 'doc=JSON','validate-link-xml' => 'doc=XML','validate-link-csv' => 'doc=CSV'));
-            die;
+            echo json_encode(array('erro' => 'credenciais incorreta, acesso seu perfil no portal'));
         }
+    }
+
+    function erroMethod(){
+        header("Content-type: application/json");
+        echo json_encode(array('erro' => 'use method POST'));
     }
     /*
     *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO
