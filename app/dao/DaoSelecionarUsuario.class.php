@@ -94,6 +94,24 @@ class Selection extends ConexaoDb {
     }
   }
 
+  public function selectionPessoaTelemarketing($id, $token){
+    try{
+        $queryPj = "SELECT * FROM pessoa_juridica WHERE identificador = :identificador AND token = :token";
+        $validar = Parent::getInstanceConexao()->prepare($queryPj);
+        $validar->bindValue(":identificador",$id);
+        $validar->bindValue(":token",$token);
+        $validar->execute();
+
+        if ($validar->rowCount() === 1){
+          return true;
+        } else {
+          return false;
+        }
+    } catch (Exception $pJ){
+      return false;
+    }
+  }
+
   public function selectionPessoaFisica($id){
     try{
         $queryPj = "SELECT * FROM pessoa_fisica WHERE id_usuario = :id_usuario";

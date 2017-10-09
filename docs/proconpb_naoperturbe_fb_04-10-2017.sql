@@ -61,6 +61,7 @@ CREATE TABLE `pessoa_juridica` (
   `cnpj` varchar(19) COLLATE utf8_unicode_ci NOT NULL,
   `status_telemarketing` int(1) NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `identificador` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usuario_id_usuario_UNIQUE` (`id_usuario`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -75,7 +76,7 @@ CREATE TABLE `pessoa_juridica` (
 
 LOCK TABLES `pessoa_juridica` WRITE;
 /*!40000 ALTER TABLE `pessoa_juridica` DISABLE KEYS */;
-INSERT INTO `pessoa_juridica` (`id`, `id_usuario`, `cnpj`, `status_telemarketing`, `token`) VALUES (1,1,'11.122.255/3366-22',0,NULL),(2,4,'14.190.549/0001-09',1,NULL),(3,6,'22.555.221/1255-52',1,NULL),(4,7,'11.380.815/0001-60',1,'http://naoperturbe.procon.pb.gov.br/doc?JSON=$2a$04$MTU3NjQyNTMwMDU5YzEwZ.8zTrFKKIayi7cxW3ErorQTcS5.MNxXK&s=cugidr02qjpkj53kcm9djpucp4'),(5,16,'89526672000149',0,NULL);
+INSERT INTO `pessoa_juridica` (`id`, `id_usuario`, `cnpj`, `status_telemarketing`, `token`, `identificador`) VALUES (1,1,'11.122.255/3366-22',0,NULL, NULL),(2,4,'14.190.549/0001-09',1,NULL, NULL),(3,6,'22.555.221/1255-52',1,NULL, NULL),(4,7,'11.380.815/0001-60',1,NULL, NULL),(5,16,'89526672000149',0,NULL, NULL);
 /*!40000 ALTER TABLE `pessoa_juridica` ENABLE KEYS */;
 UNLOCK TABLES;
 

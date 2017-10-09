@@ -249,6 +249,7 @@
                                 </p>
                             </div>
                         </div>
+                        <?php if(!empty($dados['identificador'] && !empty($dados['token']))) { ?>
                         <div class="columns">
                             <div class="column">
                                 <label class="label">Url</label>
@@ -259,28 +260,33 @@
                             <div class="column">
                                 <label class="label">Tipo Relatorio</label>
                                 <p class="control">
-                                    <span class="help">JSON/XML</span>
+                                    <span class="help">JSON/XML/CSV</span>
                                 </p>
                             </div>
                             <div class="column">
                                 <label class="label">Identificador</label>
                                 <p class="control">
-                                    <span class="help" id="identificador"></span>
+                                    <span class="help" id="identificadorg"><?=$dados['identificador']?></span>
                                 </p>
                             </div>
                             <div class="column">
                                 <label class="label">Token</label>
                                 <p class="control">
-                                    <div class="help" id="tokeng"><?=$pessoa['token'] ?></div>
+                                    <div class="help" id="tokeng"><?=$dados['token']?></div>
                                 </p>
                             </div>
                         </div>
-                        <div class="column">
-                            <label class="label">Exemplo</label>
-                            <p class="control">
-                                <span class="help">http://localhost:3000/relatorio/doc=TIPO&id=IDENTIFICADOR&token=TOKEN</span>
-                            </p>
+                        <div class="columns">
+                            <div class="column">
+                                <label class="label">Request</label>
+                                  <textarea class="textarea" placeholder="10 lines of textarea" rows="80">URL:      http://localhost:3000/relatorio/ <?="\n";?>Paramets { <?="\n";?>Tipo de Relatorio:      doc=json <?="\n";?>Identificador:      id=162309335a880faeefb5e608f <?="\n";?>Token:        token=01jdie6f83d0abk95782254079dba655<?="\n";?>}</textarea>
+                            </div>
+                            <div class="column">
+                                <label class="label">Response</label>
+                                  <textarea class="textarea" placeholder="10 lines of textarea" rows="80">[{<?="\n";?>    'telefone_numero':'(00) 0000-0000','data_cadastro':'2017-05-31 10:43:56'<?="\n";?>}]</textarea>
+                            </div>
                         </div>
+                    <?php } ?>
                     </form>
                 </div>
             </div>

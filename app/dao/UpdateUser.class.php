@@ -24,12 +24,13 @@ class UpdateUser extends  ConexaoDb {
     }
   }
 
-  public function token($token, $id){
+  public function token($token, $id, $identificador){
     try{
-        $update = "UPDATE pessoa_juridica SET token = :token  WHERE id_usuario = :id";
+        $update = "UPDATE pessoa_juridica SET token = :token, identificador = :identificador WHERE id_usuario = :id";
         $validar = Parent::getInstanceConexao()->prepare($update);
-        $validar->bindValue(":token",$token);
         $validar->bindValue(":id",$id);
+        $validar->bindValue(":token",$token);
+        $validar->bindValue(":identificador",$identificador);
         $validar->execute();
 
     } catch (Exception $tlmk){

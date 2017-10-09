@@ -53,14 +53,14 @@ function updatePassword() {
 }
 
 function gerarToken() {
-    if($('#token').val() != ""){
+    if($('#token').val() != "") {
         $.ajax({
           type: "POST", url: "gerar-token",
           data: { token: $('#token').val(), id: $('#usuario').val() },
-          success: function(data) {
-               var data = $.parseJSON(data);
-                $('#tokeng').html(data.token);
-                $('#identificador').html(data.id);
+          success: function(data_d) {
+                  var data = $.parseJSON(data_d);
+                  $('#tokeng').html(data.token);
+                  $('#identificadorg').html(data.id);
             }
         });
     } else {
