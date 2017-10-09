@@ -522,7 +522,6 @@ class PagesController {
     * FUNCTION ATUALIZAR TELEFONE
     */
     function updateTelefone() {
-        echo "<script>alert('tel')</script>";
         $validate = new DataValidator();
         $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
 
@@ -540,18 +539,21 @@ class PagesController {
     */
     function deleteTelefone() {
 
-    //   $validate = new DataValidator();
-    //   $validate->set('telefone', $_POST['telefone']);
+      $validate = new DataValidator();
+      $validate->set('telefone', $_POST['telefone']);
 
-      die($_POST['telefone']);
 
-    //   if($validate->validate()){
-    //       $update = UpdateUser::getInstanceUpdateUser();
-    //       $update->deleteTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
-    //   } else {
-    //       self::getErroForm($validate);
-    //       self::userPessoaFisica();
-    //   }
+      if($validate->validate()){
+          $update = UpdateUser::getInstanceUpdateUser();
+          if($update->deleteTelefone($_POST['usuario'], $_POST['id_telefone'])){
+              echo '<span class="help is-primary ocultar">Telefone removido com sucesso!</span>';
+          } else {
+              echo '<span class="help is-primary ocultar">Erro ao remover telefone</span>';
+          }
+      } else {
+          self::getErroForm($validate);
+          self::userPessoaFisica();
+      }
     }
 
     /*
