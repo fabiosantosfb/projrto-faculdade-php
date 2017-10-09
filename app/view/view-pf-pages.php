@@ -41,7 +41,7 @@
                     </div>
                     <div class="panel-block">
 
-                        <form class="control">
+                        <form class="control" action="upt-telefone">
                             <?php
                             $i = 0;
                             foreach ($telefone as $key) { ?>

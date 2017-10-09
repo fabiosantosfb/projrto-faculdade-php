@@ -2,7 +2,7 @@
 </div>
 <!-- <script src="app/assets/js/jquery-3.1.1-min.js" charset="utf-8"></script> -->
 <script type="text/javascript">
-document.getElementById("nav-toggle").addEventListener ("click", toggleNav);
+document.getElementById("nav-toggle").addEventListener("click", toggleNav);
 function toggleNav() {
     var nav = document.getElementById("nav-menu");
     var className = nav.getAttribute("class");

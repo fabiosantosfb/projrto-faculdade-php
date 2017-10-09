@@ -70,7 +70,15 @@
                                             echo '<label class="label">&nbsp;</label>';
                                         }?>
                                         <p class="control">
-                                            <button class="button is-primary" type="button" onclick='updateTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)';>Alterar</button>
+                                            <button class="button is-primary" type="button" onclick='updateTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)'; title="Salvar"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                        </p>
+                                    </div>
+                                    <div class="column">
+                                        <?php if ($i == 0) {
+                                            echo '<label class="label">&nbsp;</label>';
+                                        }?>
+                                        <p class="control">
+                                            <button class="button is-danger" type="button" onclick='deleteTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)'; title="Excluir"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                         </p>
                                     </div>
                                 </div>

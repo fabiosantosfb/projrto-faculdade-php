@@ -8,13 +8,16 @@ function updateTelefone(id, user, tel) {
 }
 
 function deleteTelefone(id, user, tel) {
-  location.reload();
-  $.ajax({
-    type: "POST", url: "del-tel",
-    data: { telefone: $(tel).val(), usuario: $(user).val(), id_telefone: $(id).val() },
-    success: function(data) {$('#tel').html(data);
-    }
-  });
+  alert('entrou');
+  // $.ajax({
+  //   type: "POST",
+  //   url: "del-tel",
+  //   data: { telefone: $(tel).val(), usuario: $(user).val(), id_telefone: $(id).val() },
+  //   success: function(data) {
+  //     $('#tel').html(data);
+  //   }
+  // })
+  // window.location.reload(true);
 }
 
 function updateDoc() {
@@ -61,6 +64,6 @@ function gerarToken() {
             }
         });
     } else {
-        alert("Digiter uma chave!");
+        alert("Digite uma chave!");
     }
 }

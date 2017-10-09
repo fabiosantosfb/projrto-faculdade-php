@@ -540,7 +540,7 @@ class PagesController {
     function deleteTelefone() {
       $validate = new DataValidator();
       $validate->set('telefone', $_POST['telefone']);
-
+      echo '<span class="help is-danger ">pagescontroller entrou</span>';
       if($validate->validate()){
           $update = UpdateUser::getInstanceUpdateUser();
           $update->deleteTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
@@ -548,6 +548,7 @@ class PagesController {
           self::getErroForm($validate);
           self::userPessoaFisica();
       }
+      echo '<span class="help is-danger ">pagescontroller saiu</span>';
     }
 
     /*
@@ -653,7 +654,7 @@ class PagesController {
     function addTelefone() {
 
         $validate = new DataValidator();
-        $validate->set('telefone', $_POST['novo_tel'])->is_required();
+        $validate->set('telefone', $_POST['novo_tel'])->is_required(); //->is_phone()
 
         if($validate->validate()){
             $update = UpdateUser::getInstanceUpdateUser();

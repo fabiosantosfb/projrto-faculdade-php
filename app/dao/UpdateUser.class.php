@@ -68,19 +68,21 @@ class UpdateUser extends  ConexaoDb {
   }
 
   public function deleteTelefone($telefone, $id, $id_telefone){
+    echo '<span class="help is-danger ">updateuser entrou</span>';
     try{
         $delete = "DELETE FROM telefone  WHERE id_usuario = :id AND id_telefone = :id_telefone";
         $validar = Parent::getInstanceConexao()->prepare($delete);
         $validar->bindValue(":id",$id);
         $validar->bindValue(":id_telefone", $id_telefone);
+        $validar->execute();
+        echo '<span class="help np-is-primary">Removido com sucesso!</span>';
+        return true;
 
-        if($validar->execute()){
-          echo '<span class="help np-is-primary ocultar">Removido com sucesso!</span>';
-        }
     } catch (Exception $tele){
       echo '<span class="help is-danger ocultar">Erro ao Remover Telefone: '.$tele->getMessage().'</span>';
       return false;
     }
+        echo '<span class="help is-danger ">updateuser saiu</span>';
   }
 
   public function upDocumento($nome, $usuario, $cpf, $rg, $dataexpedicao, $orgao_expedidor, $uf){
