@@ -9,6 +9,7 @@
 <?php include_once 'app/view/partlals/header.php' ?>
 <script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
 <script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
+
 <div class="principal np-card-1 animated animate fadeInDown">
 <section class="hero np-padding-20">
     <div class="npTitle">

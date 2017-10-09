@@ -1,20 +1,18 @@
 function updateTelefone(id, user, tel) {
-  $.ajax({
-    type: "POST", url: "up-tel",
-    data: { telefone: $(tel).val(), usuario: $(user).val(), id_telefone: $(id).val() },
-    success: function(data) { $('#tel').html(data);
-  }
-  });
+      $.ajax({
+        type: "POST", url: "up-tel",
+        data: { telefone: $(tel).val(), usuario: $(user).val(), id_telefone: $(id).val() },
+        success: function(data) { $('#tel').html(data);
+      }
+      });
 }
 
 function deleteTelefone(id, user, tel) {
-  location.reload();
-  $.ajax({
-    type: "POST", url: "del-tel",
-    data: { telefone: $(tel).val(), usuario: $(user).val(), id_telefone: $(id).val() },
-    success: function(data) {$('#tel').html(data);
-    }
-  });
+      $.ajax({
+        type: "POST", url: "del-tel",
+        data: { telefone: $(tel).val(), usuario: $(user).val(), id_telefone: $(id).val() },
+        success: function(data) { $('#tel').html(data);
+      });
 }
 
 function updateDoc() {
@@ -34,11 +32,12 @@ function updateDocPj() {
 }
 
 function updateAddress() {
-  $.ajax({
-    type: "POST",url: "up-address",
-    data: { cep: $('#cep').val(), rua: $('#rua').val(), bairro: $('#bairro').val(), cidade: $('#cidade').val(), numero: $('#numero').val(), complemento: $('#complemento').val(), id_endereco: $('#id_endereco').val() },
-    success: function(data) { $('#endereco').html(data); }
-  });
+    alert("endereço");
+  // $.ajax({
+  //   type: "POST",url: "up-address",
+  //   data: { cep: $('#cep').val(), rua: $('#rua').val(), bairro: $('#bairro').val(), cidade: $('#cidade').val(), numero: $('#numero').val(), complemento: $('#complemento').val(), id_endereco: $('#id_endereco').val() },
+  //   success: function(data) { $('#endereco').html(data); }
+  // });
 }
 
 function updatePassword() {

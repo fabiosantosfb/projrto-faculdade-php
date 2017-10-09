@@ -540,16 +540,18 @@ class PagesController {
     */
     function deleteTelefone() {
 
-      $validate = new DataValidator();
-      $validate->set('telefone', $_POST['telefone']);
+    //   $validate = new DataValidator();
+    //   $validate->set('telefone', $_POST['telefone']);
 
-      if($validate->validate()){
-          $update = UpdateUser::getInstanceUpdateUser();
-          $update->deleteTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
-      } else {
-          self::getErroForm($validate);
-          self::userPessoaFisica();
-      }
+      die($_POST['telefone']);
+
+    //   if($validate->validate()){
+    //       $update = UpdateUser::getInstanceUpdateUser();
+    //       $update->deleteTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
+    //   } else {
+    //       self::getErroForm($validate);
+    //       self::userPessoaFisica();
+    //   }
     }
 
     /*
@@ -655,7 +657,7 @@ class PagesController {
     function addTelefone() {
 
         $validate = new DataValidator();
-        $validate->set('telefone', $_POST['novo_tel'])->is_required();
+        $validate->set('telefone', $_POST['novo_tel'])->is_required()->is_phone();
 
         if($validate->validate()){
             $update = UpdateUser::getInstanceUpdateUser();
