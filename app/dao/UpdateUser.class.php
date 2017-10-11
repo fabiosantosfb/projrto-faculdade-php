@@ -3,12 +3,16 @@
 class UpdateUser extends  ConexaoDb {
   private static $updateUser = null;
 
-  public static function getInstanceUpdateUser() {
-    if (empty(self::$updateUser))
-      return self::$updateUser = new UpdateUser();
+  public function __construct(){
 
-    return self::$updateUser;
   }
+
+  // public static function getInstanceUpdateUser() {
+  //   if (empty(self::$updateUser))
+  //     return self::$updateUser = new UpdateUser();
+  //
+  //   return self::$updateUser;
+  // }
 
   public function update($status, $id){
     try{
@@ -56,15 +60,24 @@ class UpdateUser extends  ConexaoDb {
     }
   }
 
-  public function addTelefone($telefone, $usuario){
+  public function addTelefoneDataBase($telefone, $usuario){
     try {
-        $validarTel = Parent::getInstanceConexao()->prepare("INSERT INTO telefone VALUES (default, :id, 0, :telefone, default, default)");
+        $data = Parent::getInstanceConexao();
+        $data->beginTransaction();
+        $validarTel = $data->prepare("INSERT INTO telefone VALUES (default, :id, 0, :telefone, default, default)");
+
         $validarTel->bindValue(":telefone", $telefone);
         $validarTel->bindValue(":id", $usuario);
         $validarTel->execute();
-        return true;
+
+        if($data->commit()){
+            echo '<span class="help np-is-primary ocultar">Adicionar telefone com sucesso!</span>';
+        } else {
+            echo '<span class="help np-is-primary ocultar">Erro Adicionar telefone com sucesso!</span>';
+        }
     } catch (Exception $ex){
-      return false;
+        echo '<span class="help is-danger ocultar">Erro Adicionar Telefone: '.$ex->getMessage().'</span>';
+        return false;
     }
   }
 
@@ -100,16 +113,15 @@ class UpdateUser extends  ConexaoDb {
                 $validar = Parent::getInstanceConexao()->prepare($update);
                 $validar->bindValue(":nome", $nome);
                 $validar->bindValue(":id", $usuario);
+
                 if($validar->execute()){
                     echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
                 }
-
             } catch (Exception $doc){
               echo '<span class="help is-danger ocultar">Erro Atualizar Documento: '.$doc->getMessage().'</span>';
               return false;
             }
         }
-
     } catch (Exception $doc){
       echo '<span class="help is-danger ocultar">Erro Atualizar Documento: '.$doc->getMessage().'</span>';
       return false;
@@ -128,6 +140,7 @@ class UpdateUser extends  ConexaoDb {
                 $validar = Parent::getInstanceConexao()->prepare($update);
                 $validar->bindValue(":nome", $nome);
                 $validar->bindValue(":id", $usuario);
+
                 if($validar->execute()){
                   echo '<span class="help is-primary ocultar">Atualizado com sucesso!</span>';
                 }

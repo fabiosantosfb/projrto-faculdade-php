@@ -264,11 +264,11 @@ class PagesController {
         $validate = new DataValidator();
 
         $erro_validate = $validate->set('uf', $_POST['uf'])->is_required()->is_alpha()->max_length(3)->min_length(1)->validate();
-        if(!$erro_validate) self::startSessionError('erro-uf'); else  self::unsetSessionError('erro-uf');
+        if(!$erro_validate) self::startSessionError('erro-uf', "Erro no uf"); else  self::unsetSessionError('erro-uf');
         $erro_validate = $validate->set('orgao_expedidor', $_POST['orgao_expedidor'])->is_required()->is_alpha()->validate();
-        if(!$erro_validate) self::startSessionError('erro-org'); else  self::unsetSessionError('erro-org');
+        if(!$erro_validate) self::startSessionError('erro-org', "Erro no orgão Expedidor"); else  self::unsetSessionError('erro-org');
         $erro_validate = $validate->set('dataexpedicao', $_POST['dataexpedicao'])->is_required()->is_date()->validate();
-        if(!$erro_validate) self::startSessionError('erro-data'); else  self::unsetSessionError('erro-data');
+        if(!$erro_validate) self::startSessionError('erro-data', "Erro na data"); else  self::unsetSessionError('erro-data');
 
         $this->tipoCadastro = "pessoafisica";
 
@@ -294,19 +294,19 @@ class PagesController {
         $validate = new DataValidator();
 
         $erro_validate = $validate->set('cidade', $_POST['cidade'])->is_required()->validate();
-        if(!$erro_validate) self::startSessionError('erro-cidade'); else  self::unsetSessionError('erro-cidade');
+        if(!$erro_validate) self::startSessionError('erro-cidade', "Erro na Cidade"); else  self::unsetSessionError('erro-cidade');
         $erro_validate = $validate->set('rua', $_POST['rua'])->is_required()->validate();
-        if(!$erro_validate) self::startSessionError('erro-rua'); else  self::unsetSessionError('erro-rua');
+        if(!$erro_validate) self::startSessionError('erro-rua', "Erro na Rua"); else  self::unsetSessionError('erro-rua');
         $erro_validate = $validate->set('bairro', $_POST['bairro'])->is_required()->validate();
 
-        if(!$erro_validate) self::startSessionError('erro-bairro'); else  self::unsetSessionError('erro-bairro');
+        if(!$erro_validate) self::startSessionError('erro-bairro', "Erro na Bairro"); else  self::unsetSessionError('erro-bairro');
         $erro_validate = $validate->set('senha', $_POST['senha'])->is_required()->validate();
-        if(!$erro_validate) self::startSessionError('erro-senha'); else  self::unsetSessionError('erro-senha');
+        if(!$erro_validate) self::startSessionError('erro-senha', "Erro na Senha"); else  self::unsetSessionError('erro-senha');
         $erro_validate = $validate->set('repetir_senha', $_POST['repetir_senha'])->is_required()->is_equals($_POST['senha'], true)->validate();
-        if(!$erro_validate) self::startSessionError('erro-repetir-senha'); else  self::unsetSessionError('erro-repetir-senha');
+        if(!$erro_validate) self::startSessionError('erro-repetir-senha', "Erro na Repetir Senha"); else  self::unsetSessionError('erro-repetir-senha');
         $erro_validate = $validate->set('type', $_POST['type'])->is_required()->validate();
         $erro_validate = $validate->set('nome', $_POST['nome'])->is_required()->validate();
-        if(!$erro_validate) self::startSessionError('erro-nome'); else  self::unsetSessionError('erro-nome');
+        if(!$erro_validate) self::startSessionError('erro-nome', "Erro na Nome"); else  self::unsetSessionError('erro-nome');
 
         if(!isset($_SESSION['erro-termo']) || !isset($_SESSION['erro-cidade']) || !isset($_SESSION['erro-rua']) || !isset($_SESSION['erro-bairro']) || !isset($_SESSION['erro-repetir-senha']) || !isset($_SESSION['erro-nome'])) {
 
@@ -514,7 +514,7 @@ class PagesController {
     */
     function update(){
         $sta = ($_POST['status'] == 1)? 0: 1;
-        $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
+        $updateTelemarketing = new UpdateUser();
         $updateTelemarketing->update($sta,$_POST['id']);
     }
 
@@ -526,7 +526,7 @@ class PagesController {
         $validate->set('telefone', $_POST['telefone'])->is_required()->is_phone();
 
         if($validate->validate()){
-            $update = UpdateUser::getInstanceUpdateUser();
+            $update = new UpdateUser();
             $update->updTelefone($_POST['telefone'], $_POST['usuario'], $_POST['id_telefone']);
         } else {
             self::getErroForm($validate);
@@ -544,11 +544,12 @@ class PagesController {
 
 
       if($validate->validate()){
-          $update = UpdateUser::getInstanceUpdateUser();
+          $update = new UpdateUser();
+
           if($update->deleteTelefone($_POST['usuario'], $_POST['id_telefone'])){
-              echo '<span class="help is-primary ocultar">Telefone removido com sucesso!</span>';
+              $this->startSessionError('add-tel', "Telefone removido com sucesso");
           } else {
-              echo '<span class="help is-primary ocultar">Erro ao remover telefone</span>';
+              $this->startSessionError('add-tel', "Erro ao remover telefone");
           }
       } else {
           self::getErroForm($validate);
@@ -569,7 +570,7 @@ class PagesController {
         $validate->set('nome', $_POST['nome'])->is_required();
 
         if($validate->validate()){
-            $update = UpdateUser::getInstanceUpdateUser();
+            $update = new UpdateUser();
             $update->upDocumento($_POST['nome'], $_POST['usuario'], $_POST['cpf'], $_POST['rg'], $_POST['dataexpedicao'], $_POST['orgao_expedidor'], $_POST['uf']);
         } else {
             self::getErroForm($validate);
@@ -585,7 +586,7 @@ class PagesController {
         $validate->set('nome', $_POST['nome'])->is_required();
 
         if($validate->validate()){
-            $update = UpdateUser::getInstanceUpdateUser();
+            $update = new UpdateUser();
             $update->upDocumentoPj($_POST['nome'], $_POST['usuario'], $_POST['cnpj']);
         } else {
             self::getErroForm($validate);
@@ -604,7 +605,7 @@ class PagesController {
         $validate->set('bairro', $_POST['bairro'])->is_required();
 
         if($validate->validate()){
-            $update = UpdateUser::getInstanceUpdateUser();
+            $update = new UpdateUser();
             $update->upAddress($_POST['cep'], $_POST['cidade'], $_POST['rua'], $_POST['bairro'], $_POST['numero'], $_POST['complemento'], $_POST['id_endereco']);
         } else {
             self::getErroForm($validate);
@@ -623,7 +624,7 @@ class PagesController {
         $validate->set('email', $_POST['email'])->is_required()->is_email();
 
         if($validate->validate()){
-            $update = UpdateUser::getInstanceUpdateUser();
+            $update = new UpdateUser();
             $hash = Bcrypt::hash($_POST['senha']);
 
             $update->upPassword($hash, $_POST['email'], $_POST['id']);
@@ -643,7 +644,7 @@ class PagesController {
         $validate->set('email', $_POST['email'])->is_required()->is_email();
 
         if($validate->validate()){
-            $update = UpdateUser::getInstanceUpdateUser();
+            $update = new UpdateUser();
             $hash = Bcrypt::hash($_POST['senha']);
 
             if($update->redefinirPassword($hash, $_POST['email']))header("Location: /login");
@@ -662,16 +663,18 @@ class PagesController {
         $validate->set('telefone', $_POST['novo_tel'])->is_required()->is_phone();
 
         if($validate->validate()){
-            $update = UpdateUser::getInstanceUpdateUser();
-            $up_date = $update->addTelefone($_POST['novo_tel'], $_POST['usuario']);
-            if($up_date) {
-                self::redirection();
-            } else {
-                self::redirection();
-            }
+            $update = new UpdateUser();
+            $up_date = $update->addTelefoneDataBase($_POST['novo_tel'], $_POST['usuario']);
+            // if($up_date) {
+            //     self::redirection();
+            // } else {
+            //     self::redirection();
+            // }
+            self::redirection();
         } else {
             self::getErroForm($validate);
-            self::userPessoaFisica();
+            // self::userPessoaFisica();
+            self::redirection();
         }
     }
 
@@ -681,7 +684,7 @@ class PagesController {
         $validate->set('token', $_POST['token'])->is_required();
 
         if(!$validate->validate()){
-            self::startSessionError('token');
+            self::startSessionError('token', "Erro ao gerar token");
             self::getErroForm($validate);
         } else {
             $_token      =   md5($_POST['token']);
@@ -690,7 +693,7 @@ class PagesController {
             $token      = $_token."&s=".session_id();
             $link_link  = "http://localhost:3000/relatorio?doc=JSON&?id=".$identicador."&?token=".$token;
 
-            $updateTelemarketing = UpdateUser::getInstanceUpdateUser();
+            $updateTelemarketing = new UpdateUser();
             $updateTelemarketing->token($token, $_POST['id'], $identicador);
             //$data = array('token' => $_token, 'id' => $id);
             $data = ['token' => $token, 'id' => $identicador];
@@ -907,8 +910,8 @@ class PagesController {
         }
     }
 
-    function startSessionError($campo){
-        $_SESSION[$campo] = true;
+    function startSessionError($campo, $erro = true){
+        $_SESSION[$campo] = $erro;
     }
 
     function unsetSessionError($campo) {

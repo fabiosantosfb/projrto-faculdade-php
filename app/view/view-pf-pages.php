@@ -46,7 +46,7 @@
                             <?php
                             $i = 0;
                             foreach ($telefone as $key) { ?>
-                                <div class="columns">
+                                <div class="columns" id="id_tel_c<?=$i?>">
                                     <div class="column">
                                         <?php if ($i == 0) {
                                             echo '<label class="label">Número(s)</label>';
@@ -78,7 +78,7 @@
                                             echo '<label class="label">&nbsp;</label>';
                                         }?>
                                         <p class="control">
-                                            <button class="button is-danger" type="button" onclick='deleteTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>)'; title="Excluir"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                            <button class="button is-danger" type="button" onclick='deleteTelefone("#id_tel"+<?=$i?>,"#id_usu"+<?=$i?>,"#tel"+<?=$i?>,"#id_tel_c"+<?=$i?>)'; title="Excluir"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                         </p>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                             </form>
                             <p>&nbsp;</p>
                         </div>
-                        <div id="tel"></div>
+                        <div id="tel"><?php if (isset($_SESSION['remove-tel'])) echo $_SESSION['remove-tel'];?></div>
                 </div>
                 </div>
                 <div class="column">

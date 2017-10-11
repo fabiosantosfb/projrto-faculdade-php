@@ -7,12 +7,13 @@ function updateTelefone(id, user, tel) {
       });
 }
 
-function deleteTelefone(id, user, tel) {
+function deleteTelefone(id, user, tel, div) {
       $.ajax({
-        type: "POST",
-        url: "del-tel",
+        type: "POST", url: "del-tel",
         data: { telefone: $(tel).val(), usuario: $(user).val(), id_telefone: $(id).val() },
-        success: function(data) { location.reload(); }
+        success: function(data) {
+            $(div).remove();
+        }
     });
 }
 
