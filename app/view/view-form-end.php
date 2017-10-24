@@ -20,15 +20,15 @@
 </p>
 <label class="label">Bairro</label>
 <p class="control">
-    <input class="input-w-4" id="bairro" name="bairro" type="text" placeholder="Bairro" required=""  maxlength="45" value="<?php  if(isset($_POST['bairro'])) echo htmlspecialchars($_POST['bairro']); ?>">
+    <input class="input-w-4" id="bairro" name="bairro" type="text" placeholder="Bairro"   maxlength="45" required="" value="<?php  if(isset($_POST['bairro'])) echo htmlspecialchars($_POST['bairro']); ?>">
 </p>
 <label class="label">Cidade</label>
 <p class="control">
-    <input class="input-w-4" id="cidade" name="cidade" type="text" placeholder="Cidade" required="" maxlength="45" value="<?php  if(isset($_POST['cidade'])) echo htmlspecialchars($_POST['cidade']); ?>" >
+    <input class="input-w-4" id="cidade" name="cidade" type="text" placeholder="Cidade"  maxlength="45" required="" value="<?php  if(isset($_POST['cidade'])) echo htmlspecialchars($_POST['cidade']); ?>" >
 </p>
 <label class="label">CEP</label>
 <p class="control">
-    <input <?php if(isset($_SESSION['erro-cep'])) echo 'class="input-w-3 is-danger"'; else echo 'class="input-w-3 is-sucess"'; ?> id="cep" name="cep" type="text" placeholder="CEP" onkeypress='cepFormat("cep")' onblur="cepValidadeExisting()" required="" maxlength="9" value="<?php  if(isset($_POST['cep'])) echo htmlspecialchars($_POST['cep']); ?>" >
+    <input <?php if(isset($_SESSION['erro-cep'])) echo 'class="input-w-3 is-danger"'; else echo 'class="input-w-3 is-sucess"'; ?> id="cep" name="cep" type="text" placeholder="CEP" onkeypress='cepFormat("cep")' onblur="cepValidadeExisting()"  maxlength="9" required="" value="<?php  if(isset($_POST['cep'])) echo htmlspecialchars($_POST['cep']); ?>" >
     <div id="cep-erro"><?php if(isset($_SESSION['erro-cep'])) echo $erro_form->getErroFormulario("CEP"); else echo $erro_form->setErroFormulario(); ?></div>
 </p>
 <div id="cep-erro"></div>

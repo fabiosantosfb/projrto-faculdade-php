@@ -25,7 +25,7 @@
                 <p class="control">
                     <form method="post" action="add-telefone">
                         <input id="usuario" name="usuario" type="hidden" value="<?=$pessoa['id_usuario'] ?>">
-                        <input class="input-w-4" id="novo_tel" autofocus name="novo_tel" placeholder="(99)99999-9999" onkeypress='newPhone()' maxlength="14" required="" >
+                        <input class="input-w-4" id="novo_tel" name="novo_tel" placeholder="(99)99999-9999" onkeypress='newPhone()' maxlength="14" required="" >
                         <input class="button is-primary is-outlined" type="submit" value="Adicionar"/>
                         <span class="help">Aqui é possível adicionar novos números de telefone ao cadastro de bloqueio.</span>
                     </form>

@@ -4,7 +4,7 @@ class DaoUsuario extends ConexaoDb {
     private $dataAutenticacao;
     private $dataUsuario;
     private $dataEndereco;
-    private $fone;
+    private $fone = array();
     private $messages_errors = array();
     private static $error;
     private $last_id;
@@ -54,9 +54,10 @@ class DaoUsuario extends ConexaoDb {
             self::$pessoaUser($db, $validarUser, $id);
 
             $status_telefone = ($this->dataAutenticacao->getType() == 'tlm') ? 1 : 0;
+
             $array_fone = $this->fone->getTelefone();
 
-            for($i = 0; $i < $this->qtd_t; $i++) {
+            for($i = 1; $i < $this->qtd_t; $i++) {
               $validarUser = $db->prepare("INSERT INTO telefone values (default, :id_usuario, :status_bloqueio, :telefone, default, default)");
               $validarUser->bindValue(":id_usuario", $id);
               $validarUser->bindValue(":status_bloqueio", $status_telefone);
@@ -72,13 +73,13 @@ class DaoUsuario extends ConexaoDb {
             }
         } catch (Exception $ex){
           try {
-            $db->rollback();
+              $db->rollback();
           } catch (Exception $e) {
-            $this->setError($this->messages_errors['rollback_usuario'].$e->getMessage());
-            return false;
+              $this->setError($this->messages_errors['rollback_usuario'].$e->getMessage());
+              return false;
           }
-          $this->setError($this->messages_errors['insert_usuario'].$ex->getMessage());
-          return false;
+              $this->setError($this->messages_errors['insert_usuario'].$ex->getMessage());
+              return false;
         }
     }
 
@@ -99,7 +100,6 @@ class DaoUsuario extends ConexaoDb {
         $validarUser->bindValue(":orgao", $this->dataUsuario->getOrgExpedidor());
         $validarUser->execute();
     }
-
 
     public function setError($message) {
       self::$error = $message;

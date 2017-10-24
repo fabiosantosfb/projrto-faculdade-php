@@ -26,7 +26,6 @@ include_once ('app/view/partlals/header.php');
                 Informe seu dados, endereço e telefone.
             </h2>
             <hr>
-
             <div class="columns">
                 <div class="column">
                     <section class="hero">
@@ -56,12 +55,12 @@ include_once ('app/view/partlals/header.php');
                                 </p>
                                 <label class="label">Data da Expedição</label>
                                 <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-data'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="dataexpedicao" maxlength="8" onblur="dataValidadeExisting()"  name="dataexpedicao" maxlength="8"  type="date_format" placeholder="dd/mm/aa"  required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-data'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="dataexpedicao" maxlength="8" onblur="dataValidadeExisting()"  name="dataexpedicao" maxlength="8"  type="date_format" placeholder="dd/mm/aa" required="" value="<?php  if(isset($_POST['dataexpedicao'])) echo htmlspecialchars($_POST['dataexpedicao']); ?>" >
                                     <div id="data-erro"><?php if(isset($_SESSION['erro-data'])) echo $erro_form->getErroFormulario("Data"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
                                 <label class="label">Orgão Expedidor</label>
                                 <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-org'])) echo 'class="input-w-3 is-danger"'; else echo 'class="input-w-3 is-sucess"'; ?> id="nome" name="orgao_expedidor" type="text" onblur="orgValidadeExisting()"  maxlength="6" placeholder="Org"  required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
+                                    <input <?php if(isset($_SESSION['erro-org'])) echo 'class="input-w-3 is-danger"'; else echo 'class="input-w-3 is-sucess"'; ?> id="nome" name="orgao_expedidor" type="text" onblur="orgValidadeExisting()"  maxlength="6" placeholder="Org" required="" value="<?php  if(isset($_POST['orgao_expedidor'])) echo htmlspecialchars($_POST['orgao_expedidor']); ?>" >
                                     <div id="org-erro"><?php if(isset($_SESSION['erro-org'])) echo $erro_form->getErroFormulario("Orgão Expedidor"); else echo $erro_form->setErroFormulario(); ?></div>
                                 </p>
                                 <label class="label">UF</label>
@@ -70,7 +69,7 @@ include_once ('app/view/partlals/header.php');
                                         <select name="uf">
                                             <option value="">---</option>
                                             <?php foreach ($estados as $key => $value) {?>
-                                                <option value="<?=strtolower($value)?>"><?=$value?></option>
+                                                <option required="" value="<?=strtolower($value)?>"><?=$value?></option>
                                                 <?php } ?>
                                             </select>
                                         </span>
@@ -101,19 +100,13 @@ include_once ('app/view/partlals/header.php');
                                 <hr>
 
                                     <label class="label">Número(s)</label>
-                                    <p class="control" id="telefoneOrigem">
-                                        <input <?php if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone" name="telefone" type="text" onblur="telefoneValidadeExisting('telefone')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone")' required="" value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                    <p class="control telefone" id="telefoneOrigem">
+                                        <!-- <input <?php// if(isset($_SESSION['erro-telefone'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone_0" name="telefone[]" type="text" onblur="telefoneValidadeExisting('telefone_0')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone_0")'  value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" > -->
+                                        <input class="input-w-4 is-sucess" id="telefone_0" name="telefone[]" type="text" onblur="telefoneValidadeExisting('telefone_0')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone_0")' required=""  value="<?php  if(isset($_POST['telefone'])) echo htmlspecialchars($_POST['telefone']); ?>" >
+                                        <button class="button is-primary button_telefone_add" type="button" title="adicionar"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     </p>
-                                    <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone 2"); else echo $erro_form->setErroFormulario(); ?></div>
-
-                                    <label class="label">Número(s)</label>
-                                    <p class="control" id="telefoneOrigem">
-                                        <input <?php if(isset($_SESSION['erro-telefone_2'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="telefone_2" name="telefone_2" type="text" onblur="telefoneValidadeExisting('telefone_2')" maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress='telefoneFormat("telefone_2")' value="<?php  if(isset($_POST['telefone_2'])) echo htmlspecialchars($_POST['telefone_2']); ?>" >
-                                    </p>
-                                    <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone_2'])) echo $erro_form->getErroFormulario("Telefone 2"); else echo $erro_form->setErroFormulario(); ?></div>
-
                                     <span class="help">Ex. (83) 99682-6985</span>
-
+                                    <div id="tel-erro"><?php if(isset($_SESSION['erro-telefone'])) echo $erro_form->getErroFormulario("Telefone"); else echo $erro_form->setErroFormulario(); ?></div>
                                 <h1 class="title is-6">
                                     ACESSO
                                 </h1>
@@ -121,24 +114,24 @@ include_once ('app/view/partlals/header.php');
                                 <hr>
                                 <label class="label">Email</label>
                                 <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-email'])) echo 'class="input-w-6 is-danger"'; else echo 'class="input-w-6 is-sucess"'; ?> id="email" name="email" type="text" maxlength="100" onblur="emailValidadeExisting()" placeholder="Email" required="" value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
+                                    <input <?php if(isset($_SESSION['erro-email'])) echo 'class="input-w-6 is-danger"'; else echo 'class="input-w-6 is-sucess"'; ?> id="email" name="email" type="text" maxlength="100" onblur="emailValidadeExisting()" placeholder="Email" required=""  value="<?php  if(isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>">
                                 </p>
                                 <div id="email-erro"><?php if(isset($_SESSION['erro-email'])) echo $erro_form->getErroFormulario("Email"); else echo $erro_form->setErroFormulario(); ?></div>
 
                                 <label class="label">Senha</label>
                                 <p class="control">
-                                    <input class="input-w-4" id="senha" name="senha" type="password" maxlength="60" placeholder="Senha" required="" value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
+                                    <input class="input-w-4" id="senha" name="senha" type="password" maxlength="60" placeholder="Senha" required=""  value="<?php  if(isset($_POST['senha'])) echo htmlspecialchars($_POST['senha']); ?>">
                                 </p>
                                 <label class="label">Confirmar Senha</label>
                                 <p class="control">
-                                    <input <?php if(isset($_SESSION['erro-repetir-senha'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required="" value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
+                                    <input <?php if(isset($_SESSION['erro-repetir-senha'])) echo 'class="input-w-4 is-danger"'; else echo 'class="input-w-4 is-sucess"'; ?> id="repetir_senha" name="repetir_senha" maxlength="60" type="password" placeholder="Confirma Senha" required=""  value="<?php  if(isset($_POST['repetir_senha'])) echo htmlspecialchars($_POST['repetir_senha']); ?>">
                                 </p>
                                 <div id="senha-erro"><?php if(isset($_SESSION['erro-repiter-senha'])) echo $erro_form->getErroFormulario("Senha"); else echo $erro_form->setErroFormulario(); ?></div>
                                 <div class="control g-recaptcha" data-sitekey="6LeQXBgUAAAAACzWg3WkYDU_Rgz2vITZ3QyY_gb0"></div>
                                 <p class="control">
                                     <div class="media">
                                         <div class="media-left">
-                                            <input type="checkbox" required="" name="termo">
+                                            <input type="checkbox"  name="termo" required="">
                                         </div>
                                         <div class="media-content">
                                             <div class="content">

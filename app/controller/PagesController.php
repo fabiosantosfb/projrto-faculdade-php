@@ -261,6 +261,7 @@ class PagesController {
     *FUNÇÃO CADASTRO PESSSOA FISICA
     */
     function cadastroPessoaFisica(){
+
         $validate = new DataValidator();
 
         $erro_validate = $validate->set('uf', $_POST['uf'])->is_required()->is_alpha()->max_length(3)->min_length(1)->validate();
@@ -273,7 +274,7 @@ class PagesController {
         $this->tipoCadastro = "pessoafisica";
 
         if(isset($_SESSION['erro-uf']) || isset($_SESSION['erro-org']) || isset($_SESSION['erro-data']) || isset($_SESSION['erro-rg']) || isset($_SESSION['erro-cpf']) || isset($_SESSION['erro-rua']) ||
-        isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-telefone_2']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha'])){
+        isset($_SESSION['erro-bairro']) || isset($_SESSION['erro-cidade']) || isset($_SESSION['erro-telefone']) || isset($_SESSION['erro-email']) || isset($_SESSION['erro-repetir-senha'])){
             self::page_form_pessoafisica();
         } else {
             if(!self::cadastrar($_POST['g-recaptcha-response'])) {
@@ -308,19 +309,24 @@ class PagesController {
         $erro_validate = $validate->set('nome', $_POST['nome'])->is_required()->validate();
         if(!$erro_validate) self::startSessionError('erro-nome', "Erro na Nome"); else  self::unsetSessionError('erro-nome');
 
-        if(!isset($_SESSION['erro-termo']) || !isset($_SESSION['erro-cidade']) || !isset($_SESSION['erro-rua']) || !isset($_SESSION['erro-bairro']) || !isset($_SESSION['erro-repetir-senha']) || !isset($_SESSION['erro-nome'])) {
+        $qtd = sizeof($_POST['telefone']);
+        $qtd_ = sizeof($_POST['telefone']);
+        while($qtd > 0) {
+            $erro_validate = $validate->set('telefone', $_POST['telefone'])->is_required()->validate();
+            if(!$erro_validate) self::startSessionError('erro-telefone', "Erro no telefone ".$qtd); else  self::unsetSessionError('erro-telefone');
+            $qtd--;
+        }
+
+        if(!isset($_SESSION['erro-telefone']) || !isset($_SESSION['erro-termo']) || !isset($_SESSION['erro-cidade']) || !isset($_SESSION['erro-rua']) || !isset($_SESSION['erro-bairro']) || !isset($_SESSION['erro-repetir-senha']) || !isset($_SESSION['erro-nome'])) {
 
             if (self::isReCaptcha($recaptcha_response)) {
 
                 $this->fone = Telefone::getInstanceTelefone();
 
-                if(!empty($_POST['telefone'])) {
-                  $this->fone->setTelefone($_POST['telefone']);
-                  $this->qtd_telefone = $this->qtd_telefone + 1;
-                }
-                if(!empty($_POST['telefone_2'])) {
-                  $this->fone->setTelefone($_POST['telefone_2']);
-                  $this->qtd_telefone = $this->qtd_telefone + 1;
+                $qtdb = sizeof($_POST['telefone']);
+                while($qtdb >= 0) {
+                  $this->fone->setTelefone($_POST['telefone'][$qtdb]);
+                  $qtdb--;
                 }
 
                 $hash = Bcrypt::hash($_POST['senha']);
@@ -361,7 +367,7 @@ class PagesController {
                     $this->pessoa->setOrgExpedidor($_POST['orgao_expedidor']);
                     $this->pessoa->setUf($_POST['uf']);
                 }
-                if(self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone, $this->qtd_telefone))
+                if(self::insertUsuario($this->pessoa, $this->login, $this->endereco, $this->tipoCadastro, $this->fone, $qtd_))
                 {return true;} else {return false;}
 
             } else {
@@ -726,7 +732,7 @@ class PagesController {
 
     function erroMethod(){
         header("Content-type: application/json");
-        echo json_encode(array('erro' => 'use method POST'));
+        echo json_encode(array('erro' => 'only accept method POST'));
     }
     /*
     *FUNÇÃO PARA VALIDAR E SETAR OS ERROS OCORRIDO NO FORMULARIO

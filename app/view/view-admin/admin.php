@@ -53,6 +53,7 @@
                                         <th>CNPJ</th>
                                         <th>NOME/RAZAO SOCIAL</th>
                                         <th>EMAIL</th>
+                                        <th>DATA REGISTRO</th>
                                         <th>STATUS</th>
                                     </tr>
                                 </thead>
@@ -61,6 +62,7 @@
                                         <th>Cnpj</th>
                                         <th>Nome/Razão Social</th>
                                           <th>EMAIL</th>
+                                          <th>DATA REGISTRO</th>
                                         <th>Status</th>
                                     </tr>
                                 </tfoot>
@@ -72,25 +74,26 @@
                                                 <td><?=$key['cnpj'] ?></td>
                                                 <td><?=$key['nome'] ?></td>
                                                 <td><?=$key['email'] ?></td>
+                                                <td><?=date('d/m/Y', strtotime($key['data_cadastro'])) ?></td>
                                                 <td>
                                                     <p class="control">
                                                         <label class="checkbox is-medium">
                                                             <input type="checkbox" name="id" id="id" onclick='modifiStatus(<?=$key['id_usuario'] ?>,<?=$key['status_telemarketing'] ?>)'; <?php if($key['status_telemarketing'] == 1) echo "checked='checked'"; ?>  >
                                                             Ativo
                                                         </label>
-                                                        </p
-                                                    </td>
-                                                </tr>
-                                                <?php } ?>
-                                            </form>
-                                        </tbody>
-                                    </table>
-                                    <?php } ?>
-                                    <p>&nbsp;</p>
-                                </div>
-                            </div>
-                        </div>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <?php } ?>
+                                    </form>
+                                </tbody>
+                            </table>
+                        <?php } ?>
+                        <p>&nbsp;</p>
                     </div>
                 </div>
-            </section>
-            <?php include_once ('app/view/partlals/footer.php') ?>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php include_once ('app/view/partlals/footer.php') ?>

@@ -62,3 +62,5 @@
   /** METODOS RESPOSAVEIS PELA API **/
   $router->post('relatorio','PagesController@tokenValidate');
   $router->get('relatorio','PagesController@erroMethod');
+  $router->put('relatorio','PagesController@erroMethod');
+  $router->delete('relatorio','PagesController@erroMethod');

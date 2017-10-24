@@ -33,43 +33,25 @@ function cnpjFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, f
 function cepFormat(camp) { id(camp).onkeypress = function(){ inputDado( this, formatacaoCep ); }}
 function newPhone(){ id('novo_tel').onkeypress = function(){ inputDado( this, formatacaoTelefone ); }}
 function ocultarMsg(){ $(".ocultar").hide("slow",callback); }
-/*
-$("#telefone").mask("(99) 9999-9999").focusout(function (event) {
-          alert("Ola!");
-            var target, phone, element;
-            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-            phone = target.value.replace(/\D/g, '');
-            element = $(target);
-            element.unmask();
-            if(phone.length > 10) {
-                element.mask("(99) 99999-9999");
-            } else {
-                element.mask("(99) 9999-9999");
-            }
-        });
-*/
-var id_telefone = 1;
+
+//ADICIONAR VARIOS
 $(document).ready(function() {
-    var arrays_ids_telefones = new Array();
-    var wrapper = $("#control-add");
+  var max_fields = 10;
+  var wrapper = $(".telefone");
+  var add_button = $(".button_telefone_add");
 
-     $("#add").click(function(e){
-          e.preventDefault();
-          if(arrays_ids_telefones[id_telefone] == undefined) {
-            arrays_ids_telefones[id_telefone] = 'telefone-'+id_telefone;
+  var x = 1;
+  $(add_button).click(function(e) {
 
-            $("#control-add").append('<div><input class="input-w-4 is-sucess" style="margin-top :5px; margin-right : 3px;" name="telefone[]"\
-                                        maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress=telefoneFormat("' + arrays_ids_telefones[id_telefone] + '")\
-                                        onblur=telefoneValidadeExisting("' + arrays_ids_telefones[id_telefone] + '") required="" type="text" id="' + arrays_ids_telefones[id_telefone] + '"\
-                                        htmlspecialchars("' + arrays_ids_telefones[id_telefone] + '") />\
-                                        <a style="margin-top :5px; color : #ff0000;" class="button-d" id="'+id_telefone+'">Remover</a></div>');
-                                        id_telefone++;
-            }
-          });
-      $(wrapper).on("click",".button-d",function(e) {
-        e.preventDefault();
-        $(this).parent("div").remove();
-          arrays_ids_telefones[b] = undefined;
-          id_telefone = $(this).attr("id");
-        });
+    if (x < max_fields) {
+        $(wrapper).append('<div><br><input class="input-w-4 is-sucess telefone" id="telefone_' + (x) + '" name="telefone[]" type="text"  maxlength="14" placeholder="(DD) xxxxx-xxxx" onkeypress=telefoneFormat("telefone_' + (x) + '")>&nbsp<button class="button is-danger remove_field" type="button" title="Remover"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div>'); }
+        x++;
   });
+
+  $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+    e.preventDefault();
+    $(this).parent('div').remove();
+    x--;
+  })
+
+});
