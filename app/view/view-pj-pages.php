@@ -1,4 +1,10 @@
 <?php
+
+namespace App\View;
+
+use App\Model\Session;
+use App\Controller\PagesController;
+
     Session::getName('u_s_pj');
     Session::gerarId();
 
@@ -9,7 +15,7 @@
     include_once 'app/view/partlals/header.php';
 ?>
 <script src="app/assets/js/update-form-session.js" charset="utf-8"></script>
-<script src="app/assets/js/np-procon-pb.js" charset="utf-8"></script>
+<script src="app/assets/js/np-pb.js" charset="utf-8"></script>
 <div class="principal np-card-1">
 <section class="hero np-padding-20">
     <div class="npTitle">
@@ -254,7 +260,7 @@
                             <div class="column">
                                 <label class="label">Url</label>
                                 <p class="control">
-                                    <span class="help">http://naoperturbe.procon.pb.gov.br/relatorio/</span>
+                                    <span class="help"></span>
                                 </p>
                             </div>
                             <div class="column">
@@ -279,7 +285,7 @@
                         <div class="columns">
                             <div class="column">
                                 <label class="label">Request</label>
-                                  <textarea class="textarea" placeholder="10 lines of textarea" rows="80">URL:      http://naoperturbe.procon.pb.gov.br/relatorio/ <?="\n";?>Paramets { <?="\n";?>Tipo de Relatorio:      doc=json <?="\n";?>Identificador:      id=162309335a880faeefb5e608f <?="\n";?>Token:        token=01jdie6f83d0abk95782254079dba655<?="\n";?>}</textarea>
+                                  <textarea class="textarea" placeholder="10 lines of textarea" rows="80">URL:      http://www.br/relatorio/ <?="\n";?>Paramets { <?="\n";?>Tipo de Relatorio:      doc=json <?="\n";?>Identificador:      id=162309335a880faeefb5e608f <?="\n";?>Token:        token=01jdie6f83d0abk95782254079dba655<?="\n";?>}</textarea>
                             </div>
                             <div class="column">
                                 <label class="label">Response</label>

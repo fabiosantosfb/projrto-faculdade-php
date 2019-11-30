@@ -1,4 +1,7 @@
 <?php
+
+namespace App\View;
+
   Session::getName('u_s_tlm');
   Session::gerarId();
 
@@ -6,7 +9,9 @@
   $HOME = '';
   $LOGIN = '<a class="nav-item" href="logout"><span>SAIR</span></a>';
 
-  include_once 'app/view/partlals/header.php' ?>
+  include_once 'app/view/partlals/header.php'
+
+?>
 
 <section class="hero np-padding-20">
     <div class="npTitle">

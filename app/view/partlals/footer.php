@@ -1,6 +1,5 @@
 </div>
 </div>
-<!-- <script src="app/assets/js/jquery-3.1.1-min.js" charset="utf-8"></script> -->
 <script type="text/javascript">
 document.getElementById("nav-toggle").addEventListener("click", toggleNav);
 function toggleNav() {
@@ -18,8 +17,8 @@ function toggleNav() {
     <div class="container is-fluid">
         <div class="content">
             <p class="">
-                <strong>NTI Procon/PB</strong><br>
-                <a href="http://www.procon.pb.gov.br" target="_blank">www.procon.pb.gov.br</a>
+                <strong>RG-P</strong><br>
+                <a href="http://www.br" target="_blank">www.facul.com.br</a>
             </p>
         </div>
     </div>

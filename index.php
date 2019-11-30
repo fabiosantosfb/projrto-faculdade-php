@@ -2,6 +2,10 @@
 
 require_once ('vendor/autoload.php');
 
+use App\Model\Session;
+use App\Core\Router;
+use App\Core\Request;
+
 header("Expires: Sat, 01 Jan 2000 00:00:00 GMT");
 header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Pragma: no-cache");
@@ -15,5 +19,5 @@ Session::start();
 Session::getId();
 Session::token();
 
-Router::load('routes.php')
-  ->direct(Request::uri(), Request::method());
+$router = Router::load('routes.php')
+	->direct(Request::uri(), Request::method());
